@@ -1,0 +1,625 @@
+<!doctype html>
+<html lang="en">
+<head>
+<script>
+(function(){
+  var root=document.documentElement;
+  function fromStore(){ try{ var t=localStorage.getItem('theme'); if(t==='light'||t==='dark') return t; }catch(e){} return matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'; }
+  var parentRoot=null;
+  try{ if(window.parent!==window && window.parent.document) parentRoot=window.parent.document.documentElement; }catch(e){}
+  function apply(){ root.dataset.theme=(parentRoot&&parentRoot.dataset.theme)||fromStore(); }
+  apply();
+  if(parentRoot){ new MutationObserver(apply).observe(parentRoot,{attributes:true,attributeFilter:['data-theme']}); }
+  addEventListener('storage',function(e){ if(e.key==='theme') apply(); });
+})();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Master plan · West Ventures</title>
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;1,9..144,600&family=Public+Sans:wght@300;400;500&family=IBM+Plex+Mono:wght@400&display=swap">
+<style>
+  /* Layout: full-screen slides, text left / rounded panel right, chapter dots in a bottom bar. */
+  :root {
+    color-scheme: light;
+    --paper: #F7F5F0; --panel: #EFEBE3; --card: #E6E0D4; --ink: #141414; --grey: #6E6A64; --faint: #A39D93; --line: #DDD7CB; --bronze: #8C6A2F; --blue: #3E6A8A;
+    --serif: "Fraunces", Georgia, "Times New Roman", serif;
+    --sans: "Public Sans", "Helvetica Neue", Arial, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+    --r: 28px; --bar: 64px;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body { background: var(--paper); color: var(--grey); font-family: var(--sans); font-weight: 300; font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow: hidden; }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 600; color: var(--ink); line-height: 1.04; margin: 0; letter-spacing: -0.012em; text-wrap: balance; }
+  h2 { font-size: clamp(2.4rem, 4.6vw, 4.6rem); }
+  h2 em { font-style: italic; color: var(--bronze); }
+  p { margin: 0; max-width: 46ch; }
+  .lede { font-size: clamp(1rem, 1.25vw, 1.15rem); }
+  .eyebrow { font-family: var(--mono); font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; color: var(--bronze); }
+  button { font-family: inherit; }
+  :focus-visible { outline: 2px solid var(--bronze); outline-offset: 3px; }
+
+  /* chrome */
+  .count { position: fixed; z-index: 20; top: calc(env(safe-area-inset-top, 0px) + 22px); left: max(28px, env(safe-area-inset-left, 0px)); font-family: var(--mono); font-size: .75rem; letter-spacing: .1em; color: var(--faint); }
+  .count b { color: var(--bronze); font-weight: 400; }
+  .top { position: fixed; z-index: 20; top: calc(env(safe-area-inset-top, 0px) + 14px); right: max(24px, env(safe-area-inset-right, 0px)); display: flex; gap: .8rem; align-items: center; }
+  .pill { font-family: var(--mono); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; border-radius: 999px; padding: .7rem 1.2rem; border: 0; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: .5rem; }
+  .pill.bronze { background: var(--bronze); color: var(--paper); }
+  .pill.ink { background: var(--ink); color: var(--paper); }
+  .pill.soft { background: var(--paper); color: var(--ink); }
+  .pill:hover { filter: brightness(1.08); }
+  .bar { position: fixed; z-index: 20; left: 0; right: 0; bottom: 0; height: calc(var(--bar) + env(safe-area-inset-bottom, 0px)); padding: 0 max(20px, env(safe-area-inset-right, 0px)) env(safe-area-inset-bottom, 0px) max(20px, env(safe-area-inset-left, 0px)); background: var(--ink); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
+  .bar .back { justify-self: start; } .bar .next { justify-self: end; }
+  .bar .pill:disabled { opacity: .3; cursor: default; }
+  .dots { display: flex; align-items: center; gap: 10px; }
+  .grp { display: flex; gap: 7px; padding: 6px 9px; border-radius: 999px; transition: background .3s; }
+  .grp.on { background: #2E2E2E; }
+  .sep { width: 1px; height: 14px; background: #4A4A4A; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: #6A6660; border: 0; padding: 0; cursor: pointer; transition: background .3s, width .3s; }
+  .dot.on { background: var(--paper); width: 20px; border-radius: 99px; }
+  .dot:hover { background: #BDB7AD; }
+
+  /* slides */
+  .deck { position: fixed; inset: 0 0 calc(var(--bar) + env(safe-area-inset-bottom, 0px)) 0; }
+  .slide { position: absolute; inset: 0; display: grid; grid-template-columns: 1fr 1fr; visibility: hidden; opacity: 0; transition: opacity .55s ease, visibility 0s .55s; }
+  .slide.on { visibility: visible; opacity: 1; transition: opacity .55s ease; }
+  .left { display: flex; flex-direction: column; justify-content: center; gap: 1.4rem; padding: 96px clamp(28px, 4.5vw, 72px) 48px max(28px, 4.5vw); min-width: 0; }
+  .right { background: var(--panel); display: flex; flex-direction: column; justify-content: center; padding: 96px clamp(28px, 4vw, 64px) 48px; min-width: 0; border-left: 1px solid var(--line); }
+  .slide.full { grid-template-columns: 1fr; }
+  .slide.full .left { justify-content: flex-start; padding-bottom: 0; gap: 1rem; }
+  .slide.center { grid-template-columns: 1fr; place-items: center; text-align: center; }
+
+  /* entrance choreography: content rises in, panel slides in from the travel direction */
+  .slide.on.go [data-a] { animation: rise .8s cubic-bezier(.2,.7,.2,1) both; animation-delay: calc(var(--i, 0) * 90ms + 120ms); }
+  .slide.on.go .right { animation: panel .9s cubic-bezier(.2,.7,.2,1) both; }
+  .slide.on.go.rev .right { animation-name: panelRev; }
+  @keyframes rise { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
+  @keyframes panel { from { opacity: 0; transform: translateX(60px); } to { opacity: 1; transform: none; } }
+  @keyframes panelRev { from { opacity: 0; transform: translateX(-60px); } to { opacity: 1; transform: none; } }
+
+  .card { background: var(--paper); border-radius: var(--r); padding: 1.5rem 1.7rem; }
+  .stack { display: grid; gap: 12px; }
+  .big { font-family: var(--serif); color: var(--ink); font-size: clamp(2.8rem, 5vw, 4.6rem); line-height: 1; font-variant-numeric: tabular-nums; }
+  .big.b { color: var(--bronze); }
+  .row { display: flex; align-items: baseline; gap: 1.2rem; }
+  .row p { max-width: 30ch; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .list { display: grid; }
+  .list div { padding: 1.1rem 0; border-bottom: 1px solid var(--line); }
+  .list b { display: block; font-family: var(--mono); font-weight: 400; font-size: .74rem; letter-spacing: .16em; text-transform: uppercase; color: var(--ink); margin-bottom: .35rem; }
+
+  /* cover */
+  .mark { display: flex; align-items: center; justify-content: center; gap: .6rem; font-family: var(--serif); font-size: 1.6rem; color: var(--ink); }
+  .cover h1 { font-size: clamp(4rem, 11vw, 10rem); margin: 1.4rem 0 .6rem; }
+  .cover .mono { font-family: var(--mono); font-size: .78rem; letter-spacing: .22em; text-transform: uppercase; color: var(--grey); }
+  .hint { margin-top: 3rem; font-family: var(--mono); font-size: .72rem; letter-spacing: .14em; color: var(--faint); text-transform: uppercase; }
+
+  /* team */
+  .team { display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; }
+  .seat { display: flex; flex-direction: column; align-items: center; gap: .6rem; width: 110px; text-align: center; font-size: .85rem; }
+  .seat i { width: 84px; height: 84px; border-radius: 50%; background: var(--ink); display: block; }
+  .seat.lead i { background: var(--bronze); }
+  .seat.hs i { background: transparent; border: 2px solid var(--ink); }
+
+  /* flywheel */
+  .wheel { position: relative; width: min(100%, 520px); aspect-ratio: 1; max-width: 100%; margin: 0 auto; }
+  .wheel svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .spin { transform-origin: 50% 50%; animation: spin 28s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .node { position: absolute; transform: translate(-50%, -50%); background: var(--ink); color: var(--paper); border-radius: 999px; padding: .7rem 1.1rem; font-size: .9rem; font-weight: 400; white-space: nowrap; }
+  .node.b { background: var(--bronze); }
+
+  /* waves */
+  .wave { display: grid; grid-template-columns: auto 1fr auto; gap: 1.2rem; align-items: center; background: var(--paper); border-radius: var(--r); padding: 1.3rem 1.6rem; border: 0; text-align: left; cursor: pointer; color: var(--grey); font-size: .95rem; }
+  .wave:hover { background: #FBFAF6; }
+  .wave .n { font-family: var(--serif); font-size: 2.6rem; color: var(--ink); line-height: 1; }
+  .wave b { display: block; color: var(--ink); font-weight: 500; }
+  .sw { width: 14px; height: 14px; border-radius: 50%; display: inline-block; }
+
+  /* map */
+  .mapwrap { position: relative; background: var(--panel); border-radius: var(--r); padding: 12px; min-height: 0; flex: 1; display: flex; align-items: center; justify-content: center; }
+  .mapwrap svg { width: 100%; height: 100%; max-height: 100%; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { font-family: var(--sans); font-size: .85rem; padding: .5rem 1rem; border-radius: 999px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); cursor: pointer; display: inline-flex; gap: .5rem; align-items: center; }
+  .chip.on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--paper); border-radius: 14px; padding: .6rem .85rem; font-size: .82rem; line-height: 1.35; opacity: 0; transition: opacity .15s; max-width: 260px; z-index: 3; }
+  .tip b { font-weight: 500; display: block; }
+  .tip span { color: #BDB7AD; }
+  .mapgrid { display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: 32px; height: 100%; padding: 88px max(28px, 4vw) 28px; }
+  .mapgrid .side { display: flex; flex-direction: column; justify-content: center; gap: 1.2rem; }
+
+  /* timeline */
+  .tl { position: relative; margin: 1.5rem max(28px, 4.5vw) 0; height: 380px; flex: none; }
+  .tl .yr { position: absolute; top: 0; font-family: var(--mono); font-size: .78rem; color: var(--faint); transform: translateX(-2px); }
+  .tl .tick { position: absolute; top: 28px; bottom: 0; width: 1px; background: var(--line); }
+  .tl .wv { position: absolute; height: 54px; border-radius: 999px; display: flex; align-items: center; padding: 0 1.2rem; font-size: .92rem; white-space: nowrap; overflow: hidden; transform-origin: left center; }
+  .slide.on.go .tl .wv { animation: grow 1.1s cubic-bezier(.2,.7,.2,1) both; animation-delay: calc(var(--i) * 160ms + 300ms); }
+  @keyframes grow { from { clip-path: inset(0 100% 0 0 round 999px); } to { clip-path: inset(0 0 0 0 round 999px); } }
+  .tl .ms { position: absolute; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: .4rem; }
+  .tl .ms i { font-style: normal; width: 72px; height: 72px; border-radius: 50%; background: var(--panel); display: grid; place-items: center; font-family: var(--serif); font-size: 1.7rem; color: var(--ink); }
+  .tl .ms span { font-family: var(--mono); font-size: .72rem; color: var(--grey); }
+  .slide.on.go .tl .ms { animation: pop .6s cubic-bezier(.3,1.4,.5,1) both; animation-delay: calc(var(--i) * 120ms + 900ms); }
+  @keyframes pop { from { opacity: 0; transform: translateX(-50%) scale(.6); } to { opacity: 1; transform: translateX(-50%) scale(1); } }
+
+  /* chart */
+  .chartwrap { position: relative; margin: 0 max(28px, 4vw); background: var(--panel); border-radius: var(--r); padding: 18px 18px 8px; flex: 1; min-height: 0; }
+  .chartwrap svg { width: 100%; height: 100%; display: block; }
+  .legend { display: flex; flex-wrap: wrap; gap: 8px; }
+  .legend .chip i { width: 18px; height: 3px; border-radius: 2px; display: inline-block; }
+  .legend .chip.off { opacity: .4; }
+  .readout { position: absolute; top: 22px; left: 50%; transform: translateX(-50%); background: var(--ink); color: var(--paper); border-radius: 14px; padding: .55rem .9rem; font-size: .82rem; white-space: nowrap; opacity: 0; transition: opacity .15s; pointer-events: none; font-variant-numeric: tabular-nums; }
+
+  /* calculator */
+  .calc { display: grid; gap: 1.1rem; }
+  .calc label { display: grid; grid-template-columns: 1fr auto; gap: .3rem 1rem; font-size: .9rem; color: var(--ink); }
+  .calc label output { font-family: var(--mono); color: var(--bronze); }
+  .calc input[type=range] { grid-column: 1 / -1; width: 100%; accent-color: var(--bronze); }
+  .total { font-family: var(--serif); font-size: clamp(3rem, 5.5vw, 5rem); color: var(--ink); line-height: 1; font-variant-numeric: tabular-nums; }
+  .split2 { display: flex; gap: 1.6rem; font-size: .88rem; }
+  .split2 b { color: var(--ink); font-weight: 500; }
+
+  /* close */
+  .slide.dark { background: var(--ink); }
+  .slide.dark h2 { color: var(--paper); font-size: clamp(3.4rem, 8vw, 7.5rem); }
+  .slide.dark .cards3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; width: min(1100px, 92vw); margin-top: 2.6rem; text-align: left; }
+  .slide.dark .cards3 div { background: #232323; border-radius: var(--r); padding: 1.6rem; color: #BDB7AD; }
+  .slide.dark .cards3 h3 { color: var(--paper); font-size: 1.8rem; margin-bottom: .4rem; }
+  .addr { margin-top: 2rem; font-family: var(--mono); letter-spacing: .1em; color: #D9BC86; user-select: all; }
+
+  @media (max-width: 860px) {
+    body { overflow: hidden; }
+    .slide { grid-template-columns: 1fr; overflow-y: auto; align-content: start; }
+    .left { padding: 72px 20px 20px; }
+    .right { padding: 28px 20px 40px; border-left: 0; }
+    .mapgrid { grid-template-columns: 1fr; padding: 72px 20px 20px; height: auto; }
+    .mapwrap { min-height: 260px; }
+    .slide.dark .cards3, .grid2 { grid-template-columns: 1fr; }
+    .tl { margin: 1rem 20px; height: 420px; }
+    .chartwrap { margin: 0 20px; height: 340px; flex: none; }
+    .top .pill.bronze { display: none; }
+    .dots { display: none; }
+    .bar { grid-template-columns: 1fr 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .slide, .slide.on { transition: none; }
+    .slide.on.go [data-a], .slide.on.go .right, .slide.on.go .tl .wv, .slide.on.go .tl .ms { animation: none; }
+    .spin { animation: none; }
+  }
+  .mark, .big, .wave .n, .tl .ms i, .total, .node, .super { font-weight: 600; }
+  h1 em, h2 em, h3 em { font-style: italic; font-weight: 600; }
+  h1, h2, .big, .total, .mark { font-optical-sizing: auto; }
+  .mark { font-style: italic; font-weight: 600; letter-spacing: .02em; text-transform: uppercase; }
+  .cover p { max-width: none; margin-left: auto; margin-right: auto; }
+  /* Site theme: same variables as the West Ventures site. Dark mode is set by
+     the page that frames this deck (or the stored / system preference). */
+  :root { --blue: #3E6A8A; --bar-bg: #141414; --bar-grp: #2E2E2E; --bar-dot: #6A6660; --bar-text: #F7F5F0; --close-card: #232323; --close-text: #BDB7AD; --close-ink: #F7F5F0; --close-bg: #141414; }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --paper: #121110; --panel: #1b1a17; --card: #24221e; --ink: #f2efe8; --grey: #a7a198; --faint: #6f6a62; --line: #2d2b27; --bronze: #c9a063; --blue: #7ea7c6;
+    --bar-bg: #0b0b0a; --bar-grp: #232220; --bar-text: #f2efe8; --close-card: #1d1c19; --close-text: #a7a198; --close-ink: #f2efe8; --close-bg: #0b0b0a;
+  }
+  body { transition: background-color .6s cubic-bezier(.65,0,.35,1), color .6s cubic-bezier(.65,0,.35,1); }
+  body::before { content: ""; pointer-events: none; position: fixed; inset: 0; z-index: -1; opacity: .16; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.5  0 0 0 0 0.5  0 0 0 0 0.5  0 0 0 1.6 -0.25'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); background-size: 220px 220px; }
+  :root[data-theme="dark"] body::before { opacity: .08; mix-blend-mode: screen; }
+  .bar { background: var(--bar-bg); }
+  .grp.on { background: var(--bar-grp); }
+  .dot { background: var(--bar-dot); }
+  .dot.on { background: var(--bar-text); }
+  .bar .pill.soft { background: var(--bar-text); color: var(--bar-bg); }
+  .slide.dark { background: var(--close-bg); }
+  .slide.dark h2, .slide.dark .cards3 h3 { color: var(--close-ink); }
+  .slide.dark .cards3 div { background: var(--close-card); color: var(--close-text); }
+  .wave:hover { background: color-mix(in oklab, var(--paper) 70%, var(--panel)); }
+  [style*="color:#BDB7AD"] { color: color-mix(in oklab, var(--paper) 70%, var(--ink)) !important; }
+  [style*="background:#141414"] { background: var(--ink) !important; }
+  [style*="background:#8C6A2F"] { background: var(--bronze) !important; }
+  [style*="background:#A39D93"] { background: var(--faint) !important; }
+  [style*="background:#DCD5C8"] { background: var(--card) !important; }
+  [style*="color:#141414"] { color: var(--ink) !important; }
+  [style*="color:#F7F5F0"] { color: var(--paper) !important; }
+  [style*="background:#3E6A8A"] { background: var(--blue) !important; }
+  svg [fill="#141414"] { fill: var(--ink); }   svg [stroke="#141414"] { stroke: var(--ink); }
+  svg [fill="#F7F5F0"] { fill: var(--paper); } svg [stroke="#F7F5F0"] { stroke: var(--paper); }
+  svg [fill="#E2DCCF"] { fill: var(--card); }
+  svg [stroke="#DDD7CB"] { stroke: var(--line); }
+  svg [fill="#6E6A64"] { fill: var(--grey); }
+  svg [fill="#8C6A2F"] { fill: var(--bronze); } svg [stroke="#8C6A2F"] { stroke: var(--bronze); }
+  svg [fill="#A39D93"] { fill: var(--faint); } svg [stroke="#A39D93"] { stroke: var(--faint); }
+  svg [fill="#3E6A8A"] { fill: var(--blue); }  svg [stroke="#3E6A8A"] { stroke: var(--blue); }
+
+  @media (max-width: 860px) {
+    .slide.center { align-content: center; }
+    .slide.center > * { padding-top: 56px; padding-bottom: 24px; }
+    /* Timeline keeps its proportions and scrolls sideways on phones. */
+    .slide:has(.tl) { overflow-x: auto; }
+    .tl { width: 760px; min-width: 760px; }
+  }
+</style>
+</head>
+<body>
+<div class="count" aria-live="polite"><b id="cur">01</b> / <span id="tot">14</span></div>
+<div class="top"><button class="pill bronze" type="button" data-goto="13">Become a founding campus</button></div>
+
+<main class="deck" id="deck">
+
+  <section class="slide center cover on" data-ch="0" aria-label="Cover">
+    <div>
+      <div class="mark" data-a style="--i:0;text-transform:none">West Ventures</div>
+      <h1 data-a style="--i:1">Master plan</h1>
+      <p class="mono" data-a style="--i:2;margin:0 auto">October 2026 · Draft</p>
+    </div>
+  </section>
+
+  <section class="slide" data-ch="1" aria-label="The thesis">
+    <div class="left">
+      <h2 data-a style="--i:1">Goal: <em>1,000 builders</em></h2>
+      <p class="lede" data-a style="--i:2">The goal is to find and train 1,000 people who go on to build and lead companies. Most of them are between 12 and 18 today. What they become depends on who finds them, who teaches them and whether they get real work to do.</p>
+      <p class="lede" data-a style="--i:3">West Ventures is set up to do those three things.</p>
+    </div>
+    <div class="right"><div class="stack">
+      <div class="card row" data-a style="--i:2"><span class="big b">~20</span><p>Projects per semester, run by student teams at ACU today</p></div>
+    </div></div>
+  </section>
+
+  <section class="slide" data-ch="1" aria-label="The workshop">
+    <div class="left">
+      <h2 data-a style="--i:1">Precedent: <em>the workshop</em></h2>
+      <p class="lede" data-a style="--i:2">Leonardo trained in Verrocchio’s shop in Florence and painted parts of real commissions as a teenager. Ghirlandaio, from the same circle, took on Michelangelo at thirteen. A few rooms like that produced much of the High Renaissance.</p>
+    </div>
+    <div class="right">
+      <div class="card" data-a style="--i:2;background:var(--ink);padding:2.6rem">
+        <h2 style="color:var(--paper)">Talent is given.</h2>
+        <p style="color:#BDB7AD;margin-top:1rem">Mentors, funding and real work have to be arranged.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-ch="1" aria-label="The evidence">
+    <div class="left">
+      <h2 data-a style="--i:1">Evidence</h2>
+      <p class="lede" data-a style="--i:2">Two long-running studies: ability can be identified early, and outcomes depend heavily on what a child is exposed to.</p>
+      <p data-a style="--i:3;font-size:.82rem;color:var(--faint)">Sources: Bell, Chetty et al., “Who Becomes an Inventor in America?” (NBER); Lubinski, Benbow &amp; Kell, <i>Psychological Science</i> (2014)</p>
+    </div>
+    <div class="right"><div class="stack">
+      <div class="card row" data-a style="--i:2"><span class="big b">10×</span><p>Kids from top-1% income families are ten times as likely to become inventors as kids from below-median families</p></div>
+      <div class="card row" data-a style="--i:3"><span class="big">681</span><p>Patents held, four decades later, by about 1,650 kids first identified at age 13</p></div>
+    </div></div>
+  </section>
+
+  <section class="slide" data-ch="2" aria-label="The model">
+    <div class="left">
+      <h2 data-a style="--i:1">Model</h2>
+      <ul class="lede" data-a style="--i:2;padding-left:1.1rem;margin:0;display:grid;gap:.4rem">
+        <li>A founder brings a real problem. We don’t charge them.</li>
+        <li>A team of six works on it for a full semester, for course credit.</li>
+        <li>Partner campuses send their best students to join the teams.</li>
+      </ul>
+    </div>
+    <div class="right">
+      <div class="team">
+        <div class="seat lead" data-a style="--i:2"><i></i>Project leader</div>
+        <div class="seat" data-a style="--i:3"><i></i>Contributor</div>
+        <div class="seat" data-a style="--i:4"><i></i>Contributor</div>
+        <div class="seat" data-a style="--i:5"><i></i>Contributor</div>
+        <div class="seat hs" data-a style="--i:6"><i></i>Builder Scholar</div>
+        <div class="seat hs" data-a style="--i:7"><i></i>Builder Scholar</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-ch="2" aria-label="Proof">
+    <div class="left">
+      <h2 data-a style="--i:1">Current status: <em>ACU</em></h2>
+      <p class="lede" data-a style="--i:2">The model runs at one campus today. The plan is to add more campuses.</p>
+    </div>
+    <div class="right"><div class="stack">
+      <div class="card row" data-a style="--i:2"><span class="big b">2×</span><p>Gloo AI Hackathon winners, 2025 and 2026</p></div>
+      <div class="card row" data-a style="--i:3"><span class="big b">35</span><p>Builder Scholars this fall, chosen from hundreds of nominations</p></div>
+      <div class="card row" data-a style="--i:4"><span class="big b">50+</span><p>Christian-led companies our students have worked with</p></div>
+    </div></div>
+  </section>
+
+  <section class="slide" data-ch="2" aria-label="The flywheel">
+    <div class="left">
+      <h2 data-a style="--i:1">Founders and <em>students</em></h2>
+      <p class="lede" data-a style="--i:2">Experienced founders have more ideas than time. Capable students need real work. The studio pairs them on defined projects.</p>
+    </div>
+    <div class="right">
+      <div class="wheel" data-a style="--i:2">
+        <svg viewBox="0 0 400 400" aria-hidden="true"><g class="spin"><circle cx="200" cy="200" r="140" fill="none" stroke="#C9B48A" stroke-width="2" stroke-dasharray="6 10"/><path d="M340 200 l-10 -12 M340 200 l10 -12" stroke="#8C6A2F" stroke-width="3" fill="none"/><path d="M60 200 l-10 12 M60 200 l10 12" stroke="#8C6A2F" stroke-width="3" fill="none"/><path d="M200 60 l12 -10 M200 60 l12 10" stroke="#8C6A2F" stroke-width="3" fill="none"/><path d="M200 340 l-12 -10 M200 340 l-12 10" stroke="#8C6A2F" stroke-width="3" fill="none"/></g></svg>
+        <div class="node b" style="left:50%;top:15%">Good work</div>
+        <div class="node" style="left:85%;top:50%">Better founders</div>
+        <div class="node" style="left:50%;top:85%">Better problems</div>
+        <div class="node" style="left:15%;top:50%">Better students</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-ch="3" aria-label="The market">
+    <div class="left">
+      <h2 data-a style="--i:1">Target campuses: <em>364</em></h2>
+      <p class="lede" data-a style="--i:2">Christian colleges with at least 750 students, a business department, and little or no entrepreneurship program today.</p>
+    </div>
+    <div class="right"><div class="stack">
+      <button class="wave" type="button" data-a style="--i:2" data-wave="1"><span class="sw" style="background:#8C6A2F"></span><span><b>Wave 1 · Founding · 2027–29</b>Mid-size evangelical colleges</span><span class="n">41</span></button>
+      <button class="wave" type="button" data-a style="--i:3" data-wave="2"><span class="sw" style="background:#141414"></span><span><b>Wave 2 · Expansion · 2028–31</b>More evangelical schools, plus mid-size Catholic and mainline</span><span class="n">164</span></button>
+      <button class="wave" type="button" data-a style="--i:4" data-wave="3"><span class="sw" style="background:#A39D93"></span><span><b>Wave 3 · Reach · 2030–33</b>Smaller mainline and Catholic colleges</span><span class="n">159</span></button>
+    </div></div>
+  </section>
+
+  <section class="slide full" data-ch="3" aria-label="The map">
+    <div class="mapgrid">
+      <div class="side">
+        <h2 data-a style="--i:1">Map</h2>
+        <div class="chips" data-a style="--i:2" id="mapchips">
+          <button class="chip on" type="button" data-f="0">All · 362</button>
+          <button class="chip" type="button" data-f="1"><span class="sw" style="background:#8C6A2F"></span>Wave 1</button>
+          <button class="chip" type="button" data-f="2"><span class="sw" style="background:#141414"></span>Wave 2</button>
+          <button class="chip" type="button" data-f="3"><span class="sw" style="background:#A39D93"></span>Wave 3</button>
+        </div>
+        <p data-a style="--i:3;font-size:.9rem">Hover a dot to see the school. The star is ACU.</p>
+      </div>
+      <div class="mapwrap" data-a style="--i:2"><svg id="map" viewBox="0 0 975 610" role="img" aria-label="Map of target colleges by wave"></svg><div class="tip" id="tip"></div></div>
+    </div>
+  </section>
+
+  <section class="slide full" data-ch="3" aria-label="The rollout" style="display:flex;flex-direction:column">
+    <div class="left" style="padding-bottom:12px;flex:none">
+      <h2 data-a style="--i:1">Timeline</h2>
+      <p class="lede" data-a style="--i:2">Campuses are signed in the spring and launch in the fall. Each circle is the number of partner campuses signed by that fall.</p>
+    </div>
+    <div class="tl" id="tl"></div>
+  </section>
+
+  <section class="slide full" data-ch="4" aria-label="Growth" style="display:flex;flex-direction:column">
+    <div class="left" style="padding-bottom:14px;flex:none">
+      <h2 data-a style="--i:1">Projections, <em>2027–2033</em></h2>
+      <p data-a style="--i:2;font-size:.88rem">Projected, from 4 campuses in 2027 to 77 in 2033. Select a line to hide it.</p>
+      <div class="legend" data-a style="--i:2" id="legend"></div>
+    </div>
+    <div class="chartwrap" data-a style="--i:3;margin-bottom:24px"><svg id="chart" viewBox="0 0 1200 460" role="img" aria-label="Run-rate revenue, campuses, students and projects, fall 2027 to spring 2033"></svg><div class="readout" id="readout"></div></div>
+  </section>
+
+  <section class="slide" data-ch="4" aria-label="Economics">
+    <div class="left">
+      <h2 data-a style="--i:1">Revenue model</h2>
+      <ul class="lede" data-a style="--i:2;padding-left:1.1rem;margin:0;display:grid;gap:.4rem">
+        <li>Campus license: $50k, $75k or $125k a year, by enrollment</li>
+        <li>Seat fee: $990 per student per semester</li>
+        <li>Our first three campuses pay $25k a year for two years</li>
+      </ul>
+      <p class="lede" data-a style="--i:3">Campuses and students pay. Companies and investors do not.</p>
+    </div>
+    <div class="right"><div class="card calc" data-a style="--i:2">
+      <label for="c1">Partner campuses <output id="o1"></output><input id="c1" type="range" min="5" max="150" step="1" value="77"></label>
+      <label for="c2">Students placed per campus, per semester <output id="o2"></output><input id="c2" type="range" min="2" max="20" step="1" value="10"></label>
+      <label for="c3">Seat fee per semester <output id="o3"></output><input id="c3" type="range" min="500" max="2500" step="10" value="990"></label>
+      <div><div class="total" id="tot2">$0</div><p style="font-size:.85rem">Yearly revenue at this scale</p></div>
+      <div class="split2"><span>Licenses <b id="lic">$0</b></span><span>Seats <b id="seat">$0</b></span></div>
+    </div></div>
+  </section>
+
+  <section class="slide" data-ch="4" aria-label="Risks">
+    <div class="left">
+      <h2 data-a style="--i:1">Risks</h2>
+      <p class="lede" data-a style="--i:2">The four risks tracked most closely.</p>
+    </div>
+    <div class="right"><div class="list">
+      <div data-a style="--i:2"><b>Project supply</b>By 2033 we’d need about 200 projects a semester, roughly ten times what we run today.</div>
+      <div data-a style="--i:3"><b>Scouting</b>Our scouting is young. Builder’s Quotient still has to prove it can spot talent earlier than referrals do.</div>
+      <div data-a style="--i:4"><b>Accreditation</b>Credit transfers more easily once ACU is accredited, which we expect by fall 2027.</div>
+      <div data-a style="--i:5"><b>Fit and budget</b>Many targets are Catholic or mainline, and most spend little on entrepreneurship today. We have to earn their trust, and founding rates and donors have to bridge the cost.</div>
+    </div></div>
+  </section>
+
+  <section class="slide center dark" data-ch="5" aria-label="The ask">
+    <div style="display:flex;flex-direction:column;align-items:center">
+      <h2 data-a style="--i:0">Contact</h2>
+      <div class="cards3">
+        <div data-a style="--i:1"><h3>Campuses</h3>Host a Builders Guild. The first three campuses get a founding rate.</div>
+        <div data-a style="--i:2"><h3>Firms</h3>Send us the hardest problems in your portfolio.</div>
+        <div data-a style="--i:3"><h3>Donors</h3>Fund the first West Ventures Fellows.</div>
+      </div>
+      <p class="addr" data-a style="--i:4">partners@west.ventures</p>
+    </div>
+  </section>
+</main>
+
+<nav class="bar" aria-label="Slides">
+  <button class="pill soft back" id="back" type="button">← Back</button>
+  <div class="dots" id="dots"></div>
+  <button class="pill soft next" id="next" type="button">Next →</button>
+</nav>
+
+<script>
+const MAP={nation:"M648,492L648,492L648,492ZM780,466L787,486L795,500L806,514L807,522L820,544L823,554L824,575L820,586L807,590L801,578L792,575L785,563L778,557L766,543L771,533L765,530L767,534L765,537L762,533L764,517L759,505L755,505L746,498L740,491L732,487L727,487L714,501L707,500L706,494L696,488L681,486L664,490L656,488L653,482L652,490L646,489L636,490L625,495L619,499L624,502L626,498L628,501L627,507L623,508L626,513L632,514L634,522L624,516L620,515L613,521L608,515L601,523L590,517L584,508L579,506L571,513L554,508L541,510L535,511L522,517L524,509L518,511L520,519L523,519L510,530L492,539L480,548L480,546L489,541L484,542L477,547L469,564L468,576L471,592L474,595L467,597L464,593L452,592L440,585L434,584L431,574L428,570L428,559L420,552L419,548L412,541L405,522L390,506L378,505L366,505L361,517L357,522L337,511L330,504L328,492L323,480L316,475L306,463L302,460L296,452L264,448L263,458L247,456L208,450L172,429L142,412L145,407L99,402L98,398L99,388L97,382L86,370L82,369L82,362L76,362L70,357L65,349L49,344L46,340L50,328L46,325L47,321L42,313L35,296L36,289L40,286L31,274L33,261L38,270L36,257L33,260L29,255L27,243L20,229L24,209L18,197L19,193L27,184L31,173L33,160L31,157L34,146L33,140L45,121L57,92L65,71L71,70L66,69L64,65L66,57L71,54L67,51L68,34L66,23L70,20L77,27L90,33L95,33L97,39L92,52L96,52L98,42L102,38L101,27L102,21L100,14L140,25L184,36L198,39L233,46L265,52L303,57L340,62L377,66L404,68L445,70L479,71L511,71L511,62L516,64L520,77L531,79L532,81L540,78L563,87L566,91L577,86L578,89L588,88L596,91L582,98L559,119L560,121L568,120L576,115L580,120L585,123L594,117L601,116L619,101L624,100L615,112L628,114L633,121L644,121L652,115L662,114L670,111L670,118L676,118L683,115L684,121L694,128L681,129L676,127L674,131L671,128L663,127L661,130L653,131L638,140L632,153L629,157L626,166L628,166L636,157L642,148L635,165L635,174L632,181L633,185L631,195L634,206L634,212L634,217L640,230L647,231L652,228L659,216L660,205L659,198L652,184L652,175L655,168L655,160L661,154L664,148L664,156L668,153L667,146L674,142L670,138L675,133L685,135L687,138L697,140L701,147L699,149L702,154L702,162L699,169L695,171L694,177L699,180L705,171L710,168L715,172L722,191L721,200L716,199L715,207L708,222L718,225L719,224L726,227L733,223L738,223L748,213L756,209L768,200L776,192L780,186L775,176L784,172L796,170L800,172L809,169L819,161L815,150L815,146L820,141L829,128L832,124L858,118L886,111L887,105L891,102L894,99L900,86L898,83L900,74L899,67L906,48L912,52L923,46L930,50L939,80L945,80L946,87L952,88L957,95L953,99L950,106L947,104L944,110L939,114L937,110L936,118L931,110L930,123L918,131L913,138L910,150L909,155L914,158L909,166L917,171L922,178L931,177L920,183L918,179L913,186L911,183L910,182L907,181L908,191L902,193L893,197L885,198L874,208L891,204L895,200L900,202L886,213L872,219L869,216L869,217L867,221L871,222L873,237L865,257L859,254L849,246L849,246L850,244L849,249L855,258L861,263L864,270L863,280L858,288L857,301L853,301L853,292L855,284L852,285L848,276L846,279L841,274L846,271L839,266L842,252L837,254L838,263L836,269L844,284L835,282L830,278L827,280L827,274L825,279L830,279L832,283L838,283L846,287L849,305L846,310L855,308L859,316L856,317L859,323L847,333L856,330L863,329L866,335L860,344L843,343L854,347L850,356L859,354L856,361L851,361L844,365L834,377L833,384L823,386L816,392L814,404L801,419L792,424L793,427L786,435L783,442L781,454L778,460ZM104,552L104,552L104,552ZM99,570L103,565L105,569ZM95,582L95,582L95,582ZM93,575L99,571L105,573L95,580ZM93,583L93,583L93,583ZM89,588L89,588L89,588ZM72,594L72,594L72,594ZM71,592L71,592L71,592ZM68,593L68,593L68,593ZM66,590L66,590L66,590ZM68,564L68,564L68,564ZM61,591L61,591L61,591ZM58,592L58,592L58,592ZM66,524L66,524L66,524ZM56,596L56,596L56,596ZM45,597L45,597L45,597ZM43,595L43,595L43,595ZM41,596L41,596L41,596ZM44,547L50,547L48,552ZM31,601L38,596L37,601ZM51,505L66,500L65,504L74,504L73,498L67,496L66,492L59,484L62,481L67,481L75,471L87,468L89,465L95,469L101,469L104,472L109,471L123,474L126,472L133,474L147,547L155,547L164,555L169,546L181,554L193,565L200,567L203,573L201,578L193,574L188,565L183,563L178,557L171,551L173,557L168,559L160,554L151,551L141,550L135,552L126,547L119,547L121,553L114,554L109,560L105,560L106,546L100,557L96,560L100,564L96,569L90,572L77,586L47,595L49,592L57,590L62,585L66,585L81,573L84,563L76,566L71,561L65,564L66,557L64,551L58,553L53,547L51,538L61,526L64,528L73,523L73,514L68,517L55,514L56,509ZM25,603L25,603L25,603ZM28,573L28,573L28,573ZM20,602L20,602L20,602ZM27,568L27,568L27,568ZM16,603L16,603L16,603ZM34,518L39,518L45,522L41,524ZM7,603L7,603L7,603ZM23,540L23,540L23,540ZM0,602L0,602L0,602ZM-6,601L-6,601L-6,601ZM-10,599L-10,599L-10,599ZM-11,601L-11,601L-11,601ZM-15,601L-15,601L-15,601ZM-18,600L-18,600L-18,600ZM-20,597L-20,597L-20,597ZM-30,593L-30,593L-30,593ZM-35,593L-35,593L-35,593ZM-41,589L-41,589L-41,589ZM-56,577L-56,577L-56,577ZM-58,571L-58,571L-58,571ZM197,577L197,577L197,577ZM196,577L196,577L196,577ZM195,575L195,575L195,575ZM188,570L188,570L188,570ZM187,569L187,569L187,569ZM186,577L186,577L186,577ZM185,573L187,570L194,576L196,580ZM183,574L183,574L183,574ZM180,567L185,564L189,567ZM175,556L178,557L181,563L180,566ZM174,565L177,563L181,573ZM173,566L173,566L173,566ZM169,561L172,558L177,563L174,565ZM121,555L121,555L121,555ZM120,551L120,551L120,551ZM815,594L815,594L815,594ZM813,596L813,596L813,596ZM807,599L807,599L807,599ZM794,604L800,598L805,600ZM790,605L790,605L790,605ZM786,605L786,605L786,605ZM777,558L777,558L777,558ZM770,606L770,606L770,606ZM720,495L720,495L720,495ZM940,115L940,115L940,115ZM938,116L938,116L938,116ZM936,112L936,112L936,112ZM932,116L932,116L932,116ZM934,125L934,125L934,125ZM931,119L931,119L931,119ZM930,116L930,116L930,116ZM928,187L928,187L928,187ZM918,188L921,184L925,187ZM864,329L864,329L864,329ZM863,350L863,350L863,350ZM77,374L77,374L77,374ZM75,384L75,384L75,384ZM65,358L65,358L65,358ZM58,374L58,374L58,374ZM57,355L57,355L57,355ZM50,355L50,355L50,355ZM47,353L47,353L47,353ZM305,584L310,578L310,573L322,578L326,584L332,589L329,593L317,598L314,603L309,600L309,594ZM292,558L294,555L306,561L305,564L299,566ZM292,567L292,567L292,567ZM284,558L284,558L284,558ZM279,554L280,551L291,553L288,555ZM258,543L265,540L271,549L262,549ZM226,533L231,528L235,529L236,534L230,536ZM216,537L216,537L216,537ZM849,285L850,285L849,285ZM847,281L847,281L847,281ZM677,131L677,131L677,131ZM663,133L663,133L663,133ZM662,139L662,139L662,139ZM661,136L661,136L661,136ZM659,142L659,142L659,142ZM657,150L657,150L657,150ZM655,153L655,153L655,153ZM646,140L646,140L646,140ZM601,92L610,86L610,89ZM644,493L644,493L644,493ZM639,493L639,493L639,493ZM635,494L635,494L635,494ZM632,494L632,494L632,494ZM899,196L899,196L899,196ZM897,198L897,198L897,198ZM816,154L816,154L816,154ZM814,154L814,154L814,154ZM721,223L721,223L721,223ZM719,222L719,222L719,222ZM93,51L93,51L93,51ZM99,25L99,25L99,25ZM99,20L99,20L99,20ZM98,23L98,23L98,23ZM95,31L95,31L95,31ZM96,18L96,18L96,18ZM94,20L94,20L94,20ZM95,13L95,13L95,13ZM91,21L98,22L96,27ZM91,19L91,19L91,19ZM642,146L642,146L642,146ZM636,150L636,150L636,150ZM584,113L584,113L584,113ZM583,116L583,116L583,116ZM581,115L581,115L581,115ZM580,117L580,117L580,117ZM580,114L580,114L580,114ZM579,113L579,113L579,113ZM579,118L579,118L579,118ZM576,114L576,114L576,114ZM638,497L638,497L638,497ZM629,498L629,498L629,498ZM624,510L624,510L624,510ZM610,521L610,521L610,521ZM606,521L606,521L606,521ZM602,522L602,522L602,522ZM577,511L577,511L577,511ZM908,188L908,188L908,188ZM907,196L907,196L907,196Z",borders:"M646,489L642,455L644,386L642,384L689,380L702,427L710,440L706,450L709,457L708,465L711,469L661,474L666,486L664,490M145,407L149,407L150,401L147,400L148,392L152,389L154,380L163,374L160,370L157,356L160,331L167,331L170,335L173,331L176,313L239,324L265,328L247,456M711,469L714,475L766,471L770,476L769,466L780,466M689,380L713,377L735,374L732,382L741,385L748,396L762,406L766,412L771,414L774,423L786,435M652,228L686,224L686,225L693,284L694,292L683,295L684,298L677,305L674,313L669,309L666,314L661,313L655,319L647,315L639,320L638,317L647,298L643,288L645,284L640,230M394,272L422,273L465,275L510,275L516,278L514,286L519,293L522,295L523,344L489,344L433,343L390,341M910,150L905,145L891,102M910,182L905,176L899,178L871,184L871,168L884,165L903,161L909,155M913,186L911,183M560,121L556,122L556,136L551,139L548,147L551,150L550,154L549,166L564,175L565,178L572,182L576,193L549,194L491,195L491,154L484,147L489,140L489,131L486,123L485,102L481,89L481,78L479,71M850,244L851,241L861,231L854,226L850,221L850,214L855,204L870,209L869,216M869,217L867,221M849,246L849,246M713,377L713,371L717,369L721,363L726,362L738,350L741,351L747,345L751,346L756,334L780,331L812,326L859,316M823,386L798,368L778,371L772,365L749,367L735,374M489,140L460,139L412,137L371,134L377,66M523,344L523,355L527,381L526,421L520,418L512,413L499,415L492,420L481,414L476,419L467,413L462,413L454,409L452,411L438,404L429,403L424,398L426,354L372,351L372,339M768,200L769,206L800,201L841,192L847,197L850,202L855,204M851,241L845,245L816,251L782,257L765,260L761,239L756,209M491,195L488,195L491,204L488,212L491,218L476,210L467,210L466,212L457,206L404,204L365,201L369,156L371,134M526,421L535,423L535,435L535,458L540,463L540,467L545,476L546,484L542,490L543,502L539,507L541,510M296,452L295,447L339,451L363,453L367,408L371,351L372,351M365,201L361,247M277,237L333,244L361,247L395,249L394,272L390,341L372,339L349,338L315,334L265,328L268,299L277,237L244,232L247,210L256,154L258,142L298,148L339,153L369,156M899,178L902,193M874,208L874,201L871,184M510,275L502,262L521,262L545,261L571,260L576,265L576,273L578,280L590,290L591,297L601,298L598,313L614,326L614,333L621,340L620,349L617,351L616,351L615,352L612,363L600,364L605,357L604,352L550,355L523,355M782,257L784,269L794,257L800,258L805,253L814,260L813,265L803,259L803,266L797,277L794,275L790,286L784,283L780,297L776,305L777,309L761,318L750,319L747,313L741,311L734,302L733,295L738,293L739,285L741,280L744,283L746,273L754,269L758,263L761,247L761,239M576,265L577,259L581,258L584,248L582,241L593,236L596,224L587,215L634,212M639,320L639,327L632,330L632,337L624,334L621,340M612,363L613,367L605,378L607,383L603,387L598,393L599,400L595,402L593,409L590,411L592,415L588,420L591,430L589,433L535,435M33,160L84,175L100,179L83,246L157,356M864,270L853,273L845,245M576,193L579,199L577,202L580,211L587,215M502,262L497,234L491,218M693,284L699,283L704,290L714,293L721,292L727,288L733,295M747,313L741,320L735,325L729,334L720,339L704,341L672,343L645,346L641,350L617,351M616,351L615,352M850,285L849,285M863,280L855,284M827,274L828,270M826,267L828,270L826,267L814,260M708,222L686,225M632,153L631,148L627,147L628,140L623,135L612,134L607,131L590,128L585,123M603,387L642,384M625,495L618,485L619,477L583,479L584,467L595,448L591,445L591,436L589,433M256,154L253,148L250,151L237,148L235,151L225,149L224,142L219,139L215,118L208,123L205,120L209,114L208,109L213,96L209,96L201,80L195,74L197,69L193,62L198,39M884,165L882,163L881,146L883,133L882,128L888,122L886,111M858,118L862,134L861,140L864,149L867,150L871,168M71,70L77,74L80,80L79,87L86,91L98,91L103,95L112,94L139,95L171,102L176,112L157,137L162,143L158,150L149,191L100,179M720,339L756,334M176,313L198,201L247,210M184,36L171,92L171,102M198,201L149,191",acu:[465,489],pts:[[101,369,"California Baptist University","CA",3,12516,"E"],[852,312,"Regent University","VA",3,10657,"E"],[853,236,"Saint Joseph's University","PA",3,8598,"C"],[708,268,"Cedarville University","OH",3,6384,"O"],[671,417,"Samford University","AL",3,6097,"O"],[562,298,"Columbia College","MO",3,6046,"M"],[698,283,"Xavier University","OH",3,5501,"C"],[480,442,"Dallas Baptist University","TX",3,4247,"E"],[635,226,"Dominican University","IL",3,3803,"C"],[869,216,"Saint Peter's University","NJ",3,3572,"C"],[823,239,"Messiah University","PA",3,3373,"E"],[662,203,"Hope College","MI",3,3372,"O"],[522,448,"LeTourneau University","TX",3,3330,"E"],[760,364,"Gardner-Webb University","NC",3,3104,"O"],[631,235,"University of St. Francis","IL",3,3074,"C"],[630,229,"North Central College","IL",3,3003,"M"],[775,389,"Columbia International University","SC",3,2914,"E"],[820,247,"Gettysburg College","PA",3,2812,"M"],[628,369,"Union University","TN",3,2731,"O"],[513,285,"Benedictine College","KS",3,2535,"C"],[492,219,"Morningside University","IA",3,2500,"M"],[867,213,"Felician University","NJ",3,2427,"C"],[524,362,"John Brown University","AR",3,2350,"E"],[670,238,"Grace College","IN",3,2304,"E"],[765,352,"Lenoir-Rhyne University","NC",3,2256,"M"],[829,238,"Elizabethtown College","PA",3,2248,"M"],[35,256,"Dominican University of California","CA",3,1900,"C"],[553,409,"Ouachita Baptist University","AR",3,1858,"E"],[781,401,"Claflin University","SC",3,1852,"M"],[782,313,"Roanoke College","VA",3,1804,"M"],[688,220,"Hillsdale College","MI",3,1792,"O"],[698,219,"Adrian College","MI",3,1765,"M"],[459,513,"Texas Lutheran University","TX",3,1423,"M"],[855,216,"Centenary University","NJ",3,1398,"M"],[462,494,"Concordia University Texas","TX",3,1396,"O"],[63,348,"Westmont College","CA",3,1310,"E"],[737,346,"Tusculum University","TN",3,1303,"M"],[775,362,"Johnson C. Smith University","NC",3,1302,"M"],[539,243,"Simpson College","IA",3,1251,"M"],[682,294,"Hanover College","IN",3,1243,"M"],[722,260,"Ohio Dominican University","OH",3,1209,"C"],[550,242,"Central College","IA",3,1084,"O"],[575,270,"Culver-Stockton College","MO",3,1028,"M"],[526,292,"William Jewell College","MO",3,959,"O"],[473,449,"Southwestern Adventist University","TX",3,764,"E"],[609,448,"Millsaps College","MS",3,593,"M"],[103,389,"John Paul the Great Catholic University","CA",3,286,"C"],[711,337,"University of the Cumberlands","KY",1,22120,"O"],[674,254,"Indiana Wesleyan University","IN",1,16535,"E"],[780,528,"Southeastern University","FL",1,11510,"E"],[688,325,"Campbellsville University","KY",1,10836,"E"],[341,274,"Colorado Christian University","CO",1,9951,"E"],[850,236,"Eastern University","PA",1,8727,"O"],[821,569,"St. Thomas University","FL",2,7652,"C"],[822,570,"Barry University","FL",2,6825,"C"],[94,363,"Azusa Pacific University","CA",1,6272,"E"],[544,162,"Concordia University St. Paul","MN",1,5861,"O"],[595,304,"Missouri Baptist University","MO",1,5699,"E"],[74,94,"George Fox University","OR",1,4916,"E"],[556,294,"Central Methodist University","MO",2,4843,"M"],[635,226,"Concordia University Chicago","IL",1,4770,"E"],[98,397,"Point Loma Nazarene University","CA",1,4757,"E"],[745,383,"Anderson University","SC",1,4710,"E"],[508,511,"Houston Christian University","TX",1,4693,"E"],[631,195,"Concordia University Wisconsin","WI",1,4577,"E"],[689,331,"Lindsey Wilson University","KY",1,4193,"O"],[606,447,"Mississippi College","MS",1,4164,"E"],[826,268,"Marymount University","VA",2,4060,"C"],[776,179,"Niagara University","NY",2,4033,"C"],[798,411,"Charleston Southern University","SC",1,3832,"E"],[870,211,"University of Mount Saint Vincent","NY",2,3774,"C"],[93,374,"Concordia University Irvine","CA",1,3658,"E"],[543,159,"Bethel University","MN",1,3603,"E"],[609,448,"Belhaven University","MS",1,3600,"E"],[667,271,"Marian University","IN",2,3486,"C"],[480,254,"Concordia University Nebraska","NE",1,3479,"E"],[783,367,"Wingate University","NC",1,3458,"O"],[854,234,"Arcadia University","PA",2,3404,"M"],[699,377,"Southern Adventist University","TN",1,3360,"E"],[470,479,"University of Mary Hardin-Baylor","TX",1,3321,"E"],[626,201,"Carroll University","WI",2,3283,"M"],[542,161,"Augsburg University","MN",1,3249,"M"],[543,160,"University of Northwestern - St. Paul","MN",1,3234,"E"],[857,234,"Holy Family University","PA",2,3225,"C"],[666,356,"Trevecca Nazarene University","TN",1,3195,"E"],[705,244,"Ohio Northern University","OH",2,3140,"M"],[839,206,"Marywood University","PA",2,3124,"C"],[684,440,"Faulkner University","AL",1,3086,"E"],[732,384,"Toccoa Falls College (now University of Toccoa Falls)","GA",1,3067,"E"],[464,498,"St. Edward's University","TX",2,3033,"C"],[470,378,"Oklahoma City University","OK",2,2966,"M"],[793,237,"Saint Francis University","PA",2,2963,"C"],[659,222,"Andrews University","MI",2,2940,"O"],[474,328,"Newman University","KS",2,2939,"C"],[631,229,"Benedictine University","IL",2,2917,"C"],[749,375,"Bob Jones University","SC",2,2893,"O"],[679,306,"Bellarmine University","KY",2,2886,"C"],[84,355,"The Master's University","CA",2,2860,"O"],[793,499,"Bethune-Cookman University","FL",2,2853,"M"],[471,376,"Oklahoma Christian University","OK",2,2851,"E"],[634,209,"Carthage College","WI",2,2844,"M"],[391,405,"Wayland Baptist University","TX",2,2809,"E"],[93,56,"Pacific Lutheran University","WA",2,2797,"M"],[910,188,"Salve Regina University","RI",2,2785,"C"],[474,328,"Friends University","KS",2,2782,"O"],[900,160,"Rivier University","NH",2,2777,"C"],[41,261,"Saint Mary's College of California","CA",2,2734,"C"],[910,174,"Stonehill College","MA",2,2674,"C"],[779,184,"D'Youville University","NY",2,2556,"C"],[427,447,"McMurry University","TX",2,2556,"M"],[738,316,"University of Pikeville","KY",2,2547,"M"],[847,237,"Immaculata University","PA",2,2512,"C"],[474,441,"Texas Wesleyan University","TX",2,2487,"M"],[589,237,"St. Ambrose University","IA",2,2475,"C"],[689,213,"Spring Arbor University","MI",2,2468,"E"],[750,235,"University of Mount Union","OH",2,2461,"M"],[606,202,"Edgewood University","WI",2,2459,"C"],[835,238,"Lancaster Bible College","PA",2,2455,"O"],[70,101,"Willamette University","OR",2,2402,"M"],[607,304,"McKendree University","IL",2,2392,"M"],[486,195,"Augustana University","SD",2,2390,"M"],[797,308,"University of Lynchburg","VA",2,2316,"M"],[83,361,"Mount Saint Mary's University","CA",2,2312,"C"],[633,374,"Freed-Hardeman University","TN",2,2306,"O"],[696,284,"Mount St. Joseph University","OH",2,2265,"C"],[722,261,"Capital University","OH",2,2263,"M"],[97,45,"Seattle Pacific University","WA",2,2261,"E"],[863,216,"Drew University","NJ",2,2232,"M"],[834,209,"Misericordia University","PA",2,2200,"C"],[544,330,"Southwest Baptist University","MO",2,2199,"E"],[746,236,"Walsh University","OH",2,2192,"C"],[850,240,"Neumann University","PA",2,2174,"C"],[830,234,"Lebanon Valley College","PA",2,2146,"M"],[748,370,"North Greenville University","SC",2,2125,"O"],[707,207,"Madonna University","MI",2,2124,"C"],[547,338,"Evangel University","MO",2,2112,"E"],[826,354,"University of Mount Olive","NC",2,2109,"O"],[699,312,"Asbury University","KY",2,2100,"E"],[481,439,"University of Dallas","TX",2,2078,"C"],[869,208,"St. Thomas Aquinas College","NY",2,2037,"C"],[897,172,"Assumption University","MA",2,2037,"C"],[865,214,"Caldwell University","NJ",2,2005,"C"],[698,306,"Midway University","KY",2,2003,"M"],[482,261,"Doane University","NE",3,1985,"M"],[908,168,"Emmanuel College","MA",3,1983,"C"],[828,267,"Trinity Washington University","DC",3,1948,"C"],[836,211,"King's College","PA",3,1939,"C"],[531,176,"Gustavus Adolphus College","MN",3,1906,"M"],[766,537,"Eckerd College","FL",3,1893,"M"],[869,230,"Georgian Court University","NJ",3,1890,"C"],[60,244,"Jessup University","CA",2,1865,"E"],[728,385,"Piedmont University","GA",3,1857,"M"],[538,238,"Grand View University","IA",3,1856,"M"],[148,96,"Walla Walla University","WA",2,1855,"E"],[534,163,"Crown College","MN",1,1846,"E"],[811,358,"Methodist University","NC",3,1822,"M"],[529,445,"East Texas Baptist University","TX",2,1813,"E"],[833,256,"Notre Dame of Maryland University","MD",3,1788,"C"],[845,224,"Muhlenberg College","PA",3,1778,"M"],[676,245,"Huntington University","IN",2,1776,"E"],[164,158,"Northwest Nazarene University","ID",2,1774,"E"],[796,291,"Mary Baldwin University","VA",3,1772,"M"],[547,295,"Missouri Valley College","MO",3,1770,"M"],[681,240,"University of Saint Francis","IN",3,1763,"C"],[586,216,"University of Dubuque","IA",3,1757,"M"],[743,257,"Muskingum University","OH",3,1751,"M"],[776,390,"Columbia College","SC",3,1725,"M"],[69,95,"Linfield University","OR",3,1709,"M"],[669,198,"Cornerstone University","MI",2,1695,"E"],[387,419,"Lubbock Christian University","TX",2,1683,"E"],[826,299,"Virginia Union University","VA",2,1646,"O"],[796,175,"Roberts Wesleyan University","NY",2,1621,"E"],[547,338,"Drury University","MO",3,1615,"M"],[776,363,"Queens University of Charlotte","NC",3,1599,"M"],[100,369,"La Sierra University","CA",2,1574,"O"],[490,242,"Midland University","NE",3,1558,"M"],[519,301,"MidAmerica Nazarene University","KS",2,1538,"E"],[764,386,"Newberry College","SC",3,1521,"M"],[909,132,"Saint Joseph's College of Maine","ME",3,1454,"C"],[486,194,"University of Sioux Falls","SD",2,1450,"O"],[796,286,"Bridgewater College","VA",3,1448,"M"],[466,489,"Southwestern University","TX",1,1440,"M"],[555,244,"William Penn University","IA",3,1425,"M"],[795,564,"Ave Maria University","FL",3,1423,"C"],[196,395,"Arizona Christian University","AZ",2,1421,"O"],[869,208,"Dominican University New York","NY",3,1396,"C"],[87,57,"Saint Martin's University","WA",3,1390,"C"],[772,362,"Belmont Abbey College","NC",3,1388,"C"],[780,351,"Catawba College","NC",3,1376,"M"],[764,236,"Geneva College","PA",2,1366,"E"],[804,235,"Juniata College","PA",3,1321,"M"],[699,395,"Shorter University","GA",2,1318,"O"],[630,201,"Alverno College","WI",3,1317,"C"],[781,244,"Saint Vincent College","PA",3,1313,"C"],[752,330,"Emory & Henry University","VA",3,1311,"M"],[852,234,"Chestnut Hill College","PA",3,1288,"C"],[708,263,"Wittenberg University","OH",3,1285,"M"],[475,209,"Mount Marty University","SD",3,1284,"C"],[672,243,"Manchester University","IN",3,1276,"M"],[885,178,"Elms College","MA",3,1268,"C"],[746,237,"Malone University","OH",2,1256,"E"],[884,198,"Albertus Magnus College","CT",3,1239,"C"],[675,263,"Anderson University","IN",2,1228,"E"],[671,387,"Oakwood University","AL",2,1226,"O"],[707,367,"Tennessee Wesleyan University","TN",3,1198,"M"],[683,187,"Alma College","MI",3,1197,"M"],[668,199,"Rochester Christian University","MI",2,1193,"O"],[629,200,"Mount Mary University","WI",3,1182,"C"],[789,340,"Guilford College","NC",3,1180,"M"],[663,228,"Bethel University","IN",2,1167,"E"],[669,198,"Aquinas College","MI",3,1157,"C"],[229,236,"Westminster University","UT",3,1155,"M"],[563,386,"Hendrix College","AR",3,1110,"M"],[613,297,"Greenville University","IL",2,1104,"E"],[694,380,"Covenant College","GA",2,1100,"E"],[850,236,"Cairn University","PA",2,1097,"O"],[759,383,"Presbyterian College","SC",3,1095,"M"],[715,235,"Heidelberg University","OH",3,1091,"M"],[464,498,"Huston-Tillotson University","TX",1,1059,"M"],[665,355,"Fisk University","TN",3,1059,"M"],[627,223,"Judson University","IL",2,1058,"E"],[772,276,"West Virginia Wesleyan College","WV",3,1055,"M"],[481,338,"Southwestern College","KS",3,1041,"M"],[709,274,"Wilmington College","OH",3,1040,"M"],[300,130,"Rocky Mountain College","MT",3,1032,"M"],[798,283,"Eastern Mennonite University","VA",2,1027,"O"],[92,369,"Hope International University","CA",2,1025,"E"],[668,200,"Grace Christian University","MI",2,1017,"B"],[680,306,"Boyce College","KY",2,1015,"O"],[817,215,"Lycoming College","PA",3,1012,"M"],[742,379,"Southern Wesleyan University","SC",2,980,"E"],[720,354,"Johnson University","TN",2,978,"O"],[748,357,"Montreat College","NC",2,962,"E"],[457,261,"Hastings College","NE",3,956,"M"],[760,221,"Thiel College","PA",3,950,"M"],[491,217,"Briar Cliff University","IA",3,947,"C"],[651,482,"Spring Hill College","AL",3,919,"C"],[531,180,"Bethany Lutheran College","MN",2,899,"E"],[785,355,"Pfeiffer University","NC",3,889,"M"],[469,312,"McPherson College","KS",3,878,"M"],[567,394,"Philander Smith University","AR",3,866,"M"],[669,230,"Goshen College","IN",2,847,"O"],[707,269,"Wilberforce University","OH",3,838,"M"],[705,423,"LaGrange College","GA",3,813,"M"],[745,358,"Warren Wilson College","NC",3,791,"M"],[851,236,"Rosemont College","PA",3,781,"C"],[544,378,"University of the Ozarks","AR",3,778,"M"],[684,416,"Talladega College","AL",3,760,"M"],[772,522,"Saint Leo University","FL",1,9692,"C"],[627,470,"William Carey University","MS",1,5641,"O"],[876,215,"Molloy University","NY",2,5005,"C"],[669,485,"Pensacola Christian College","FL",1,4882,"O"],[870,216,"St. Joseph's University, New York","NY",2,3899,"C"],[424,120,"University of Mary","ND",2,3861,"C"],[702,374,"Lee University","TN",1,3714,"E"],[543,162,"St. Catherine University","MN",1,3651,"C"],[523,297,"Rockhurst University","MO",2,3577,"C"],[637,230,"Saint Xavier University","IL",2,3485,"C"],[73,88,"Pacific University","OR",2,3427,"M"],[511,307,"Ottawa University","KS",1,3365,"O"],[848,225,"DeSales University","PA",2,2972,"C"],[794,238,"Mount Aloysius College","PA",2,2955,"C"],[634,358,"Bethel University","TN",1,2936,"O"],[559,119,"College of St. Scholastica","MN",2,2930,"C"],[864,186,"Bard College","NY",2,2911,"M"],[702,427,"Point University","GA",2,2900,"E"],[523,300,"Avila University","MO",2,2768,"C"],[847,223,"Moravian University","PA",2,2745,"M"],[763,205,"Mercyhurst University","PA",2,2632,"C"],[724,384,"Truett McConnell University","GA",2,2615,"O"],[543,161,"Hamline University","MN",2,2565,"M"],[637,224,"North Park University","IL",2,2557,"E"],[905,168,"Regis College","MA",2,2517,"C"],[865,198,"Mount Saint Mary College","NY",2,2491,"C"],[172,62,"Whitworth University","WA",2,2459,"O"],[771,242,"Carlow University","PA",2,2419,"C"],[100,46,"Northwest University","WA",2,2405,"E"],[469,382,"Mid-America Christian University","OK",2,2397,"E"],[638,226,"Moody Bible Institute","IL",2,2341,"O"],[91,373,"Vanguard University","CA",2,2246,"E"],[468,378,"Southern Nazarene University","OK",2,2198,"E"],[770,239,"La Roche University","PA",2,2153,"C"],[576,186,"Viterbo University","WI",2,2094,"C"],[626,168,"St. Norbert College","WI",2,2032,"C"],[852,232,"Gwynedd Mercy University","PA",2,2017,"C"],[512,303,"Baker University","KS",2,2017,"M"],[869,218,"Wagner College","NY",2,2001,"M"],[448,516,"Our Lady of the Lake University","TX",3,1968,"C"],[885,187,"University of Saint Joseph","CT",3,1952,"C"],[95,364,"Los Angeles Pacific University","CA",2,1881,"E"],[852,310,"Virginia Wesleyan University","VA",3,1853,"M"],[482,449,"Southwestern Assemblies of God University","TX",2,1794,"O"],[609,383,"Christian Brothers University","TN",3,1772,"C"],[699,367,"Bryan College","TN",2,1701,"O"],[825,295,"Randolph-Macon College","VA",3,1687,"M"],[729,250,"Mount Vernon Nazarene University","OH",2,1671,"E"],[427,446,"Hardin-Simmons University","TX",2,1665,"E"],[481,381,"Oklahoma Baptist University","OK",2,1569,"E"],[678,306,"Spalding University","KY",3,1553,"C"],[651,479,"University of Mobile","AL",2,1545,"O"],[548,352,"College of the Ozarks","MO",2,1508,"E"],[556,212,"Wartburg College","IA",3,1483,"M"],[517,292,"University of Saint Mary","KS",3,1462,"C"],[722,377,"Young Harris College","GA",3,1457,"M"],[724,269,"Ohio Christian University","OH",2,1431,"O"],[840,231,"Albright College","PA",3,1380,"M"],[456,117,"University of Jamestown","ND",3,1376,"M"],[810,184,"Keuka College","NY",3,1366,"M"],[700,304,"Georgetown College","KY",2,1345,"O"],[761,318,"Bluefield University","VA",2,1332,"E"],[715,333,"Union College","KY",3,1324,"M"],[863,129,"Saint Michael's College","VT",3,1323,"C"],[845,224,"Cedar Crest College","PA",3,1290,"M"],[622,184,"Marian University","WI",3,1246,"C"],[826,342,"Barton College","NC",3,1235,"M"],[710,393,"Reinhardt University","GA",3,1233,"M"],[571,228,"Coe College","IA",3,1195,"M"],[586,216,"Loras College","IA",3,1189,"C"],[777,475,"Edward Waters University","FL",3,1177,"M"],[441,464,"Howard Payne University","TX",2,1170,"E"],[646,280,"Saint Mary-of-the-Woods College","IN",3,1159,"C"],[747,335,"King University","TN",2,1157,"E"],[717,359,"Maryville College","TN",3,1136,"M"],[71,103,"Corban University","OR",2,1136,"E"],[362,435,"University of the Southwest","NM",2,1130,"E"],[753,436,"Brewton-Parker College","GA",2,1119,"O"],[745,342,"Milligan University","TN",2,1105,"E"],[575,229,"Cornell College","IA",3,1086,"M"],[163,155,"College of Idaho","ID",3,1085,"M"],[614,500,"Dillard University","LA",3,1080,"M"],[781,185,"Trocaire College","NY",3,1069,"C"],[629,200,"Wisconsin Lutheran College","WI",2,1027,"E"],[470,302,"Kansas Wesleyan University","KS",3,1021,"M"],[793,192,"Houghton University","NY",2,1014,"E"],[54,199,"Simpson University","CA",2,992,"E"],[542,161,"North Central University","MN",1,992,"E"],[682,209,"University of Olivet","MI",3,979,"M"],[39,244,"Pacific Union College","CA",2,974,"O"],[781,187,"Hilbert College","NY",3,968,"C"],[627,393,"Blue Mountain Christian University","MS",2,968,"O"],[791,340,"Greensboro College","NC",3,967,"M"],[586,215,"Clarke University","IA",3,962,"C"],[617,198,"Maranatha Baptist University","WI",2,960,"B"],[814,338,"The College at Southeastern","NC",2,957,"O"],[736,390,"Emmanuel University","GA",2,950,"E"],[780,351,"Livingstone College","NC",3,936,"M"],[567,472,"Louisiana Christian University","LA",2,936,"O"],[750,387,"Erskine College","SC",2,912,"E"],[753,344,"Lees-McRae College","NC",3,910,"M"],[787,531,"Warner University","FL",2,900,"E"],[656,320,"Kentucky Wesleyan College","KY",3,887,"M"],[783,341,"Carolina University","NC",2,880,"B"],[499,350,"Oklahoma Wesleyan University","OK",2,880,"O"],[741,367,"Brevard College","NC",3,875,"M"],[862,216,"Saint Elizabeth University","NJ",3,871,"C"],[797,307,"Randolph College","VA",3,816,"M"],[616,502,"University of Holy Cross","LA",3,802,"C"],[498,247,"College of Saint Mary","NE",3,786,"C"],[529,446,"Wiley University","TX",3,783,"M"],[760,252,"Wheeling University","WV",3,774,"C"],[263,86,"University of Providence","MT",3,763,"C"],[64,121,"Bushnell University","OR",2,761,"E"]]};
+const MODEL=[["F27",4,93,48,24,285],["S28",6,105,54,27,464],["F28",13,163,82,41,1097],["S29",17,191,96,48,1453],["F29",27,281,142,71,2437],["S30",31,317,160,80,2776],["F30",43,433,218,109,3816],["S31",47,473,238,119,4158],["F31",59,599,300,150,5129],["S32",63,639,320,160,5444],["F32",73,757,380,190,6347],["S33",77,797,400,200,6667]];
+
+(function () {
+  const slides = [...document.querySelectorAll(".slide")];
+  const N = slides.length;
+  document.getElementById("tot").textContent = String(N).padStart(2, "0");
+  let cur = 0;
+
+  // dots grouped by chapter
+  const dots = document.getElementById("dots"); const groups = {};
+  slides.forEach((s, i) => {
+    const ch = s.dataset.ch;
+    if (!groups[ch]) {
+      if (Object.keys(groups).length) { const sep = document.createElement("span"); sep.className = "sep"; dots.appendChild(sep); }
+      groups[ch] = document.createElement("div"); groups[ch].className = "grp"; dots.appendChild(groups[ch]);
+    }
+    const d = document.createElement("button"); d.className = "dot"; d.type = "button"; d.setAttribute("aria-label", "Go to slide " + (i + 1) + ": " + (s.getAttribute("aria-label") || ""));
+    d.addEventListener("click", () => go(i)); groups[ch].appendChild(d);
+  });
+  const dotEls = [...dots.querySelectorAll(".dot")];
+
+  function go(i, fromHash) {
+    i = Math.max(0, Math.min(N - 1, i));
+    if (i === cur && !fromHash) return;
+    const rev = i < cur;
+    slides[cur].classList.remove("on", "go", "rev");
+    cur = i; const s = slides[cur];
+    s.classList.add("on", "go"); s.classList.toggle("rev", rev);
+    s.scrollTop = 0;
+    document.getElementById("cur").textContent = String(cur + 1).padStart(2, "0");
+    dotEls.forEach((d, k) => { d.classList.toggle("on", k === cur); d.setAttribute("aria-current", k === cur ? "step" : "false"); });
+    Object.values(groups).forEach(g => g.classList.toggle("on", g.contains(dotEls[cur])));
+    document.getElementById("back").disabled = cur === 0;
+    document.getElementById("next").disabled = cur === N - 1;
+    try { history.replaceState(null, "", "#" + (cur + 1)); } catch (e) {}
+    onEnter(s);
+  }
+  document.getElementById("back").addEventListener("click", () => go(cur - 1));
+  document.getElementById("next").addEventListener("click", () => go(cur + 1));
+  document.querySelectorAll("[data-goto]").forEach(b => b.addEventListener("click", () => go(+b.dataset.goto)));
+  document.addEventListener("keydown", e => {
+    if (e.target.matches("input")) return;
+    if (["ArrowRight", "PageDown", " ", "ArrowDown"].includes(e.key)) { e.preventDefault(); go(cur + 1); }
+    if (["ArrowLeft", "PageUp", "ArrowUp"].includes(e.key)) { e.preventDefault(); go(cur - 1); }
+    if (e.key === "Home") go(0); if (e.key === "End") go(N - 1);
+  });
+  let wheelLock = 0;
+  window.addEventListener("wheel", e => {
+    if (window.innerWidth <= 860) return;
+    const now = Date.now(); if (now < wheelLock || Math.abs(e.deltaY) < 24) return;
+    wheelLock = now + 900; go(cur + (e.deltaY > 0 ? 1 : -1));
+  }, { passive: true });
+  let tx = null, ty = null;
+  window.addEventListener("touchstart", e => { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
+  window.addEventListener("touchend", e => {
+    if (tx === null) return; const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) go(cur + (dx < 0 ? 1 : -1)); tx = null;
+  }, { passive: true });
+
+  // ---------- count-ups ----------
+  function countUp(el) {
+    const end = +el.dataset.count, pre = el.dataset.pre || "", post = el.dataset.post || "";
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) { el.textContent = pre + end + post; return; }
+    const t0 = performance.now(), dur = 1100;
+    const step = t => { const k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3); el.textContent = pre + Math.round(end * e).toLocaleString() + post; if (k < 1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  }
+
+  // ---------- map ----------
+  const NS = "http://www.w3.org/2000/svg", map = document.getElementById("map"), tip = document.getElementById("tip");
+  const col = { 1: "#8C6A2F", 2: "#141414", 3: "#A39D93" }, rad = { 1: 6.5, 2: 4.2, 3: 3.6 };
+  const cat = { E: "Evangelical (CCCU)", O: "Evangelical", B: "Bible college", M: "Mainline Protestant", C: "Catholic" };
+  map.innerHTML = `<path d="${MAP.nation}" fill="#E2DCCF"/><path d="${MAP.borders}" fill="none" stroke="#F7F5F0" stroke-width="1.4"/>`;
+  const g = document.createElementNS(NS, "g"); map.appendChild(g);
+  const sorted = MAP.pts.slice().sort((a, b) => b[4] - a[4]);
+  const circles = sorted.map(p => {
+    const c = document.createElementNS(NS, "circle");
+    c.setAttribute("cx", p[0]); c.setAttribute("cy", p[1]); c.setAttribute("r", rad[p[4]]); c.setAttribute("fill", col[p[4]]);
+    if (p[4] === 1) { c.setAttribute("stroke", "#F7F5F0"); c.setAttribute("stroke-width", "1.5"); }
+    c.style.transition = "opacity .3s, r .2s"; c.dataset.w = p[4]; c.__p = p; g.appendChild(c); return c;
+  });
+  const star = document.createElementNS(NS, "path");
+  star.setAttribute("d", "M0 -20 5 -5 20 0 5 5 0 20 -5 5 -20 0 -5 -5Z"); star.setAttribute("transform", `translate(${MAP.acu[0]},${MAP.acu[1]})`);
+  star.setAttribute("fill", "#141414"); star.setAttribute("stroke", "#F7F5F0"); star.setAttribute("stroke-width", "2"); map.appendChild(star);
+  const wrap = map.parentElement;
+  g.addEventListener("pointermove", e => {
+    const c = e.target; if (!c.__p || c.style.opacity === "0.08") return; const p = c.__p;
+    tip.innerHTML = `<b>${p[2]}</b><span>${p[3]} · ${cat[p[6]]} · ${p[5] ? p[5].toLocaleString() + " students" : "enrollment n/a"} · Wave ${p[4]}</span>`;
+    const r = wrap.getBoundingClientRect(); let x = e.clientX - r.left + 14, y = e.clientY - r.top + 14;
+    if (x > r.width - 270) x -= 290; tip.style.left = x + "px"; tip.style.top = y + "px"; tip.style.opacity = 1;
+  });
+  g.addEventListener("pointerleave", () => tip.style.opacity = 0);
+  function filterMap(w) {
+    document.querySelectorAll("#mapchips .chip").forEach(b => b.classList.toggle("on", +b.dataset.f === w));
+    circles.forEach(c => c.style.opacity = (!w || +c.dataset.w === w) ? "1" : "0.08");
+  }
+  document.querySelectorAll("#mapchips .chip").forEach(b => b.addEventListener("click", () => filterMap(+b.dataset.f)));
+  document.querySelectorAll(".wave").forEach(b => b.addEventListener("click", () => { filterMap(+b.dataset.wave); go(8); }));
+
+  // ---------- timeline ----------
+  const tl = document.getElementById("tl");
+  const X = y => ((y - 2027) / 6.6 * 100) + "%";
+  let h = "";
+  for (let y = 2027; y <= 2033; y++) h += `<span class="yr" style="left:${X(y)}">${y}</span><span class="tick" style="left:${X(y)}"></span>`;
+  [[2027, 2029.5, "Wave 1 · 41 founding targets", "#8C6A2F", "#F7F5F0", 56], [2028.5, 2031.5, "Wave 2 · 164 schools", "#141414", "#F7F5F0", 128], [2030.5, 2033.45, "Wave 3 · 159 schools", "#DCD5C8", "#141414", 200]]
+    .forEach((w, i) => h += `<div class="wv" style="--i:${i};left:${X(w[0])};width:calc(${X(w[1])} - ${X(w[0])});top:${w[5]}px;background:${w[3]};color:${w[4]}">${w[2]}</div>`);
+  [[2027.7, 3, "Fall ’27"], [2028.7, 12, "Fall ’28"], [2029.7, 26, "Fall ’29"], [2030.7, 42, "Fall ’30"], [2031.7, 58, "Fall ’31"], [2032.7, 72, "Fall ’32"], [2033.35, 76, "Spr ’33"]]
+    .forEach((m, i) => h += `<div class="ms" style="--i:${i};left:${X(m[0])};top:270px"><i>${m[1]}</i><span>${m[2]}</span></div>`);
+  tl.innerHTML = h;
+
+  // ---------- growth chart ----------
+  const ch = document.getElementById("chart"), ro = document.getElementById("readout");
+  const W = 1200, H = 460, L = 70, R = 1110, T = 16, B = 410, n = MODEL.length;
+  const xs = MODEL.map((_, i) => L + i * (R - L) / (n - 1));
+  const S = [
+    { k: 5, name: "Run-rate revenue", color: "#8C6A2F", w: 5, max: 7000, fmt: v => "$" + (v / 1000).toFixed(1) + "M", axis: "L" },
+    { k: 1, name: "Campuses", color: "#3E6A8A", w: 3, max: 112, fmt: v => v, axis: "R2" },
+    { k: 2, name: "College students", color: "#141414", w: 3, max: 1400, fmt: v => v.toLocaleString(), axis: "R" },
+    { k: 3, name: "Builder Scholars", color: "#141414", w: 2.5, max: 1400, fmt: v => v, axis: "R", dash: "8 7" },
+    { k: 4, name: "Projects", color: "#A39D93", w: 3, max: 1400, fmt: v => v, axis: "R" }
+  ];
+  const yv = (v, m) => B - v / m * (B - T);
+  let svg = "";
+  for (let k = 0; k <= 7; k++) {
+    const y = yv(k, 7);
+    svg += `<line x1="${L}" x2="${R}" y1="${y}" y2="${y}" stroke="#DDD7CB"/>`;
+    svg += `<text x="${L - 10}" y="${y + 5}" text-anchor="end" font-size="15" fill="#8C6A2F" font-family="Public Sans, Arial, sans-serif">$${k}M</text>`;
+    svg += `<text x="${R + 10}" y="${y + 5}" font-size="15" fill="#6E6A64" font-family="Public Sans, Arial, sans-serif">${(k * 200).toLocaleString()}</text>`;
+    svg += `<text x="${R + 62}" y="${y + 5}" font-size="15" fill="#3E6A8A" font-family="Public Sans, Arial, sans-serif">${k * 16}</text>`;
+  }
+  MODEL.forEach((r, i) => { if (i % 2 === 0) svg += `<text x="${xs[i]}" y="${B + 30}" text-anchor="middle" font-size="15" fill="#6E6A64" font-family="Public Sans, Arial, sans-serif">${r[0].replace("F", "Fall ’").replace("S", "Spr ’")}</text>`; });
+  svg += `<polygon points="${L},${B} ${MODEL.map((r, i) => xs[i] + "," + yv(r[5], 7000)).join(" ")} ${R},${B}" fill="#8C6A2F" fill-opacity=".08"/>`;
+  S.slice().reverse().forEach(s => {
+    const pts = MODEL.map((r, i) => xs[i] + "," + yv(r[s.k], s.max)).join(" ");
+    svg += `<g class="ser" data-k="${s.k}"><polyline points="${pts}" fill="none" stroke="${s.color}" stroke-width="${s.w}" stroke-linejoin="round" ${s.dash ? `stroke-dasharray="${s.dash}"` : ""} pathLength="1" class="ln"/><circle cx="${xs[n - 1]}" cy="${yv(MODEL[n - 1][s.k], s.max)}" r="${s.w + 2.5}" fill="${s.color}"/></g>`;
+  });
+  svg += `<line id="cross" x1="0" x2="0" y1="${T}" y2="${B}" stroke="#141414" stroke-width="1" opacity="0"/><rect x="${L}" y="${T}" width="${R - L}" height="${B - T}" fill="transparent" id="hit"/>`;
+  ch.innerHTML = svg;
+  const legend = document.getElementById("legend");
+  S.forEach(s => {
+    const b = document.createElement("button"); b.className = "chip"; b.type = "button";
+    b.innerHTML = `<i style="background:${s.color}${s.dash ? ";opacity:.6" : ""}"></i>${s.name} · ${s.fmt(MODEL[n - 1][s.k])}`;
+    b.addEventListener("click", () => { b.classList.toggle("off"); ch.querySelector(`.ser[data-k="${s.k}"]`).style.display = b.classList.contains("off") ? "none" : ""; });
+    legend.appendChild(b);
+  });
+  const hit = ch.querySelector("#hit"), cross = ch.querySelector("#cross");
+  hit.addEventListener("pointermove", e => {
+    const pt = ch.createSVGPoint(); pt.x = e.clientX; pt.y = e.clientY; const p = pt.matrixTransform(ch.getScreenCTM().inverse());
+    const i = Math.max(0, Math.min(n - 1, Math.round((p.x - L) / ((R - L) / (n - 1))))); const r = MODEL[i];
+    cross.setAttribute("x1", xs[i]); cross.setAttribute("x2", xs[i]); cross.setAttribute("opacity", ".35");
+    ro.textContent = `${r[0].replace("F", "Fall 20").replace("S", "Spring 20")} · $${(r[5] / 1000).toFixed(2)}M run-rate · ${r[1]} campuses · ${r[2].toLocaleString()} students · ${r[3]} scholars · ${r[4]} projects`;
+    ro.style.opacity = 1;
+  });
+  hit.addEventListener("pointerleave", () => { ro.style.opacity = 0; cross.setAttribute("opacity", "0"); });
+  function drawChart() {
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    ch.querySelectorAll(".ln").forEach((l, i) => { l.style.transition = "none"; l.style.strokeDasharray = l.getAttribute("stroke-dasharray") ? l.getAttribute("stroke-dasharray") : "1 1"; if (!l.getAttribute("stroke-dasharray")) { l.style.strokeDashoffset = "1"; void l.getBoundingClientRect(); l.style.transition = `stroke-dashoffset 1.6s cubic-bezier(.3,.7,.2,1) ${i * 120 + 200}ms`; l.style.strokeDashoffset = "0"; } });
+  }
+
+  // ---------- calculator ----------
+  const c1 = document.getElementById("c1"), c2 = document.getElementById("c2"), c3 = document.getElementById("c3");
+  const money = v => v >= 1e6 ? "$" + (v / 1e6).toFixed(1) + "M" : "$" + Math.round(v / 1000) + "k";
+  function calc() {
+    const lic = +c1.value * 61000, seat = +c1.value * +c2.value * +c3.value * 2;
+    document.getElementById("o1").textContent = c1.value; document.getElementById("o2").textContent = c2.value; document.getElementById("o3").textContent = "$" + (+c3.value).toLocaleString();
+    document.getElementById("lic").textContent = money(lic); document.getElementById("seat").textContent = money(seat); document.getElementById("tot2").textContent = money(lic + seat);
+  }
+  [c1, c2, c3].forEach(c => c.addEventListener("input", calc)); calc();
+
+  function onEnter(s) {
+    s.querySelectorAll("[data-count]").forEach(countUp);
+    if (s.querySelector("#chart")) drawChart();
+  }
+
+  // start
+  const start = parseInt((location.hash || "").replace("#", ""), 10);
+  dotEls[0].classList.add("on"); Object.values(groups)[0].classList.add("on");
+  document.getElementById("back").disabled = true;
+  if (start > 1 && start <= N) go(start - 1, true);
+})();
+</script>
+</body>
+</html>
+
+</body></html>
