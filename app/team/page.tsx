@@ -76,7 +76,7 @@ export default function TeamPage() {
 
         <Group title="Advisors" text="Founders, investors and operators who advise the studio and the companies it works with.">
           {/* Columns, not a grid: names run down each column, then to the next. */}
-          <ul className="columns-1 gap-x-8 sm:columns-2 lg:columns-4">
+          <ul className="columns-1 gap-x-8 sm:columns-2 lg:columns-4 xl:columns-5">
             {ADVISORS.map((a) => (
               <li
                 key={a.name}
