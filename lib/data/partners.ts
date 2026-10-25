@@ -24,6 +24,7 @@ const S = '/images/builder-scholars/schools/'
 export const VC_FIRMS: PartnerEntry[] = [
   { name: 'Discipulus Ventures', href: 'https://www.discipulusventures.com' },
   { name: 'Capital Factory', href: 'https://www.capitalfactory.com' },
+  { name: 'Overmatch', href: 'https://www.overmatch.vc' },
   { name: "Sovereign's Capital", href: 'https://sovereignscapital.com', image: `${P}sovereigns-capital-2.png` },
   { name: 'Wave Ventures', href: 'https://www.waveventures.com', image: `${P}wave-ventures-2.png` },
   { name: 'Eagle Venture Fund', href: 'https://www.eagleventurefund.com', image: `${P}eagle-venture-fund.jpg` },
