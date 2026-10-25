@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import { ContactForm } from '@/components/site/ContactForm'
-import { Container, Label, PageIntro, Rule } from '@/components/site/Section'
+import { Container, Label, Rule } from '@/components/site/Section'
 import {
   HIGH_SCHOOLS,
   NETWORK,
@@ -19,27 +19,22 @@ export const metadata: Metadata = {
 function Section({
   index,
   title,
-  text,
+  first,
   children,
 }: {
   index: string
   title: string
-  text: string
+  first?: boolean
   children: React.ReactNode
 }) {
   return (
     <section className="pb-20 sm:pb-28">
-      <Rule className="mb-10" />
-      <div className="mb-10 grid gap-4 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:items-end lg:gap-20">
-        <div>
-          <Label className="mb-4">{index}</Label>
-          <h2 data-reveal-item className="text-[clamp(2rem,4vw,3.2rem)] leading-[1]">
-            {title}
-          </h2>
-        </div>
-        <p data-reveal-item style={{ '--d': 1 } as React.CSSProperties} className="max-w-[52ch] text-[1rem] leading-[1.65]">
-          {text}
-        </p>
+      {!first && <Rule className="mb-10" />}
+      <div className="mb-10">
+        <Label className="mb-4">{index}</Label>
+        <h2 data-reveal-item className="text-[clamp(2rem,4vw,3.2rem)] leading-[1]">
+          {title}
+        </h2>
       </div>
       {children}
     </section>
@@ -99,18 +94,13 @@ function TileGrid({ items }: { items: PartnerEntry[] }) {
 export default function PartnersPage() {
   return (
     <main>
-      <PageIntro label="Partners" title="Partners">
-        <p>
-          Venture firms, organizations, universities and high schools that work with West Ventures,
-          and the wider network the studio is connected to.
-        </p>
-      </PageIntro>
+      <h1 className="sr-only">Partners</h1>
 
-      <Container>
+      <Container className="pt-[calc(124px+env(safe-area-inset-top))] sm:pt-[150px]">
         <Section
+          first
           index="01"
           title="Venture firms"
-          text="Firms that bring portfolio companies to the studio, support its events, or invest alongside it."
         >
           <TileGrid items={VC_FIRMS} />
         </Section>
@@ -118,7 +108,6 @@ export default function PartnersPage() {
         <Section
           index="02"
           title="Organizations"
-          text="Organizations the studio partners with on programs, events, distribution and recruiting."
         >
           <TileGrid items={ORGANIZATIONS} />
         </Section>
@@ -126,7 +115,6 @@ export default function PartnersPage() {
         <Section
           index="03"
           title="Universities"
-          text="Universities that host the studio’s work or carry course credit for it."
         >
           <ul className="grid gap-3 md:grid-cols-2">
             {UNIVERSITIES.map((u) => (
@@ -153,7 +141,6 @@ export default function PartnersPage() {
         <Section
           index="04"
           title="High schools"
-          text="Partner schools whose teachers, counselors and principals nominate Builder Scholars. Each school may nominate up to three students per academic year."
         >
           <TileGrid items={HIGH_SCHOOLS} />
         </Section>
@@ -161,7 +148,6 @@ export default function PartnersPage() {
         <Section
           index="05"
           title="Network"
-          text="Organizations in the ecosystem the studio is connected to but not formally partnered with."
         >
           <ul className="columns-1 gap-x-8 sm:columns-2 lg:columns-4">
             {NETWORK.map((n) => (
@@ -193,10 +179,6 @@ export default function PartnersPage() {
               <h2 data-reveal-item className="text-[clamp(2rem,4vw,3.2rem)] leading-[1]">
                 Partnership inquiry
               </h2>
-              <p data-reveal-item style={{ '--d': 1 } as React.CSSProperties} className="mt-6 max-w-[44ch] text-[1rem] leading-[1.65]">
-                For venture firms, organizations, universities and high schools interested in
-                partnering with the studio.
-              </p>
             </div>
             <div data-reveal-item style={{ '--d': 2 } as React.CSSProperties}>
               <ContactForm persona="Partner" />
