@@ -111,8 +111,8 @@ export default function HomePage() {
             </Link>
           </div>
           <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {VENTURES.map((v, i) => (
-              <li key={v.slug} data-reveal-item style={d(i)}>
+            {VENTURES.map((v) => (
+              <li key={v.slug} data-reveal-item data-reveal-auto>
                 <Link
                   href={`/ventures#${v.slug}`}
                   className="group flex h-full min-h-[230px] flex-col justify-between gap-8 rounded-[22px] border border-line bg-paper p-6 transition-[background-color,border-color,transform,box-shadow] duration-500 ease-[var(--ease-out-soft)] hover:-translate-y-1 hover:border-transparent hover:bg-panel hover:shadow-[var(--shadow)] sm:p-7"
@@ -128,7 +128,7 @@ export default function HomePage() {
                 </Link>
               </li>
             ))}
-            <li data-reveal-item style={d(VENTURES.length)} className="hidden lg:block">
+            <li data-reveal-item data-reveal-auto className="hidden lg:block">
               <div className="flex h-full min-h-[230px] flex-col justify-end rounded-[22px] border border-dashed border-line p-7">
                 <p className="text-[0.95rem] leading-[1.55]">
                   About six new joint ventures a year. Operators with an opportunity can contact the studio.

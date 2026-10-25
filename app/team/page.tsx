@@ -8,8 +8,6 @@ export const metadata: Metadata = {
   description: 'West Ventures leadership, student fellows, board and advisors.',
 }
 
-const d = (n: number) => ({ '--d': n % 8 }) as React.CSSProperties
-
 function Group({
   index,
   title,
@@ -48,8 +46,8 @@ export default function TeamPage() {
       <Container>
         <Group index="01" title="Leadership" count={LEADERSHIP.length}>
           <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-4 sm:gap-x-5 lg:grid-cols-5">
-            {LEADERSHIP.map((p, i) => (
-              <div key={p.name} data-reveal-item style={d(i)}>
+            {LEADERSHIP.map((p) => (
+              <div key={p.name} data-reveal-item data-reveal-auto>
                 <PersonCard person={p} size="sm" />
               </div>
             ))}
@@ -58,8 +56,8 @@ export default function TeamPage() {
 
         <Group index="02" title="Board" count={BOARD.length}>
           <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-4 sm:gap-x-5 lg:grid-cols-5">
-            {BOARD.map((p, i) => (
-              <div key={p.name} data-reveal-item style={d(i)}>
+            {BOARD.map((p) => (
+              <div key={p.name} data-reveal-item data-reveal-auto>
                 <PersonCard person={p} size="sm" />
               </div>
             ))}
@@ -68,8 +66,8 @@ export default function TeamPage() {
 
         <Group index="03" title="Student Fellows" count={FELLOWS.length}>
           <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-4 sm:gap-x-5 lg:grid-cols-5">
-            {FELLOWS.map((p, i) => (
-              <div key={p.name} data-reveal-item style={d(i)}>
+            {FELLOWS.map((p) => (
+              <div key={p.name} data-reveal-item data-reveal-auto>
                 <PersonCard person={p} size="sm" />
               </div>
             ))}
@@ -78,11 +76,11 @@ export default function TeamPage() {
 
         <Group index="04" title="Advisors" count={ADVISORS.length}>
           <ul className="grid grid-cols-1 gap-x-8 sm:grid-cols-2 lg:grid-cols-4">
-            {ADVISORS.map((a, i) => (
+            {ADVISORS.map((a) => (
               <li
                 key={a.name}
                 data-reveal-item
-                style={d(i)}
+                data-reveal-auto
                 className="flex min-h-[56px] items-center justify-between gap-3 border-b border-line py-2.5"
               >
                 <span className="text-[1rem] text-ink">{a.name}</span>

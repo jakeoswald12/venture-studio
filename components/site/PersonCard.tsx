@@ -40,7 +40,7 @@ function Portrait({ person, sizes }: { person: Person; sizes: string }) {
           alt={person.name}
           fill
           sizes={sizes}
-          className="object-cover grayscale-[15%] transition-[transform,filter] duration-[1200ms] ease-[var(--ease-out-soft)] group-hover:scale-[1.035] group-hover:grayscale-0"
+          className="object-cover grayscale-[15%] transition-[filter] duration-[1200ms] ease-[var(--ease-out-soft)] group-hover:grayscale-0"
           style={{ objectPosition: person.photoPosition ?? 'center' }}
         />
       ) : (
