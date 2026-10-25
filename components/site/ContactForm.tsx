@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { PERSONAS, PERSONA_LABELS, STAGES, type FormVariant, type Persona } from '@/lib/contact'
+import { PERSONAS, PERSONA_LABELS, type FormVariant, type Persona } from '@/lib/contact'
 import { CONTACT_EMAIL } from './nav'
 
 type Status = 'idle' | 'sending' | 'sent' | 'error'
@@ -53,9 +53,8 @@ export function ContactForm({ variant = 'general' }: { variant?: FormVariant }) 
           `Name: ${name}`,
           `Email: ${payload.email}`,
           payload.phone && `Phone: ${payload.phone}`,
-          payload.orgName && `${isVenture ? 'Company or idea' : 'Organization'}: ${payload.orgName}`,
+          payload.orgName && `Organization: ${payload.orgName}`,
           payload.orgWebsite && `Website: ${payload.orgWebsite}`,
-          payload.stage && `Stage: ${payload.stage}`,
           '',
           payload.message,
         ].filter((l): l is string => typeof l === 'string')
@@ -135,7 +134,7 @@ export function ContactForm({ variant = 'general' }: { variant?: FormVariant }) 
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor={`${variant}-org`} className={label}>
-            {isVenture ? 'Company or idea name' : 'Organization name'}
+            Organization name
           </label>
           <input
             id={`${variant}-org`}
@@ -147,31 +146,16 @@ export function ContactForm({ variant = 'general' }: { variant?: FormVariant }) 
         </div>
         <div>
           <label htmlFor={`${variant}-site`} className={label}>
-            {isVenture ? 'Website (if any)' : 'Organization website'}
+            Organization website
           </label>
           <input id={`${variant}-site`} name="orgWebsite" type="text" inputMode="url" placeholder="https://" autoComplete="url" className={field} />
         </div>
       </div>
 
-      {isVenture && (
-        <div>
-          <label htmlFor="venture-stage" className="sr-only">Stage</label>
-          <select id="venture-stage" name="stage" required defaultValue="" className={select} style={selectStyle}>
-            <option value="" disabled>
-              Stage…
-            </option>
-            {STAGES.map((s) => (
-              <option key={s} value={s}>
-                {s}
-              </option>
-            ))}
-          </select>
-        </div>
-      )}
 
       <div>
         <label htmlFor={`${variant}-message`} className={label}>
-          {isVenture ? 'Describe the company or idea, and what you need built' : 'Message'}
+          Message
         </label>
         <textarea id={`${variant}-message`} name="message" required rows={5} className={`${field} resize-y`} />
       </div>

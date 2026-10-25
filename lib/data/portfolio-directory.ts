@@ -138,6 +138,60 @@ export interface PortfolioStudent {
 }
 
 const ALL_COMPANIES: PortfolioCompany[] = [
+  // Added for the West Ventures site. Descriptors and links still needed for most.
+  {
+    slug: 'energy-outlet',
+    name: 'Energy Outlet',
+    engagements: [],
+  },
+  {
+    slug: 'stratified-insight',
+    name: 'Stratified Insight',
+    engagements: [],
+  },
+  {
+    slug: 'build-array',
+    name: 'Build Array',
+    engagements: [],
+  },
+  {
+    slug: 'noble-joe-coffee',
+    name: 'Noble Joe Coffee',
+    descriptor: 'Coffee',
+    engagements: [],
+  },
+  {
+    slug: 'fundify',
+    name: 'Fundify',
+    descriptor: 'Startup Funding Platform',
+    engagements: [],
+  },
+  {
+    slug: 'importal',
+    name: 'Importal',
+    engagements: [],
+  },
+  {
+    slug: 'the-golf-house',
+    name: 'The Golf House',
+    engagements: [],
+  },
+  {
+    slug: 'square-cow-movers',
+    name: 'Square Cow Movers',
+    descriptor: 'Moving Company',
+    engagements: [],
+  },
+  {
+    slug: 'parks-pro',
+    name: 'Parks Pro',
+    engagements: [],
+  },
+  {
+    slug: 'rad-energy',
+    name: 'Rad Energy',
+    engagements: [],
+  },
   // Studio joint ventures (added for the West Ventures site).
   {
     slug: 'unify',

@@ -38,7 +38,6 @@ export async function POST(req: Request) {
   const phone = clean(body.phone, 50)
   const orgName = clean(body.orgName, 200)
   const orgWebsite = clean(body.orgWebsite, 300)
-  const stage = clean(body.stage, 100)
   const message = clean(body.message, 5000)
   const name = `${firstName} ${lastName}`.trim()
 
@@ -66,9 +65,8 @@ export async function POST(req: Request) {
     ['Name', name],
     ['Email', email],
     ['Phone', phone || '—'],
-    [variant === 'venture' ? 'Company or idea' : 'Organization', orgName || '—'],
+    ['Organization', orgName || '—'],
     ['Website', orgWebsite || '—'],
-    ...(variant === 'venture' ? ([['Stage', stage || '—']] as [string, string][]) : []),
   ]
   const html = `<table cellpadding="6" style="font-family:Arial,sans-serif;font-size:14px">${rows
     .map(([k, v]) => `<tr><td style="color:#6e6a64">${k}</td><td>${esc(v)}</td></tr>`)

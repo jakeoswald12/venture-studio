@@ -9,8 +9,6 @@ export const PERSONA_LABELS: Record<Persona, string> = {
   Founder: 'Founder',
 }
 
-export const STAGES = ['Idea', 'Building, no revenue', 'Revenue', 'Raising capital'] as const
-
 /** general: homepage. partner: /partners. venture: /ventures startup submissions. */
 export type FormVariant = 'general' | 'partner' | 'venture'
 
@@ -23,7 +21,6 @@ export interface ContactPayload {
   phone?: string
   orgName?: string
   orgWebsite?: string
-  stage?: string
   message: string
   /** Honeypot. Real visitors never fill it. */
   website?: string
