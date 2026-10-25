@@ -56,6 +56,37 @@ export function PartnerTile({ p }: { p: PartnerEntry }) {
   )
 }
 
+
+/** Stable hash, so the server and client agree on every value below. */
+function hash(s: string) {
+  let h = 0
+  for (let i = 0; i < s.length; i += 1) h = (h * 31 + s.charCodeAt(i)) >>> 0
+  return h
+}
+const unit = (seed: number, shift: number) => ((seed >>> shift) % 1009) / 1009
+
+/**
+ * The ventures-wall entrance for the rows "See all" opens: row by row, but
+ * scattered within each row, each tile with its own duration and rise.
+ */
+function scatterEntrances(names: string[], perRow = 7) {
+  const out: { delay: number; duration: number; rise: number }[] = []
+  for (let start = 0; start < names.length; start += perRow) {
+    const row = names.slice(start, start + perRow).map((n, k) => ({ n, k: start + k }))
+    const dealt = [...row].sort((a, b) => hash(a.n) - hash(b.n))
+    dealt.forEach(({ n, k }, slot) => {
+      const seed = hash(n)
+      const position = dealt.length > 1 ? slot / (dealt.length - 1) : 0
+      out[k] = {
+        delay: +(0.15 + (start / perRow) * 0.2 + position * 0.45 + (unit(seed, 4) - 0.5) * 0.12).toFixed(3),
+        duration: +(0.83 + unit(seed, 12) * 0.34).toFixed(3),
+        rise: +(16 + unit(seed, 20) * 22).toFixed(1),
+      }
+    })
+  }
+  return out
+}
+
 /**
  * The first `initial` partners (two rows of seven), then a "See all" toggle
  * that opens the rest. The extra rows open by animating grid rows 0fr → 1fr,
@@ -66,6 +97,7 @@ export function PartnerGrid({ items, initial = 14 }: { items: PartnerEntry[]; in
   const id = useId()
   const first = items.slice(0, initial)
   const rest = items.slice(initial)
+  const scatter = scatterEntrances(rest.map((p) => p.name))
 
   return (
     <div>
@@ -87,19 +119,24 @@ export function PartnerGrid({ items, initial = 14 }: { items: PartnerEntry[]; in
           >
             <div className="overflow-hidden" inert={!open}>
               <ul className={`${TILE_GRID} pt-2.5`}>
-                {rest.map((p, i) => (
+                {rest.map((p, i) => {
+                  const e = scatter[i]
+                  return (
                   <li
                     key={p.name}
-                    className="transition-[opacity,transform] duration-700 ease-[var(--ease-out-soft)]"
+                    className="transition-[opacity,transform]"
                     style={{
                       opacity: open ? 1 : 0,
-                      transform: open ? 'none' : 'translate3d(0,16px,0)',
-                      transitionDelay: open ? `${150 + i * 40}ms` : '0ms',
+                      transform: open ? 'none' : `translate3d(0,${e.rise}px,0)`,
+                      transitionDuration: `${e.duration}s`,
+                      transitionTimingFunction: 'cubic-bezier(0.22, 0.61, 0.36, 1)',
+                      transitionDelay: open ? `${e.delay}s` : '0s',
                     }}
                   >
                     <PartnerTile p={p} />
                   </li>
-                ))}
+                  )
+                })}
               </ul>
             </div>
           </div>

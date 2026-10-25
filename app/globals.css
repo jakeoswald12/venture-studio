@@ -202,6 +202,16 @@ html.lenis body {
     filter 1s var(--ease-out-soft);
   transition-delay: calc(var(--d, 0) * 90ms);
 }
+/* Cards and tiles: the ventures-wall entrance. Delay, duration and rise are
+ * set per card by RevealObserver. */
+.reveal-armed [data-reveal-item][data-reveal-auto] {
+  transform: translate3d(0, var(--rise, 26px), 0);
+  filter: none;
+  transition:
+    opacity var(--dur, 1s) cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform var(--dur, 1s) cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition-delay: var(--delay, 0s);
+}
 .reveal-armed [data-reveal-item].is-in {
   opacity: 1;
   transform: none;
