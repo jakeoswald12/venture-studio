@@ -12,13 +12,11 @@ function Group({
   index,
   first,
   title,
-  count,
   children,
 }: {
   index: string
   first?: boolean
   title: string
-  count: number
   children: React.ReactNode
 }) {
   return (
@@ -31,7 +29,6 @@ function Group({
             {title}
           </h2>
         </div>
-        <span className="font-mono text-[0.7rem] tracking-[0.14em] text-faint tabular-nums">{count}</span>
       </div>
       {children}
     </section>
@@ -44,7 +41,7 @@ export default function TeamPage() {
       <h1 className="sr-only">Team</h1>
 
       <Container className="pt-[calc(124px+env(safe-area-inset-top))] sm:pt-[150px]">
-        <Group first index="01" title="Leadership" count={LEADERSHIP.length}>
+        <Group first index="01" title="Leadership">
           <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-4 sm:gap-x-5 lg:grid-cols-5">
             {LEADERSHIP.map((p) => (
               <div key={p.name} data-reveal-item data-reveal-auto>
@@ -54,7 +51,7 @@ export default function TeamPage() {
           </div>
         </Group>
 
-        <Group index="02" title="Board" count={BOARD.length}>
+        <Group index="02" title="Board">
           <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-4 sm:gap-x-5 lg:grid-cols-5">
             {BOARD.map((p) => (
               <div key={p.name} data-reveal-item data-reveal-auto>
@@ -64,7 +61,7 @@ export default function TeamPage() {
           </div>
         </Group>
 
-        <Group index="03" title="Student Fellows" count={FELLOWS.length}>
+        <Group index="03" title="Student Fellows">
           <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-4 sm:gap-x-5 lg:grid-cols-5">
             {FELLOWS.map((p) => (
               <div key={p.name} data-reveal-item data-reveal-auto>
@@ -74,7 +71,7 @@ export default function TeamPage() {
           </div>
         </Group>
 
-        <Group index="04" title="Advisors" count={ADVISORS.length}>
+        <Group index="04" title="Advisors">
           {/* Columns, not a grid: names run down each column, then to the next. */}
           <ul className="columns-1 gap-x-8 sm:columns-2 lg:columns-4">
             {ADVISORS.map((a) => (
