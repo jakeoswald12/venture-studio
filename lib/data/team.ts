@@ -18,18 +18,6 @@ export interface Person {
 
 export const LEADERSHIP: Person[] = [
   {
-    name: 'Jake Jadlot',
-    title: 'Head of Operations',
-    bio: 'Works for Celebration Church. He previously worked at the University of Notre Dame’s accelerator and holds an MBA.',
-  },
-  { name: 'Nate Steele', title: 'Head of Design' },
-  { name: 'Ethan Woo', title: 'Head of Product' },
-  { name: 'Landen Enns', title: 'Head of Growth' },
-  { name: 'Trent Sikute', title: 'Venture Lead' },
-  { name: 'Mary Brownlee', title: 'Venture Lead' },
-  { name: 'Tommy Denn', title: 'Venture Lead' },
-  { name: 'Allie Vaughan', title: 'Venture Lead' },
-  {
     name: 'Jake Oswald',
     title: 'Managing Partner',
     photo: '/team/jake-oswald.png',
@@ -45,6 +33,18 @@ export const LEADERSHIP: Person[] = [
     linkedin: 'https://www.linkedin.com/in/larsostervold/',
     bio: 'Chief Technology Officer of Austin Christian University and a member of the accelerator’s leadership team. He is building launch.kids, the studio’s software building tool for students.',
   },
+  {
+    name: 'Jake Jadlot',
+    title: 'Head of Operations',
+    bio: 'Works for Celebration Church. He previously worked at the University of Notre Dame’s accelerator and holds an MBA.',
+  },
+  { name: 'Nate Steele', title: 'Head of Design' },
+  { name: 'Ethan Woo', title: 'Head of Product' },
+  { name: 'Landen Enns', title: 'Head of Growth' },
+  { name: 'Trent Sikute', title: 'Venture Lead' },
+  { name: 'Mary Brownlee', title: 'Venture Lead' },
+  { name: 'Tommy Denn', title: 'Venture Lead' },
+  { name: 'Allie Vaughan', title: 'Venture Lead' },
 ]
 
 export const FELLOWS: Person[] = [
