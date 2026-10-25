@@ -145,8 +145,9 @@ const ALL_COMPANIES: PortfolioCompany[] = [
     engagements: [],
   },
   {
-    slug: 'stratified',
-    name: 'Stratified',
+    slug: 'stratofied',
+    name: 'Stratofied',
+    url: 'https://stratofied.io/',
     engagements: [],
   },
   {
@@ -1402,7 +1403,7 @@ const DIRECTORY_ORDER = [
   'tourcaddy',
   'blkbox',
   'velora',
-  'stratified',
+  'stratofied',
   'heyzoe',
   'regent-bank',
   'lecrae-media',
