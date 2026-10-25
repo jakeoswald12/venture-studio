@@ -48,6 +48,7 @@ export const LEADERSHIP: Person[] = [
   { name: 'Allie Vaughan', title: 'Venture Lead' },
   { name: 'Cole Elzerman', title: 'Venture Lead' },
   { name: 'Ethan McCarthy', title: 'Venture Lead' },
+  { name: 'Heather Trumpfheller', title: 'Venture Lead', linkedin: 'https://www.linkedin.com/in/heathertrumpfheller/' },
 ]
 
 export const FELLOWS: Person[] = [
@@ -139,6 +140,7 @@ export const ADVISORS: Pick<Person, 'name' | 'linkedin'>[] = [
   { name: 'Luke Frazier' },
   { name: 'Stephen French' },
   { name: 'David Friedman' },
+  { name: 'Morgan Gamble' },
   { name: 'Max Gangestad' },
   { name: 'Mart Green' },
   { name: 'Bobby Gruenewald' },
@@ -210,7 +212,6 @@ export const ADVISORS: Pick<Person, 'name' | 'linkedin'>[] = [
   { name: 'Eric Theisen' },
   { name: 'Ranjy Thomas' },
   { name: 'Zac Tinney' },
-  { name: 'Heather Trumpfheller', linkedin: 'https://www.linkedin.com/in/heathertrumpfheller/' },
   { name: 'Clay Vaughan' },
   { name: 'Harrison Vinnett' },
   { name: 'Josh Wade' },
