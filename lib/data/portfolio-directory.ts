@@ -192,6 +192,12 @@ const ALL_COMPANIES: PortfolioCompany[] = [
     name: 'Rad Energy',
     engagements: [],
   },
+  {
+    slug: 'mekko-ai',
+    name: 'mekko.ai',
+    url: 'https://mekko.ai',
+    engagements: [],
+  },
   // Studio joint ventures (added for the West Ventures site).
   {
     slug: 'unify',
