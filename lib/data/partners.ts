@@ -26,6 +26,7 @@ export const VC_FIRMS: PartnerEntry[] = [
   { name: 'Capital Factory', href: 'https://www.capitalfactory.com' },
   { name: 'Overmatch', href: 'https://www.overmatch.vc' },
   { name: "Sovereign's Capital", href: 'https://sovereignscapital.com', image: `${P}sovereigns-capital-2.png` },
+  { name: 'Live Oak Ventures', href: 'https://liveoak.vc' },
   { name: 'Wave Ventures', href: 'https://www.waveventures.com', image: `${P}wave-ventures-2.png` },
   { name: 'Eagle Venture Fund', href: 'https://www.eagleventurefund.com', image: `${P}eagle-venture-fund.jpg` },
   { name: 'Fireroad', href: 'https://www.fireroad.io' },

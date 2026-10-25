@@ -23,13 +23,13 @@ const FEATURED_VENTURES = [
   'heavytech',
 ]
 const FEATURED_PARTNERS = [
-  "Sovereign's Capital",
+  'Discipulus Ventures',
   'Capital Factory',
+  'Overmatch',
+  "Sovereign's Capital",
   'Praxis',
   'Faith Driven Entrepreneur',
   'Impact Foundation',
-  'Eagle Venture Fund',
-  'Gloo',
 ]
 
 const ventures = FEATURED_VENTURES.map((slug) => findCompany(slug)!)
