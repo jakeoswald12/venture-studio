@@ -61,7 +61,7 @@ export function Header() {
           </Link>
 
           <div className="flex items-center gap-2 sm:gap-7">
-            <nav aria-label="Pages" className="hidden items-center gap-7 min-[760px]:flex">
+            <nav aria-label="Pages" className="hidden items-center gap-7 min-[840px]:flex">
               {NAV.map((item) => (
                 <Link
                   key={item.href}
@@ -84,7 +84,7 @@ export function Header() {
               aria-expanded={open}
               aria-controls="site-menu"
               aria-label={open ? 'Close menu' : 'Open menu'}
-              className="relative grid h-10 w-10 place-items-center rounded-full border border-line text-ink min-[760px]:hidden"
+              className="relative grid h-10 w-10 place-items-center rounded-full border border-line text-ink min-[840px]:hidden"
             >
               <span
                 className={`absolute h-px w-4 bg-current transition-transform duration-500 ease-[var(--ease-in-out-soft)] ${
@@ -105,7 +105,7 @@ export function Header() {
       <div
         id="site-menu"
         aria-hidden={!open}
-        className={`fixed inset-0 z-40 flex flex-col bg-paper pt-[calc(96px+env(safe-area-inset-top))] transition-[opacity,visibility] duration-500 min-[760px]:hidden ${
+        className={`fixed inset-0 z-40 flex flex-col bg-paper pt-[calc(96px+env(safe-area-inset-top))] transition-[opacity,visibility] duration-500 min-[840px]:hidden ${
           open ? 'visible opacity-100' : 'invisible opacity-0'
         }`}
       >
