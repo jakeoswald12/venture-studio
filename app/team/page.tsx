@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { LinkedInLink, PersonCard } from '@/components/site/PersonCard'
-import { Container, Label, PageIntro, Rule } from '@/components/site/Section'
+import { Container, Label, Rule } from '@/components/site/Section'
 import { ADVISORS, BOARD, FELLOWS, LEADERSHIP } from '@/lib/data/team'
 
 export const metadata: Metadata = {
@@ -10,18 +10,20 @@ export const metadata: Metadata = {
 
 function Group({
   index,
+  first,
   title,
   count,
   children,
 }: {
   index: string
+  first?: boolean
   title: string
   count: number
   children: React.ReactNode
 }) {
   return (
     <section className="pb-20 sm:pb-28">
-      <Rule className="mb-10" />
+      {!first && <Rule className="mb-10" />}
       <div className="mb-10 flex items-end justify-between gap-6">
         <div>
           <Label className="mb-4">{index}</Label>
@@ -39,12 +41,10 @@ function Group({
 export default function TeamPage() {
   return (
     <main>
-      <PageIntro label="Team" title="Team">
-        <p>Leadership, student fellows, board and advisors.</p>
-      </PageIntro>
+      <h1 className="sr-only">Team</h1>
 
-      <Container>
-        <Group index="01" title="Leadership" count={LEADERSHIP.length}>
+      <Container className="pt-[calc(124px+env(safe-area-inset-top))] sm:pt-[150px]">
+        <Group first index="01" title="Leadership" count={LEADERSHIP.length}>
           <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-4 sm:gap-x-5 lg:grid-cols-5">
             {LEADERSHIP.map((p) => (
               <div key={p.name} data-reveal-item data-reveal-auto>
