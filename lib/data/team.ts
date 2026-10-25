@@ -114,6 +114,7 @@ export const ADVISORS: Pick<Person, 'name' | 'linkedin'>[] = [
   { name: 'Marshall Bex' },
   { name: 'Renji Bijoy' },
   { name: 'Steele Billings' },
+  { name: 'Shannon Bland' },
   { name: 'Hank Bowen' },
   { name: 'Trey Bowles' },
   { name: 'Connor Carew' },
