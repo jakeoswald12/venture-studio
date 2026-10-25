@@ -155,8 +155,9 @@ const ALL_COMPANIES: PortfolioCompany[] = [
     engagements: [],
   },
   {
-    slug: 'build-array',
-    name: 'Build Array',
+    slug: 'array',
+    name: 'Array',
+    url: 'https://array.so',
     engagements: [],
   },
   {
@@ -204,8 +205,9 @@ const ALL_COMPANIES: PortfolioCompany[] = [
     engagements: [],
   },
   {
-    slug: 'hey-zoe',
-    name: 'Hey Zoe',
+    slug: 'heyzoe',
+    name: 'HeyZoe',
+    url: 'https://heyzoe.com',
     engagements: [],
   },
   // Studio joint ventures (added for the West Ventures site).
@@ -1387,7 +1389,7 @@ const DIRECTORY_ORDER = [
   'heavytech',
   'mekko-ai',
   'athletes-ocean',
-  'build-array',
+  'array',
   'importal',
   'launch-kids',
   'fundify',
@@ -1401,7 +1403,7 @@ const DIRECTORY_ORDER = [
   'blkbox',
   'velora',
   'stratified',
-  'hey-zoe',
+  'heyzoe',
   'regent-bank',
   'lecrae-media',
   'perm-cap',

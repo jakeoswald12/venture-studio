@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Hero } from '@/components/home/Hero'
-import { PreviewRow, type PreviewItem } from '@/components/home/PreviewRow'
+import { PreviewRow, SeeAll, type PreviewItem } from '@/components/home/PreviewRow'
 import { ContactForm } from '@/components/site/ContactForm'
 import { Container, Label, Rule } from '@/components/site/Section'
 import { findCompany } from '@/lib/data/portfolio-directory'
@@ -108,10 +108,13 @@ export default function HomePage() {
           <h2 data-reveal-item className="text-[clamp(2.4rem,5vw,4.4rem)] leading-[1]">
             Ventures
           </h2>
-          <p data-reveal-item style={d(1)} className="mb-10 mt-5 max-w-[50ch] text-[1.02rem] leading-[1.65]">
-            Companies the studio has worked with, including its joint ventures.
-          </p>
-          <PreviewRow items={ventureItems} cta={{ href: '/ventures', label: 'See all ventures' }} />
+          <div className="mb-8 mt-5 flex flex-wrap items-end justify-between gap-x-8 gap-y-5">
+            <p data-reveal-item style={d(1)} className="max-w-[50ch] text-[1.02rem] leading-[1.65]">
+              Companies the studio has worked with, including its joint ventures.
+            </p>
+            <SeeAll href="/ventures" label="See all ventures" />
+          </div>
+          <PreviewRow items={ventureItems} />
         </Container>
       </section>
 
@@ -123,10 +126,13 @@ export default function HomePage() {
           <h2 data-reveal-item className="text-[clamp(2.4rem,5vw,4.4rem)] leading-[1]">
             Partners
           </h2>
-          <p data-reveal-item style={d(1)} className="mb-10 mt-5 max-w-[50ch] text-[1.02rem] leading-[1.65]">
-            Venture firms, organizations and schools in the studio’s network.
-          </p>
-          <PreviewRow items={partnerItems} cta={{ href: '/partners', label: 'See all partners' }} />
+          <div className="mb-8 mt-5 flex flex-wrap items-end justify-between gap-x-8 gap-y-5">
+            <p data-reveal-item style={d(1)} className="max-w-[50ch] text-[1.02rem] leading-[1.65]">
+              Venture firms, organizations and schools in the studio’s network.
+            </p>
+            <SeeAll href="/partners" label="See all partners" />
+          </div>
+          <PreviewRow items={partnerItems} />
         </Container>
       </section>
 

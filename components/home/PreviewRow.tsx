@@ -13,15 +13,9 @@ export interface PreviewItem {
  * A row of square cards in the partners-page style: five and a half across on
  * desktop, where the sixth card is cut by the column edge and fades into the
  * page background, so the row reads as the start of a longer list.
- * The "See all" link underneath goes to the full page.
+ * The section places its "See all" link (SeeAll) above the row, at the right.
  */
-export function PreviewRow({
-  items,
-  cta,
-}: {
-  items: PreviewItem[]
-  cta: { href: string; label: string }
-}) {
+export function PreviewRow({ items }: { items: PreviewItem[] }) {
   return (
     <div>
       <div className="relative overflow-hidden">
@@ -87,13 +81,19 @@ export function PreviewRow({
           className="pointer-events-none absolute inset-y-0 right-0 w-[calc((100%-2*1rem)/5+1rem)] bg-gradient-to-r from-transparent via-paper/85 to-paper sm:w-[calc((100%-4*1.25rem)/9+1.25rem)] lg:w-[calc((100%-5*1.25rem)/11+1.25rem)]"
         />
       </div>
-
-      <Link
-        href={cta.href}
-        className="arrow-nudge mt-8 inline-flex items-center gap-2.5 font-mono text-[0.72rem] uppercase tracking-[0.14em] text-grey transition-colors duration-300 hover:text-ink"
-      >
-        {cta.label} <span className="arrow">→</span>
-      </Link>
     </div>
+  )
+}
+
+/** The "See all …" link that sits above a PreviewRow, at the right edge. */
+export function SeeAll({ href, label }: { href: string; label: string }) {
+  return (
+    <Link
+      href={href}
+      data-reveal-item
+      className="arrow-nudge ml-auto inline-flex items-center gap-2.5 font-mono text-[0.72rem] uppercase tracking-[0.14em] text-grey transition-colors duration-300 hover:text-ink"
+    >
+      {label} <span className="arrow">→</span>
+    </Link>
   )
 }

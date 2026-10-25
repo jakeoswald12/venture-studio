@@ -92,7 +92,7 @@ export function Hero() {
   const current = playing ? FILM[shot] : null
 
   return (
-    <div className="flex h-[100svh] min-h-[560px] flex-col px-[max(10px,env(safe-area-inset-left))] pb-3 pt-[calc(76px+env(safe-area-inset-top))] sm:px-4 sm:pb-4">
+    <div className="flex h-[100svh] min-h-[560px] flex-col px-[max(10px,env(safe-area-inset-left))] pb-3 pt-[calc(69px+env(safe-area-inset-top))] sm:px-4 sm:pb-4">
       <section
         ref={heroRef}
         aria-label="West Ventures"
