@@ -122,6 +122,7 @@ export const ADVISORS: Pick<Person, 'name' | 'linkedin'>[] = [
   { name: 'Bryce Oldham' },
   { name: 'Melissa Peak', linkedin: 'https://www.linkedin.com/in/melissajpeak/' },
   { name: 'Hudson Phillips' },
+  { name: 'Sean Riley' },
   { name: 'Dana Roefer' },
   { name: 'Anthony Ruffner' },
   { name: 'Tristan Schaffer' },
