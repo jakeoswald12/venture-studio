@@ -12,11 +12,13 @@ function Group({
   index,
   first,
   title,
+  text,
   children,
 }: {
   index: string
   first?: boolean
   title: string
+  text: string
   children: React.ReactNode
 }) {
   return (
@@ -28,6 +30,9 @@ function Group({
           <h2 data-reveal-item className="text-[clamp(2rem,4vw,3.2rem)] leading-[1]">
             {title}
           </h2>
+          <p data-reveal-item style={{ '--d': 1 } as React.CSSProperties} className="mt-4 max-w-[60ch] text-[1rem] leading-[1.65]">
+            {text}
+          </p>
         </div>
       </div>
       {children}
@@ -41,7 +46,7 @@ export default function TeamPage() {
       <h1 className="sr-only">Team</h1>
 
       <Container className="pt-[calc(124px+env(safe-area-inset-top))] sm:pt-[150px]">
-        <Group first index="01" title="Leadership">
+        <Group first index="01" title="Leadership" text="The partners, department heads and venture leads who run the studio and its projects.">
           <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-4 sm:gap-x-5 lg:grid-cols-5">
             {LEADERSHIP.map((p) => (
               <div key={p.name} data-reveal-item data-reveal-auto>
@@ -51,7 +56,7 @@ export default function TeamPage() {
           </div>
         </Group>
 
-        <Group index="02" title="Board">
+        <Group index="02" title="Board" text="The board of directors. Austin Christian University holds a permanent seat.">
           <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-4 sm:gap-x-5 lg:grid-cols-5">
             {BOARD.map((p) => (
               <div key={p.name} data-reveal-item data-reveal-auto>
@@ -61,7 +66,7 @@ export default function TeamPage() {
           </div>
         </Group>
 
-        <Group index="03" title="Student Fellows">
+        <Group index="03" title="Student Fellows" text="Students who hold fellowships in the studio and work alongside the leadership team.">
           <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-4 sm:gap-x-5 lg:grid-cols-5">
             {FELLOWS.map((p) => (
               <div key={p.name} data-reveal-item data-reveal-auto>
@@ -71,7 +76,7 @@ export default function TeamPage() {
           </div>
         </Group>
 
-        <Group index="04" title="Advisors">
+        <Group index="04" title="Advisors" text="Founders, investors and operators who advise the studio and the companies it works with.">
           {/* Columns, not a grid: names run down each column, then to the next. */}
           <ul className="columns-1 gap-x-8 sm:columns-2 lg:columns-4">
             {ADVISORS.map((a) => (
