@@ -10,7 +10,7 @@ import { TILE_GRID } from './Frame'
  * hover (or keyboard focus) a scrim drops in with the name at the bottom.
  * Touch screens have no hover, so there the name shows on a light shade.
  */
-function PartnerTile({ p }: { p: PartnerEntry }) {
+export function PartnerTile({ p }: { p: PartnerEntry }) {
   const inner = (
     <>
       {p.image ? (

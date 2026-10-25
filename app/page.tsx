@@ -1,16 +1,27 @@
 import Link from 'next/link'
 import { Hero } from '@/components/home/Hero'
-import { PreviewRow, SeeAll, type PreviewItem } from '@/components/home/PreviewRow'
+import { PreviewRow, SeeAll } from '@/components/home/PreviewRow'
+import { CompanyTile, buildEntrances } from '@/components/portfolio/directory/CompanyTile'
+import { Frame } from '@/components/site/Frame'
+import { PartnerTile } from '@/components/site/PartnerGrid'
 import { ContactForm } from '@/components/site/ContactForm'
-import { Container, Label, Rule } from '@/components/site/Section'
+import { Label, Rule } from '@/components/site/Section'
 import { findCompany } from '@/lib/data/portfolio-directory'
 import { NETWORK, VC_FIRMS } from '@/lib/data/partners'
 import { THESIS_SUMMARY } from '@/lib/data/thesis'
 
 const d = (n: number) => ({ '--d': n }) as React.CSSProperties
 
-/** The six ventures and partners featured on the homepage, in order. */
-const FEATURED_VENTURES = ['youversion', 'lifetime-fitness', 'burlebo', 'heavytech', 'waterside-by-ulteum', 'the-care-app']
+/** The seven ventures and partners featured on the homepage, in order. */
+const FEATURED_VENTURES = [
+  'youversion',
+  'lifetime-fitness',
+  'overflow',
+  'burlebo',
+  'waterside-by-ulteum',
+  'the-care-app',
+  'heavytech',
+]
 const FEATURED_PARTNERS = [
   "Sovereign's Capital",
   'Capital Factory',
@@ -18,17 +29,12 @@ const FEATURED_PARTNERS = [
   'Faith Driven Entrepreneur',
   'Impact Foundation',
   'Eagle Venture Fund',
+  'Gloo',
 ]
 
-const ventureItems: PreviewItem[] = FEATURED_VENTURES.map((slug) => {
-  const c = findCompany(slug)!
-  return { name: c.name, href: `/portfolio/${c.slug}`, image: c.tile, objectPosition: `${c.tileFocus ?? 50}% center` }
-})
-
-const partnerItems: PreviewItem[] = FEATURED_PARTNERS.map((name) => {
-  const p = [...VC_FIRMS, ...NETWORK].find((x) => x.name === name)!
-  return { name: p.name, href: p.href, image: p.image, logo: p.logo, objectPosition: p.objectPosition }
-})
+const ventures = FEATURED_VENTURES.map((slug) => findCompany(slug)!)
+const ventureEntrances = buildEntrances(FEATURED_VENTURES)
+const partners = FEATURED_PARTNERS.map((name) => [...VC_FIRMS, ...NETWORK].find((x) => x.name === name)!)
 
 const OVERVIEW = [
   {
@@ -70,7 +76,7 @@ export default function HomePage() {
 
       {/* 01 Overview */}
       <section id="overview" className="scroll-mt-24 py-24 sm:py-36">
-        <Container>
+        <Frame>
           <div className="grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-20">
             <div>
               <Label className="mb-5">01 · Overview</Label>
@@ -97,12 +103,12 @@ export default function HomePage() {
             </ol>
           </div>
 
-        </Container>
+        </Frame>
       </section>
 
       {/* 02 Ventures */}
       <section id="ventures" className="scroll-mt-24 overflow-x-clip pb-24 sm:pb-36">
-        <Container>
+        <Frame>
           <Rule className="mb-12" />
           <Label className="mb-5">02 · Ventures</Label>
           <h2 data-reveal-item className="text-[clamp(2.4rem,5vw,4.4rem)] leading-[1]">
@@ -114,13 +120,17 @@ export default function HomePage() {
             </p>
             <SeeAll href="/ventures" label="See all ventures" />
           </div>
-          <PreviewRow items={ventureItems} />
-        </Container>
+          <PreviewRow>
+            {ventures.map((c, i) => (
+              <CompanyTile key={c.slug} company={c} entrance={ventureEntrances[i]} />
+            ))}
+          </PreviewRow>
+        </Frame>
       </section>
 
       {/* 03 Partners */}
       <section id="partners" className="scroll-mt-24 overflow-x-clip pb-24 sm:pb-36">
-        <Container>
+        <Frame>
           <Rule className="mb-12" />
           <Label className="mb-5">03 · Partners</Label>
           <h2 data-reveal-item className="text-[clamp(2.4rem,5vw,4.4rem)] leading-[1]">
@@ -132,13 +142,17 @@ export default function HomePage() {
             </p>
             <SeeAll href="/partners" label="See all partners" />
           </div>
-          <PreviewRow items={partnerItems} />
-        </Container>
+          <PreviewRow>
+            {partners.map((p) => (
+              <PartnerTile key={p.name} p={p} />
+            ))}
+          </PreviewRow>
+        </Frame>
       </section>
 
       {/* 04 Thesis */}
       <section id="thesis" className="scroll-mt-24 pb-24 sm:pb-36">
-        <Container>
+        <Frame>
           <Rule className="mb-12" />
           <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
             <div>
@@ -172,12 +186,12 @@ export default function HomePage() {
               </li>
             ))}
           </ul>
-        </Container>
+        </Frame>
       </section>
 
       {/* 05 Contact */}
       <section id="contact" className="scroll-mt-24">
-        <Container>
+        <Frame>
           <Rule className="mb-12" />
           <div className="grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-20">
             <div>
@@ -194,7 +208,7 @@ export default function HomePage() {
               <ContactForm />
             </div>
           </div>
-        </Container>
+        </Frame>
       </section>
     </main>
   )

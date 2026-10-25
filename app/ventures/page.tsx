@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { CompanyTile, buildEntrances } from '@/components/portfolio/directory/CompanyTile'
 import { ContactForm } from '@/components/site/ContactForm'
 import { Frame } from '@/components/site/Frame'
-import { Container, Rule } from '@/components/site/Section'
+import { Rule } from '@/components/site/Section'
 import { DISCIPLINES } from '@/lib/data/services'
 import { PORTFOLIO_COMPANIES } from '@/lib/data/portfolio-directory'
 
@@ -45,7 +45,7 @@ export default function VenturesPage() {
         </Frame>
 
         {/* Disciplines */}
-        <Container className="pt-28 sm:pt-40">
+        <Frame className="pt-28 sm:pt-40">
           <Rule className="mb-12" />
           <h2 data-reveal-item className="mb-10 text-[clamp(2.2rem,4.4vw,3.8rem)] leading-[1]">
             Disciplines
@@ -58,10 +58,10 @@ export default function VenturesPage() {
               </div>
             ))}
           </dl>
-        </Container>
+        </Frame>
 
         {/* Startup submissions */}
-        <Container className="pt-28 sm:pt-36">
+        <Frame className="pt-28 sm:pt-36">
           <section id="submit" className="scroll-mt-28">
             <Rule className="mb-12" />
             <div className="grid gap-10 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-20">
@@ -78,7 +78,7 @@ export default function VenturesPage() {
               </div>
             </div>
           </section>
-        </Container>
+        </Frame>
       </main>
     </>
   )
