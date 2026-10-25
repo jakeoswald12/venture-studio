@@ -76,7 +76,7 @@ export default function TeamPage() {
 
         <Group title="Advisors" text="Founders, investors and operators who advise the studio and the companies it works with.">
           {/* Columns, not a grid: names run down each column, then to the next. */}
-          <ul className="columns-1 gap-x-8 sm:columns-2 lg:columns-4 xl:columns-5">
+          <ul className="columns-1 gap-x-8 sm:columns-2 lg:columns-5 lg:gap-x-6 xl:columns-7 xl:gap-x-2.5">
             {ADVISORS.map((a) => (
               <li
                 key={a.name}
@@ -84,7 +84,7 @@ export default function TeamPage() {
                 data-reveal-auto
                 className="flex min-h-[56px] break-inside-avoid items-center justify-between gap-3 border-b border-line py-2.5"
               >
-                <span className="text-[1rem] text-ink">{a.name}</span>
+                <span className="text-[1rem] text-ink xl:text-[0.92rem]">{a.name}</span>
                 {a.linkedin && <LinkedInLink href={a.linkedin} name={a.name} className="h-7 w-7" />}
               </li>
             ))}
