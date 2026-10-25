@@ -41,6 +41,7 @@ export const LEADERSHIP: Person[] = [
   { name: 'Nate Steele', title: 'Head of Design' },
   { name: 'Ethan Woo', title: 'Head of Product' },
   { name: 'Landen Enns', title: 'Head of Growth', linkedin: 'https://www.linkedin.com/in/landenenns/' },
+  { name: 'Taylore Hopkins', title: 'Head of Partnerships' },
   { name: 'Trent Sikute', title: 'Venture Lead' },
   { name: 'Mary Brownlee', title: 'Venture Lead', linkedin: 'https://www.linkedin.com/in/mary-brownlee-033b08208/' },
   { name: 'Tommy Denn', title: 'Venture Lead' },
