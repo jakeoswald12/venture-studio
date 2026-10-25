@@ -199,7 +199,7 @@ export const ADVISORS: Pick<Person, 'name' | 'linkedin'>[] = [
   { name: 'Luke Roush' },
   { name: 'Vance Roush' },
   { name: 'Anthony Ruffner' },
-  { name: 'Tristan Schaffer' },
+  { name: 'Tristan Schaeffer' },
   { name: 'Michael Seifert' },
   { name: 'Will Severns', linkedin: 'https://www.linkedin.com/in/will-severns-59a97268/' },
   { name: 'Mike Sharrow' },

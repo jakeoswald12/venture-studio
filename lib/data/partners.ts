@@ -22,12 +22,14 @@ const P = '/images/builder-scholars/partners/'
 const S = '/images/builder-scholars/schools/'
 
 export const VC_FIRMS: PartnerEntry[] = [
-  { name: "Sovereign's Capital", href: 'https://sovereignscapital.com', image: `${P}sovereigns-capital-2.png` },
+  { name: 'Discipulus Ventures', href: 'https://www.discipulusventures.com' },
   { name: 'Capital Factory', href: 'https://www.capitalfactory.com' },
-  { name: 'Fireroad', href: 'https://www.fireroad.io' },
+  { name: "Sovereign's Capital", href: 'https://sovereignscapital.com', image: `${P}sovereigns-capital-2.png` },
   { name: 'Wave Ventures', href: 'https://www.waveventures.com', image: `${P}wave-ventures-2.png` },
   { name: 'Eagle Venture Fund', href: 'https://www.eagleventurefund.com', image: `${P}eagle-venture-fund.jpg` },
+  { name: 'Fireroad', href: 'https://www.fireroad.io' },
   { name: '11 Tribes', href: 'https://11tribes.vc', image: `${P}11-tribes-2.jpg` },
+  { name: 'Worldview', href: 'https://worldview.vc' },
   { name: 'Waterstone Impact Fund', href: 'https://waterstoneimpactfund.com', image: `${P}waterstone-2.jpg` },
   { name: 'Mission 3A', href: 'https://www.mission3a.com', image: `${P}mission-3a-2.webp` },
   { name: 'Keystone Capital', href: 'https://keystone-investing.com', image: `${P}keystone-2.webp` },
