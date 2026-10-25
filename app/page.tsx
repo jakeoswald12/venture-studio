@@ -1,19 +1,34 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import { Hero } from '@/components/home/Hero'
+import { PreviewRow, type PreviewItem } from '@/components/home/PreviewRow'
 import { ContactForm } from '@/components/site/ContactForm'
 import { Container, Label, Rule } from '@/components/site/Section'
-import { PORTFOLIO_COMPANIES } from '@/lib/data/portfolio-directory'
+import { findCompany } from '@/lib/data/portfolio-directory'
+import { NETWORK, VC_FIRMS } from '@/lib/data/partners'
 import { THESIS_SUMMARY } from '@/lib/data/thesis'
 
 const d = (n: number) => ({ '--d': n }) as React.CSSProperties
 
-const STATS = [
-  { value: String(PORTFOLIO_COMPANIES.length), label: 'Companies worked with' },
-  { value: '~20', label: 'Projects per semester' },
-  { value: '35', label: 'Builder Scholars, fall 2026' },
-  { value: '2', label: 'Gloo AI Hackathon wins, 2025 and 2026' },
+/** The six ventures and partners featured on the homepage, in order. */
+const FEATURED_VENTURES = ['youversion', 'lifetime-fitness', 'burlebo', 'heavytech', 'waterside-by-ulteum', 'the-care-app']
+const FEATURED_PARTNERS = [
+  "Sovereign's Capital",
+  'Capital Factory',
+  'Praxis',
+  'Faith Driven Entrepreneur',
+  'Impact Foundation',
+  'Eagle Venture Fund',
 ]
+
+const ventureItems: PreviewItem[] = FEATURED_VENTURES.map((slug) => {
+  const c = findCompany(slug)!
+  return { name: c.name, href: `/portfolio/${c.slug}`, image: c.tile, objectPosition: `${c.tileFocus ?? 50}% center` }
+})
+
+const partnerItems: PreviewItem[] = FEATURED_PARTNERS.map((name) => {
+  const p = [...VC_FIRMS, ...NETWORK].find((x) => x.name === name)!
+  return { name: p.name, href: p.href, image: p.image, logo: p.logo, objectPosition: p.objectPosition }
+})
 
 const OVERVIEW = [
   {
@@ -49,8 +64,6 @@ const THESIS_POINTS = [
 ]
 
 export default function HomePage() {
-  const tiles = PORTFOLIO_COMPANIES.filter((c) => c.tile && !/\.(mp4|webm)$/i.test(c.tile))
-
   return (
     <main>
       <Hero />
@@ -84,77 +97,46 @@ export default function HomePage() {
             </ol>
           </div>
 
-          <dl className="mt-20 grid grid-cols-2 gap-x-6 gap-y-10 border-t border-line pt-12 lg:grid-cols-4">
-            {STATS.map((s) => (
-              <div key={s.label} data-reveal-item data-reveal-auto className="flex flex-col gap-3">
-                <dd className="order-1 font-serif text-[clamp(3rem,6.5vw,5.6rem)] font-semibold leading-none text-ink tabular-nums">
-                  {s.value}
-                </dd>
-                <dt className="order-2 max-w-[22ch] text-[0.92rem] leading-[1.45]">{s.label}</dt>
-              </div>
-            ))}
-          </dl>
         </Container>
       </section>
 
       {/* 02 Ventures */}
-      <section id="ventures" className="scroll-mt-24 pb-24 sm:pb-36">
+      <section id="ventures" className="scroll-mt-24 overflow-x-clip pb-24 sm:pb-36">
         <Container>
           <Rule className="mb-12" />
-          <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
-            <div>
-              <Label className="mb-5">02 · Ventures</Label>
-              <h2 data-reveal-item className="text-[clamp(2.4rem,5vw,4.4rem)] leading-[1]">
-                Ventures
-              </h2>
-              <p data-reveal-item style={d(1)} className="mt-5 max-w-[50ch] text-[1.02rem] leading-[1.65]">
-                {PORTFOLIO_COMPANIES.length} companies the studio has worked with, including its joint
-                ventures.
-              </p>
-            </div>
-            <Link href="/ventures" className="arrow-nudge link-line text-[0.95rem] text-ink">
-              All ventures and services <span className="arrow">→</span>
-            </Link>
-          </div>
+          <Label className="mb-5">02 · Ventures</Label>
+          <h2 data-reveal-item className="text-[clamp(2.4rem,5vw,4.4rem)] leading-[1]">
+            Ventures
+          </h2>
+          <p data-reveal-item style={d(1)} className="mb-10 mt-5 max-w-[50ch] text-[1.02rem] leading-[1.65]">
+            Companies the studio has worked with, including its joint ventures.
+          </p>
+          <PreviewRow items={ventureItems} cta={{ href: '/ventures', label: 'See all ventures' }} />
         </Container>
-        <div
-          className="marquee relative overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_6%,black_94%,transparent)]"
-          data-reveal-item
-        >
-          <ul className="marquee-track flex w-max gap-3" style={{ '--marquee-duration': `${tiles.length * 5}s` } as React.CSSProperties}>
-            {[...tiles, ...tiles].map((c, i) => (
-              <li key={`${c.slug}-${i}`} aria-hidden={i >= tiles.length}>
-                <Link
-                  href={`/portfolio/${c.slug}`}
-                  tabIndex={i >= tiles.length ? -1 : 0}
-                  className="group relative block h-[clamp(200px,24vw,300px)] w-[clamp(200px,24vw,300px)] overflow-hidden rounded-[18px] bg-[#1b1a17]"
-                >
-                  <Image
-                    src={c.tile!}
-                    alt={i < tiles.length ? c.name : ''}
-                    fill
-                    sizes="300px"
-                    className="object-cover"
-                    style={{ objectPosition: `${c.tileFocus ?? 50}% center` }}
-                  />
-                  <span className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-                  <span className="absolute inset-x-0 bottom-0 translate-y-2 p-4 text-[0.95rem] font-medium text-white opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
-                    {c.name}
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
       </section>
 
-      {/* 03 Thesis */}
+      {/* 03 Partners */}
+      <section id="partners" className="scroll-mt-24 overflow-x-clip pb-24 sm:pb-36">
+        <Container>
+          <Rule className="mb-12" />
+          <Label className="mb-5">03 · Partners</Label>
+          <h2 data-reveal-item className="text-[clamp(2.4rem,5vw,4.4rem)] leading-[1]">
+            Partners
+          </h2>
+          <p data-reveal-item style={d(1)} className="mb-10 mt-5 max-w-[50ch] text-[1.02rem] leading-[1.65]">
+            Venture firms, organizations and schools in the studio’s network.
+          </p>
+          <PreviewRow items={partnerItems} cta={{ href: '/partners', label: 'See all partners' }} />
+        </Container>
+      </section>
+
+      {/* 04 Thesis */}
       <section id="thesis" className="scroll-mt-24 pb-24 sm:pb-36">
         <Container>
           <Rule className="mb-12" />
           <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
             <div>
-              <Label className="mb-5">03 · Thesis</Label>
+              <Label className="mb-5">04 · Thesis</Label>
               <h2 data-reveal-item className="text-[clamp(2.4rem,5vw,4.4rem)] leading-[1]">
                 Thesis
               </h2>
@@ -187,13 +169,13 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* 04 Contact */}
+      {/* 05 Contact */}
       <section id="contact" className="scroll-mt-24">
         <Container>
           <Rule className="mb-12" />
           <div className="grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-20">
             <div>
-              <Label className="mb-5">04 · Contact</Label>
+              <Label className="mb-5">05 · Contact</Label>
               <h2 data-reveal-item className="text-[clamp(2.4rem,5vw,4.4rem)] leading-[1]">
                 Contact
               </h2>
