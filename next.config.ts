@@ -5,6 +5,11 @@ const nextConfig: NextConfig = {
     // 82 is used by the portfolio tile walls (copied from the ACU site).
     qualities: [75, 82],
   },
+  async redirects() {
+    // The portfolio wall moved to /ventures; company and student pages stay
+    // under /portfolio/.
+    return [{ source: '/portfolio', destination: '/ventures', permanent: false }]
+  },
   async rewrites() {
     return [
       // The master plan deck is a standalone HTML page (it has its own slide

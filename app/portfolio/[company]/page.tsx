@@ -76,7 +76,7 @@ export default async function CompanyProfilePage({ params }: PageProps) {
       <main className="relative z-10 pt-[92px] sm:pt-28">
         <div className="mx-auto max-w-[1280px] px-5">
           <Link
-            href="/portfolio"
+            href="/ventures"
             className="group inline-flex items-center gap-2 py-4 text-[12.5px] text-muted-foreground transition-colors hover:text-bronze"
           >
             <svg
@@ -86,7 +86,7 @@ export default async function CompanyProfilePage({ params }: PageProps) {
             >
               <path d="M10 2.5 4.5 8l5.5 5.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-            Back to portfolio
+            Back to ventures
           </Link>
 
           <div className="grid items-start gap-10 pb-16 md:h-[calc(100vh-9rem)] md:grid-cols-[320px_1fr] md:gap-14 md:pb-0">
@@ -97,6 +97,8 @@ export default async function CompanyProfilePage({ params }: PageProps) {
                   twice. Companies with no site render as plain text. */}
               <CompanyIdentity company={company} />
 
+              {company.engagements.length > 0 && (
+              <>
               <section>
                 <RailLabel>Sponsors</RailLabel>
                 <div className="mt-1">
@@ -140,6 +142,8 @@ export default async function CompanyProfilePage({ params }: PageProps) {
                   ))}
                 </div>
               </section>
+              </>
+              )}
             </aside>
 
             {/* ── The work ────────────────────────────────────────────── */}

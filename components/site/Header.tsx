@@ -39,7 +39,11 @@ export function Header() {
     }
   }, [open])
 
-  const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`)
+  // Company and student pages live under /portfolio/ but belong to Ventures.
+  const isActive = (href: string) =>
+    pathname === href ||
+    pathname.startsWith(`${href}/`) ||
+    (href === '/ventures' && pathname.startsWith('/portfolio/'))
 
   return (
     <>

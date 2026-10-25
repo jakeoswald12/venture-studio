@@ -1,33 +1,50 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { Hero } from '@/components/home/Hero'
+import { ContactForm } from '@/components/site/ContactForm'
 import { Container, Label, Rule } from '@/components/site/Section'
-import { VentureMark } from '@/components/site/VentureMark'
-import { CONTACT_EMAIL } from '@/components/site/nav'
 import { PORTFOLIO_COMPANIES } from '@/lib/data/portfolio-directory'
-import { VENTURES } from '@/lib/data/ventures'
+import { THESIS_SUMMARY } from '@/lib/data/thesis'
 
 const d = (n: number) => ({ '--d': n }) as React.CSSProperties
 
 const STATS = [
-  { value: String(PORTFOLIO_COMPANIES.length), label: 'Companies that have had a student team' },
-  { value: '~20', label: 'Projects per semester at ACU' },
+  { value: String(PORTFOLIO_COMPANIES.length), label: 'Companies worked with' },
+  { value: '~20', label: 'Projects per semester' },
   { value: '35', label: 'Builder Scholars, fall 2026' },
   { value: '2', label: 'Gloo AI Hackathon wins, 2025 and 2026' },
 ]
 
-const MODEL = [
+const OVERVIEW = [
   {
-    title: 'Projects',
-    text: 'Founders bring real projects. A team of six students works on each one for a full semester, for course credit. Founders pay nothing.',
+    title: 'Purpose',
+    text: 'Find young people with unusual ability, train them on real company work, and build companies with them. The goal is 1,000 builders who go on to found or lead companies in their industries.',
   },
   {
-    title: 'Students',
-    text: 'Austin Christian University students and high school Builder Scholars, recruited from Christian schools across the country.',
+    title: 'Structure',
+    text: 'A for-profit company, separately owned and permanently affiliated with Austin Christian University. A share of profits goes to ACU’s endowment.',
   },
   {
-    title: 'Joint ventures',
-    text: 'The studio co-founds about six companies a year with operators who have found an opportunity, and holds equity in them.',
+    title: 'Work',
+    text: 'Founders bring projects to student teams, who work on them for a semester for course credit. The studio also co-founds companies with operators and holds equity in them. Companies and investors do not pay.',
+  },
+]
+
+const THESIS_POINTS = [
+  {
+    id: 'premise',
+    title: 'Premise',
+    text: 'Ability is given. The conditions around it — teachers, funding and real work at the right age — can be arranged on purpose.',
+  },
+  {
+    id: 'goal',
+    title: 'Goal: 1,000 builders',
+    text: 'Find and train 1,000 young people who go on to found or lead companies. Most are between 12 and 18 today. Measured over 30 years.',
+  },
+  {
+    id: 'operating-model',
+    title: 'Operating model',
+    text: 'Scout, form, apprentice, build. Schools nominate students; students develop skill and character; teams of six work on real projects; many start companies later.',
   },
 ]
 
@@ -38,34 +55,26 @@ export default function HomePage() {
     <main>
       <Hero />
 
-      {/* What it is */}
-      <section className="py-24 sm:py-36">
+      {/* 01 Overview */}
+      <section id="overview" className="scroll-mt-24 py-24 sm:py-36">
         <Container>
           <div className="grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-20">
             <div>
               <Label className="mb-5">01 · Overview</Label>
               <h2 data-reveal-item className="text-[clamp(2.4rem,5vw,4.4rem)] leading-[1]">
-                What West Ventures is
+                Overview
               </h2>
               <p data-reveal-item style={d(1)} className="mt-6 max-w-[46ch] text-[1.06rem] leading-[1.7]">
-                A for-profit venture studio, separately owned and permanently affiliated with Austin
-                Christian University. It has two activities: student project teams and joint ventures.
+                West Ventures is a venture studio affiliated with Austin Christian University. It
+                works with companies through student teams, and builds companies of its own.
               </p>
-              <Link
-                data-reveal-item
-                style={d(2)}
-                href="/thesis"
-                className="arrow-nudge link-line mt-7 inline-block text-[0.95rem] text-ink"
-              >
-                Thesis <span className="arrow">→</span>
-              </Link>
             </div>
             <ol className="grid gap-3">
-              {MODEL.map((m, i) => (
+              {OVERVIEW.map((m) => (
                 <li
                   key={m.title}
                   data-reveal-item
-                  style={d(i + 1)}
+                  data-reveal-auto
                   className="grid gap-2 rounded-[22px] bg-panel p-6 sm:grid-cols-[150px_1fr] sm:gap-6 sm:p-7"
                 >
                   <span className="font-serif text-[1.45rem] font-semibold leading-tight text-ink">{m.title}</span>
@@ -74,17 +83,10 @@ export default function HomePage() {
               ))}
             </ol>
           </div>
-        </Container>
-      </section>
 
-      {/* Numbers */}
-      <section className="pb-24 sm:pb-36">
-        <Container>
-          <Rule className="mb-12" />
-          <Label className="mb-8">02 · Current numbers</Label>
-          <dl className="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4">
-            {STATS.map((s, i) => (
-              <div key={s.label} data-reveal-item style={d(i)} className="flex flex-col gap-3">
+          <dl className="mt-20 grid grid-cols-2 gap-x-6 gap-y-10 border-t border-line pt-12 lg:grid-cols-4">
+            {STATS.map((s) => (
+              <div key={s.label} data-reveal-item data-reveal-auto className="flex flex-col gap-3">
                 <dd className="order-1 font-serif text-[clamp(3rem,6.5vw,5.6rem)] font-semibold leading-none text-ink tabular-nums">
                   {s.value}
                 </dd>
@@ -95,66 +97,23 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* Joint ventures */}
-      <section className="pb-24 sm:pb-36">
+      {/* 02 Ventures */}
+      <section id="ventures" className="scroll-mt-24 pb-24 sm:pb-36">
         <Container>
           <Rule className="mb-12" />
           <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
             <div>
-              <Label className="mb-5">03 · Joint ventures</Label>
+              <Label className="mb-5">02 · Ventures</Label>
               <h2 data-reveal-item className="text-[clamp(2.4rem,5vw,4.4rem)] leading-[1]">
-                Joint ventures
-              </h2>
-            </div>
-            <Link href="/ventures" className="arrow-nudge link-line text-[0.95rem] text-ink">
-              All details <span className="arrow">→</span>
-            </Link>
-          </div>
-          <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {VENTURES.map((v) => (
-              <li key={v.slug} data-reveal-item data-reveal-auto>
-                <Link
-                  href={`/ventures#${v.slug}`}
-                  className="group flex h-full min-h-[230px] flex-col justify-between gap-8 rounded-[22px] border border-line bg-paper p-6 transition-[background-color,border-color,transform,box-shadow] duration-500 ease-[var(--ease-out-soft)] hover:-translate-y-1 hover:border-transparent hover:bg-panel hover:shadow-[var(--shadow)] sm:p-7"
-                >
-                  <div className="flex items-start justify-between gap-4">
-                    <VentureMark mark={v.mark} size="sm" />
-                    <span className="font-mono text-[0.62rem] uppercase tracking-[0.14em] text-faint">{v.status}</span>
-                  </div>
-                  <div>
-                    <p className="font-mono text-[0.68rem] uppercase tracking-[0.14em] text-bronze">{v.descriptor}</p>
-                    <p className="mt-2 line-clamp-3 text-[0.95rem] leading-[1.55]">{v.summary}</p>
-                  </div>
-                </Link>
-              </li>
-            ))}
-            <li data-reveal-item data-reveal-auto className="hidden lg:block">
-              <div className="flex h-full min-h-[230px] flex-col justify-end rounded-[22px] border border-dashed border-line p-7">
-                <p className="text-[0.95rem] leading-[1.55]">
-                  About six new joint ventures a year. Operators with an opportunity can contact the studio.
-                </p>
-              </div>
-            </li>
-          </ul>
-        </Container>
-      </section>
-
-      {/* Portfolio */}
-      <section className="pb-24 sm:pb-36">
-        <Container>
-          <Rule className="mb-12" />
-          <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
-            <div>
-              <Label className="mb-5">04 · Portfolio</Label>
-              <h2 data-reveal-item className="text-[clamp(2.4rem,5vw,4.4rem)] leading-[1]">
-                Portfolio
+                Ventures
               </h2>
               <p data-reveal-item style={d(1)} className="mt-5 max-w-[50ch] text-[1.02rem] leading-[1.65]">
-                Companies that have had a student team from the studio.
+                {PORTFOLIO_COMPANIES.length} companies the studio has worked with, including its joint
+                ventures.
               </p>
             </div>
-            <Link href="/portfolio" className="arrow-nudge link-line text-[0.95rem] text-ink">
-              Full portfolio <span className="arrow">→</span>
+            <Link href="/ventures" className="arrow-nudge link-line text-[0.95rem] text-ink">
+              All ventures and services <span className="arrow">→</span>
             </Link>
           </div>
         </Container>
@@ -175,7 +134,7 @@ export default function HomePage() {
                     alt={i < tiles.length ? c.name : ''}
                     fill
                     sizes="300px"
-                    className="object-cover transition-transform duration-[1400ms] ease-[var(--ease-out-soft)] group-hover:scale-[1.05]"
+                    className="object-cover"
                     style={{ objectPosition: `${c.tileFocus ?? 50}% center` }}
                   />
                   <span className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
@@ -189,54 +148,63 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Documents */}
-      <section className="pb-24 sm:pb-36">
+      {/* 03 Thesis */}
+      <section id="thesis" className="scroll-mt-24 pb-24 sm:pb-36">
         <Container>
           <Rule className="mb-12" />
-          <Label className="mb-8">05 · Documents</Label>
-          <div className="grid gap-3 md:grid-cols-2">
-            {[
-              { href: '/thesis', title: 'Thesis', text: 'Why the studio exists, the evidence behind it, the operating model and the terms for founders and investors.' },
-              { href: '/master-plan', title: 'Master plan', text: 'Goal, model, target campuses, map, timeline, projections, revenue model and risks.' },
-            ].map((doc, i) => (
-              <Link
-                key={doc.href}
-                href={doc.href}
-                data-reveal-item
-                style={d(i)}
-                className="group flex min-h-[260px] flex-col justify-between rounded-[22px] bg-panel p-7 transition-[transform,box-shadow] duration-500 ease-[var(--ease-out-soft)] hover:-translate-y-1 hover:shadow-[var(--shadow)] sm:p-9"
-              >
-                <h3 className="text-[clamp(2rem,3.6vw,3rem)] leading-none">{doc.title}</h3>
-                <div className="flex items-end justify-between gap-6">
-                  <p className="max-w-[40ch] text-[0.98rem] leading-[1.6]">{doc.text}</p>
-                  <span aria-hidden="true" className="grid h-11 w-11 flex-none place-items-center rounded-full border border-line text-ink transition-all duration-500 group-hover:border-ink group-hover:bg-ink group-hover:text-paper">
-                    →
-                  </span>
-                </div>
-              </Link>
-            ))}
+          <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
+            <div>
+              <Label className="mb-5">03 · Thesis</Label>
+              <h2 data-reveal-item className="text-[clamp(2.4rem,5vw,4.4rem)] leading-[1]">
+                Thesis
+              </h2>
+              <p data-reveal-item style={d(1)} className="mt-5 max-w-[58ch] text-[1.02rem] leading-[1.65]">
+                {THESIS_SUMMARY}
+              </p>
+            </div>
+            <Link href="/thesis" className="arrow-nudge link-line text-[0.95rem] text-ink">
+              Full thesis <span className="arrow">→</span>
+            </Link>
           </div>
+          <ul className="grid gap-3 md:grid-cols-3">
+            {THESIS_POINTS.map((t) => (
+              <li key={t.id} data-reveal-item data-reveal-auto>
+                <Link
+                  href={`/thesis#${t.id}`}
+                  className="group flex h-full min-h-[260px] flex-col justify-between gap-8 rounded-[22px] bg-panel p-7 transition-[transform,box-shadow] duration-500 ease-[var(--ease-out-soft)] hover:-translate-y-1 hover:shadow-[var(--shadow)]"
+                >
+                  <h3 className="text-[1.7rem] leading-tight">{t.title}</h3>
+                  <div className="flex items-end justify-between gap-5">
+                    <p className="text-[0.97rem] leading-[1.6]">{t.text}</p>
+                    <span aria-hidden="true" className="grid h-10 w-10 flex-none place-items-center rounded-full border border-line text-ink transition-all duration-500 group-hover:border-ink group-hover:bg-ink group-hover:text-paper">
+                      →
+                    </span>
+                  </div>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </Container>
       </section>
 
-      {/* Contact */}
-      <section>
+      {/* 04 Contact */}
+      <section id="contact" className="scroll-mt-24">
         <Container>
-          <div data-reveal-item className="grid gap-8 rounded-[28px] bg-ink p-8 text-paper sm:p-14 md:grid-cols-[1fr_auto] md:items-end">
+          <Rule className="mb-12" />
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-20">
             <div>
-              <p className="font-mono text-[0.7rem] uppercase tracking-[0.16em] text-paper/50">06 · Contact</p>
-              <h2 className="mt-5 text-[clamp(2.4rem,5vw,4.4rem)] leading-[1] text-paper">Contact</h2>
-              <p className="mt-5 max-w-[52ch] text-[1.02rem] leading-[1.65] text-paper/70">
-                Founders and investors with a project, universities interested in hosting a Builders
-                Guild, and teachers nominating a student.
+              <Label className="mb-5">04 · Contact</Label>
+              <h2 data-reveal-item className="text-[clamp(2.4rem,5vw,4.4rem)] leading-[1]">
+                Contact
+              </h2>
+              <p data-reveal-item style={d(1)} className="mt-6 max-w-[44ch] text-[1.02rem] leading-[1.65]">
+                For prospective partners, advisors and Student Fellows, and for founders with a
+                project.
               </p>
             </div>
-            <a
-              href={`mailto:${CONTACT_EMAIL}`}
-              className="arrow-nudge inline-flex w-fit items-center gap-3 rounded-full bg-paper px-6 py-3.5 text-[0.95rem] font-medium text-ink transition-transform duration-300 hover:scale-[1.02] active:scale-[0.98]"
-            >
-              {CONTACT_EMAIL} <span className="arrow">→</span>
-            </a>
+            <div data-reveal-item style={d(2)}>
+              <ContactForm />
+            </div>
           </div>
         </Container>
       </section>

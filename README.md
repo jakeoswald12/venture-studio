@@ -4,11 +4,14 @@ Next.js site for West Ventures.
 
 | Route | What it is |
 | --- | --- |
-| `/` | Home: film frame, overview, numbers, joint ventures, portfolio strip, documents, contact |
-| `/ventures` | Joint ventures (Unify, launch.kids, Builder's Quotient, stealth Life Time project, blkbox.io) |
-| `/portfolio` | Duplicate of austinchristianuniversity.org/portfolio, with company and student pages |
+| `/` | Home: hero, overview, ventures preview, thesis preview, contact form |
+| `/ventures` | Every company the studio has worked with (tile wall from ACU's /portfolio), then services |
+| `/portfolio/[company]`, `/portfolio/student/[student]` | Company case studies and student pages (`/portfolio` redirects to `/ventures`) |
+| `/partners` | Venture firms, organizations, universities, high schools, network, partnership form |
+| `/team` | Leadership, board, Student Fellows, advisors |
 | `/thesis` | Thesis and operating principles |
-| `/master-plan` | Master plan deck (`public/master-plan-deck.html`) framed in the site |
+| `/contact` | Contact form |
+| `/master-plan` | Master plan deck (`public/master-plan-deck.html`), linked from the footer |
 
 ## Run locally
 
@@ -20,6 +23,16 @@ npm run dev        # http://localhost:4848
 ## Deploy
 
 Import the repo in Vercel. Framework preset: Next.js. No environment variables needed.
+
+## Contact form
+
+The forms post to `/api/contact`, which emails each submission through Resend. Set these in Vercel (Project → Settings → Environment Variables):
+
+- `RESEND_API_KEY`
+- `CONTACT_TO` (e.g. `partners@west.ventures`)
+- `CONTACT_FROM` (a verified sender, e.g. `West Ventures <forms@west.ventures>`)
+
+Until they're set, submitting opens the visitor's email app with the message filled in.
 
 ## Notes
 

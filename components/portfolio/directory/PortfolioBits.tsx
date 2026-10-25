@@ -5,7 +5,12 @@ import type { StudentRole } from '@/lib/data/portfolio-directory'
 /** Two-letter monogram standing in for a company logo. Uses the first letters
  *  of the first two words, or the first two characters of a single-word name. */
 export function monogram(name: string): string {
-  const words = name.replace(/[^\w\s]/g, ' ').split(/\s+/).filter(Boolean)
+  const words = name
+    .replace(/['’]/g, '')
+    .replace(/\.(io|com|ai)$/i, '')
+    .replace(/[^\w\s]/g, ' ')
+    .split(/\s+/)
+    .filter(Boolean)
   return (words.length > 1 ? words[0][0] + words[1][0] : (words[0] ?? name).slice(0, 2)).toUpperCase()
 }
 

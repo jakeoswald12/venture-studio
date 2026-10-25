@@ -59,10 +59,10 @@ export default async function StudentProfilePage({ params }: PageProps) {
         <div className="mx-auto max-w-[1180px] px-5">
           <nav className="flex items-center gap-2 pt-5 text-[12.5px] text-muted-foreground">
             <Link
-              href="/portfolio"
+              href="/ventures"
               className="underline decoration-border underline-offset-[3px] hover:text-bronze"
             >
-              Portfolio
+              Ventures
             </Link>
             <span>/</span>
             <span>{student.name}</span>

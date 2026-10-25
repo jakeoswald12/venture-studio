@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { CONTACT_EMAIL, NAV } from './nav'
+import { CONTACT_EMAIL, FOOTER_EXTRA, NAV } from './nav'
 
 export function Footer() {
   const pathname = usePathname()
@@ -25,7 +25,7 @@ export function Footer() {
           </a>
         </div>
         <nav aria-label="Footer" className="flex flex-wrap gap-x-7 gap-y-2 text-[0.9rem] sm:flex-col sm:items-end">
-          {NAV.map((item) => (
+          {[...NAV, ...FOOTER_EXTRA].map((item) => (
             <Link key={item.href} href={item.href} className="link-line w-fit hover:text-ink">
               {item.label}
             </Link>

@@ -138,6 +138,34 @@ export interface PortfolioStudent {
 }
 
 const ALL_COMPANIES: PortfolioCompany[] = [
+  // Studio joint ventures (added for the West Ventures site).
+  {
+    slug: 'unify',
+    name: 'Unify',
+    descriptor: 'Software for Nonprofits',
+    url: 'https://unify-production.vercel.app/',
+    blurb:
+      'Nonprofits pay for many separate subscriptions: a CRM, a donor page, volunteer management, grant tracking, a website and task management. Unify replaces them with one platform built for each organization.',
+    engagements: [],
+  },
+  {
+    slug: 'builders-quotient',
+    name: "Builder's Quotient",
+    descriptor: 'Entrepreneurial Assessment',
+    url: 'https://bq.austinchristianu.org/',
+    blurb:
+      "A 20-minute psychometric assessment that measures practical intelligence, creative reasoning and a person's builder profile.",
+    engagements: [],
+  },
+  {
+    slug: 'blkbox',
+    name: 'blkbox.io',
+    descriptor: 'Private AI Trading Fund',
+    url: 'https://blkbox.io',
+    blurb:
+      'A private hedge fund. Its AI models trade highly liquid markets (stock options, cryptocurrency and betting markets) and retrain on their own results, 24 hours a day, 365 days a year.',
+    engagements: [],
+  },
   {
     slug: 'waterside-by-ulteum',
     name: 'Waterside by Ulteum',

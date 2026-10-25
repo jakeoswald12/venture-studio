@@ -163,7 +163,8 @@ export function Hero() {
           </h1>
           <p className="hero-in mt-5 max-w-[44ch] text-[clamp(1rem,1.45vw,1.2rem)] leading-[1.55] text-[#f7f5f0]/80" style={{ animationDelay: '300ms' }}>
             A venture studio affiliated with Austin Christian University. Student teams work on real
-            companies for course credit. The studio also co-founds joint ventures.
+            companies for course credit. The studio
+            also builds companies of its own.
           </p>
           <div className="hero-in mt-7 flex flex-wrap gap-2.5" style={{ animationDelay: '450ms' }}>
             <button
