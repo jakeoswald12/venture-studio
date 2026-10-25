@@ -45,10 +45,12 @@ export const LEADERSHIP: Person[] = [
   { name: 'Mary Brownlee', title: 'Venture Lead', linkedin: 'https://www.linkedin.com/in/mary-brownlee-033b08208/' },
   { name: 'Tommy Denn', title: 'Venture Lead' },
   { name: 'Allie Vaughan', title: 'Venture Lead' },
+  { name: 'Cole Elzerman', title: 'Venture Lead' },
+  { name: 'Ethan McCarthy', title: 'Venture Lead' },
 ]
 
 export const FELLOWS: Person[] = [
-  { name: 'Cole Elzerman', title: 'Student Fellow' },
+  { name: 'Braxton Hill', title: 'Student Fellow' },
   {
     name: 'Yakira Cardoso',
     title: 'Student Fellow',
