@@ -64,6 +64,22 @@ export const FELLOWS: Person[] = [
   { name: 'Jonah Elliot', title: 'Student Fellow' },
   { name: 'Broderick Cotter', title: 'Student Fellow' },
   { name: 'Mackenzie Kendall', title: 'Student Fellow' },
+  { name: 'Katie Salmon', title: 'Student Fellow' },
+  { name: 'Campbell Hairston', title: 'Student Fellow' },
+  { name: 'Lillia Caldroney', title: 'Student Fellow' },
+  { name: 'Maebry Magilkey', title: 'Student Fellow' },
+  {
+    name: 'Yakira Cardoso',
+    title: 'Student Fellow',
+    photo: '/team/yakira-cardoso.jpg',
+    photoPosition: 'center 20%',
+    linkedin: 'https://www.linkedin.com/in/yakira-cardoso-334047381/',
+  },
+  { name: 'Merci Wymore', title: 'Student Fellow' },
+  { name: 'Luke Rapaka', title: 'Student Fellow' },
+  { name: 'Jack Malouff', title: 'Student Fellow' },
+  { name: 'Cooper Rich', title: 'Student Fellow' },
+  { name: 'Austin-David Whitaker', title: 'Student Fellow' },
 ]
 
 export const BOARD: Person[] = [

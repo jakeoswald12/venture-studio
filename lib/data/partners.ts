@@ -63,7 +63,7 @@ export const NETWORK: PartnerEntry[] = [
 
 /**
  * ACU, then top go-to-market targets (wave 1). The best-known schools come
- * first; the first ten show before "See all".
+ * first; the first fourteen show before "See all".
  */
 export const UNIVERSITIES: PartnerEntry[] = [
   { name: 'Austin Christian University', href: 'https://www.austinchristianuniversity.org' },
@@ -81,6 +81,19 @@ export const UNIVERSITIES: PartnerEntry[] = [
   { name: 'Campbellsville University', href: 'https://www.campbellsville.edu' },
   { name: 'Missouri Baptist University', href: 'https://www.mobap.edu' },
   { name: 'William Carey University', href: 'https://www.wmcarey.edu' },
+  { name: 'Houston Christian University', href: 'https://hc.edu' },
+  { name: 'Bethel University', href: 'https://www.bethel.edu' },
+  { name: 'Lee University', href: 'https://www.leeuniversity.edu' },
+  { name: 'Anderson University', href: 'https://andersonuniversity.edu' },
+  { name: 'Mississippi College', href: 'https://www.mc.edu' },
+  { name: 'Concordia University Irvine', href: 'https://www.cui.edu' },
+  { name: 'Concordia University Wisconsin', href: 'https://www.cuw.edu' },
+  { name: 'Charleston Southern University', href: 'https://www.csuniv.edu' },
+  { name: 'Belhaven University', href: 'https://www.belhaven.edu' },
+  { name: 'Wingate University', href: 'https://www.wingate.edu' },
+  { name: 'Concordia University Nebraska', href: 'https://www.cune.edu' },
+  { name: 'Lindsey Wilson University', href: 'https://www.lindsey.edu' },
+  { name: 'Pensacola Christian College', href: 'https://www.pcci.edu' },
 ]
 
 export const HIGH_SCHOOLS: PartnerEntry[] = [

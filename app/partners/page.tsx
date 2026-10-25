@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import { ContactForm } from '@/components/site/ContactForm'
 import { PartnerGrid } from '@/components/site/PartnerGrid'
-import { Container, Label, Rule } from '@/components/site/Section'
+import { Frame } from '@/components/site/Frame'
+import { Rule } from '@/components/site/Section'
 import { HIGH_SCHOOLS, NETWORK, UNIVERSITIES, VC_FIRMS } from '@/lib/data/partners'
 
 export const metadata: Metadata = {
@@ -10,13 +11,11 @@ export const metadata: Metadata = {
 }
 
 function Section({
-  index,
   title,
   first,
   text,
   children,
 }: {
-  index: string
   title: string
   first?: boolean
   text: string
@@ -26,7 +25,6 @@ function Section({
     <section className="pb-20 sm:pb-28">
       {!first && <Rule className="mb-10" />}
       <div className="mb-10">
-        <Label className="mb-4">{index}</Label>
         <h2 data-reveal-item className="text-[clamp(2rem,4vw,3.2rem)] leading-[1]">
           {title}
         </h2>
@@ -44,10 +42,9 @@ export default function PartnersPage() {
     <main>
       <h1 className="sr-only">Partners</h1>
 
-      <Container className="pt-[calc(124px+env(safe-area-inset-top))] sm:pt-[150px]">
+      <Frame className="pt-[calc(124px+env(safe-area-inset-top))] sm:pt-[150px]">
         <Section
           first
-          index="01"
           title="Venture firms"
           text="Firms that bring portfolio companies to the studio, support its events, or invest alongside it."
         >
@@ -55,7 +52,6 @@ export default function PartnersPage() {
         </Section>
 
         <Section
-          index="02"
           title="Broader network"
           text="Organizations the studio partners with on programs, events, distribution and recruiting, and others in the ecosystem it is connected to."
         >
@@ -63,7 +59,6 @@ export default function PartnersPage() {
         </Section>
 
         <Section
-          index="03"
           title="Universities"
           text="Austin Christian University, the studio's home campus, and private Christian universities the studio is pursuing as partner campuses."
         >
@@ -71,7 +66,6 @@ export default function PartnersPage() {
         </Section>
 
         <Section
-          index="04"
           title="High schools"
           text="Partner schools whose teachers, counselors and principals nominate Builder Scholars. Each school may nominate up to three students per academic year."
         >
@@ -82,7 +76,6 @@ export default function PartnersPage() {
           <Rule className="mb-10" />
           <div className="grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-20">
             <div>
-              <Label className="mb-4">05</Label>
               <h2 data-reveal-item className="text-[clamp(2rem,4vw,3.2rem)] leading-[1]">
                 Partnership inquiry
               </h2>
@@ -96,7 +89,7 @@ export default function PartnersPage() {
             </div>
           </div>
         </section>
-      </Container>
+      </Frame>
     </main>
   )
 }

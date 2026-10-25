@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { CompanyTile, buildEntrances } from '@/components/portfolio/directory/CompanyTile'
 import { ContactForm } from '@/components/site/ContactForm'
+import { Frame } from '@/components/site/Frame'
 import { Container, Rule } from '@/components/site/Section'
 import { DISCIPLINES } from '@/lib/data/services'
 import { PORTFOLIO_COMPANIES } from '@/lib/data/portfolio-directory'
@@ -31,16 +32,17 @@ export default function VenturesPage() {
 
   return (
     <>
-      <main className="relative z-10 min-h-screen pt-[92px] sm:pt-28">
+      <main className="relative z-10 min-h-screen pt-[calc(69px+env(safe-area-inset-top))]">
         <h1 className="sr-only">Ventures</h1>
-        {/* Same width as the homepage hero frame. */}
-        <div className="mx-auto max-w-[1600px] px-[max(10px,env(safe-area-inset-left))] sm:px-4">
+        {/* Same width as the homepage hero frame; the first row starts at the
+            bottom edge of the header, as the hero frame does. */}
+        <Frame>
           <div className="grid grid-cols-1 gap-2.5 [grid-auto-flow:dense] sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-7">
             {PORTFOLIO_COMPANIES.map((company, index) => (
               <CompanyTile key={company.slug} company={company} entrance={entrances[index]} />
             ))}
           </div>
-        </div>
+        </Frame>
 
         {/* Disciplines */}
         <Container className="pt-28 sm:pt-40">

@@ -3,53 +3,65 @@
 import Image from 'next/image'
 import { useId, useState } from 'react'
 import type { PartnerEntry } from '@/lib/data/partners'
+import { TILE_GRID } from './Frame'
 
-const GRID = 'grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-4 sm:gap-x-5 lg:grid-cols-5'
-
-/** Square tile: photo, logo on a light plate, or the name on a plain panel. */
+/**
+ * Square tile in the style of the ventures wall: artwork only at rest, and on
+ * hover (or keyboard focus) a scrim drops in with the name at the bottom.
+ * Touch screens have no hover, so there the name shows on a light shade.
+ */
 function PartnerTile({ p }: { p: PartnerEntry }) {
   const inner = (
     <>
-      <div className="relative aspect-square w-full overflow-hidden rounded-[18px] bg-panel">
-        {p.image ? (
-          <Image
-            src={p.image}
-            alt=""
-            fill
-            sizes="(min-width:1024px) 18vw, (min-width:640px) 25vw, 50vw"
-            className="object-cover"
-            style={{ objectPosition: p.objectPosition ?? 'center' }}
-          />
-        ) : p.logo ? (
-          <span className="absolute inset-0 bg-[#fbfaf6]">
-            <span className="absolute inset-[22%]">
-              <Image src={p.logo} alt="" fill sizes="20vw" className="object-contain" />
-            </span>
+      {p.image ? (
+        <Image
+          src={p.image}
+          alt=""
+          fill
+          sizes="(min-width:1280px) 14vw, (min-width:1024px) 19vw, (min-width:640px) 32vw, 50vw"
+          className="object-cover"
+          style={{ objectPosition: p.objectPosition ?? 'center' }}
+        />
+      ) : p.logo ? (
+        <span className="absolute inset-0 bg-[#fbfaf6]">
+          <span className="absolute inset-[22%]">
+            <Image src={p.logo} alt="" fill sizes="14vw" className="object-contain" />
           </span>
-        ) : (
-          <span className="absolute inset-0 grid place-items-center px-4 text-center font-serif text-[clamp(1.05rem,1.7vw,1.4rem)] font-semibold leading-tight text-ink/70">
-            {p.name}
-          </span>
-        )}
-      </div>
-      <p className="mt-3 text-[0.95rem] leading-snug text-ink">{p.name}</p>
+        </span>
+      ) : (
+        <span
+          aria-hidden="true"
+          className="absolute inset-0 grid place-items-center bg-panel px-4 text-center font-serif text-[clamp(1rem,1.3vw,1.2rem)] font-semibold leading-tight text-ink/70"
+        >
+          {p.name}
+        </span>
+      )}
+
+      <span className="absolute inset-0 bg-black/0 transition-colors duration-500 group-hover:bg-black/65 group-focus-visible:bg-black/65 [@media(hover:none)]:bg-gradient-to-t [@media(hover:none)]:from-black/55 [@media(hover:none)]:to-transparent [@media(hover:none)]:to-50%" />
+      <span className="absolute inset-x-0 bottom-0 p-3.5 font-serif text-[15px] font-medium leading-tight text-white opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-focus-visible:opacity-100 [@media(hover:none)]:opacity-100">
+        {p.name}
+      </span>
     </>
   )
+  const cls =
+    'group relative block aspect-square overflow-hidden rounded-[7px] bg-panel focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bronze'
   return p.href ? (
-    <a href={p.href} target="_blank" rel="noopener noreferrer" className="block transition-opacity duration-300 hover:opacity-80">
+    <a href={p.href} target="_blank" rel="noopener noreferrer" aria-label={p.name} className={cls}>
       {inner}
     </a>
   ) : (
-    <div>{inner}</div>
+    <div aria-label={p.name} className={cls}>
+      {inner}
+    </div>
   )
 }
 
 /**
- * The first `initial` partners, then a "See all" toggle that opens the rest.
- * The extra rows open by animating grid rows 0fr → 1fr, and the tiles inside
- * fade up in order.
+ * The first `initial` partners (two rows of seven), then a "See all" toggle
+ * that opens the rest. The extra rows open by animating grid rows 0fr → 1fr,
+ * and the tiles inside fade up in order.
  */
-export function PartnerGrid({ items, initial = 10 }: { items: PartnerEntry[]; initial?: number }) {
+export function PartnerGrid({ items, initial = 14 }: { items: PartnerEntry[]; initial?: number }) {
   const [open, setOpen] = useState(false)
   const id = useId()
   const first = items.slice(0, initial)
@@ -57,7 +69,7 @@ export function PartnerGrid({ items, initial = 10 }: { items: PartnerEntry[]; in
 
   return (
     <div>
-      <ul className={GRID}>
+      <ul className={TILE_GRID}>
         {first.map((p) => (
           <li key={p.name} data-reveal-item data-reveal-auto>
             <PartnerTile p={p} />
@@ -74,7 +86,7 @@ export function PartnerGrid({ items, initial = 10 }: { items: PartnerEntry[]; in
             }`}
           >
             <div className="overflow-hidden" inert={!open}>
-              <ul className={`${GRID} pt-8`}>
+              <ul className={`${TILE_GRID} pt-2.5`}>
                 {rest.map((p, i) => (
                   <li
                     key={p.name}
@@ -82,7 +94,7 @@ export function PartnerGrid({ items, initial = 10 }: { items: PartnerEntry[]; in
                     style={{
                       opacity: open ? 1 : 0,
                       transform: open ? 'none' : 'translate3d(0,16px,0)',
-                      transitionDelay: open ? `${150 + i * 50}ms` : '0ms',
+                      transitionDelay: open ? `${150 + i * 40}ms` : '0ms',
                     }}
                   >
                     <PartnerTile p={p} />
@@ -97,7 +109,7 @@ export function PartnerGrid({ items, initial = 10 }: { items: PartnerEntry[]; in
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-controls={id}
-            className="mt-8 inline-flex items-center gap-2.5 font-mono text-[0.72rem] uppercase tracking-[0.14em] text-grey transition-colors duration-300 hover:text-ink"
+            className="mt-7 inline-flex items-center gap-2.5 font-mono text-[0.72rem] uppercase tracking-[0.14em] text-grey transition-colors duration-300 hover:text-ink"
           >
             <span
               aria-hidden="true"
@@ -106,7 +118,7 @@ export function PartnerGrid({ items, initial = 10 }: { items: PartnerEntry[]; in
               <span className="absolute h-px w-2.5 bg-current" />
               <span className="absolute h-2.5 w-px bg-current" />
             </span>
-            {open ? 'See less' : `See all ${items.length}`}
+            {open ? 'See less' : 'See all'}
           </button>
         </>
       )}

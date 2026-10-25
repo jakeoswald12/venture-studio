@@ -184,7 +184,7 @@ export function CompanyTile({
 
       {/* Scrim + label, revealed together on hover or keyboard focus. */}
       <span className="absolute inset-0 rounded-[7px] bg-black/0 transition-colors duration-500 group-hover:bg-black/65 group-focus-visible:bg-black/65" />
-      <span className="absolute inset-0 flex flex-col justify-between p-3.5 opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-focus-visible:opacity-100">
+      <span className="absolute inset-0 flex flex-col justify-end gap-1.5 p-3.5 opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-focus-visible:opacity-100">
         <span className="block">
           {logoWhite ? (
             <Image
