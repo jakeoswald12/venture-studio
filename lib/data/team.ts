@@ -18,6 +18,18 @@ export interface Person {
 
 export const LEADERSHIP: Person[] = [
   {
+    name: 'Jake Jadlot',
+    title: 'Head of Operations',
+    bio: 'Works for Celebration Church. He previously worked at the University of Notre Dame’s accelerator and holds an MBA.',
+  },
+  { name: 'Nate Steele', title: 'Head of Design' },
+  { name: 'Ethan Woo', title: 'Head of Product' },
+  { name: 'Landen Enns', title: 'Head of Growth' },
+  { name: 'Trent Sikute', title: 'Venture Lead' },
+  { name: 'Mary Brownlee', title: 'Venture Lead' },
+  { name: 'Tommy Denn', title: 'Venture Lead' },
+  { name: 'Allie Vaughan', title: 'Venture Lead' },
+  {
     name: 'Jake Oswald',
     title: 'Managing Partner',
     photo: '/team/jake-oswald.png',
@@ -33,35 +45,25 @@ export const LEADERSHIP: Person[] = [
     linkedin: 'https://www.linkedin.com/in/larsostervold/',
     bio: 'Chief Technology Officer of Austin Christian University and a member of the accelerator’s leadership team. He is building launch.kids, the studio’s software building tool for students.',
   },
-  {
-    name: 'Jake Jadlot',
-    title: 'Head of Operations',
-    bio: 'Works for Celebration Church. He previously worked at the University of Notre Dame’s accelerator and holds an MBA.',
-  },
-  { name: 'Nate Steele', title: 'Head of Design' },
-  { name: 'Ethan Woo', title: 'Head of Product' },
-  { name: 'Landen Enns', title: 'Head of Growth' },
-  { name: 'Trent Sikute', title: 'Venture Lead' },
-  { name: 'Mary Brownlee', title: 'Venture Lead' },
-  { name: 'Tommy Denn', title: 'Venture Associate' },
 ]
 
 export const FELLOWS: Person[] = [
-  { name: 'Cole Elzerman', title: 'Fellow' },
-  { name: 'Morgan Elder', title: 'Fellow' },
+  { name: 'Cole Elzerman', title: 'Student Fellow' },
+  { name: 'Morgan Elder', title: 'Student Fellow' },
   {
     name: 'Noah Nugent',
-    title: 'Fellow',
+    title: 'Student Fellow',
     photo: '/team/noah-nugent.jpg',
     photoPosition: 'center 8%',
     linkedin: 'https://www.linkedin.com/in/noah-nugent-131119291/',
   },
-  { name: 'Jack Swanston', title: 'Fellow' },
-  { name: 'Braden Peays', title: 'Fellow' },
-  { name: 'Michael Peays', title: 'Fellow' },
-  { name: 'Connor Dore', title: 'Fellow' },
-  { name: 'Jonah Elliot', title: 'Fellow' },
-  { name: 'Broderick Cotter', title: 'Fellow' },
+  { name: 'Jack Swanston', title: 'Student Fellow' },
+  { name: 'Braden Peays', title: 'Student Fellow' },
+  { name: 'Michael Peays', title: 'Student Fellow' },
+  { name: 'Connor Dore', title: 'Student Fellow' },
+  { name: 'Jonah Elliot', title: 'Student Fellow' },
+  { name: 'Broderick Cotter', title: 'Student Fellow' },
+  { name: 'Mackenzie Kendall', title: 'Student Fellow' },
 ]
 
 export const BOARD: Person[] = [
@@ -73,17 +75,15 @@ export const BOARD: Person[] = [
     photoPosition: 'center 15%',
     linkedin: 'https://www.linkedin.com/in/connor-champion-563756212/',
   },
-  { name: 'Travis Manderfield', title: 'Board Member' },
   { name: 'Max Gangestad', title: 'Board Member' },
-  { name: 'Steve Neylon', title: 'Board Member' },
+  { name: 'Grant Demeter', title: 'Board Member', linkedin: 'https://www.linkedin.com/in/grant-demeter/' },
+  { name: 'John Manning', title: 'Board Member' },
 ]
 
 /** Advisors: name and LinkedIn only. */
 export const ADVISORS: Pick<Person, 'name' | 'linkedin'>[] = [
-  { name: 'John Manning' },
   { name: 'Matt Doyle' },
   { name: 'Nick Daniel' },
-  { name: 'Grant Demeter', linkedin: 'https://www.linkedin.com/in/grant-demeter/' },
   { name: 'Preston Morter' },
   { name: 'Scott Elequin' },
   { name: 'Jason Malec' },
@@ -121,4 +121,11 @@ export const ADVISORS: Pick<Person, 'name' | 'linkedin'>[] = [
   { name: 'Ben Elmore', linkedin: 'https://www.linkedin.com/in/benjaminelmore/' },
   { name: 'Melissa Peak', linkedin: 'https://www.linkedin.com/in/melissajpeak/' },
   { name: 'Brian Woods' },
+  { name: 'Travis Manderfield' },
+  { name: 'Steve Neylon' },
+  { name: 'Ryan Wuerch' },
+  { name: 'Nick Spiller' },
+  { name: 'Douglas Williamson' },
+  { name: 'Justin Forman' },
+  { name: 'Dana Roefer' },
 ]

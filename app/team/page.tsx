@@ -5,7 +5,7 @@ import { ADVISORS, BOARD, FELLOWS, LEADERSHIP } from '@/lib/data/team'
 
 export const metadata: Metadata = {
   title: 'Team',
-  description: 'West Ventures leadership, fellows, board and advisors.',
+  description: 'West Ventures leadership, student fellows, board and advisors.',
 }
 
 const d = (n: number) => ({ '--d': n % 8 }) as React.CSSProperties
@@ -42,7 +42,7 @@ export default function TeamPage() {
   return (
     <main>
       <PageIntro label="Team" title="Team">
-        <p>Leadership, fellows, board and advisors.</p>
+        <p>Leadership, student fellows, board and advisors.</p>
       </PageIntro>
 
       <Container>
@@ -56,7 +56,7 @@ export default function TeamPage() {
           </div>
         </Group>
 
-        <Group index="02" title="Fellows" count={FELLOWS.length}>
+        <Group index="02" title="Student Fellows" count={FELLOWS.length}>
           <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-4 sm:gap-x-5 lg:grid-cols-5">
             {FELLOWS.map((p, i) => (
               <div key={p.name} data-reveal-item style={d(i)}>
