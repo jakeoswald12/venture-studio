@@ -75,13 +75,14 @@ export default function TeamPage() {
         </Group>
 
         <Group index="04" title="Advisors" count={ADVISORS.length}>
-          <ul className="grid grid-cols-1 gap-x-8 sm:grid-cols-2 lg:grid-cols-4">
+          {/* Columns, not a grid: names run down each column, then to the next. */}
+          <ul className="columns-1 gap-x-8 sm:columns-2 lg:columns-4">
             {ADVISORS.map((a) => (
               <li
                 key={a.name}
                 data-reveal-item
                 data-reveal-auto
-                className="flex min-h-[56px] items-center justify-between gap-3 border-b border-line py-2.5"
+                className="flex min-h-[56px] break-inside-avoid items-center justify-between gap-3 border-b border-line py-2.5"
               >
                 <span className="text-[1rem] text-ink">{a.name}</span>
                 {a.linkedin && <LinkedInLink href={a.linkedin} name={a.name} className="h-7 w-7" />}
