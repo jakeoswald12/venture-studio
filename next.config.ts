@@ -8,7 +8,11 @@ const nextConfig: NextConfig = {
   async redirects() {
     // The portfolio wall moved to /ventures; company and student pages stay
     // under /portfolio/.
-    return [{ source: '/portfolio', destination: '/ventures', permanent: false }]
+    return [
+      { source: '/portfolio', destination: '/ventures', permanent: false },
+      // Contact lives at the bottom of the homepage (general) and /partners (partners).
+      { source: '/contact', destination: '/#contact', permanent: false },
+    ]
   },
   async rewrites() {
     return [

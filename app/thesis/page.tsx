@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Container, Label, PageIntro, Rule } from '@/components/site/Section'
+import { Container, Label, Rule } from '@/components/site/Section'
 import { ThesisIndex } from '@/components/site/ThesisIndex'
 import { THESIS, THESIS_SUMMARY, type ThesisBlock } from '@/lib/data/thesis'
 
@@ -152,11 +152,10 @@ function Block({ block }: { block: ThesisBlock }) {
 export default function ThesisPage() {
   return (
     <main>
-      <PageIntro label="Thesis" title="Thesis and operating principles">
-        <p>{THESIS_SUMMARY}</p>
-      </PageIntro>
+      <h1 className="sr-only">Thesis</h1>
 
-      <Container className="grid gap-12 lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-20">
+
+      <Container className="grid gap-12 pt-[calc(108px+env(safe-area-inset-top))] sm:pt-[132px] lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-20">
         <aside>
           <ThesisIndex sections={THESIS.map(({ id, title }) => ({ id, title }))} />
         </aside>
@@ -164,8 +163,8 @@ export default function ThesisPage() {
         <div className="flex min-w-0 flex-col">
           {THESIS.map((section, i) => (
             <section key={section.id} id={section.id} className="scroll-mt-28">
-              <Rule />
-              <div className="flex flex-col gap-6 py-12 sm:py-16">
+              {i > 0 && <Rule />}
+              <div className={`flex flex-col gap-6 ${i === 0 ? 'pb-12 pt-1 sm:pb-16' : 'py-12 sm:py-16'}`}>
                 <Label>
                   <span data-reveal-item className="inline-block">
                     {String(i + 1).padStart(2, '0')}

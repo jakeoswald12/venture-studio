@@ -4,13 +4,12 @@ Next.js site for West Ventures.
 
 | Route | What it is |
 | --- | --- |
-| `/` | Home: hero, overview, ventures preview, thesis preview, contact form |
+| `/` | Home: hero, overview, ventures preview, thesis preview, general contact form (`/contact` redirects here) |
 | `/ventures` | Every company the studio has worked with (tile wall from ACU's /portfolio), then services |
 | `/portfolio/[company]`, `/portfolio/student/[student]` | Company case studies and student pages (`/portfolio` redirects to `/ventures`) |
 | `/partners` | Venture firms, organizations, universities, high schools, network, partnership form |
 | `/team` | Leadership, board, Student Fellows, advisors |
 | `/thesis` | Thesis and operating principles |
-| `/contact` | Contact form |
 | `/master-plan` | Master plan deck (`public/master-plan-deck.html`), linked from the footer |
 
 ## Run locally
