@@ -92,7 +92,7 @@ export default function PartnersPage() {
               </p>
             </div>
             <div data-reveal-item style={{ '--d': 2 } as React.CSSProperties}>
-              <ContactForm persona="Partner" />
+              <ContactForm variant="partner" />
             </div>
           </div>
         </section>

@@ -30,13 +30,22 @@ export async function POST(req: Request) {
   // Bots fill every field, including the hidden one.
   if (clean(body.website, 200)) return NextResponse.json({ ok: true })
 
+  const variant = ['general', 'partner', 'venture'].includes(body.variant as string) ? (body.variant as string) : 'general'
   const persona = PERSONAS.includes(body.persona as never) ? (body.persona as string) : ''
-  const name = clean(body.name, 200)
+  const firstName = clean(body.firstName, 100)
+  const lastName = clean(body.lastName, 100)
   const email = clean(body.email, 320)
-  const organization = clean(body.organization, 200)
+  const phone = clean(body.phone, 50)
+  const orgName = clean(body.orgName, 200)
+  const orgWebsite = clean(body.orgWebsite, 300)
+  const stage = clean(body.stage, 100)
   const message = clean(body.message, 5000)
+  const name = `${firstName} ${lastName}`.trim()
 
-  if (!persona || !name || !isEmail(email) || !message) {
+  if (!persona || !firstName || !lastName || !isEmail(email) || !message) {
+    return NextResponse.json({ error: 'Fill in every required field.' }, { status: 422 })
+  }
+  if (variant !== 'general' && !orgName) {
     return NextResponse.json({ error: 'Fill in every required field.' }, { status: 422 })
   }
 
@@ -47,12 +56,19 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Email delivery is not configured.' }, { status: 503 })
   }
 
-  const subject = `West Ventures inquiry: ${persona} — ${name}`
+  const subject =
+    variant === 'venture'
+      ? `West Ventures startup submission: ${orgName || name}`
+      : `West Ventures inquiry: ${persona} — ${name}`
   const rows: [string, string][] = [
+    ['Form', variant],
     ['Type', persona],
     ['Name', name],
     ['Email', email],
-    ['Organization', organization || '—'],
+    ['Phone', phone || '—'],
+    [variant === 'venture' ? 'Company or idea' : 'Organization', orgName || '—'],
+    ['Website', orgWebsite || '—'],
+    ...(variant === 'venture' ? ([['Stage', stage || '—']] as [string, string][]) : []),
   ]
   const html = `<table cellpadding="6" style="font-family:Arial,sans-serif;font-size:14px">${rows
     .map(([k, v]) => `<tr><td style="color:#6e6a64">${k}</td><td>${esc(v)}</td></tr>`)
