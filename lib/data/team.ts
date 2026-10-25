@@ -70,14 +70,14 @@ export const BOARD: Person[] = [
   { name: 'Ben Peays', title: 'Board Chair' },
   {
     name: 'Connor Champion',
-    title: 'Board Member (ACU seat)',
+    title: 'Board Member',
     photo: '/team/connor-champion.jpeg',
     photoPosition: 'center 15%',
     linkedin: 'https://www.linkedin.com/in/connor-champion-563756212/',
   },
-  { name: 'Max Gangestad', title: 'Board Member' },
-  { name: 'Grant Demeter', title: 'Board Member', linkedin: 'https://www.linkedin.com/in/grant-demeter/' },
   { name: 'John Manning', title: 'Board Member' },
+  { name: 'Grant Demeter', title: 'Board Member', linkedin: 'https://www.linkedin.com/in/grant-demeter/' },
+  { name: 'Max Gangestad', title: 'Board Member' },
 ]
 
 /** Advisors: name and LinkedIn only, alphabetical by last name. */
