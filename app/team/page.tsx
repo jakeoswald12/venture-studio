@@ -47,18 +47,8 @@ export default function TeamPage() {
 
       <Container>
         <Group index="01" title="Leadership" count={LEADERSHIP.length}>
-          <div className="grid grid-cols-2 gap-x-4 gap-y-12 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4">
-            {LEADERSHIP.map((p, i) => (
-              <div key={p.name} data-reveal-item style={d(i)}>
-                <PersonCard person={p} />
-              </div>
-            ))}
-          </div>
-        </Group>
-
-        <Group index="02" title="Student Fellows" count={FELLOWS.length}>
           <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-4 sm:gap-x-5 lg:grid-cols-5">
-            {FELLOWS.map((p, i) => (
+            {LEADERSHIP.map((p, i) => (
               <div key={p.name} data-reveal-item style={d(i)}>
                 <PersonCard person={p} size="sm" />
               </div>
@@ -66,9 +56,19 @@ export default function TeamPage() {
           </div>
         </Group>
 
-        <Group index="03" title="Board" count={BOARD.length}>
+        <Group index="02" title="Board" count={BOARD.length}>
           <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-4 sm:gap-x-5 lg:grid-cols-5">
             {BOARD.map((p, i) => (
+              <div key={p.name} data-reveal-item style={d(i)}>
+                <PersonCard person={p} size="sm" />
+              </div>
+            ))}
+          </div>
+        </Group>
+
+        <Group index="03" title="Student Fellows" count={FELLOWS.length}>
+          <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-4 sm:gap-x-5 lg:grid-cols-5">
+            {FELLOWS.map((p, i) => (
               <div key={p.name} data-reveal-item style={d(i)}>
                 <PersonCard person={p} size="sm" />
               </div>
