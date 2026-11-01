@@ -1,26 +1,211 @@
 import type { Metadata } from 'next'
+import { Flywheel } from '@/components/plan/Flywheel'
+import { PlanCharts } from '@/components/plan/PlanCharts'
+import { Frame } from '@/components/site/Frame'
+import { Rule } from '@/components/site/Section'
+import {
+  COSTS,
+  FIRST_YEAR,
+  HIRES,
+  LAST_YEAR,
+  LOADED,
+  PLAN,
+  PRICE_PER_TERM,
+  PROJECTS_PER_VENTURE_LEAD,
+  STUDENTS_PER_ASSOCIATE,
+  SUMMER_SHARE,
+  SURVIVAL,
+  TEAM_SIZE,
+  VOLUNTEERS_FALL_2027,
+  VOLUNTEERS_NOW,
+} from '@/lib/data/plan'
 
 export const metadata: Metadata = {
-  title: 'Master plan',
-  description: 'The West Ventures master plan: goal, model, target campuses, timeline, projections, revenue model and risks.',
+  title: 'Plan',
+  description: 'The West Ventures flywheel, a ten-year projection of revenue, overhead and partner schools, and the hiring plan.',
 }
 
 /**
- * The master plan is a self-contained slide deck (its own slide engine, map
- * and charts) served from /master-plan-deck.html. This page frames it under
- * the site header. The deck reads the site's theme from this page, so the
- * header toggle switches both.
+ * /master-plan — the plan as a page: the flywheel first, then the ten-year
+ * projection and the hiring plan. Every number comes from lib/data/plan.ts.
+ *
+ * The earlier slide deck is archived at /archive/master-plan-deck.html.
  */
-export default function MasterPlanPage() {
+
+const d = (n: number) => ({ '--d': n }) as React.CSSProperties
+const usd = (v: number) => `$${v.toLocaleString('en-US')}`
+
+const POINTS = [
+  {
+    title: 'Founders bring real problems',
+    text: 'Experienced Christian business leaders have more ideas and opportunities than time. They bring them to the studio, and they are not charged.',
+  },
+  {
+    title: 'Students do the work',
+    text: 'High school and college students work on those problems together, in teams of six, for a full term and for credit.',
+  },
+  {
+    title: 'Good work brings better founders',
+    text: 'Founders who get good work bring harder problems and refer other founders. Harder problems bring more capable students.',
+  },
+  {
+    title: 'Density is the advantage',
+    text: 'Many founders and many capable students in one network, sharing opportunities, produce more companies than either group could alone.',
+  },
+  {
+    title: 'Some work becomes companies',
+    text: 'The studio co-founds joint ventures with operators and starts companies of its own. It owns part or all of each.',
+  },
+]
+
+export default function PlanPage() {
+  const last = PLAN[PLAN.length - 1]
+  const firstPositive = PLAN.find((r) => r.net > 0)
+
   return (
-    <main className="fixed inset-x-0 bottom-0 top-[calc(68px+env(safe-area-inset-top,0px))]">
-      <h1 className="sr-only">Master plan</h1>
-      <iframe
-        src="/master-plan-deck.html"
-        title="Master plan deck"
-        data-lenis-prevent
-        className="block h-full w-full border-0 bg-paper"
-      />
+    <main>
+      <h1 className="sr-only">Plan</h1>
+
+      <Frame className="pt-[calc(110px+env(safe-area-inset-top))] sm:pt-[130px]">
+        {/* Flywheel */}
+        <section className="pb-20 sm:pb-28">
+          <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-16">
+            <div data-reveal-item className="mx-auto w-full max-w-[860px]">
+              <Flywheel />
+            </div>
+            <div>
+              <h2 data-reveal-item className="text-[clamp(2.2rem,4.4vw,3.8rem)] leading-[1]">
+                Flywheel
+              </h2>
+              <ul className="mt-8 grid gap-6">
+                {POINTS.map((p, i) => (
+                  <li key={p.title} data-reveal-item style={d(i + 1)} className="border-t border-line pt-5">
+                    <p className="font-serif text-[1.2rem] font-semibold leading-tight text-ink">{p.title}</p>
+                    <p className="mt-1.5 text-[0.98rem] leading-[1.6]">{p.text}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        {/* Projections */}
+        <section className="pb-20 sm:pb-28">
+          <Rule className="mb-10" />
+          <h2 data-reveal-item className="text-[clamp(2rem,4vw,3.2rem)] leading-[1]">
+            Projections, {FIRST_YEAR}–{LAST_YEAR}
+          </h2>
+          <p data-reveal-item style={d(1)} className="mb-12 mt-4 max-w-[68ch] text-[1rem] leading-[1.65]">
+            Revenue comes from two places: students who take part, at {usd(PRICE_PER_TERM)} a term, and the share of profit
+            paid by companies the studio owns. Sales of equity are not counted. Overhead is shown below zero. Select a
+            year on either chart to see its numbers.
+          </p>
+          <div data-reveal-item style={d(2)}>
+            <PlanCharts data={PLAN} />
+          </div>
+          <p data-reveal-item className="mt-10 max-w-[68ch] text-[0.95rem] leading-[1.65]">
+            On these assumptions net is positive from {firstPositive?.year ?? '—'}. In {last.year} the studio runs{' '}
+            {last.projects} projects a term with {last.students.toLocaleString()} students from {last.highSchools} high
+            schools and {last.colleges} colleges, with {last.staff} paid staff.
+          </p>
+        </section>
+
+        {/* Team */}
+        <section className="pb-20 sm:pb-28">
+          <Rule className="mb-10" />
+          <h2 data-reveal-item className="text-[clamp(2rem,4vw,3.2rem)] leading-[1]">
+            Hiring
+          </h2>
+          <p data-reveal-item style={d(1)} className="mb-10 mt-4 max-w-[68ch] text-[1rem] leading-[1.65]">
+            Volunteers lead projects. There are {VOLUNTEERS_NOW} volunteer project leads today and about{' '}
+            {VOLUNTEERS_FALL_2027} are expected by fall {FIRST_YEAR}, each leading about one project, so the paid team
+            stays small. Paid roles follow the leadership team on the Team page.
+          </p>
+          <div data-reveal-item style={d(2)} className="overflow-x-auto" data-lenis-prevent>
+            <table className="w-full min-w-[640px] border-collapse text-left text-[0.95rem]">
+              <thead>
+                <tr className="border-b border-line font-mono text-[0.66rem] uppercase tracking-[0.14em] text-faint">
+                  <th className="py-3 pr-6 font-normal">Role</th>
+                  <th className="py-3 pr-6 font-normal">Paid from</th>
+                  <th className="py-3 pr-6 font-normal">Salary</th>
+                  <th className="py-3 font-normal">Purpose</th>
+                </tr>
+              </thead>
+              <tbody>
+                {HIRES.map((h) => (
+                  <tr key={h.role} className="border-b border-line align-top">
+                    <td className="py-3.5 pr-6 text-ink">{h.role}</td>
+                    <td className="whitespace-nowrap py-3.5 pr-6">{h.start}</td>
+                    <td className="whitespace-nowrap py-3.5 pr-6 tabular-nums">{usd(h.salary)}</td>
+                    <td className="py-3.5">{h.note}</td>
+                  </tr>
+                ))}
+                <tr className="border-b border-line align-top">
+                  <td className="py-3.5 pr-6 text-ink">Venture Leads</td>
+                  <td className="whitespace-nowrap py-3.5 pr-6">2029</td>
+                  <td className="whitespace-nowrap py-3.5 pr-6 tabular-nums">$110,000</td>
+                  <td className="py-3.5">
+                    One for every {PROJECTS_PER_VENTURE_LEAD} projects in a term. Each supports the volunteer project leads
+                    on those projects.
+                  </td>
+                </tr>
+                <tr className="border-b border-line align-top">
+                  <td className="py-3.5 pr-6 text-ink">Student support</td>
+                  <td className="whitespace-nowrap py-3.5 pr-6">2030</td>
+                  <td className="whitespace-nowrap py-3.5 pr-6 tabular-nums">$80,000</td>
+                  <td className="py-3.5">One for every {STUDENTS_PER_ASSOCIATE} students in a term: enrollment, billing and questions.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-4 text-[0.88rem] text-grey">
+            Salaries rise 3% a year. Overhead counts each salary at {LOADED}× for payroll taxes and benefits.
+          </p>
+        </section>
+
+        {/* Assumptions */}
+        <section className="pb-8">
+          <Rule className="mb-10" />
+          <h2 data-reveal-item className="text-[clamp(2rem,4vw,3.2rem)] leading-[1]">
+            Assumptions
+          </h2>
+          <div className="mt-10 grid gap-x-16 gap-y-10 md:grid-cols-3">
+            <div data-reveal-item data-reveal-auto>
+              <h3 className="font-serif text-[1.2rem] font-semibold text-ink">Students</h3>
+              <ul className="mt-3 grid gap-2 text-[0.95rem] leading-[1.55]">
+                <li>{usd(PRICE_PER_TERM)} per term for every student. Fall, spring and summer are each a term, so a full year is {usd(PRICE_PER_TERM * 3)}.</li>
+                <li>High school and college students pay the same and work on the same teams.</li>
+                <li>Teams of {TEAM_SIZE}: a project leader and three contributors from college, and two high school Builder Scholars.</li>
+                <li>Summer enrollment is {Math.round(SUMMER_SHARE * 100)}% of the spring before it.</li>
+                <li>The new price starts in summer {FIRST_YEAR}. Spring {FIRST_YEAR} runs under the current program.</li>
+                <li>Projects per term grow from 25 in fall {FIRST_YEAR} to {last.projects} in fall {LAST_YEAR}.</li>
+                <li>No financial aid is modeled.</li>
+              </ul>
+            </div>
+            <div data-reveal-item data-reveal-auto>
+              <h3 className="font-serif text-[1.2rem] font-semibold text-ink">Partners and companies</h3>
+              <ul className="mt-3 grid gap-2 text-[0.95rem] leading-[1.55]">
+                <li>Universities, founders and investors pay nothing.</li>
+                <li>Each partner high school places one student a term in {FIRST_YEAR}, rising to two by {FIRST_YEAR + 4}.</li>
+                <li>ACU places 60 students a term in {FIRST_YEAR}, adding 10 a year. Other partner colleges place 6 each, rising to 12.</li>
+                <li>Five companies exist today. The studio starts or co-founds six a year.</li>
+                <li>{Math.round(SURVIVAL * 100)}% reach steady profit. From a company’s second year, the studio’s share of its profit rises from $50,000 to $300,000 a year by its fifth.</li>
+              </ul>
+            </div>
+            <div data-reveal-item data-reveal-auto>
+              <h3 className="font-serif text-[1.2rem] font-semibold text-ink">Other costs</h3>
+              <ul className="mt-3 grid gap-2 text-[0.95rem] leading-[1.55]">
+                <li>A Claude subscription for every student: {usd(COSTS.claudePerStudentTerm)} per student per term.</li>
+                <li>Recruiting students: {Math.round(COSTS.marketing * 100)}% of student revenue. Payment processing: {Math.round(COSTS.processing * 100)}%.</li>
+                <li>Software, insurance, legal and accounting: {usd(COSTS.adminFixed)} a year plus {usd(COSTS.adminPerStudentTerm)} per student per term.</li>
+                <li>Summits, hackathons and travel: {usd(COSTS.eventsFixed)} a year plus {usd(COSTS.eventsPerStudentTerm)} per student per term.</li>
+                <li>{usd(COSTS.perVolunteer)} a year per volunteer project lead for training and events.</li>
+                <li>{Math.round(COSTS.acuShare * 100)}% of operating profit goes to ACU’s endowment, counted as overhead.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </Frame>
     </main>
   )
 }

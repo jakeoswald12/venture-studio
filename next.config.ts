@@ -16,10 +16,10 @@ const nextConfig: NextConfig = {
   },
   async rewrites() {
     return [
-      // The master plan deck is a standalone HTML page (it has its own slide
-      // engine, map and charts). /master-plan wraps it in the site chrome;
-      // this serves the bare deck at a clean URL too.
-      { source: "/master-plan/deck", destination: "/master-plan-deck.html" },
+      // The October 2026 master plan slide deck, archived for reuse. It is a
+      // standalone HTML page (its own slide engine, map and charts) and is not
+      // linked from the site.
+      { source: "/archive/master-plan-deck", destination: "/archive/master-plan-deck.html" },
     ];
   },
 };

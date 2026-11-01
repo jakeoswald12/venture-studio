@@ -1,13 +1,9 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 import { CONTACT_EMAIL, FOOTER_EXTRA, NAV } from './nav'
 
 export function Footer() {
-  const pathname = usePathname()
-  // The master plan deck fills the screen and has its own controls.
-  if (pathname === '/master-plan') return null
 
   return (
     <footer className="mt-24 border-t border-line">
