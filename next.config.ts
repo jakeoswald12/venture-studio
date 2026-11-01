@@ -12,6 +12,8 @@ const nextConfig: NextConfig = {
       { source: '/portfolio', destination: '/ventures', permanent: false },
       // Contact lives at the bottom of the homepage (general) and /partners (partners).
       { source: '/contact', destination: '/#contact', permanent: false },
+      // The plan now lives inside the thesis.
+      { source: '/master-plan', destination: '/thesis#flywheel', permanent: false },
     ]
   },
   async rewrites() {

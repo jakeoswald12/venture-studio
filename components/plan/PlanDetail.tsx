@@ -1,8 +1,4 @@
-import type { Metadata } from 'next'
-import { Flywheel } from '@/components/plan/Flywheel'
-import { PlanCharts } from '@/components/plan/PlanCharts'
-import { Frame } from '@/components/site/Frame'
-import { Rule } from '@/components/site/Section'
+import { PlanCharts } from './PlanCharts'
 import {
   COLLEGE_PER_TEAM,
   COSTS,
@@ -22,87 +18,35 @@ import {
   VOLUNTEERS_NOW,
 } from '@/lib/data/plan'
 
-export const metadata: Metadata = {
-  title: 'Plan',
-  description: 'The West Ventures flywheel, a ten-year projection of revenue, overhead and partner schools, and the hiring plan.',
-}
-
 /**
- * /master-plan — the plan as a page: the flywheel first, then the ten-year
- * projection and the hiring plan. Every number comes from lib/data/plan.ts.
- *
- * The earlier slide deck is archived at /archive/master-plan-deck.html.
+ * The plan's numbers, shown on the Thesis page: the projection charts, the
+ * hiring plan and the assumptions behind them. Everything comes from
+ * lib/data/plan.ts.
  */
 
 const d = (n: number) => ({ '--d': n }) as React.CSSProperties
 const usd = (v: number) => `$${v.toLocaleString('en-US')}`
 
-export default function PlanPage() {
+export function Projections() {
   const last = PLAN[PLAN.length - 1]
   const firstPositive = PLAN.find((r) => r.net > 0)
-
   return (
-    <main>
-      <h1 className="sr-only">Plan</h1>
+    <>
+      <div data-reveal-item style={d(2)}>
+        <PlanCharts data={PLAN} />
+      </div>
+      <p data-reveal-item className="max-w-[68ch] text-[0.98rem] leading-[1.65]">
+        On these assumptions net is positive from {firstPositive?.year ?? '—'}. In {last.year} the studio runs{' '}
+        {last.projects} projects a term with {last.students.toLocaleString()} students from {last.highSchools} high
+        schools and {last.colleges} colleges, with {last.staff} paid staff.
+      </p>
+    </>
+  )
+}
 
-      <Frame className="pt-[calc(96px+env(safe-area-inset-top))] sm:pt-[100px]">
-        {/* Flywheel */}
-        <section className="pb-20 sm:pb-28">
-          <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-16">
-            <div data-reveal-item className="w-full max-w-[min(820px,calc(100svh-150px))]">
-              <Flywheel />
-            </div>
-            <div>
-              <p data-reveal-item className="font-mono text-[0.7rem] uppercase tracking-[0.16em] text-faint">
-                Flywheel
-              </p>
-              <h2 data-reveal-item style={d(1)} className="mt-5 text-[clamp(2rem,3.6vw,3.2rem)] leading-[1.02]">
-                Students do the work. Operators find the opportunities.
-              </h2>
-              <p data-reveal-item style={d(2)} className="mt-6 max-w-[52ch] text-[1.05rem] leading-[1.7]">
-                West Ventures has a large network of capable young people, in high school and college, doing real work
-                for real companies. That work attracts a large network of experienced founders and operators. They are
-                good at finding real opportunities that the rest of the market does not see or cannot act on, and they
-                bring those opportunities to the studio. Bigger opportunities attract more capable students. The
-                advantage is how many of both are in one place.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Projections */}
-        <section className="pb-20 sm:pb-28">
-          <Rule className="mb-10" />
-          <h2 data-reveal-item className="text-[clamp(2rem,4vw,3.2rem)] leading-[1]">
-            Projections, {FIRST_YEAR}–{LAST_YEAR}
-          </h2>
-          <p data-reveal-item style={d(1)} className="mb-12 mt-4 max-w-[68ch] text-[1rem] leading-[1.65]">
-            Revenue comes from two places: students who take part, at {usd(PRICE_PER_TERM)} a term, and the share of profit
-            paid by companies the studio owns. Sales of equity are not counted. Overhead is shown below zero. Select a
-            year on either chart to see its numbers.
-          </p>
-          <div data-reveal-item style={d(2)}>
-            <PlanCharts data={PLAN} />
-          </div>
-          <p data-reveal-item className="mt-10 max-w-[68ch] text-[0.95rem] leading-[1.65]">
-            On these assumptions net is positive from {firstPositive?.year ?? '—'}. In {last.year} the studio runs{' '}
-            {last.projects} projects a term with {last.students.toLocaleString()} students from {last.highSchools} high
-            schools and {last.colleges} colleges, with {last.staff} paid staff.
-          </p>
-        </section>
-
-        {/* Team */}
-        <section className="pb-20 sm:pb-28">
-          <Rule className="mb-10" />
-          <h2 data-reveal-item className="text-[clamp(2rem,4vw,3.2rem)] leading-[1]">
-            Hiring
-          </h2>
-          <p data-reveal-item style={d(1)} className="mb-10 mt-4 max-w-[68ch] text-[1rem] leading-[1.65]">
-            Both Managing Partners, the Head of Operations and the Head of Partnerships are paid from August{' '}
-            {FIRST_YEAR}. Volunteers lead projects: there are {VOLUNTEERS_NOW} volunteer project leads today and about{' '}
-            {VOLUNTEERS_FALL_2027} are expected by fall {FIRST_YEAR}, each leading about one project, so the paid team
-            stays small. Paid roles follow the leadership team on the Team page.
-          </p>
+export function Hiring() {
+  return (
+    <>
           <div data-reveal-item style={d(2)} className="overflow-x-auto">
             <table className="w-full min-w-[640px] border-collapse text-left text-[0.95rem]">
               <thead>
@@ -143,15 +87,14 @@ export default function PlanPage() {
           <p className="mt-4 text-[0.88rem] text-grey">
             Salaries rise 3% a year. Overhead counts each salary at {LOADED}× for payroll taxes and benefits.
           </p>
-        </section>
+    </>
+  )
+}
 
-        {/* Assumptions */}
-        <section className="pb-8">
-          <Rule className="mb-10" />
-          <h2 data-reveal-item className="text-[clamp(2rem,4vw,3.2rem)] leading-[1]">
-            Assumptions
-          </h2>
-          <div className="mt-10 grid gap-x-16 gap-y-10 md:grid-cols-3">
+export function Assumptions() {
+  const last = PLAN[PLAN.length - 1]
+  return (
+          <div className="grid gap-x-12 gap-y-10 lg:grid-cols-3">
             <div data-reveal-item data-reveal-auto>
               <h3 className="font-serif text-[1.2rem] font-semibold text-ink">Students</h3>
               <ul className="mt-3 grid gap-2 text-[0.95rem] leading-[1.55]">
@@ -188,8 +131,5 @@ export default function PlanPage() {
               </ul>
             </div>
           </div>
-        </section>
-      </Frame>
-    </main>
   )
 }

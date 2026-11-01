@@ -1,7 +1,7 @@
 /**
  * The West Ventures plan: a ten-year projection, 2027–2036.
  *
- * Every number on /master-plan comes from the assumptions in this file, so a
+ * Every number in the Projections section of /thesis comes from the assumptions in this file, so a
  * change here changes the page. Figures are calendar years. Revenue comes only
  * from students (tuition for the program) and from profit distributions paid
  * by companies the studio owns part or all of. Sales of equity (exits) are left

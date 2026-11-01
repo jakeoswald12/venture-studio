@@ -44,15 +44,15 @@ interface Series {
 }
 
 const MONEY: Series[] = [
-  { key: 'students', label: 'Revenue from students', color: 'var(--bronze)', width: 3, value: (r) => r.revenueStudents, format: money },
-  { key: 'companies', label: 'Revenue from companies', color: '#4f7c9c', width: 3, value: (r) => r.revenueCompanies, format: money },
-  { key: 'overhead', label: 'Overhead', color: 'var(--grey)', width: 3, dash: '7 6', value: (r) => -r.overhead, format: money },
+  { key: 'students', label: 'Revenue from students', color: 'var(--g5)', width: 3, value: (r) => r.revenueStudents, format: money },
+  { key: 'companies', label: 'Revenue from companies', color: 'var(--g3)', width: 3, value: (r) => r.revenueCompanies, format: money },
+  { key: 'overhead', label: 'Overhead', color: 'var(--g6)', width: 3, dash: '7 6', value: (r) => -r.overhead, format: money },
   { key: 'net', label: 'Net', color: 'var(--ink)', width: 4.5, value: (r) => r.net, format: money },
 ]
 
 const PARTNERS: Series[] = [
-  { key: 'hs', label: 'High schools', color: 'var(--bronze)', width: 3, value: (r) => r.highSchools, format: (v) => String(v) },
-  { key: 'col', label: 'Colleges', color: 'var(--ink)', width: 3, value: (r) => r.colleges, format: (v) => String(v) },
+  { key: 'hs', label: 'High schools', color: 'var(--g5)', width: 3, value: (r) => r.highSchools, format: (v) => String(v) },
+  { key: 'col', label: 'Colleges', color: 'var(--g3)', width: 3, value: (r) => r.colleges, format: (v) => String(v) },
 ]
 
 function niceStep(range: number, ticks: number) {

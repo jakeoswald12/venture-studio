@@ -337,7 +337,7 @@ html.lenis body {
 
 /* ─── Plan: flywheel ───────────────────────────────────────────────────── */
 .flywheel text { font-family: var(--font-sans); }
-.fw-track { fill: none; stroke: var(--line); stroke-width: 2; }
+.fw-track { fill: none; stroke: var(--g2); stroke-width: 2; }
 .fw-dash {
   fill: none;
   stroke: var(--bronze);
@@ -347,7 +347,7 @@ html.lenis body {
 }
 .fw-ring { animation: fw-spin 40s linear infinite; }
 @keyframes fw-spin { to { transform: rotate(360deg); } }
-.fw-node { fill: var(--panel); stroke: var(--line); stroke-width: 2; }
+.fw-node { fill: var(--g1); stroke: var(--g3); stroke-width: 2; }
 .flywheel .fw-great { fill: var(--grey); font-size: 21px; font-style: italic; font-family: var(--font-serif); }
 .flywheel .fw-label { fill: var(--ink); font-size: 27px; font-weight: 600; font-family: var(--font-serif); }
 .flywheel .fw-link { fill: var(--bronze); font-size: 25px; font-style: italic; font-family: var(--font-serif); }
@@ -371,3 +371,55 @@ html.lenis body {
   .flywheel .fw-link { font-size: 29px; }
 }
 
+
+/* ─── Thesis illustrations: one brand colour in five steps ─────────────── */
+:root {
+  --g1: color-mix(in oklab, var(--bronze) 12%, var(--paper));
+  --g2: color-mix(in oklab, var(--bronze) 26%, var(--paper));
+  --g3: color-mix(in oklab, var(--bronze) 48%, var(--paper));
+  --g4: color-mix(in oklab, var(--bronze) 75%, var(--paper));
+  --g5: var(--bronze);
+  --g6: color-mix(in oklab, var(--bronze) 72%, var(--ink));
+}
+.illo text { font-family: var(--font-sans); fill: var(--grey); }
+.illo .serif { font-family: var(--font-serif); fill: var(--ink); font-weight: 600; }
+.illo .mono { font-family: var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; fill: var(--faint); }
+
+/* Dawn: the sun rises behind the facade, holds, and sets again. */
+.illo-sun { animation: illo-rise 14s var(--ease-in-out-soft) infinite; }
+@keyframes illo-rise {
+  0%, 8% { transform: translateY(270px); }
+  45%, 80% { transform: translateY(0); }
+  100% { transform: translateY(270px); }
+}
+.illo-ray { animation: illo-ray 14s ease-in-out infinite; transform-origin: 400px 250px; }
+@keyframes illo-ray {
+  0%, 20% { opacity: 0; transform: scale(0.9); }
+  50%, 80% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.9); }
+}
+
+/* Matchmaking: connections draw in, hold, and clear, each on its own delay. */
+.illo-link { stroke-dasharray: 1; stroke-dashoffset: 1; animation: illo-link 6s ease-in-out infinite; }
+@keyframes illo-link {
+  0% { stroke-dashoffset: 1; opacity: 1; }
+  30%, 70% { stroke-dashoffset: 0; opacity: 1; }
+  90%, 100% { stroke-dashoffset: 0; opacity: 0; }
+}
+
+/* Next ideas: a slow pulse. */
+.illo-pulse { animation: illo-pulse 2.6s ease-in-out infinite; }
+@keyframes illo-pulse { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
+
+/* Dig: a band of light sweeps across and uncovers the skeleton. */
+.illo-dig { animation: illo-dig 11s var(--ease-in-out-soft) infinite; }
+@keyframes illo-dig {
+  0%, 8% { transform: translateX(0); }
+  45%, 90% { transform: translateX(370px); }
+  100% { transform: translateX(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .illo-sun, .illo-ray, .illo-link, .illo-pulse, .illo-dig { animation: none; }
+  .illo-link { stroke-dashoffset: 0; }
+  .illo-dig { transform: translateX(370px); }
+}

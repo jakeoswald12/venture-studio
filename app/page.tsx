@@ -53,19 +53,19 @@ const OVERVIEW = [
 
 const THESIS_POINTS = [
   {
-    id: 'premise',
-    title: 'Premise',
-    text: 'Ability is given. The conditions around it — teachers, funding and real work at the right age — can be arranged on purpose.',
+    id: 'context',
+    title: 'Context',
+    text: 'The West’s founding principles still work. The next generation can restore them, if its builders are found early and put to real work.',
   },
   {
-    id: 'goal',
-    title: 'Goal: 1,000 builders',
-    text: 'Find and train 1,000 young people who go on to found or lead companies. Most are between 12 and 18 today. Measured over 30 years.',
+    id: 'model',
+    title: 'Model',
+    text: 'Free work, done by the country’s most capable young people, for the most experienced founders and operators. Kings and cupbearers, matched at scale.',
   },
   {
-    id: 'operating-model',
-    title: 'Operating model',
-    text: 'Scout, form, apprentice, build. Schools nominate students; students develop skill and character; teams of six work on real projects; many start companies later.',
+    id: 'flywheel',
+    title: 'Flywheel',
+    text: 'Great students produce excellent work, which attracts proven operators, who identify big opportunities, which attract great students.',
   },
 ]
 
