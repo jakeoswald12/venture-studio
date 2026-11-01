@@ -1,6 +1,6 @@
 /**
  * What the studio provides to the companies it works with. Literal language.
- * The six disciplines come from the ACU accelerator's own list.
+ * The disciplines come from the ACU accelerator's own list.
  */
 
 export interface Service {
@@ -9,9 +9,8 @@ export interface Service {
 }
 
 export const DISCIPLINES: Service[] = [
-  { title: 'Research', text: 'Customer interviews, market sizing and problem validation.' },
-  { title: 'Strategy', text: 'Business models, pricing and launch plans.' },
-  { title: 'AI and software', text: 'Websites, apps, internal tools and AI agents.' },
+  { title: 'Market research', text: 'Customer interviews, market sizing and problem validation.' },
+  { title: 'Agentic engineering', text: 'Websites, apps, internal tools and AI agents.' },
   { title: 'Branding', text: 'Names, logos, visual identity and messaging.' },
   { title: 'Marketing', text: 'Photo, video, copywriting and paid advertising.' },
   { title: 'Sales', text: 'Lead lists, outreach and customer pipeline.' },

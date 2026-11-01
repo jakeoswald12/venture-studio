@@ -50,7 +50,7 @@ export default function VenturesPage() {
           <h2 data-reveal-item className="mb-10 text-[clamp(2.2rem,4.4vw,3.8rem)] leading-[1]">
             Disciplines
           </h2>
-          <dl className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <dl className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
             {DISCIPLINES.map((s) => (
               <div key={s.title} data-reveal-item data-reveal-auto className="rounded-[22px] bg-panel p-6 sm:p-7">
                 <dt className="font-serif text-[1.45rem] font-semibold leading-tight text-ink">{s.title}</dt>
