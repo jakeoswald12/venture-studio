@@ -33,22 +33,31 @@ export const LEADERSHIP: Person[] = [
     linkedin: 'https://www.linkedin.com/in/larsostervold/',
     bio: 'Chief Technology Officer of Austin Christian University and a member of the accelerator’s leadership team. He is building launch.kids, the studio’s software building tool for students.',
   },
-  {
-    name: 'Jake Jadlot',
-    title: 'Head of Operations',
-    bio: 'Works for Celebration Church. He previously worked at the University of Notre Dame’s accelerator and holds an MBA.',
-  },
-  { name: 'Nate Steele', title: 'Head of Design' },
-  { name: 'Ethan Woo', title: 'Head of Product' },
-  { name: 'Landen Enns', title: 'Head of Growth', linkedin: 'https://www.linkedin.com/in/landenenns/' },
-  { name: 'Taylore Hopkins', title: 'Head of Partnerships' },
-  { name: 'Trent Sikute', title: 'Venture Lead' },
-  { name: 'Mary Brownlee', title: 'Venture Lead', linkedin: 'https://www.linkedin.com/in/mary-brownlee-033b08208/' },
-  { name: 'Tommy Denn', title: 'Venture Lead' },
-  { name: 'Allie Vaughan', title: 'Venture Lead' },
-  { name: 'Cole Elzerman', title: 'Venture Lead' },
-  { name: 'Ethan McCarthy', title: 'Venture Lead' },
-  { name: 'Heather Trumpfheller', title: 'Venture Lead', linkedin: 'https://www.linkedin.com/in/heathertrumpfheller/' },
+]
+
+/** Project Advisors: experienced people who lead and advise student project teams. */
+export const PROJECT_ADVISORS: Person[] = [
+  { name: 'Stevie Fahle', title: 'Project Advisor' },
+  { name: 'Ethan Woo', title: 'Project Advisor' },
+  { name: 'Trent Sikute', title: 'Project Advisor' },
+  { name: 'Jake Jadlot', title: 'Project Advisor' },
+  { name: 'Nate Steele', title: 'Project Advisor' },
+  { name: 'Mary Brownlee', title: 'Project Advisor', linkedin: 'https://www.linkedin.com/in/mary-brownlee-033b08208/' },
+  { name: 'Elijah Bervik', title: 'Project Advisor' },
+  { name: 'Max Gangestad', title: 'Project Advisor' },
+  { name: 'Landen Enns', title: 'Project Advisor', linkedin: 'https://www.linkedin.com/in/landenenns/' },
+  { name: 'Travis Manderfield', title: 'Project Advisor' },
+  { name: 'Trey Achterhoff', title: 'Project Advisor' },
+  { name: 'Nick Daniel', title: 'Project Advisor' },
+  { name: 'Marshall Cunningham', title: 'Project Advisor' },
+  { name: 'Caleb Dykema', title: 'Project Advisor' },
+  { name: 'Anthony Ruffner', title: 'Project Advisor' },
+  { name: 'Hyzer Taylor', title: 'Project Advisor' },
+  { name: 'Tanner Dobbs', title: 'Project Advisor', linkedin: 'https://www.linkedin.com/in/tanner-dobbs-1129149a/' },
+  { name: 'Alex Ammons', title: 'Project Advisor' },
+  { name: 'Tommy Denn', title: 'Project Advisor' },
+  { name: 'Allie Vaughan', title: 'Project Advisor' },
+  { name: 'Riley Simpson', title: 'Project Advisor' },
 ]
 
 export const FELLOWS: Person[] = [
@@ -103,7 +112,7 @@ export const BOARD: Person[] = [
   { name: 'Jake Thomsen', title: 'Board Member' },
 ]
 
-/** Advisors: name and LinkedIn only, alphabetical by last name. */
+/** Firm Advisors: name and LinkedIn only, alphabetical by last name. */
 export const ADVISORS: Pick<Person, 'name' | 'linkedin'>[] = [
   { name: 'Corey Alderin' },
   { name: 'Chris Allen' },
@@ -126,12 +135,10 @@ export const ADVISORS: Pick<Person, 'name' | 'linkedin'>[] = [
   { name: 'Michael Clifford' },
   { name: 'Chris Coggin' },
   { name: 'John Coleman' },
-  { name: 'Nick Daniel' },
   { name: 'Clay Davis' },
   { name: 'Alex Demczak' },
   { name: 'Grant Demeter', linkedin: 'https://www.linkedin.com/in/grant-demeter/' },
   { name: 'Michael Denton' },
-  { name: 'Tanner Dobbs', linkedin: 'https://www.linkedin.com/in/tanner-dobbs-1129149a/' },
   { name: 'Duane Donner' },
   { name: 'Matt Doyle' },
   { name: 'Scott Elequin' },
@@ -142,7 +149,6 @@ export const ADVISORS: Pick<Person, 'name' | 'linkedin'>[] = [
   { name: 'Stephen French' },
   { name: 'David Friedman' },
   { name: 'Morgan Gamble' },
-  { name: 'Max Gangestad' },
   { name: 'Mart Green' },
   { name: 'Bobby Gruenewald' },
   { name: 'Brett Hagler' },
@@ -171,7 +177,6 @@ export const ADVISORS: Pick<Person, 'name' | 'linkedin'>[] = [
   { name: 'Chase Maasdorp', linkedin: 'https://www.linkedin.com/in/chase-maasdorp-a84807188/' },
   { name: 'Kevin Macki' },
   { name: 'Jason Malec', linkedin: 'https://www.linkedin.com/in/jasonmalec/' },
-  { name: 'Travis Manderfield' },
   { name: 'Luke Mangan' },
   { name: 'Paul Martin' },
   { name: 'Tommy Martin' },
@@ -199,7 +204,6 @@ export const ADVISORS: Pick<Person, 'name' | 'linkedin'>[] = [
   { name: 'Dana Roefer' },
   { name: 'Luke Roush' },
   { name: 'Vance Roush' },
-  { name: 'Anthony Ruffner' },
   { name: 'Tristan Schaeffer' },
   { name: 'Michael Seifert' },
   { name: 'Will Severns', linkedin: 'https://www.linkedin.com/in/will-severns-59a97268/' },
@@ -208,7 +212,6 @@ export const ADVISORS: Pick<Person, 'name' | 'linkedin'>[] = [
   { name: 'Nick Skytland', linkedin: 'https://www.linkedin.com/in/skytland/' },
   { name: 'Brett Smith' },
   { name: 'Nick Spiller', linkedin: 'https://www.linkedin.com/in/nickspiller/' },
-  { name: 'Hyzer Taylor' },
   { name: 'Tim Tebow' },
   { name: 'Debi Tengler' },
   { name: 'Eric Theisen' },

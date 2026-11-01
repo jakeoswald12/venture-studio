@@ -2,11 +2,11 @@ import type { Metadata } from 'next'
 import { LinkedInLink, PersonCard } from '@/components/site/PersonCard'
 import { Frame, TILE_GRID } from '@/components/site/Frame'
 import { Rule } from '@/components/site/Section'
-import { ADVISORS, BOARD, FELLOWS, LEADERSHIP } from '@/lib/data/team'
+import { ADVISORS, BOARD, FELLOWS, LEADERSHIP, PROJECT_ADVISORS } from '@/lib/data/team'
 
 export const metadata: Metadata = {
   title: 'Team',
-  description: 'West Ventures leadership, student fellows, board and advisors.',
+  description: 'West Ventures leadership, project advisors, board, Student Fellows and firm advisors.',
 }
 
 function Group({
@@ -44,9 +44,19 @@ export default function TeamPage() {
       <h1 className="sr-only">Team</h1>
 
       <Frame className="pt-[calc(124px+env(safe-area-inset-top))] sm:pt-[150px]">
-        <Group first title="Leadership" text="The partners, department heads and venture leads who run the studio and its projects.">
+        <Group first title="Leadership" text="The Managing Partners, who run the studio.">
           <div className={TILE_GRID}>
             {LEADERSHIP.map((p) => (
+              <div key={p.name} data-reveal-item data-reveal-auto>
+                <PersonCard person={p} />
+              </div>
+            ))}
+          </div>
+        </Group>
+
+        <Group title="Project Advisors" text="Experienced founders and operators who lead and advise student project teams.">
+          <div className={TILE_GRID}>
+            {PROJECT_ADVISORS.map((p) => (
               <div key={p.name} data-reveal-item data-reveal-auto>
                 <PersonCard person={p} />
               </div>
@@ -74,7 +84,7 @@ export default function TeamPage() {
           </div>
         </Group>
 
-        <Group title="Advisors" text="Founders, investors and operators who advise the studio and the companies it works with.">
+        <Group title="Firm Advisors" text="Founders, investors and operators who advise the studio and the companies it works with.">
           {/* Columns, not a grid: names run down each column, then to the next. */}
           <ul className="columns-1 gap-x-8 sm:columns-2 lg:columns-5 lg:gap-x-6 xl:columns-7 xl:gap-x-2.5">
             {ADVISORS.map((a) => (
