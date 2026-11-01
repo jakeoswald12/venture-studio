@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { CarnegieLine, EssayShell, H2, P, Plate, Quote, Reading, Stat, Wide } from '@/components/thesis/Essay'
-import { CupAndCrown, NobelTree, TrustLadder } from '@/components/thesis/Illustrations'
+import { CupAndCrown, Matchmaking, NobelTree, TrustLadder } from '@/components/thesis/Illustrations'
 
 /**
  * /thesis/kings-and-cupbearers — why the presence of a "king" in a young
@@ -33,6 +33,7 @@ const SOURCES = [
   { title: 'J. J. Thomson', href: 'https://en.wikipedia.org/wiki/J._J._Thomson', site: 'Wikipedia' },
   { title: 'Andrew Carnegie', href: 'https://www.britannica.com/money/Andrew-Carnegie', site: 'Britannica' },
   { title: 'Charles M. Schwab', href: 'https://en.wikipedia.org/wiki/Charles_M._Schwab', site: 'Wikipedia' },
+  { title: 'Leonardo the Apprentice: Verrocchio’s pupils', href: 'https://eclecticlight.co/2019/03/17/leonardo-the-apprentice-verrocchios-pupils/', site: 'The Eclectic Light Company' },
   { title: 'Summary of To Change the World', href: 'https://lifeandleadership.com/book-summaries/hunter-to-change-the-world', site: 'Life and Leadership' },
 ]
 
@@ -127,7 +128,12 @@ export default function KingsAndCupbearersPage() {
         under older laureates (Harriet Zuckerman, <em>Scientific Elite</em>, 1977).
       </Stat>
       <P>
-        Leonardo da Vinci trained in Verrocchio’s workshop and painted parts of real commissions as a teenager.
+        Art shows it too. Leonardo da Vinci trained in Andrea del Verrocchio’s workshop in Florence and painted parts of
+        real commissions as a teenager, alongside Perugino and Lorenzo di Credi. Domenico Ghirlandaio, from the same
+        circle, took Michelangelo as an apprentice at thirteen. Perugino went on to teach Raphael. A few workshops,
+        passing work and trust from master to apprentice, produced much of the High Renaissance.
+      </P>
+      <P>
         Alexander Hamilton was barely in his twenties when George Washington made him an aide-de-camp, and Washington’s
         trust carried him to the Treasury. Scripture is full of the same pattern: Joshua served Moses from his youth,
         Elisha followed Elijah, Timothy traveled with Paul. Isaac Newton put it best: if he had seen further, it was by
@@ -170,6 +176,9 @@ export default function KingsAndCupbearersPage() {
         those networks overlap. He calls the Christian version of this “faithful presence”: excellent people, working
         together in institutions, serving the common good.
       </P>
+      <Wide caption="Thousands of capable students, hundreds of proven operators. The studio matches them on real projects.">
+        <Matchmaking />
+      </Wide>
       <P>
         The pairing of kings and cupbearers is that idea at human scale. One king and one cupbearer can change a company.
         Hundreds of kings and thousands of cupbearers, working together over decades, can change a culture.

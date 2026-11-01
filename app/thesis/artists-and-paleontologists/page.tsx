@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
-import { EssayShell, H2, P, Plate, Quote, Reading, Wide } from '@/components/thesis/Essay'
-import { NextIdeas, SculptureFossil } from '@/components/thesis/Illustrations'
+import { EssayShell, H2, P, Plate, Quote, Reading } from '@/components/thesis/Essay'
 
 /**
  * /thesis/artists-and-paleontologists — there is no such thing as a business
@@ -71,9 +70,6 @@ export default function ArtistsAndPaleontologistsPage() {
         The figure exists only in his imagination until he carves it. On this view a business idea is a creative act: the
         more original the vision, the better.
       </P>
-      <Wide>
-        <SculptureFossil />
-      </Wide>
       <P>
         Good companies are rarely made that way. They are found. The need a great company meets already exists before
         anyone names it: customers already feel the pain, costs are already too high, a change in technology or law has
@@ -98,9 +94,6 @@ export default function ArtistsAndPaleontologistsPage() {
         and fifth would be, and they can tell you exactly where the opportunity is and why. They have found the
         fragments.
       </P>
-      <Wide>
-        <NextIdeas />
-      </Wide>
       <P>
         The essayist and investor Paul Graham made the same point: the way to get startup ideas is not to try to think of
         startup ideas, but to look for problems. Problems are found by people close enough to see them.

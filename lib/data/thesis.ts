@@ -2,8 +2,8 @@
  * The West Ventures thesis, in plain, literal language for the site.
  *
  * The page (app/thesis/page.tsx) lays these sections out in order, with the
- * illustrations, the flywheel and the projection charts in between. Facts with
- * outside sources are listed in SOURCES at the bottom of the page.
+ * flywheel, the projection charts and links to the longer essays in between.
+ * The essays carry the sourced history and research.
  */
 
 export const THESIS_SUMMARY =
@@ -12,9 +12,7 @@ export const THESIS_SUMMARY =
 /** Section index, in page order. */
 export const SECTIONS = [
   { id: 'context', title: 'Context' },
-  { id: 'goal', title: 'Goal' },
   { id: 'model', title: 'Model' },
-  { id: 'evidence', title: 'Evidence' },
   { id: 'opportunities', title: 'Opportunities' },
   { id: 'example', title: 'Example' },
   { id: 'flywheel', title: 'Flywheel' },
@@ -31,17 +29,6 @@ export const CONTEXT = [
   'The studio holds that the next generation can reverse this. A relatively small number of builders, leaders and heroes, found early and put to real work, can restore those principles and begin a period of strength, peace, truth and prosperity.',
   'The goal of West Ventures is to see this through: to identify young people with the makings of greatness and prepare them for the burden of leadership and stewardship, so that they pursue glory, honor and self-sacrifice rather than wealth, accolades or comfort. It is a rebirth of the West’s oldest values, carried by its youngest people.',
 ]
-
-export const GOAL = {
-  text: 'Find and activate 1,000 young people who go on to found or lead companies and institutions, and who would not have done so otherwise. Most of them are between 12 and 18 today.',
-  stats: [
-    { value: '~4M', label: 'U.S. births per year' },
-    { value: '~4,000', label: 'Top 0.1% of a single birth year' },
-    { value: '30 yrs', label: 'Period the goal is measured over' },
-  ],
-  after:
-    'The number is a measure, not a quota. Without intervention, most of these people will lead good lives in ordinary roles. The aim is that more of them reach the work they are capable of.',
-}
 
 export const MODEL = {
   intro: [
@@ -72,27 +59,6 @@ export const CARNEGIE = [
     name: 'Charles M. Schwab',
     role: 'Stake driver at Carnegie’s Edgar Thomson Works',
     text: 'President of Carnegie Steel at 35, first president of U.S. Steel, then head of Bethlehem Steel.',
-  },
-]
-
-export const RESEARCH = [
-  {
-    label: 'Exposure',
-    text: 'Bell, Chetty and colleagues linked 1.2 million U.S. inventors’ patents to tax and school records. Among children with the same early math scores, the odds of becoming an inventor varied with family and neighborhood. Children who moved young to areas with many inventors were more likely to invent, and in the same fields.',
-    href: 'https://www.nber.org/papers/w24062.pdf',
-    linkText: 'NBER working paper',
-  },
-  {
-    label: 'Early identification',
-    text: 'The Study of Mathematically Precocious Youth identified about 1,650 thirteen-year-olds in the top 1% of reasoning ability and followed them for four decades. The group went on to hold 681 patents and publish 7,572 refereed articles; 2.3% became senior executives at Fortune 500 or similar companies.',
-    href: 'https://www.psychologicalscience.org/journals/psychological-science/0956797614551371/',
-    linkText: 'Psychological Science, 2014',
-  },
-  {
-    label: 'Workshops',
-    text: 'Leonardo da Vinci trained in Andrea del Verrocchio’s workshop in Florence and worked on real commissions as a teenager, alongside Perugino and Lorenzo di Credi. Ghirlandaio later took Michelangelo as an apprentice at thirteen. Perugino later taught Raphael.',
-    href: 'https://eclecticlight.co/2019/03/17/leonardo-the-apprentice-verrocchios-pupils/',
-    linkText: 'The Eclectic Light Company',
   },
 ]
 
@@ -131,6 +97,7 @@ export const FLYWHEEL = {
     'The studio finds the best students from thousands of high schools and colleges and matches them with the best operators, of whom there are hundreds. Excellent work attracts proven operators. Proven operators identify great opportunities. Great opportunities attract elite students, who produce more excellent work.',
     'Each turn makes the next one easier. The advantage is how many of both are in one place.',
   ],
+  /** Not shown on the page at present. */
   stories: [
     {
       label: 'Nehemiah',
@@ -218,32 +185,3 @@ export const REQUESTS = [
   { label: 'Parents and teachers', text: 'Nominate students with unusual ability.' },
 ]
 
-export const SOURCES = [
-  {
-    before: 'Bell, Chetty, Jaravel, Petkova and Van Reenen, ',
-    title: 'Who Becomes an Inventor in America? The Importance of Exposure to Innovation',
-    href: 'https://www.nber.org/papers/w24062.pdf',
-    after: ', NBER',
-  },
-  {
-    before: 'Lubinski, Benbow and Kell, ',
-    title: 'Life Paths and Accomplishments of Mathematically Precocious Males and Females Four Decades Later',
-    href: 'https://www.psychologicalscience.org/journals/psychological-science/0956797614551371/',
-    after: ', Psychological Science (2014)',
-  },
-  {
-    before: '',
-    title: 'Leonardo the Apprentice: Verrocchio’s pupils',
-    href: 'https://eclecticlight.co/2019/03/17/leonardo-the-apprentice-verrocchios-pupils/',
-    after: ', The Eclectic Light Company',
-  },
-  {
-    before: 'Harriet Zuckerman, Scientific Elite (1977), summarized in ',
-    title: 'Responsible Conduct of Research: Mentoring',
-    href: 'https://ccnmtl.columbia.edu/projects/rcr/rcr_mentoring/conclusion/index.html',
-    after: ', Columbia University',
-  },
-  { before: '', title: 'J. J. Thomson', href: 'https://en.wikipedia.org/wiki/J._J._Thomson', after: ', Wikipedia' },
-  { before: '', title: 'Andrew Carnegie', href: 'https://www.britannica.com/money/Andrew-Carnegie', after: ', Britannica' },
-  { before: '', title: 'Charles M. Schwab', href: 'https://en.wikipedia.org/wiki/Charles_M._Schwab', after: ', Wikipedia' },
-]

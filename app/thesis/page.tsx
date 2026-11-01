@@ -7,25 +7,20 @@ import { Frame } from '@/components/site/Frame'
 import { Label, Rule } from '@/components/site/Section'
 import { ThesisIndex } from '@/components/site/ThesisIndex'
 import { EssayCard } from '@/components/thesis/Essay'
-import { Dawn, Matchmaking, NextIdeas, NobelTree, SculptureFossil } from '@/components/thesis/Illustrations'
 import { FIRST_YEAR, LAST_YEAR, PRICE_PER_TERM } from '@/lib/data/plan'
 import {
-  CARNEGIE,
   COMPARABLES,
   CONTEXT,
   EXAMPLE,
   FAITH,
   FLYWHEEL,
-  GOAL,
   MODEL,
   OPPORTUNITIES,
   PROJECT_STEPS,
   PROJECT_TERMS,
   REQUESTS,
-  RESEARCH,
   ROLES,
   SECTIONS,
-  SOURCES,
   THESIS_SUMMARY,
   TRADITION,
 } from '@/lib/data/thesis'
@@ -72,15 +67,6 @@ function Sub({ children }: { children: React.ReactNode }) {
     <h3 data-reveal-item className="mt-4 text-[1.45rem] leading-tight">
       {children}
     </h3>
-  )
-}
-
-function Figure({ children, caption }: { children: React.ReactNode; caption?: string }) {
-  return (
-    <figure data-reveal-item className="my-2 max-w-[860px]">
-      <div className="overflow-x-auto">{children}</div>
-      {caption && <figcaption className="mt-3 max-w-[64ch] text-[0.88rem] leading-[1.55] text-grey">{caption}</figcaption>}
-    </figure>
   )
 }
 
@@ -176,9 +162,6 @@ export default function ThesisPage() {
 
           <div className="flex min-w-0 flex-col">
             <Section id="context">
-              <Figure>
-                <Dawn />
-              </Figure>
               {CONTEXT.map((t) => (
                 <P key={t}>{t}</P>
               ))}
@@ -203,28 +186,10 @@ export default function ThesisPage() {
               </Link>
             </Section>
 
-            <Section id="goal">
-              <P>{GOAL.text}</P>
-              <dl className="grid gap-3 sm:grid-cols-3">
-                {GOAL.stats.map((s) => (
-                  <div key={s.label} data-reveal-item data-reveal-auto className="flex flex-col gap-2 rounded-[18px] border border-line p-6">
-                    <dd className="order-1 font-serif text-[clamp(2.2rem,3.6vw,3rem)] font-semibold leading-none text-ink tabular-nums">
-                      {s.value}
-                    </dd>
-                    <dt className="order-2 text-[0.88rem] leading-[1.45]">{s.label}</dt>
-                  </div>
-                ))}
-              </dl>
-              <P>{GOAL.after}</P>
-            </Section>
-
             <Section id="model">
               {MODEL.intro.map((t) => (
                 <P key={t}>{t}</P>
               ))}
-              <Figure caption="Thousands of capable students, hundreds of proven operators. The studio matches them on real projects.">
-                <Matchmaking />
-              </Figure>
               <ul className="flex flex-col">
                 {MODEL.facts.map((item, i) => (
                   <li
@@ -246,65 +211,9 @@ export default function ThesisPage() {
               />
             </Section>
 
-            <Section id="evidence">
-              <P>
-                The pairing of a master and an apprentice has a record. Great builders and scientists often trained under
-                earlier ones, at a young age, on real work.
-              </P>
-              <Sub>Carnegie’s line</Sub>
-              <ol className="grid gap-6 sm:grid-cols-3">
-                {CARNEGIE.map((c, i) => (
-                  <li key={c.name} data-reveal-item data-reveal-auto className="relative">
-                    <div className="flex items-center gap-3">
-                      <span className="h-5 w-5 flex-none rounded-full bg-[var(--g5)]" />
-                      {i < CARNEGIE.length - 1 && <span aria-hidden="true" className="hidden h-px flex-1 bg-[var(--g3)] sm:block" />}
-                    </div>
-                    <p className="mt-4 font-serif text-[1.25rem] font-semibold leading-tight text-ink">{c.name}</p>
-                    <p className="mt-1 font-mono text-[0.66rem] uppercase tracking-[0.12em] text-[var(--g5)]">{c.role}</p>
-                    <p className="mt-2 text-[0.95rem] leading-[1.6]">{c.text}</p>
-                  </li>
-                ))}
-              </ol>
-
-              <Sub>Nobel laureates who trained Nobel laureates</Sub>
-              <Figure caption="Seven of J. J. Thomson’s students won Nobel Prizes, and so did his son. Rutherford, one of those students, trained several more.">
-                <NobelTree />
-              </Figure>
-              <div data-reveal-item className="flex flex-col gap-2 rounded-[18px] bg-[var(--g1)] p-6 sm:flex-row sm:items-center sm:gap-8 sm:p-7">
-                <p className="font-serif text-[clamp(2.4rem,4vw,3.2rem)] font-semibold leading-none text-[var(--g6)] tabular-nums">48 of 92</p>
-                <p className="max-w-[52ch] text-[0.98rem] leading-[1.6] text-ink/80">
-                  American Nobel laureates in science through 1972 who had worked as students, postdocs or junior
-                  collaborators under older laureates (Harriet Zuckerman, <em>Scientific Elite</em>, 1977).
-                </p>
-              </div>
-
-              <Sub>Research</Sub>
-              <div className="grid gap-3">
-                {RESEARCH.map((item, i) => (
-                  <div key={item.label} data-reveal-item style={d(i)} className="rounded-[18px] bg-panel p-6 sm:p-7">
-                    <p className="font-mono text-[0.68rem] uppercase tracking-[0.16em] text-bronze">{item.label}</p>
-                    <p className="mt-2 max-w-[64ch] text-[1rem] leading-[1.65] text-ink/80">{item.text}</p>
-                    <a href={item.href} target="_blank" rel="noopener noreferrer" className="arrow-nudge link-line mt-3 inline-block text-[0.85rem] text-grey hover:text-ink">
-                      {item.linkText} <span className="arrow">↗</span>
-                    </a>
-                  </div>
-                ))}
-              </div>
-              <P>
-                Conclusion: ability is widely distributed and visible early. Exposure, mentors and real work are not evenly
-                distributed. The gap can be closed deliberately.
-              </P>
-            </Section>
-
             <Section id="opportunities">
               <P>{OPPORTUNITIES.ideas}</P>
-              <Figure>
-                <NextIdeas />
-              </Figure>
               <P>{OPPORTUNITIES.fossil}</P>
-              <Figure>
-                <SculptureFossil />
-              </Figure>
               <P>{OPPORTUNITIES.so}</P>
               <EssayCard
                 href="/thesis/artists-and-paleontologists"
@@ -329,15 +238,6 @@ export default function ThesisPage() {
               {FLYWHEEL.text.map((t) => (
                 <P key={t}>{t}</P>
               ))}
-              <div className="grid gap-3 md:grid-cols-2">
-                {FLYWHEEL.stories.map((s) => (
-                  <div key={s.label} data-reveal-item data-reveal-auto className="rounded-[18px] border border-[var(--g3)] p-6 sm:p-7">
-                    <p className="font-serif text-[1.3rem] font-semibold leading-tight text-ink">{s.label}</p>
-                    <p className="mt-1 font-mono text-[0.66rem] uppercase tracking-[0.14em] text-[var(--g5)]">{s.ref}</p>
-                    <p className="mt-3 text-[0.97rem] leading-[1.62]">{s.text}</p>
-                  </div>
-                ))}
-              </div>
               <EssayCard
                 href="/thesis/critical-mass"
                 title="Critical Mass"
@@ -421,21 +321,6 @@ export default function ThesisPage() {
               </div>
             </Section>
 
-            <Rule />
-            <div className="py-12">
-              <Label className="mb-4">Sources</Label>
-              <ul className="flex flex-col gap-2 text-[0.9rem]">
-                {SOURCES.map((s) => (
-                  <li key={s.href}>
-                    {s.before}
-                    <a className="link-line text-ink" href={s.href} target="_blank" rel="noopener noreferrer">
-                      {s.title}
-                    </a>
-                    {s.after}
-                  </li>
-                ))}
-              </ul>
-            </div>
           </div>
         </div>
       </Frame>
