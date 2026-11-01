@@ -1,4 +1,6 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
+import Link from 'next/link'
 import { Flywheel } from '@/components/plan/Flywheel'
 import { Assumptions, Hiring, Projections } from '@/components/plan/PlanDetail'
 import { Frame } from '@/components/site/Frame'
@@ -179,6 +181,25 @@ export default function ThesisPage() {
               {CONTEXT.map((t) => (
                 <P key={t}>{t}</P>
               ))}
+              <Link
+                href="/thesis/course-of-empire"
+                data-reveal-item
+                className="group mt-2 grid max-w-[760px] overflow-hidden rounded-[18px] border border-line transition-colors duration-500 hover:border-[var(--g4)] sm:grid-cols-[240px_minmax(0,1fr)]"
+              >
+                <div className="relative aspect-[3/2] sm:aspect-auto">
+                  <Image src="/thesis/course-of-empire/3-consummation.jpg" alt="" fill sizes="(min-width:640px) 240px, 100vw" className="object-cover" />
+                </div>
+                <div className="flex flex-col justify-center gap-2 p-6">
+                  <p className="font-mono text-[0.66rem] uppercase tracking-[0.16em] text-[var(--g5)]">Essay</p>
+                  <p className="font-serif text-[1.45rem] font-semibold leading-tight text-ink">The Course of Empire</p>
+                  <p className="text-[0.95rem] leading-[1.55]">
+                    Thomas Cole’s five paintings, the poems behind them, and why the next generation is the answer.
+                  </p>
+                  <span className="arrow-nudge mt-1 text-[0.9rem] text-ink">
+                    Read the essay <span className="arrow">→</span>
+                  </span>
+                </div>
+              </Link>
             </Section>
 
             <Section id="goal">
