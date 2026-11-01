@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { EssayShell, H2, P, Reading, Stat, Wide } from '@/components/thesis/Essay'
+import { EssayShell, H2, P, Plate, Reading, Stat, Wide } from '@/components/thesis/Essay'
 import { ChainReaction, Connections } from '@/components/thesis/Illustrations'
 
 /**
@@ -10,7 +10,7 @@ import { ChainReaction, Connections } from '@/components/thesis/Illustrations'
 
 const TITLE = 'Critical Mass'
 const DESCRIPTION =
-  'A network grows more valuable with every member who joins it. On Metcalfe’s law, density, and the point at which the flywheel starts to turn on its own.'
+  'A network grows more valuable with every member who joins it, and networks tend toward one winner. On Metcalfe’s law, increasing returns, atomic networks, and the point at which the flywheel turns on its own.'
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -20,12 +20,19 @@ export const metadata: Metadata = {
 }
 
 const READING = [
+  { author: 'Michael Katz and Carl Shapiro', work: 'Network Externalities, Competition, and Compatibility', year: '1985' },
+  { author: 'Paul A. David', work: 'Clio and the Economics of QWERTY', year: '1985' },
+  { author: 'W. Brian Arthur', work: 'Increasing Returns and Path Dependence in the Economy', year: '1994' },
+  { author: 'Carl Shapiro and Hal Varian', work: 'Information Rules: A Strategic Guide to the Network Economy', year: '1998' },
+  { author: 'Andrew Chen', work: 'The Cold Start Problem', year: '2021' },
   { author: 'AnnaLee Saxenian', work: 'Regional Advantage: Culture and Competition in Silicon Valley and Route 128', year: '1994' },
   { author: 'James Davison Hunter', work: 'To Change the World', year: '2010' },
   { author: 'Malcolm Gladwell', work: 'The Tipping Point', year: '2000' },
 ]
 
 const SOURCES = [
+  { title: 'W. Brian Arthur', href: 'https://en.wikipedia.org/wiki/W._Brian_Arthur', site: 'Wikipedia' },
+  { title: 'A primer on network effects from The Cold Start Problem', href: 'https://sachinrekhi.com/andrew-chen-the-cold-start-problem', site: 'Sachin Rekhi' },
   { title: 'Review of Regional Advantage', href: 'https://www.princeton.edu/~starr/saxerev.html', site: 'Paul Starr, Princeton University' },
   { title: 'Summary of To Change the World', href: 'https://lifeandleadership.com/book-summaries/hunter-to-change-the-world', site: 'Life and Leadership' },
 ]
@@ -36,9 +43,18 @@ export default function CriticalMassPage() {
       title={TITLE}
       dek="Some things only work once there is enough of them in one place. A network of capable students and proven operators is one of them."
     >
-      <Wide>
-        <ChainReaction />
-      </Wide>
+      <Plate
+        src="/thesis/art/trouvelot-milky-way-wide.jpg"
+        w={2200}
+        h={1364}
+        priority
+        caption={
+          <>
+            Étienne Léopold Trouvelot, <em>Part of the Milky Way</em>, from <em>The Trouvelot Astronomical Drawings</em>,
+            1881–82.
+          </>
+        }
+      />
 
       <P>
         In physics, critical mass is the smallest amount of material that can sustain a chain reaction. Below it, each
@@ -66,6 +82,64 @@ export default function CriticalMassPage() {
         and they make the network more valuable to every other member.
       </P>
       <Stat value="499,500">possible connections among 1,000 members, compared with 4,950 among 100.</Stat>
+
+      <H2>Networks tip toward one winner</H2>
+      <P>
+        Metcalfe’s law has a consequence that economists spent the 1980s and 1990s working out: networks tend to be
+        winner-take-all. When the value of joining depends on how many others have already joined, every newcomer has a
+        reason to choose the largest network, and every choice makes the largest network more attractive to the next
+        person. The incentives form a loop. Participants collapse around one network, and the others shrink.
+      </P>
+      <P>
+        Michael Katz and Carl Shapiro formalized this as network externalities in 1985. W. Brian Arthur showed how
+        increasing returns let a small early lead harden into lock-in, so that the network ahead early often stays ahead
+        for good. Carl Shapiro and Hal Varian’s <em>Information Rules</em> summarized the dynamic for a generation of
+        executives as positive feedback: the strong get stronger and the weak get weaker.
+      </P>
+      <P>
+        History is full of examples. The economist Paul David traced how the QWERTY keyboard became permanent because
+        typists learned the layout that most machines used, and manufacturers built the layout most typists knew. VHS beat
+        Betamax as more stores stocked the format more people owned. Telephone systems, email and the internet’s own
+        protocols each settled on one standard that everyone used, because a standard is worth exactly as much as the
+        number of people who share it.
+      </P>
+      <Wide caption="Each member who joins raises the value of joining for the next.">
+        <ChainReaction />
+      </Wide>
+      <P>
+        The same incentive loop applies to people. A founder looking for capable students goes where the most capable
+        students already are. A student looking for real work goes where the best founders already bring it. Each one who
+        comes makes the place more valuable to everyone else.
+      </P>
+
+      <H2>Start small and dense</H2>
+      <P>
+        Andrew Chen, in <em>The Cold Start Problem</em>, studied how networks such as Facebook, Uber and Slack actually got
+        going. His answer was that no network starts large. Each starts as an atomic network: the smallest group that is
+        dense and engaged enough to sustain itself, like a single college for Facebook, a single city for Uber or a single
+        team for Slack. Once one works, the network grows by adding the next one beside it, then the next. At some point
+        the network tips, and growth comes from the network itself.
+      </P>
+
+      <H2>Partnerships as a head start</H2>
+      <P>
+        This is why the studio grows through partnerships with Christian high schools and universities across the
+        country. Each partner school is already an atomic network. Its teachers, counselors, students, parents and alumni
+        know and trust one another. They share churches, teams and neighborhoods. When a school partners with West
+        Ventures, it does not add one student. It connects a whole trusted community to the network at once.
+      </P>
+      <P>
+        Every partner school adds nominations, families who talk to other families, alumni who become founders and
+        investors, and students who carry the network with them to the colleges they attend. Every partner university
+        adds students who work on teams alongside high schoolers from other states, and who go on to found and lead
+        companies of their own. Partnerships let the network add whole communities instead of individuals, which is the
+        fastest way any network grows toward the point where it tips.
+      </P>
+      <P>
+        The plan in the thesis assumes the network grows from a few dozen partner schools to several hundred over ten
+        years. Each one makes the network more valuable to every founder, every student and every other school already
+        in it.
+      </P>
 
       <H2>Who is in the network</H2>
       <P>

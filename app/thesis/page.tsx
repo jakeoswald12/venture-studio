@@ -7,7 +7,7 @@ import { Frame } from '@/components/site/Frame'
 import { Label, Rule } from '@/components/site/Section'
 import { ThesisIndex } from '@/components/site/ThesisIndex'
 import { EssayCard } from '@/components/thesis/Essay'
-import { ChainReaction, CupAndCrown, Dawn, Matchmaking, NextIdeas, NobelTree, SculptureFossil } from '@/components/thesis/Illustrations'
+import { Dawn, Matchmaking, NextIdeas, NobelTree, SculptureFossil } from '@/components/thesis/Illustrations'
 import { FIRST_YEAR, LAST_YEAR, PRICE_PER_TERM } from '@/lib/data/plan'
 import {
   CARNEGIE,
@@ -242,7 +242,7 @@ export default function ThesisPage() {
                 href="/thesis/kings-and-cupbearers"
                 title="Kings & Cupbearers"
                 text="Great builders stand on the shoulders of earlier ones. On apprenticeship, earned trust, and why a king’s presence predicts what a young person will build."
-                image={<div className="absolute inset-0 grid place-items-center p-4"><CupAndCrown /></div>}
+                image={<Image src="/thesis/art/nehemiah-dore.jpg" alt="" fill sizes="(min-width:640px) 240px, 100vw" className="object-cover object-top" />}
               />
             </Section>
 
@@ -306,6 +306,12 @@ export default function ThesisPage() {
                 <SculptureFossil />
               </Figure>
               <P>{OPPORTUNITIES.so}</P>
+              <EssayCard
+                href="/thesis/artists-and-paleontologists"
+                title="Artists & Paleontologists"
+                text="There is no such thing as a business idea, only an accurate diagnosis of a need about to be met. On fossil hunters, and the kind of visionary worth following."
+                image={<Image src="/thesis/art/peale-mastodon.jpg" alt="" fill sizes="(min-width:640px) 240px, 100vw" className="object-cover" />}
+              />
             </Section>
 
             <Section id="example">
@@ -336,7 +342,7 @@ export default function ThesisPage() {
                 href="/thesis/critical-mass"
                 title="Critical Mass"
                 text="A network grows more valuable with every member. On Metcalfe’s law, density, and the point at which the flywheel turns on its own."
-                image={<div className="absolute inset-0 grid place-items-center p-2"><ChainReaction /></div>}
+                image={<Image src="/thesis/art/trouvelot-milky-way-wide.jpg" alt="" fill sizes="(min-width:640px) 240px, 100vw" className="object-cover" />}
               />
             </Section>
 

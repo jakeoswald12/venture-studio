@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { CarnegieLine, EssayShell, H2, P, Quote, Reading, Stat, Wide } from '@/components/thesis/Essay'
+import { CarnegieLine, EssayShell, H2, P, Plate, Quote, Reading, Stat, Wide } from '@/components/thesis/Essay'
 import { CupAndCrown, NobelTree, TrustLadder } from '@/components/thesis/Illustrations'
 
 /**
@@ -83,6 +83,17 @@ export default function KingsAndCupbearersPage() {
         the city. The king gave him leave, letters of safe passage to the governors on the way, a letter for timber from
         the royal forest, and an escort of officers and horsemen.
       </P>
+      <Plate
+        src="/thesis/art/nehemiah-dore.jpg"
+        w={1287}
+        h={1600}
+        caption={
+          <>
+            Gustave Doré, <em>Nehemiah Views the Ruins of Jerusalem’s Walls</em>, 1866. Wood engraving from the Doré
+            Bible.
+          </>
+        }
+      />
       <Quote cite="Nehemiah 2:8 (KJV)">And the king granted me, according to the good hand of my God upon me.</Quote>
       <P>
         The wall was finished in fifty-two days. Nehemiah was a gifted leader, but he did not build Jerusalem’s wall from
