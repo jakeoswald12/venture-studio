@@ -29,7 +29,7 @@ export const SECTIONS = [
 export const CONTEXT = [
   'The principles the West was founded on still work: the rule of law, free markets, free speech, industriousness, honor, and the belief that every person bears the image of God and is meant to create. What has weakened is the confidence to use them and the habit of building. For two generations the West has spent its inheritance faster than it has added to it, and too few young people are given real work at the age when it would shape them most.',
   'The studio holds that the next generation can reverse this. A relatively small number of builders, leaders and heroes, found early and put to real work, can restore those principles and begin a period of strength, peace, truth and prosperity.',
-  'The goal of West Ventures is to see this through: to find the next generation of builders and leaders, and activate them.',
+  'The goal of West Ventures is to see this through: to identify young people with the makings of greatness and prepare them for the burden of leadership and stewardship, so that they pursue glory, honor and self-sacrifice rather than wealth, accolades or comfort. It is a rebirth of the West’s oldest values, carried by its youngest people.',
 ]
 
 export const GOAL = {

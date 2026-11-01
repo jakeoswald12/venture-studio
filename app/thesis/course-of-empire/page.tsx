@@ -67,9 +67,11 @@ const READING = [
   { author: 'Alexis de Tocqueville', work: 'Democracy in America', year: '1835–40' },
   { author: 'Abraham Lincoln', work: 'Address to the Young Men’s Lyceum of Springfield', year: '1838' },
   { author: 'C. S. Lewis', work: 'The Abolition of Man', year: '1943' },
+  { author: 'Tom Brokaw', work: 'The Greatest Generation', year: '1998' },
   { author: 'Sir John Glubb', work: 'The Fate of Empires and Search for Survival', year: '1976' },
   { author: 'Os Guinness', work: 'A Free People’s Suicide', year: '2012' },
   { author: 'Tom Holland', work: 'Dominion: How the Christian Revolution Remade the World', year: '2019' },
+  { author: 'Malcolm Guite', work: 'Mariner: A Voyage with Samuel Taylor Coleridge', year: '2017' },
 ]
 
 const SOURCES = [
@@ -78,6 +80,7 @@ const SOURCES = [
   { title: 'Jefferson’s “empire for liberty”', href: 'https://www.monticello.org/site/jefferson/empire-liberty-quotation', site: 'Monticello' },
   { title: 'Freedom requires virtue, which requires faith: the golden triangle of freedom', href: 'https://assets.christianpost.com/news/freedom-requires-virtue-which-requires-faith-the-golden-triangle-of-freedom.html', site: 'The Christian Post' },
   { title: 'Review of Os Guinness, A Free People’s Suicide', href: 'https://firstthings.com/os-guinness-a-free-peoples-suicide/', site: 'First Things' },
+  { title: 'The world isn’t disenchanted, we are: Malcolm Guite', href: 'https://www.premierunbelievable.com/unbelievable-the-interview/the-world-isnt-disenchanted-we-are-malcolm-guite/20812.article', site: 'Premier Unbelievable' },
 ]
 
 /* ─── Pieces ──────────────────────────────────────────────────────────────── */
@@ -320,6 +323,26 @@ export default function CourseOfEmpirePage() {
               decoration on the American system. It is a load-bearing wall.
             </P>
 
+            <H2>Remembering</H2>
+            <P>
+              The poet and priest Malcolm Guite has spent much of his work arguing that the modern West has not so much lost
+              its inheritance as forgotten it. The world is not disenchanted, he says; we are. Many young people in the West
+              feel they do not belong to anything. Part of the reason is that no one has told them where they come from.
+            </P>
+            <P>
+              The stories they were not told are about greatness of a particular kind. Not wealth, not fame, not comfort,
+              but glory won through honor and self-sacrifice: the soldier at Thermopylae, the martyr in the arena, the
+              founder who pledged his life, his fortune and his sacred honor. The West’s oldest stories hold up the person
+              who carries a burden for the sake of others as the highest thing a person can become. A young man or woman who
+              remembers those stories remembers who they are.
+            </P>
+            <P>
+              The last generation to live that way at scale is still within living memory. The men and women Tom Brokaw
+              called the Greatest Generation grew up in the Depression, won a world war, came home and built the most
+              prosperous society in history without making prosperity the point. The generations that followed inherited
+              what they built and too often set down what they carried. The torch was dropped. It has not gone out.
+            </P>
+
             <H2>The young are the answer</H2>
             <P>
               The founding of the United States is usually pictured as the work of old men in wigs. Many of them were
@@ -341,11 +364,16 @@ export default function CourseOfEmpirePage() {
 
             <H2>What we are doing about it</H2>
             <P>
-              West Ventures exists to find the young people who could lead the next generation into a new era, and to
-              equip them. We look for them early, in high schools and colleges across the country. We put them to work for
-              proven founders and operators on real problems, because character and craft are formed by real work. We hold
-              them to standards of glory, honor, truth and sacrifice, and away from the pursuit of comfort, extravagance and
-              vanity. And we build companies with them.
+              West Ventures exists to identify the young people who have the makings of greatness, and to equip them. We
+              look for them early, in high schools and colleges across the country. We put them to work for proven founders
+              and operators on real problems, because character and craft are formed by real work. We prepare them for the
+              burden of leadership and stewardship: to pursue glory, honor and self-sacrifice rather than wealth, accolades
+              or comfort. It is a rebirth of the West’s oldest values, carried by its youngest people. And we build
+              companies with them.
+              <br />
+              <br />
+              This is a call to the next generation to rebuild what was let go: to pick up the torch the Greatest Generation
+              carried, and to make them proud.
             </P>
             <P>
               Berkeley believed the last act would be the noblest. Byron believed every act ends in ruin. Cole’s answer, and
