@@ -158,7 +158,7 @@ function Chart({
 
 function Readout({ items }: { items: { label: string; value: string; color?: string; dash?: string }[] }) {
   return (
-    <dl className="mb-5 flex flex-wrap gap-x-8 gap-y-3">
+    <dl className="mb-3 flex flex-wrap gap-x-8 gap-y-2">
       {items.map((it) => (
         <div key={it.label} className="min-w-[8.5rem]">
           <dt className="flex items-center gap-2 font-mono text-[0.66rem] uppercase tracking-[0.14em] text-faint">
@@ -169,7 +169,7 @@ function Readout({ items }: { items: { label: string; value: string; color?: str
             )}
             {it.label}
           </dt>
-          <dd className="mt-1 font-serif text-[1.45rem] font-semibold leading-none text-ink tabular-nums">{it.value}</dd>
+          <dd className="mt-1 font-serif text-[1.25rem] font-semibold leading-none text-ink tabular-nums">{it.value}</dd>
         </div>
       ))}
     </dl>
@@ -182,23 +182,23 @@ export function PlanCharts({ data }: { data: PlanYear[] }) {
 
   return (
     <div>
-      <div className="mb-3 flex items-baseline justify-between gap-4">
-        <h3 className="text-[1.5rem] leading-tight">Revenue, overhead and net</h3>
+      <div className="mb-2 flex items-baseline justify-between gap-4">
+        <h3 className="text-[1.25rem] leading-tight">Revenue, overhead and net</h3>
         <span className="font-mono text-[0.72rem] uppercase tracking-[0.14em] text-grey">{r.year}</span>
       </div>
       <Readout items={MONEY.map((s) => ({ label: s.label, value: s.format(s.value(r)), color: s.color, dash: s.dash }))} />
       <Chart
         data={data}
         series={MONEY}
-        heights={[340, 260]}
+        heights={[230, 200]}
         active={active}
         setActive={setActive}
         axisFormat={(v) => (v === 0 ? '$0' : money(v))}
         label="Projected revenue from students and companies, overhead and net, 2027 to 2036"
       />
 
-      <div className="mb-3 mt-14 flex items-baseline justify-between gap-4">
-        <h3 className="text-[1.5rem] leading-tight">Partner schools</h3>
+      <div className="mb-2 mt-7 flex items-baseline justify-between gap-4">
+        <h3 className="text-[1.25rem] leading-tight">Partner schools</h3>
         <span className="font-mono text-[0.72rem] uppercase tracking-[0.14em] text-grey">{r.year}</span>
       </div>
       <Readout
@@ -213,7 +213,7 @@ export function PlanCharts({ data }: { data: PlanYear[] }) {
       <Chart
         data={data}
         series={PARTNERS}
-        heights={[230, 190]}
+        heights={[150, 150]}
         active={active}
         setActive={setActive}
         axisFormat={(v) => String(v)}

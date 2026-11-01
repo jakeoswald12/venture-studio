@@ -99,7 +99,7 @@ export const COSTS = {
   processing: 0.03,
   /** Recruiting students, share of student revenue. */
   marketing: 0.08,
-  /** Software, insurance, legal and accounting: fixed plus per student-term. */
+  /** Insurance, legal and accounting: fixed plus per student-term. */
   adminFixed: 60_000,
   adminPerStudentTerm: 15,
   /** Summits, hackathons and travel: fixed plus per student-term. */
@@ -107,6 +107,12 @@ export const COSTS = {
   eventsPerStudentTerm: 40,
   /** Training, events and gifts for each volunteer project lead, per year. */
   perVolunteer: 1_000,
+  /** Travel for the paid team: partner visits, founder meetings, conferences. Per person per year. */
+  teamTravelPerHead: 20_000,
+  /** Running the firm: CRM, enrollment and billing, website, accounting software. Fixed per year. */
+  firmSoftwareFixed: 36_000,
+  /** Software seats for each paid team member (workspace, Slack, Claude, design tools). Per year. */
+  firmSoftwarePerHead: 6_000,
   /** Gift to ACU's endowment, share of operating profit. */
   acuShare: 0.1,
 }
@@ -161,15 +167,18 @@ function build(): PlanYear[] {
     const inflate = (1 + RAISE) ** k
     let staffCost = 0
     let staff = 0
+    let headYears = 0
     for (const h of HIRES) {
       const share = Math.max(0, Math.min(1, y + 1 - h.startAt))
       if (share > 0) staff += 1
+      headYears += share
       staffCost += share * h.salary * inflate * LOADED
     }
     const peakProjects = Math.max(p.spring, p.fall)
     const leads = y >= VENTURE_LEADS_FROM ? Math.ceil(peakProjects / PROJECTS_PER_VENTURE_LEAD) : 0
     const associates = y >= ASSOCIATES_FROM ? Math.ceil(fallStudents / STUDENTS_PER_ASSOCIATE) : 0
     staff += leads + associates
+    headYears += leads + associates
     staffCost += (leads * VENTURE_LEAD_SALARY + associates * ASSOCIATE_SALARY) * inflate * LOADED
 
     const volunteers = y === FIRST_YEAR ? VOLUNTEERS_FALL_2027 : peakProjects
@@ -178,7 +187,9 @@ function build(): PlanYear[] {
       revenueStudents * (COSTS.processing + COSTS.marketing) +
       COSTS.adminFixed +
       COSTS.eventsFixed +
-      volunteers * COSTS.perVolunteer
+      volunteers * COSTS.perVolunteer +
+      headYears * (COSTS.teamTravelPerHead + COSTS.firmSoftwarePerHead) * inflate +
+      COSTS.firmSoftwareFixed
 
     const operating = revenueStudents + revenueCompanies - staffCost - other
     const acu = COSTS.acuShare * Math.max(0, operating)

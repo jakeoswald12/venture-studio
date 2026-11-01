@@ -49,7 +49,7 @@ export default function PlanPage() {
         {/* Flywheel */}
         <section className="pb-20 sm:pb-28">
           <h2 className="sr-only">Flywheel</h2>
-          <div data-reveal-item className="mx-auto w-full max-w-[min(1040px,calc((100svh-150px)*1000/880))]">
+          <div data-reveal-item className="mx-auto w-full max-w-[min(1200px,calc((100svh-150px)*1200/880))]">
             <Flywheel />
           </div>
         </section>
@@ -87,7 +87,7 @@ export default function PlanPage() {
             {VOLUNTEERS_FALL_2027} are expected by fall {FIRST_YEAR}, each leading about one project, so the paid team
             stays small. Paid roles follow the leadership team on the Team page.
           </p>
-          <div data-reveal-item style={d(2)} className="overflow-x-auto" data-lenis-prevent>
+          <div data-reveal-item style={d(2)} className="overflow-x-auto">
             <table className="w-full min-w-[640px] border-collapse text-left text-[0.95rem]">
               <thead>
                 <tr className="border-b border-line font-mono text-[0.66rem] uppercase tracking-[0.14em] text-faint">
@@ -163,9 +163,11 @@ export default function PlanPage() {
               <ul className="mt-3 grid gap-2 text-[0.95rem] leading-[1.55]">
                 <li>A Claude subscription for every student: {usd(COSTS.claudePerStudentTerm)} per student per term.</li>
                 <li>Recruiting students: {Math.round(COSTS.marketing * 100)}% of student revenue. Payment processing: {Math.round(COSTS.processing * 100)}%.</li>
-                <li>Software, insurance, legal and accounting: {usd(COSTS.adminFixed)} a year plus {usd(COSTS.adminPerStudentTerm)} per student per term.</li>
+                <li>Insurance, legal and accounting: {usd(COSTS.adminFixed)} a year plus {usd(COSTS.adminPerStudentTerm)} per student per term.</li>
                 <li>Summits, hackathons and travel: {usd(COSTS.eventsFixed)} a year plus {usd(COSTS.eventsPerStudentTerm)} per student per term.</li>
                 <li>{usd(COSTS.perVolunteer)} a year per volunteer project lead for training and events.</li>
+                <li>Travel for the paid team: {usd(COSTS.teamTravelPerHead)} per person per year.</li>
+                <li>Running the firm: {usd(COSTS.firmSoftwareFixed)} a year for CRM, enrollment, billing, website and accounting software, plus {usd(COSTS.firmSoftwarePerHead)} in software seats per person.</li>
                 <li>{Math.round(COSTS.acuShare * 100)}% of operating profit goes to ACU’s endowment, counted as overhead.</li>
               </ul>
             </div>
