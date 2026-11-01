@@ -423,3 +423,11 @@ html.lenis body {
   .illo-link { stroke-dashoffset: 0; }
   .illo-dig { transform: translateX(370px); }
 }
+/* Chain reaction: each ring of the network lights in turn. */
+.illo-wave { animation: illo-wave 4.4s ease-in-out infinite; opacity: 0.25; }
+@keyframes illo-wave {
+  0%, 100% { opacity: 0.25; }
+  18%, 40% { opacity: 1; }
+  70% { opacity: 0.35; }
+}
+@media (prefers-reduced-motion: reduce) { .illo-wave { animation: none; opacity: 1; } }

@@ -240,3 +240,133 @@ export function SculptureFossil() {
     </svg>
   )
 }
+
+/* ─── Kings & Cupbearers: a cup beneath a crown ─────────────────────────── */
+
+export function CupAndCrown() {
+  return (
+    <svg viewBox="0 0 800 380" role="img" aria-label="A crown above a cupbearer's cup" className="illo block h-auto w-full">
+      {[150, 115, 80].map((r, i) => (
+        <circle key={r} cx="400" cy="170" r={r} fill="none" stroke="var(--g2)" strokeWidth="2" className="illo-pulse" style={{ animationDelay: `${i * 0.5}s` }} />
+      ))}
+      {/* crown */}
+      <path
+        d="M330 120 L345 60 L372 96 L400 44 L428 96 L455 60 L470 120 Z"
+        fill="var(--g1)"
+        stroke="var(--g5)"
+        strokeWidth="3"
+        strokeLinejoin="round"
+      />
+      <rect x="330" y="120" width="140" height="16" rx="3" fill="var(--g4)" />
+      {[345, 400, 455].map((x, i) => (
+        <circle key={x} cx={x} cy={i === 1 ? 44 : 60} r="6" fill="var(--g5)" />
+      ))}
+      {/* cup */}
+      <path d="M352 168 L448 168 C 446 214, 426 236, 400 240 C 374 236, 354 214, 352 168 Z" fill="var(--g3)" stroke="var(--g5)" strokeWidth="3" strokeLinejoin="round" />
+      <path d="M352 168 L448 168" stroke="var(--g6)" strokeWidth="3" />
+      <path d="M400 240 L400 292" stroke="var(--g5)" strokeWidth="6" strokeLinecap="round" />
+      <path d="M368 304 C 380 292, 420 292, 432 304 Z" fill="var(--g4)" stroke="var(--g5)" strokeWidth="3" strokeLinejoin="round" />
+      <line x1="160" x2="640" y1="330" y2="330" stroke="var(--g3)" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  )
+}
+
+/* ─── Kings & Cupbearers: trust grows by steps ───────────────────────────── */
+
+export function TrustLadder() {
+  const steps = ['Builder Scholar', 'Contributor', 'Team leader', 'Fellow', 'Joint ventures']
+  const fills = ['var(--g1)', 'var(--g2)', 'var(--g3)', 'var(--g4)', 'var(--g5)']
+  return (
+    <svg viewBox="0 0 800 280" role="img" aria-label="Trust grows by steps: Builder Scholar, contributor, team leader, Fellow, then joint ventures with proven operators" className="illo block h-auto w-full">
+      {steps.map((s, i) => {
+        const h = 50 + i * 40
+        const x = 30 + i * 150
+        return (
+          <g key={s}>
+            <rect x={x} y={250 - h} width="136" height={h} rx="8" fill={fills[i]} stroke="var(--g4)" strokeWidth="1.5" className="illo-pulse" style={{ animationDelay: `${i * 0.35}s`, animationDuration: '3.4s' }} />
+            <text x={x + 68} y={250 - h - 14} textAnchor="middle" className="serif" fontSize="16">{s}</text>
+          </g>
+        )
+      })}
+      <line x1="20" x2="780" y1="251" y2="251" stroke="var(--g4)" strokeWidth="2" />
+      <text x="30" y="274" className="mono" fontSize="11">A little</text>
+      <text x="770" y="274" textAnchor="end" className="mono" fontSize="11">Much</text>
+    </svg>
+  )
+}
+
+/* ─── Critical Mass: a chain reaction spreading through a network ────────── */
+
+export function ChainReaction() {
+  const nodes: { x: number; y: number; d: number }[] = []
+  const rings = [0, 70, 130, 190, 250]
+  rings.forEach((r, ri) => {
+    const n = ri === 0 ? 1 : 6 + ri * 5
+    for (let k = 0; k < n; k += 1) {
+      const a = (k / n) * Math.PI * 2 + ri * 0.4
+      nodes.push({ x: 400 + Math.cos(a) * r * 1.35, y: 190 + Math.sin(a) * r * 0.62, d: ri })
+    }
+  })
+  return (
+    <svg viewBox="0 0 800 380" role="img" aria-label="A network where activity spreads outward from one node until the whole network is lit" className="illo block h-auto w-full">
+      {nodes.slice(1).map((n, i) => (
+        <line key={`l${i}`} x1="400" y1="190" x2={n.x} y2={n.y} stroke="var(--g2)" strokeWidth="1" />
+      ))}
+      {nodes.map((n, i) => (
+        <circle
+          key={i}
+          cx={n.x}
+          cy={n.y}
+          r={n.d === 0 ? 14 : 7 - n.d * 0.6}
+          fill="var(--g5)"
+          className="illo-wave"
+          style={{ animationDelay: `${n.d * 0.55}s` }}
+        />
+      ))}
+    </svg>
+  )
+}
+
+/* ─── Critical Mass: connections grow with the square of the members ────── */
+
+export function Connections() {
+  const panels = [5, 10, 20]
+  return (
+    <svg viewBox="0 0 900 340" role="img" aria-label="Five members make 10 connections, ten make 45, twenty make 190" className="illo block h-auto w-full min-w-[620px]">
+      {panels.map((n, p) => {
+        const cx = 150 + p * 300
+        const cy = 150
+        const r = 70 + p * 15
+        const pts = Array.from({ length: n }, (_, k) => {
+          const a = (k / n) * Math.PI * 2 - Math.PI / 2
+          return [cx + Math.cos(a) * r, cy + Math.sin(a) * r]
+        })
+        const lines: [number, number][] = []
+        for (let a = 0; a < n; a += 1) for (let b = a + 1; b < n; b += 1) lines.push([a, b])
+        return (
+          <g key={n}>
+            {lines.map(([a, b], i) => (
+              <line
+                key={i}
+                x1={pts[a][0]}
+                y1={pts[a][1]}
+                x2={pts[b][0]}
+                y2={pts[b][1]}
+                stroke="var(--g4)"
+                strokeWidth={n > 10 ? 0.7 : 1.2}
+                pathLength={1}
+                className="illo-link"
+                style={{ animationDelay: `${p * 0.6 + (i % 12) * 0.05}s`, animationDuration: '7s' }}
+              />
+            ))}
+            {pts.map(([x, y], i) => (
+              <circle key={i} cx={x} cy={y} r={n > 10 ? 5 : 7} fill="var(--g5)" />
+            ))}
+            <text x={cx} y="300" textAnchor="middle" className="serif" fontSize="22">{n * (n - 1) / 2} connections</text>
+            <text x={cx} y="324" textAnchor="middle" className="mono" fontSize="11">{n} members</text>
+          </g>
+        )
+      })}
+    </svg>
+  )
+}

@@ -6,7 +6,8 @@ import { Assumptions, Hiring, Projections } from '@/components/plan/PlanDetail'
 import { Frame } from '@/components/site/Frame'
 import { Label, Rule } from '@/components/site/Section'
 import { ThesisIndex } from '@/components/site/ThesisIndex'
-import { Dawn, Matchmaking, NextIdeas, NobelTree, SculptureFossil } from '@/components/thesis/Illustrations'
+import { EssayCard } from '@/components/thesis/Essay'
+import { ChainReaction, CupAndCrown, Dawn, Matchmaking, NextIdeas, NobelTree, SculptureFossil } from '@/components/thesis/Illustrations'
 import { FIRST_YEAR, LAST_YEAR, PRICE_PER_TERM } from '@/lib/data/plan'
 import {
   CARNEGIE,
@@ -237,6 +238,12 @@ export default function ThesisPage() {
                   </li>
                 ))}
               </ul>
+              <EssayCard
+                href="/thesis/kings-and-cupbearers"
+                title="Kings & Cupbearers"
+                text="Great builders stand on the shoulders of earlier ones. On apprenticeship, earned trust, and why a king’s presence predicts what a young person will build."
+                image={<div className="absolute inset-0 grid place-items-center p-4"><CupAndCrown /></div>}
+              />
             </Section>
 
             <Section id="evidence">
@@ -325,6 +332,12 @@ export default function ThesisPage() {
                   </div>
                 ))}
               </div>
+              <EssayCard
+                href="/thesis/critical-mass"
+                title="Critical Mass"
+                text="A network grows more valuable with every member. On Metcalfe’s law, density, and the point at which the flywheel turns on its own."
+                image={<div className="absolute inset-0 grid place-items-center p-2"><ChainReaction /></div>}
+              />
             </Section>
 
             <Section id="projects">
