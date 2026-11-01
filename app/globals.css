@@ -349,7 +349,7 @@ html.lenis body {
 @keyframes fw-spin { to { transform: rotate(360deg); } }
 .fw-node { fill: var(--panel); stroke: var(--line); stroke-width: 2; }
 .flywheel .fw-great { fill: var(--grey); font-size: 21px; font-style: italic; font-family: var(--font-serif); }
-.flywheel .fw-label { fill: var(--ink); font-size: 30px; font-weight: 600; font-family: var(--font-serif); }
+.flywheel .fw-label { fill: var(--ink); font-size: 27px; font-weight: 600; font-family: var(--font-serif); }
 .flywheel .fw-link { fill: var(--bronze); font-size: 25px; font-style: italic; font-family: var(--font-serif); }
 .fw-flow line,
 .fw-flow path {
@@ -361,17 +361,13 @@ html.lenis body {
   animation: fw-flow 1.4s linear infinite;
 }
 @keyframes fw-flow { to { stroke-dashoffset: -14; } }
-.fw-caption text { fill: var(--ink); font-size: 23px; font-weight: 500; }
-.fw-spin { fill: var(--ink); }
-.flywheel .fw-spin-label { fill: var(--paper); font-size: 23px; font-weight: 500; }
 @media (prefers-reduced-motion: reduce) {
   .fw-ring, .fw-flow line, .fw-flow path { animation: none; }
 }
-/* On a phone the drawing is about a third of its drawn size: larger type. */
+/* On a phone the drawing is about half its drawn size: slightly larger type. */
 @media (max-width: 640px) {
-  .flywheel .fw-great { font-size: 26px; }
-  .flywheel .fw-label { font-size: 34px; }
-  .flywheel .fw-link { font-size: 34px; }
-  .fw-caption text { font-size: 30px; }
-  .flywheel .fw-spin-label { font-size: 32px; }
+  .flywheel .fw-great { font-size: 24px; }
+  .flywheel .fw-label { font-size: 28px; }
+  .flywheel .fw-link { font-size: 29px; }
 }
+

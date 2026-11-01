@@ -48,9 +48,25 @@ export default function PlanPage() {
       <Frame className="pt-[calc(96px+env(safe-area-inset-top))] sm:pt-[100px]">
         {/* Flywheel */}
         <section className="pb-20 sm:pb-28">
-          <h2 className="sr-only">Flywheel</h2>
-          <div data-reveal-item className="mx-auto w-full max-w-[min(1200px,calc((100svh-150px)*1200/880))]">
-            <Flywheel />
+          <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-16">
+            <div data-reveal-item className="w-full max-w-[min(820px,calc(100svh-150px))]">
+              <Flywheel />
+            </div>
+            <div>
+              <p data-reveal-item className="font-mono text-[0.7rem] uppercase tracking-[0.16em] text-faint">
+                Flywheel
+              </p>
+              <h2 data-reveal-item style={d(1)} className="mt-5 text-[clamp(2rem,3.6vw,3.2rem)] leading-[1.02]">
+                Students do the work. Operators find the opportunities.
+              </h2>
+              <p data-reveal-item style={d(2)} className="mt-6 max-w-[52ch] text-[1.05rem] leading-[1.7]">
+                West Ventures has a large network of capable young people, in high school and college, doing real work
+                for real companies. That work attracts a large network of experienced founders and operators. They are
+                good at finding real opportunities that the rest of the market does not see or cannot act on, and they
+                bring those opportunities to the studio. Bigger opportunities attract more capable students. The
+                advantage is how many of both are in one place.
+              </p>
+            </div>
           </div>
         </section>
 
