@@ -336,7 +336,7 @@ html.lenis body {
 }
 
 /* ─── Plan: flywheel ───────────────────────────────────────────────────── */
-.flywheel text { font-family: var(--font-sans, inherit); }
+.flywheel text { font-family: var(--font-sans); }
 .fw-track { fill: none; stroke: var(--line); stroke-width: 2; }
 .fw-dash {
   fill: none;
@@ -348,14 +348,9 @@ html.lenis body {
 .fw-ring { animation: fw-spin 40s linear infinite; }
 @keyframes fw-spin { to { transform: rotate(360deg); } }
 .fw-node { fill: var(--panel); stroke: var(--line); stroke-width: 2; }
-.fw-label { fill: var(--ink); font-size: 24px; font-weight: 600; font-family: var(--font-serif, serif) !important; }
-.fw-center {
-  fill: var(--faint);
-  font-size: 15px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  font-family: var(--font-mono, monospace) !important;
-}
+.flywheel .fw-great { fill: var(--grey); font-size: 21px; font-style: italic; font-family: var(--font-serif); }
+.flywheel .fw-label { fill: var(--ink); font-size: 30px; font-weight: 600; font-family: var(--font-serif); }
+.flywheel .fw-link { fill: var(--bronze); font-size: 25px; font-style: italic; font-family: var(--font-serif); }
 .fw-flow line,
 .fw-flow path {
   fill: none;
@@ -366,18 +361,17 @@ html.lenis body {
   animation: fw-flow 1.4s linear infinite;
 }
 @keyframes fw-flow { to { stroke-dashoffset: -14; } }
-.fw-caption text, .fw-caption { fill: var(--ink); font-size: 22px; font-weight: 500; }
-.fw-sub { fill: var(--grey) !important; font-size: 17px !important; font-weight: 400 !important; }
+.fw-caption text { fill: var(--ink); font-size: 23px; font-weight: 500; }
 .fw-spin { fill: var(--ink); }
-.fw-spin-label { fill: var(--paper); font-size: 21px; font-weight: 500; }
+.flywheel .fw-spin-label { fill: var(--paper); font-size: 23px; font-weight: 500; }
 @media (prefers-reduced-motion: reduce) {
   .fw-ring, .fw-flow line, .fw-flow path { animation: none; }
 }
-/* On a phone the drawing is about a third of its drawn size: larger type,
- * fewer words. */
+/* On a phone the drawing is about a third of its drawn size: larger type. */
 @media (max-width: 640px) {
-  .fw-label { font-size: 27px; }
-  .fw-caption text, .fw-caption { font-size: 32px; }
-  .fw-spin-label { font-size: 30px; }
-  .fw-sub, .fw-center { display: none; }
+  .flywheel .fw-great { font-size: 26px; }
+  .flywheel .fw-label { font-size: 34px; }
+  .flywheel .fw-link { font-size: 34px; }
+  .fw-caption text { font-size: 30px; }
+  .flywheel .fw-spin-label { font-size: 32px; }
 }

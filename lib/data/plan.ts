@@ -28,10 +28,10 @@ const PROJECTS: Record<number, { spring: number; fall: number }> = {
   2036: { spring: 315, fall: 345 },
 }
 
-export const TEAM_SIZE = 6
-/** Of each team of six: one project leader and three contributors from college, two Builder Scholars from high school. */
-const COLLEGE_PER_TEAM = 4
-const HIGH_SCHOOL_PER_TEAM = 2
+/** Average team: two college students (ACU first, then partner colleges) and three high school students. */
+export const COLLEGE_PER_TEAM = 2
+export const HIGH_SCHOOL_PER_TEAM = 3
+export const TEAM_SIZE = COLLEGE_PER_TEAM + HIGH_SCHOOL_PER_TEAM
 /** Summer enrollment as a share of the spring before it. */
 export const SUMMER_SHARE = 0.25
 /** Spring 2027 is already priced under the current program; the new price starts with summer 2027. */
@@ -73,10 +73,10 @@ export interface Hire {
 /** Leadership roles, in the order they are paid. Titles match the Team page. */
 export const HIRES: Hire[] = [
   { role: 'Managing Partner (Jake Oswald)', start: 'Aug 2027', startAt: 2027 + 7 / 12, salary: 150_000, note: 'Moves off the ACU payroll for the fall 2027 launch.' },
-  { role: 'Head of Operations', start: 'Aug 2027', startAt: 2027 + 7 / 12, salary: 150_000, note: 'First hire. Runs terms, enrollment, billing and the volunteer project leads.' },
-  { role: 'Head of Partnerships', start: 'Jan 2028', startAt: 2028, salary: 130_000, note: 'Signs and supports partner high schools and colleges.' },
+  { role: 'Managing Partner (Lars Ostervold)', start: 'Aug 2027', startAt: 2027 + 7 / 12, salary: 150_000, note: 'Joint ventures and the studio’s own companies.' },
+  { role: 'Head of Operations', start: 'Aug 2027', startAt: 2027 + 7 / 12, salary: 140_000, note: 'Runs terms, enrollment, billing and the volunteer project leads.' },
+  { role: 'Head of Partnerships', start: 'Aug 2027', startAt: 2027 + 7 / 12, salary: 130_000, note: 'Signs and supports partner high schools and colleges.' },
   { role: 'Head of Growth', start: 'Jul 2028', startAt: 2028.5, salary: 120_000, note: 'Student recruiting, since revenue comes from students.' },
-  { role: 'Managing Partner (Lars Ostervold)', start: 'Jan 2029', startAt: 2029, salary: 150_000, note: 'Joint ventures and the studio’s own companies.' },
   { role: 'Head of Product', start: 'Jan 2030', startAt: 2030, salary: 130_000, note: 'Software the program runs on, and launch.kids.' },
   { role: 'Head of Design', start: 'Jul 2030', startAt: 2030.5, salary: 120_000, note: 'Design standards and review across projects.' },
 ]

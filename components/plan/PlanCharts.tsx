@@ -206,6 +206,7 @@ export function PlanCharts({ data }: { data: PlanYear[] }) {
           ...PARTNERS.map((s) => ({ label: s.label, value: s.format(s.value(r)), color: s.color })),
           { label: 'Students per term', value: r.students.toLocaleString() },
           { label: 'Projects per term', value: String(r.projects) },
+          { label: 'Students per project', value: (r.students / r.projects).toFixed(1) },
           { label: 'Paid staff', value: String(r.staff) },
         ]}
       />

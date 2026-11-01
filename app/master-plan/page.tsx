@@ -4,7 +4,9 @@ import { PlanCharts } from '@/components/plan/PlanCharts'
 import { Frame } from '@/components/site/Frame'
 import { Rule } from '@/components/site/Section'
 import {
+  COLLEGE_PER_TEAM,
   COSTS,
+  HIGH_SCHOOL_PER_TEAM,
   FIRST_YEAR,
   HIRES,
   LAST_YEAR,
@@ -35,29 +37,6 @@ export const metadata: Metadata = {
 const d = (n: number) => ({ '--d': n }) as React.CSSProperties
 const usd = (v: number) => `$${v.toLocaleString('en-US')}`
 
-const POINTS = [
-  {
-    title: 'Founders bring real problems',
-    text: 'Experienced Christian business leaders have more ideas and opportunities than time. They bring them to the studio, and they are not charged.',
-  },
-  {
-    title: 'Students do the work',
-    text: 'High school and college students work on those problems together, in teams of six, for a full term and for credit.',
-  },
-  {
-    title: 'Good work brings better founders',
-    text: 'Founders who get good work bring harder problems and refer other founders. Harder problems bring more capable students.',
-  },
-  {
-    title: 'Density is the advantage',
-    text: 'Many founders and many capable students in one network, sharing opportunities, produce more companies than either group could alone.',
-  },
-  {
-    title: 'Some work becomes companies',
-    text: 'The studio co-founds joint ventures with operators and starts companies of its own. It owns part or all of each.',
-  },
-]
-
 export default function PlanPage() {
   const last = PLAN[PLAN.length - 1]
   const firstPositive = PLAN.find((r) => r.net > 0)
@@ -66,26 +45,12 @@ export default function PlanPage() {
     <main>
       <h1 className="sr-only">Plan</h1>
 
-      <Frame className="pt-[calc(110px+env(safe-area-inset-top))] sm:pt-[130px]">
+      <Frame className="pt-[calc(96px+env(safe-area-inset-top))] sm:pt-[100px]">
         {/* Flywheel */}
         <section className="pb-20 sm:pb-28">
-          <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-16">
-            <div data-reveal-item className="mx-auto w-full max-w-[860px]">
-              <Flywheel />
-            </div>
-            <div>
-              <h2 data-reveal-item className="text-[clamp(2.2rem,4.4vw,3.8rem)] leading-[1]">
-                Flywheel
-              </h2>
-              <ul className="mt-8 grid gap-6">
-                {POINTS.map((p, i) => (
-                  <li key={p.title} data-reveal-item style={d(i + 1)} className="border-t border-line pt-5">
-                    <p className="font-serif text-[1.2rem] font-semibold leading-tight text-ink">{p.title}</p>
-                    <p className="mt-1.5 text-[0.98rem] leading-[1.6]">{p.text}</p>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <h2 className="sr-only">Flywheel</h2>
+          <div data-reveal-item className="mx-auto w-full max-w-[min(1040px,calc((100svh-150px)*1000/880))]">
+            <Flywheel />
           </div>
         </section>
 
@@ -117,7 +82,8 @@ export default function PlanPage() {
             Hiring
           </h2>
           <p data-reveal-item style={d(1)} className="mb-10 mt-4 max-w-[68ch] text-[1rem] leading-[1.65]">
-            Volunteers lead projects. There are {VOLUNTEERS_NOW} volunteer project leads today and about{' '}
+            Both Managing Partners, the Head of Operations and the Head of Partnerships are paid from August{' '}
+            {FIRST_YEAR}. Volunteers lead projects: there are {VOLUNTEERS_NOW} volunteer project leads today and about{' '}
             {VOLUNTEERS_FALL_2027} are expected by fall {FIRST_YEAR}, each leading about one project, so the paid team
             stays small. Paid roles follow the leadership team on the Team page.
           </p>
@@ -175,7 +141,7 @@ export default function PlanPage() {
               <ul className="mt-3 grid gap-2 text-[0.95rem] leading-[1.55]">
                 <li>{usd(PRICE_PER_TERM)} per term for every student. Fall, spring and summer are each a term, so a full year is {usd(PRICE_PER_TERM * 3)}.</li>
                 <li>High school and college students pay the same and work on the same teams.</li>
-                <li>Teams of {TEAM_SIZE}: a project leader and three contributors from college, and two high school Builder Scholars.</li>
+                <li>An average of {TEAM_SIZE} students per project: {COLLEGE_PER_TEAM} college students, from ACU first and then partner colleges, and {HIGH_SCHOOL_PER_TEAM} high school students.</li>
                 <li>Summer enrollment is {Math.round(SUMMER_SHARE * 100)}% of the spring before it.</li>
                 <li>The new price starts in summer {FIRST_YEAR}. Spring {FIRST_YEAR} runs under the current program.</li>
                 <li>Projects per term grow from 25 in fall {FIRST_YEAR} to {last.projects} in fall {LAST_YEAR}.</li>
@@ -187,7 +153,7 @@ export default function PlanPage() {
               <ul className="mt-3 grid gap-2 text-[0.95rem] leading-[1.55]">
                 <li>Universities, founders and investors pay nothing.</li>
                 <li>Each partner high school places one student a term in {FIRST_YEAR}, rising to two by {FIRST_YEAR + 4}.</li>
-                <li>ACU places 60 students a term in {FIRST_YEAR}, adding 10 a year. Other partner colleges place 6 each, rising to 12.</li>
+                <li>ACU fills college seats first: up to 60 students a term in {FIRST_YEAR}, adding 10 a year. Other partner colleges place 6 each, rising to 12.</li>
                 <li>Five companies exist today. The studio starts or co-founds six a year.</li>
                 <li>{Math.round(SURVIVAL * 100)}% reach steady profit. From a company’s second year, the studio’s share of its profit rises from $50,000 to $300,000 a year by its fifth.</li>
               </ul>
