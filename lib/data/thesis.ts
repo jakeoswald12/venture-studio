@@ -128,7 +128,7 @@ export const EXAMPLE = {
 
 export const FLYWHEEL = {
   text: [
-    'The studio finds the best students from thousands of high schools and colleges and matches them with the best operators, of whom there are hundreds. Excellent work attracts proven operators. Proven operators identify big opportunities. Big opportunities attract great students, who produce more excellent work.',
+    'The studio finds the best students from thousands of high schools and colleges and matches them with the best operators, of whom there are hundreds. Excellent work attracts proven operators. Proven operators identify great opportunities. Great opportunities attract elite students, who produce more excellent work.',
     'Each turn makes the next one easier. The advantage is how many of both are in one place.',
   ],
   stories: [

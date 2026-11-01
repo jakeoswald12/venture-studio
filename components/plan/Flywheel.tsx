@@ -2,9 +2,9 @@
  * The studio flywheel, drawn in SVG.
  *
  * Four stations on a slowly turning dashed ring. The words that join them sit
- * just outside the ring, curved along it: great students who produce excellent
- * work, which attracts proven operators, who identify big opportunities, which
- * attract great students.
+ * just outside the ring, curved along it: elite students who produce excellent
+ * work, which attracts proven operators, who identify great opportunities, which
+ * attract elite students.
  *
  * Everything is lower case on purpose. Colours come from the site's CSS
  * variables, so it follows light and dark mode.
@@ -17,10 +17,10 @@ const R = 250
 const NODE = 106
 
 const STATIONS = [
-  { x: CX - R, y: CY, top: 'great', label: 'students' },
+  { x: CX - R, y: CY, top: 'elite', label: 'students' },
   { x: CX, y: CY - R, top: 'excellent', label: 'work' },
   { x: CX + R, y: CY, top: 'proven', label: 'operators' },
-  { x: CX, y: CY + R, top: 'big', label: 'opportunities' },
+  { x: CX, y: CY + R, top: 'great', label: 'opportunities' },
 ]
 
 const pt = (r: number, deg: number) => {
@@ -45,11 +45,10 @@ const LINKS = [
 
 export function Flywheel() {
   return (
-    <svg viewBox={`0 0 ${SIZE} ${SIZE}`} role="img" aria-labelledby="flywheel-title flywheel-desc" className="flywheel block h-auto w-full">
-      <title id="flywheel-title">West Ventures flywheel</title>
+    <svg viewBox={`0 0 ${SIZE} ${SIZE}`} role="img" aria-label="West Ventures flywheel" aria-describedby="flywheel-desc" className="flywheel block h-auto w-full">
       <desc id="flywheel-desc">
-        Great students who produce excellent work, which attracts proven operators, who identify big opportunities,
-        which attract great students.
+        Elite students who produce excellent work, which attracts proven operators, who identify great opportunities,
+        which attract elite students.
       </desc>
 
       <defs>
@@ -77,7 +76,7 @@ export function Flywheel() {
       {STATIONS.map((s) => (
         <g key={s.label}>
           <circle cx={s.x} cy={s.y} r={NODE} className="fw-node" />
-          <text x={s.x} y={s.y - 6} textAnchor="middle" className="fw-great">
+          <text x={s.x} y={s.y - 8} textAnchor="middle" className="fw-label">
             {s.top}
           </text>
           <text x={s.x} y={s.y + 25} textAnchor="middle" className="fw-label">

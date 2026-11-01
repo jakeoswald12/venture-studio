@@ -65,7 +65,7 @@ const THESIS_POINTS = [
   {
     id: 'flywheel',
     title: 'Flywheel',
-    text: 'Great students produce excellent work, which attracts proven operators, who identify big opportunities, which attract great students.',
+    text: 'Elite students produce excellent work, which attracts proven operators, who identify great opportunities, which attract elite students.',
   },
 ]
 
