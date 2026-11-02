@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Flywheel } from '@/components/plan/Flywheel'
 import { Assumptions, Hiring, Projections } from '@/components/plan/PlanDetail'
 import { Frame } from '@/components/site/Frame'
 import { Label, Rule } from '@/components/site/Section'
@@ -210,9 +209,6 @@ export default function ThesisPage() {
             </Section>
 
             <Section id="flywheel">
-              <div data-reveal-item className="w-full max-w-[620px]">
-                <Flywheel />
-              </div>
               {FLYWHEEL.text.map((t) => (
                 <P key={t}>{t}</P>
               ))}

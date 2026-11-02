@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { Flywheel } from '@/components/plan/Flywheel'
 import { EssayShell, H2, P, Plate, Reading, Stat, Wide } from '@/components/thesis/Essay'
 import { ChainReaction, Connections } from '@/components/thesis/Illustrations'
 
@@ -56,6 +57,21 @@ export default function CriticalMassPage() {
         }
       />
 
+      <P>
+        West Ventures runs on a flywheel. Elite students produce excellent work. Excellent work attracts proven
+        operators. Proven operators identify great opportunities. Great opportunities attract more elite students, who
+        produce more excellent work. Each part feeds the next, and each turn makes the next one easier.
+      </P>
+      <figure data-reveal-item className="my-4 w-full max-w-[560px]">
+        <Flywheel />
+      </figure>
+      <P>
+        Every flywheel is hard to start. The first turns take the most effort, because there is little momentum to help.
+        The question this essay answers is how the studio gets it past that point, to where it turns on its own. The
+        answer comes from physics.
+      </P>
+
+      <H2>Critical mass</H2>
       <P>
         In physics, critical mass is the smallest amount of material that can sustain a chain reaction. Below it, each
         reaction fizzles out on its own. Above it, each reaction sets off more than one other, and the process keeps
@@ -179,9 +195,8 @@ export default function CriticalMassPage() {
       <H2>When the flywheel turns on its own</H2>
       <P>
         Before critical mass, every project has to be found and every student has to be recruited by hand. After it,
-        the flywheel starts to feed itself. Excellent work attracts proven operators. Proven operators bring great
-        opportunities. Great opportunities attract elite students, who produce more excellent work. Each turn adds
-        people, and each person makes the next turn easier.
+        the flywheel from the start of this essay starts to feed itself. Each turn adds people, and each person makes
+        the next turn easier.
       </P>
       <P>
         That is the point every network is trying to reach: the moment it has enough momentum that it keeps growing
