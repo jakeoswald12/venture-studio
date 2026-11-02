@@ -38,8 +38,6 @@ export const MODEL = {
     'Founders and investors pay nothing. Students pay to take part and earn academic credit.',
     'Student teams work inside companies, under the founders, on defined projects.',
     'The studio builds about six companies a year itself, mostly as joint ventures with operators who have found an opportunity.',
-    'Not a venture capital fund. No management fees and no carry.',
-    'A for-profit company, separately owned and permanently affiliated with Austin Christian University, modeled on the relationship between Stanford and Y Combinator. A share of profits goes to ACU’s endowment.',
   ],
 }
 
