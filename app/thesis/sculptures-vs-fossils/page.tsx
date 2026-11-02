@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
-import { EssayShell, H2, P, Plate, Quote, Reading } from '@/components/thesis/Essay'
+import { EssayShell, H2, P, Plate, Quote, Reading, Wide } from '@/components/thesis/Essay'
+import { LifeCurves } from '@/components/thesis/LifeCurves'
 
 /**
  * /thesis/sculptures-vs-fossils — there is no such thing as a business
@@ -97,6 +98,22 @@ export default function SculpturesVsFossilsPage() {
       <P>
         The essayist and investor Paul Graham made the same point: the way to get startup ideas is not to try to think of
         startup ideas, but to look for problems. Problems are found by people close enough to see them.
+      </P>
+
+      <H2>Two halves of a builder</H2>
+      <P>
+        The young and the experienced are not rivals. They are two halves of the same builder, and each has what the other
+        is missing. Energy, time and a tolerance for risk run highest early in life and fade. Wisdom, information, a
+        network and capital start low and grow for decades. Almost no one has all of them at once, and in the middle of a
+        career the best of either is at its lowest.
+      </P>
+      <Wide caption="What a builder has, by age. The curves are illustrative, drawn to show the pattern, not measured.">
+        <LifeCurves />
+      </Wide>
+      <P>
+        Put together, they cover each other. An 18-year-old should partner with an experienced paleontologist who knows
+        where to dig. An experienced operator should partner with young people who are eager to dig all night. Each brings
+        what the other has run short of, and the dig goes faster and deeper than either could manage alone.
       </P>
 
       <H2>A better ear than eye</H2>
