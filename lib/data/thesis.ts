@@ -14,7 +14,6 @@ export const SECTIONS = [
   { id: 'context', title: 'Context' },
   { id: 'model', title: 'Model' },
   { id: 'opportunities', title: 'Opportunities' },
-  { id: 'example', title: 'Example' },
   { id: 'flywheel', title: 'Flywheel' },
   { id: 'projects', title: 'Projects' },
   { id: 'projections', title: 'Projections' },
@@ -68,28 +67,6 @@ export const OPPORTUNITIES = {
   fossil:
     'Good companies are found more than they are invented. A sculptor starts with a block and decides what to make. A paleontologist finds a skeleton that was already there, because years of fieldwork showed where to dig. Market needs work the same way: they exist before anyone names them, and the people who find them have decades of craft knowledge in an industry.',
   so: 'So students do not start with their own ideas. They work on problems and opportunities that proven operators have already found, and learn to see them.',
-}
-
-export const EXAMPLE = {
-  steps: [
-    {
-      label: 'Free project',
-      text: 'A national health club operator worked with student teams on projects at no charge.',
-    },
-    {
-      label: 'Opportunity',
-      text: 'Its architecture and engineering leadership described an internal data problem no existing product solved, with potential savings in the tens of millions of dollars a year.',
-    },
-    {
-      label: 'Joint venture',
-      text: 'The studio formed a company to build an AI tool for it, with the operator’s sponsorship and clearance to sell it to others.',
-    },
-    {
-      label: 'First customer',
-      text: 'The operator is the first customer. Students are doing the early build work; launch is planned for early 2027.',
-    },
-  ],
-  status: 'Status: in progress. The company is in stealth and has not been sold.',
 }
 
 export const FLYWHEEL = {

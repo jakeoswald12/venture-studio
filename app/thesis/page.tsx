@@ -11,7 +11,6 @@ import { FIRST_YEAR, LAST_YEAR, PRICE_PER_TERM } from '@/lib/data/plan'
 import {
   COMPARABLES,
   CONTEXT,
-  EXAMPLE,
   FAITH,
   FLYWHEEL,
   MODEL,
@@ -221,14 +220,6 @@ export default function ThesisPage() {
                 text="There is no such thing as a business idea, only an accurate diagnosis of a need about to be met. On fossil hunters, and the kind of visionary worth following."
                 image={<Image src="/thesis/art/peale-mastodon.jpg" alt="" fill sizes="(min-width:640px) 240px, 100vw" className="object-cover" />}
               />
-            </Section>
-
-            <Section id="example">
-              <P>How a free project becomes a company, from one of the studio’s current ventures.</P>
-              <Steps items={EXAMPLE.steps} />
-              <p data-reveal-item className="text-[0.9rem] text-grey">
-                {EXAMPLE.status}
-              </p>
             </Section>
 
             <Section id="flywheel">
