@@ -8,9 +8,7 @@ import { ThesisIndex } from '@/components/site/ThesisIndex'
 import { EssayCard } from '@/components/thesis/Essay'
 import { FIRST_YEAR, LAST_YEAR, PRICE_PER_TERM } from '@/lib/data/plan'
 import {
-  COMPARABLES,
   CONTEXT,
-  FAITH,
   FLYWHEEL,
   MODEL,
   OPPORTUNITIES,
@@ -19,8 +17,8 @@ import {
   REQUESTS,
   ROLES,
   SECTIONS,
+  VISIBLE_SECTIONS,
   THESIS_SUMMARY,
-  TRADITION,
 } from '@/lib/data/thesis'
 
 export const metadata: Metadata = {
@@ -33,7 +31,8 @@ const d = (n: number) => ({ '--d': n }) as React.CSSProperties
 /* ─── Building blocks ─────────────────────────────────────────────────────── */
 
 function Section({ id, children }: { id: (typeof SECTIONS)[number]['id']; children: React.ReactNode }) {
-  const i = SECTIONS.findIndex((s) => s.id === id)
+  const i = VISIBLE_SECTIONS.findIndex((s) => s.id === id)
+  if (i < 0) return null
   return (
     <section id={id} className="scroll-mt-28">
       {i > 0 && <Rule />}
@@ -44,7 +43,7 @@ function Section({ id, children }: { id: (typeof SECTIONS)[number]['id']; childr
           </span>
         </Label>
         <h2 data-reveal-item style={d(1)} className="text-[clamp(2rem,3.6vw,3rem)] leading-[1.04]">
-          {SECTIONS[i].title}
+          {VISIBLE_SECTIONS[i].title}
         </h2>
         {children}
       </div>
@@ -155,7 +154,7 @@ export default function ThesisPage() {
       <Frame className="pt-[calc(108px+env(safe-area-inset-top))] sm:pt-[132px]">
         <div className="grid gap-12 lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-16">
           <aside>
-            <ThesisIndex sections={SECTIONS.map(({ id, title }) => ({ id, title }))} />
+            <ThesisIndex sections={VISIBLE_SECTIONS.map(({ id, title }) => ({ id, title }))} />
           </aside>
 
           <div className="flex min-w-0 flex-col">
@@ -265,23 +264,6 @@ export default function ThesisPage() {
               <Hiring />
               <Sub>Assumptions</Sub>
               <Assumptions />
-            </Section>
-
-            <Section id="faith">
-              {FAITH.map((t) => (
-                <P key={t}>{t}</P>
-              ))}
-            </Section>
-
-            <Section id="tradition">
-              {TRADITION.map((t) => (
-                <P key={t}>{t}</P>
-              ))}
-            </Section>
-
-            <Section id="comparables">
-              <Table head={COMPARABLES.head} rows={COMPARABLES.rows} />
-              <P>{COMPARABLES.after}</P>
             </Section>
 
             <Section id="requests">

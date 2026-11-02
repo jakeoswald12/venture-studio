@@ -16,17 +16,19 @@ export const SECTIONS = [
   { id: 'opportunities', title: 'Opportunities' },
   { id: 'flywheel', title: 'Flywheel' },
   { id: 'projects', title: 'Projects' },
-  { id: 'projections', title: 'Projections' },
-  { id: 'faith', title: 'Faith and standards' },
-  { id: 'tradition', title: 'Western tradition' },
-  { id: 'comparables', title: 'Comparable programs' },
+  /** Hidden for now: set hidden to false to show the projections, hiring plan and assumptions again. */
+  { id: 'projections', title: 'Projections', hidden: true },
   { id: 'requests', title: 'Requests' },
-] as const
+] as const satisfies readonly { id: string; title: string; hidden?: boolean }[]
+
+/** The sections shown on the page and in its index. */
+export const VISIBLE_SECTIONS = SECTIONS.filter((s) => !('hidden' in s && s.hidden))
 
 export const CONTEXT = [
-  'The principles the West was founded on still work: the rule of law, free markets, free speech, industriousness, honor, and the belief that every person bears the image of God and is meant to create. What has weakened is the confidence to use them and the habit of building. For two generations the West has spent its inheritance faster than it has added to it, and too few young people are given real work at the age when it would shape them most.',
+  'The principles the West was founded on still work: the rule of law, free markets, free speech, industriousness, honor, and the belief that every person bears the image of God and is meant to create. Most of them grew out of the Christian faith, which taught the West that each person has dignity, that truth can be known, and that work is a calling. What has weakened is the confidence to use them and the habit of building. For two generations the West has spent its inheritance faster than it has added to it, and too few young people are given real work at the age when it would shape them most.',
   'The studio holds that the next generation can reverse this. A relatively small number of builders, leaders and heroes, found early and put to real work, can restore those principles and begin a period of strength, peace, truth and prosperity.',
   'The goal of West Ventures is to see this through: to identify young people with the makings of greatness and prepare them for the burden of leadership and stewardship, so that they pursue glory, honor and self-sacrifice rather than wealth, accolades or comfort. It is a rebirth of the West’s oldest values, carried by its youngest people.',
+  'The studio is Christian, and that shapes whom it trains. Every young person in it is a committed Christian, and faith is assessed as seriously as ability during selection, because a builder’s character affects what gets built: telling the truth, keeping commitments and treating people as bearers of God’s image. The work itself is judged on quality first, and the founders and partners the studio serves do not need to share the faith.',
 ]
 
 export const MODEL = {
@@ -124,30 +126,6 @@ export const PROJECT_STEPS = [
   { label: 'Delivery', text: 'At the end of the term the team delivers the work. The company keeps it, and all equity and intellectual property.' },
   { label: 'After', text: 'Students who deliver are invited to lead a team. Some projects reveal an opportunity the studio builds into a company with the founder.' },
 ]
-
-export const FAITH = [
-  'The work is judged on quality first. Every young person the studio trains is a committed Christian, and this is assessed seriously during selection. The studio holds that a builder’s character affects what gets built: telling the truth, keeping commitments and treating people as bearers of God’s image.',
-  'Partners do not need to share the faith.',
-]
-
-export const TRADITION = [
-  'The university, the scientific method, the patent, the joint-stock company and the rule of law took shape in the Western tradition, alongside the belief that every person bears the image of God and is meant to create. America has been their largest steward.',
-  'The studio’s position: these are an inheritance to be added to by building, and used for the benefit of others.',
-]
-
-export const COMPARABLES = {
-  head: ['Program', 'What it does'],
-  rows: [
-    { cells: ['Thiel Fellowship', 'Two years and a $200,000 grant for builders 22 and under who skip or leave college'], href: 'https://www.profellow.com/?p=11864' },
-    { cells: ['Emergent Ventures', 'Fast, low-overhead grants to talented people before anyone has validated them'], href: 'https://www.mercatus.org/podcasts/tyler-cowen-announces-emergent-ventures' },
-    { cells: ['Rise', 'Lifelong support for promising young people, founded by Eric and Wendy Schmidt with the Rhodes Trust'], href: 'https://www.risefortheworld.org/faq' },
-    { cells: ['Z Fellows', 'One week and $10,000 to work alongside founders of billion-dollar companies'], href: 'https://www.brooklynchamber.com/resource/1-week-10000-your-fast-track-into-silicon-valley/' },
-    { cells: ['Praxis', 'Accelerators and community for founders motivated by their faith'], href: 'https://praxis.co/about' },
-    { cells: ['8VC Build', 'A studio inside a venture firm that co-founds companies such as Saronic'], href: 'https://www.everythingstartups.com/article/8vc-closes-1-5b-fund-7-largest-fund-to-date' },
-  ],
-  after:
-    'Differences: West Ventures starts younger, stays with its builders for years, trains them inside real companies, and makes character and faith a selection criterion.',
-}
 
 export const REQUESTS = [
   { label: 'Founders and operators', text: 'Bring a problem or an opportunity your company cannot get to.' },
