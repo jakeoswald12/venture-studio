@@ -51,8 +51,8 @@ const path = (f: (a: number) => number) => AGES.map((a, i) => `${i ? 'L' : 'M'}$
 
 // The two groups the essay pairs up, as bands across the chart.
 const GROUPS = [
-  { name: 'The diggers', from: 16, to: 24, color: 'var(--bronze)', shade: 0.08 },
-  { name: 'The paleontologists', from: 40, to: 70, color: 'var(--ink)', shade: 0.045 },
+  { name: 'Young builders', from: 16, to: 24, color: 'var(--bronze)', shade: 0.08 },
+  { name: 'Seasoned operators', from: 40, to: 70, color: 'var(--ink)', shade: 0.045 },
 ]
 
 // Labels at the left end, just above each falling curve, nudged apart.
@@ -80,7 +80,7 @@ export function LifeCurves() {
       <title id="life-curves-title">What a builder has, by age</title>
       <desc id="life-curves-desc">
         Cultural savvy, energy, time and risk tolerance are highest at 15 and fall with age; cultural savvy drops sharply around 30. Wisdom, information, network and capital are
-        lowest at 15 and rise with age. Shaded bands mark two groups: the diggers, about 16 to 24, and the paleontologists, about 40 to 70.
+        lowest at 15 and rise with age. Shaded bands mark two groups: young builders, about 16 to 24, and seasoned operators, about 40 to 70.
       </desc>
 
       {/* Grid and axes */}
