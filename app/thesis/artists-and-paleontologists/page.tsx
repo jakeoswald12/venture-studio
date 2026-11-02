@@ -142,6 +142,15 @@ export default function ArtistsAndPaleontologistsPage() {
         that is how a joint venture begins.
       </P>
       <P>
+        One of the studio’s current ventures started this way. A national health club operator took on student teams
+        for free projects. In the course of that work, its architecture and engineering leaders described an internal
+        data problem that no existing product solved, with potential savings in the tens of millions of dollars a year.
+        That was the fragment. The studio formed a company with the operator to build an AI tool for the problem, with
+        the operator’s sponsorship and clearance to sell it to others. The operator is the first customer, students are
+        doing the early build work, and launch is planned for early 2027. Nobody invented the problem. It had been there
+        all along, and the people who had worked beside it for years knew where to dig.
+      </P>
+      <P>
         Students who spend their formative years beside people who read the ground learn to read it themselves. By the
         time they are thirty, they will have their own fragments, and they will know where to dig.
       </P>
