@@ -70,25 +70,25 @@ export interface Hire {
   note: string
 }
 
-/** Leadership roles, in the order they are paid. Titles match the Team page. */
+/** The whole paid team, all from August 2027. Titles match the Team page. */
 export const HIRES: Hire[] = [
-  { role: 'Managing Partner (Jake Oswald)', start: 'Aug 2027', startAt: 2027 + 7 / 12, salary: 150_000, note: 'Moves off the ACU payroll for the fall 2027 launch.' },
-  { role: 'Managing Partner (Lars Ostervold)', start: 'Aug 2027', startAt: 2027 + 7 / 12, salary: 150_000, note: 'Joint ventures and the studio’s own companies.' },
-  { role: 'Head of Operations', start: 'Aug 2027', startAt: 2027 + 7 / 12, salary: 140_000, note: 'Runs terms, enrollment, billing and the volunteer project leads.' },
-  { role: 'Head of Partnerships', start: 'Aug 2027', startAt: 2027 + 7 / 12, salary: 130_000, note: 'Signs and supports partner high schools and colleges.' },
-  { role: 'Head of Growth', start: 'Jul 2028', startAt: 2028.5, salary: 120_000, note: 'Student recruiting, since revenue comes from students.' },
-  { role: 'Head of Product', start: 'Jan 2030', startAt: 2030, salary: 130_000, note: 'Software the program runs on, and launch.kids.' },
-  { role: 'Head of Design', start: 'Jul 2030', startAt: 2030.5, salary: 120_000, note: 'Design standards and review across projects.' },
+  { role: 'Managing Partner (Jake Oswald)', start: 'Aug 2027', startAt: 2027 + 7 / 12, salary: 200_000, note: 'Moves off the ACU payroll for the fall 2027 launch.' },
+  { role: 'Managing Partner (Lars Ostervold)', start: 'Aug 2027', startAt: 2027 + 7 / 12, salary: 200_000, note: 'Joint ventures and the studio’s own companies.' },
+  { role: 'Head of Operations', start: 'Aug 2027', startAt: 2027 + 7 / 12, salary: 160_000, note: 'Runs terms, enrollment, billing and the volunteer project leads.' },
+  { role: 'Head of Partnerships', start: 'Aug 2027', startAt: 2027 + 7 / 12, salary: 160_000, note: 'Signs and supports partner high schools and colleges.' },
 ]
 
-/** Paid Venture Leads start in 2029: one per 40 projects in a semester, coordinating the volunteer project leads. */
-export const PROJECTS_PER_VENTURE_LEAD = 40
-const VENTURE_LEAD_SALARY = 110_000
-const VENTURE_LEADS_FROM = 2029
-/** Student support staff from 2030: one per 400 students in a semester. */
-export const STUDENTS_PER_ASSOCIATE = 400
-const ASSOCIATE_SALARY = 80_000
-const ASSOCIATES_FROM = 2030
+/* ─── Student Fellows ─────────────────────────────────────────────────────── */
+
+/** Monthly stipend for each Student Fellow. */
+export const FELLOW_STIPEND_MONTHLY = 6_000
+/** Fellows funded from each fall (new cohorts start in August). The count holds after the last year listed. */
+export const FELLOWS_BY_FALL: Record<number, number> = { 2027: 4, 2028: 10, 2029: 20, 2030: 30 }
+export const fellowsInFall = (y: number) => {
+  let n = 0
+  for (const [yr, count] of Object.entries(FELLOWS_BY_FALL)) if (Number(yr) <= y) n = count
+  return n
+}
 
 /* ─── Other costs ─────────────────────────────────────────────────────────── */
 
@@ -134,6 +134,8 @@ export interface PlanYear {
   colleges: number
   volunteers: number
   staff: number
+  /** Student Fellows funded in the fall. */
+  fellows: number
   revenueStudents: number
   revenueCompanies: number
   overhead: number
@@ -175,11 +177,10 @@ function build(): PlanYear[] {
       staffCost += share * h.salary * inflate * LOADED
     }
     const peakProjects = Math.max(p.spring, p.fall)
-    const leads = y >= VENTURE_LEADS_FROM ? Math.ceil(peakProjects / PROJECTS_PER_VENTURE_LEAD) : 0
-    const associates = y >= ASSOCIATES_FROM ? Math.ceil(fallStudents / STUDENTS_PER_ASSOCIATE) : 0
-    staff += leads + associates
-    headYears += leads + associates
-    staffCost += (leads * VENTURE_LEAD_SALARY + associates * ASSOCIATE_SALARY) * inflate * LOADED
+
+    // Student Fellows: January–July at last fall's count, August–December at this fall's.
+    const fellows = fellowsInFall(y)
+    const fellowCost = (7 * fellowsInFall(y - 1) + 5 * fellows) * FELLOW_STIPEND_MONTHLY
 
     const volunteers = y === FIRST_YEAR ? VOLUNTEERS_FALL_2027 : peakProjects
     const other =
@@ -191,9 +192,9 @@ function build(): PlanYear[] {
       headYears * (COSTS.teamTravelPerHead + COSTS.firmSoftwarePerHead) * inflate +
       COSTS.firmSoftwareFixed
 
-    const operating = revenueStudents + revenueCompanies - staffCost - other
+    const operating = revenueStudents + revenueCompanies - staffCost - fellowCost - other
     const acu = COSTS.acuShare * Math.max(0, operating)
-    const overhead = staffCost + other + acu
+    const overhead = staffCost + fellowCost + other + acu
 
     out.push({
       year: y,
@@ -204,6 +205,7 @@ function build(): PlanYear[] {
       colleges: college,
       volunteers,
       staff,
+      fellows,
       revenueStudents,
       revenueCompanies,
       overhead,

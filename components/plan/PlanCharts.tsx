@@ -208,6 +208,7 @@ export function PlanCharts({ data }: { data: PlanYear[] }) {
           { label: 'Projects per term', value: String(r.projects) },
           { label: 'Students per project', value: (r.students / r.projects).toFixed(1) },
           { label: 'Paid staff', value: String(r.staff) },
+          { label: 'Student Fellows', value: String(r.fellows) },
         ]}
       />
       <Chart

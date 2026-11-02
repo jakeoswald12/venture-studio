@@ -9,8 +9,8 @@ import {
   LOADED,
   PLAN,
   PRICE_PER_TERM,
-  PROJECTS_PER_VENTURE_LEAD,
-  STUDENTS_PER_ASSOCIATE,
+  FELLOW_STIPEND_MONTHLY,
+  FELLOWS_BY_FALL,
   SUMMER_SHARE,
   SURVIVAL,
   TEAM_SIZE,
@@ -38,7 +38,7 @@ export function Projections() {
       <p data-reveal-item className="max-w-[68ch] text-[0.98rem] leading-[1.65]">
         On these assumptions net is positive from {firstPositive?.year ?? '—'}. In {last.year} the studio runs{' '}
         {last.projects} projects a term with {last.students.toLocaleString()} students from {last.highSchools} high
-        schools and {last.colleges} colleges, with {last.staff} paid staff.
+        schools and {last.colleges} colleges, with {last.staff} paid staff and {last.fellows} Student Fellows.
       </p>
     </>
   )
@@ -67,25 +67,21 @@ export function Hiring() {
                   </tr>
                 ))}
                 <tr className="border-b border-line align-top">
-                  <td className="py-3.5 pr-6 text-ink">Venture Leads</td>
-                  <td className="whitespace-nowrap py-3.5 pr-6">2029</td>
-                  <td className="whitespace-nowrap py-3.5 pr-6 tabular-nums">$110,000</td>
+                  <td className="py-3.5 pr-6 text-ink">Student Fellows</td>
+                  <td className="whitespace-nowrap py-3.5 pr-6">Aug 2027</td>
+                  <td className="whitespace-nowrap py-3.5 pr-6 tabular-nums">{usd(FELLOW_STIPEND_MONTHLY)} / mo</td>
                   <td className="py-3.5">
-                    One for every {PROJECTS_PER_VENTURE_LEAD} projects in a term. Each supports the volunteer project leads
-                    on those projects.
+                    {Object.entries(FELLOWS_BY_FALL)
+                      .map(([y, n]) => `${n} in fall ${y}`)
+                      .join(', ')}
+                    , then holding at {Object.values(FELLOWS_BY_FALL).at(-1)}. A monthly stipend each, all year.
                   </td>
-                </tr>
-                <tr className="border-b border-line align-top">
-                  <td className="py-3.5 pr-6 text-ink">Student support</td>
-                  <td className="whitespace-nowrap py-3.5 pr-6">2030</td>
-                  <td className="whitespace-nowrap py-3.5 pr-6 tabular-nums">$80,000</td>
-                  <td className="py-3.5">One for every {STUDENTS_PER_ASSOCIATE} students in a term: enrollment, billing and questions.</td>
                 </tr>
               </tbody>
             </table>
           </div>
           <p className="mt-4 text-[0.88rem] text-grey">
-            Salaries rise 3% a year. Overhead counts each salary at {LOADED}× for payroll taxes and benefits.
+            Salaries rise 3% a year. Overhead counts each salary at {LOADED}× for payroll taxes and benefits. Fellow stipends are counted as paid, with no increase.
           </p>
     </>
   )
