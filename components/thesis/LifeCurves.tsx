@@ -1,9 +1,9 @@
 /**
  * What a builder has, by age: an illustrative chart for the Sculptures vs
- * Fossils essay. Energy, time and risk tolerance run high early and fall;
- * wisdom, information, network and capital start low and rise. Neither end
- * has everything, and averaged together they dip lowest in the middle of a
- * career, the valley. Paired, the young and the experienced cover both ends.
+ * Fossils essay. Cultural savvy, energy, time and risk tolerance run high
+ * early and fall; wisdom, information, network and capital start low and
+ * rise. Two shaded bands mark the groups the essay pairs up: the diggers
+ * (about 16 to 24) and the paleontologists (about 40 to 70).
  *
  * The curves are shapes, not measurements: smooth logistic curves chosen to
  * show the pattern. The caption says so.
@@ -13,7 +13,7 @@ const W = 760
 const H = 420
 const PAD_L = 44
 const PAD_R = 112
-const PAD_T = 18
+const PAD_T = 48
 const PAD_B = 40
 const AGE_MIN = 15
 const AGE_MAX = 80
@@ -38,15 +38,8 @@ const YOUNG = [
 ]
 const OLD = [
   { label: 'Wisdom', f: rising(6, 94, 58, 7), opacity: 1 },
-  // Network grows steadily from the early 20s to 50, then keeps growing, more slowly.
-  {
-    label: 'Network',
-    f: (a: number) => {
-      const t = Math.min(1, Math.max(0, (a - 20) / 30))
-      return 5 + 70 * t * t * (3 - 2 * t) + 0.35 * 3 * Math.log(1 + Math.exp((a - 50) / 3))
-    },
-    opacity: 0.75,
-  },
+  // Network grows through the 20s to 40s, then keeps growing, more slowly.
+  { label: 'Network', f: (a: number) => rising(5, 72, 34, 6)(a) + rising(0, 14, 62, 10)(a), opacity: 0.75 },
   // Information climbs fast after 20, peaks around 40, holds to 50, then slowly declines.
   { label: 'Information', f: (a: number) => rising(8, 82, 30, 3.5)(a) - 22 / (1 + Math.exp(-(a - 62) / 7)), opacity: 0.55 },
   // Capital builds slowly at first, compounds through mid-career, and levels off after about 65.
@@ -56,10 +49,11 @@ const OLD = [
 const AGES = Array.from({ length: (AGE_MAX - AGE_MIN) * 2 + 1 }, (_, i) => AGE_MIN + i / 2)
 const path = (f: (a: number) => number) => AGES.map((a, i) => `${i ? 'L' : 'M'}${x(a).toFixed(1)},${y(f(a)).toFixed(1)}`).join('')
 
-// Everything a builder has at each age: the average of all seven curves.
-const ALL = [...YOUNG, ...OLD]
-const envelope = (a: number) => ALL.reduce((sum, c) => sum + c.f(a), 0) / ALL.length
-const valleyAge = AGES.reduce((best, a) => (envelope(a) < envelope(best) ? a : best), 40)
+// The two groups the essay pairs up, as bands across the chart.
+const GROUPS = [
+  { name: 'The diggers', from: 16, to: 24, color: 'var(--bronze)', shade: 0.08 },
+  { name: 'The paleontologists', from: 40, to: 70, color: 'var(--ink)', shade: 0.045 },
+]
 
 // Labels at the left end, just above each falling curve, nudged apart.
 const LEFT_LABELS = (() => {
@@ -81,13 +75,12 @@ const RIGHT_LABELS = (() => {
 })()
 
 export function LifeCurves() {
-  const area = `${path(envelope)}L${x(AGE_MAX)},${y(0)}L${x(AGE_MIN)},${y(0)}Z`
   return (
     <svg viewBox={`0 0 ${W} ${H}`} className="block h-auto w-full" role="img" aria-labelledby="life-curves-title life-curves-desc">
       <title id="life-curves-title">What a builder has, by age</title>
       <desc id="life-curves-desc">
         Cultural savvy, energy, time and risk tolerance are highest at 15 and fall with age; cultural savvy drops sharply around 30. Wisdom, information, network and capital are
-        lowest at 15 and rise with age. Averaged together, they are lowest around age {Math.round(valleyAge)}.
+        lowest at 15 and rise with age. Shaded bands mark two groups: the diggers, about 16 to 24, and the paleontologists, about 40 to 70.
       </desc>
 
       {/* Grid and axes */}
@@ -108,12 +101,15 @@ export function LifeCurves() {
         AGE
       </text>
 
-      {/* All seven averaged, and the valley in the middle */}
-      <path d={area} fill="var(--bronze)" fillOpacity={0.07} />
-      <path d={path(envelope)} fill="none" stroke="var(--grey)" strokeWidth={2} strokeDasharray="5 6" />
-      <text x={x(valleyAge + 10)} y={y(envelope(valleyAge) + 12)} textAnchor="middle" fontSize={15} fontStyle="italic" fill="var(--grey)" fontFamily="var(--font-serif, Georgia)">
-        the valley
-      </text>
+      {/* The two groups */}
+      {GROUPS.map((g) => (
+        <g key={g.name}>
+          <rect x={x(g.from)} y={PAD_T - 34} width={x(g.to) - x(g.from)} height={H - PAD_B - PAD_T + 34} rx={6} fill={g.color} fillOpacity={g.shade} />
+          <text x={(x(g.from) + x(g.to)) / 2} y={PAD_T - 14} textAnchor="middle" fontSize={15} fontStyle="italic" fill={g.color} fontFamily="var(--font-serif, Georgia)">
+            {g.name}
+          </text>
+        </g>
+      ))}
 
       {/* Curves */}
       {YOUNG.map((c) => (

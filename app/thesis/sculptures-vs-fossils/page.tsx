@@ -107,7 +107,7 @@ export default function SculpturesVsFossilsPage() {
         network and capital start low and grow for decades. Almost no one has all of them at once, and in the middle of a
         career the best of either is at its lowest.
       </P>
-      <Wide caption="What a builder has, by age. The curves are illustrative, drawn to show the pattern, not measured.">
+      <Wide>
         <LifeCurves />
       </Wide>
       <P>
