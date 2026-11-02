@@ -14,6 +14,7 @@ const nextConfig: NextConfig = {
       { source: '/contact', destination: '/#contact', permanent: false },
       // The plan now lives inside the thesis.
       { source: '/master-plan', destination: '/thesis#flywheel', permanent: false },
+      { source: '/thesis/artists-and-paleontologists', destination: '/thesis/art-and-fossils', permanent: true },
     ]
   },
   async rewrites() {

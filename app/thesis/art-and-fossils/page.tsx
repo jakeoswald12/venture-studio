@@ -2,20 +2,20 @@ import type { Metadata } from 'next'
 import { EssayShell, H2, P, Plate, Quote, Reading } from '@/components/thesis/Essay'
 
 /**
- * /thesis/artists-and-paleontologists — there is no such thing as a business
+ * /thesis/art-and-fossils — there is no such thing as a business
  * idea, only an accurate diagnosis of a need that is about to be met. Linked
  * from the Opportunities section of /thesis.
  */
 
-const TITLE = 'Artists & Paleontologists'
+const TITLE = 'Art & Fossils'
 const DESCRIPTION =
   'There is no such thing as a business idea. There is only an accurate diagnosis of a need that is about to be met. On sculptors, fossil hunters, and the kind of visionary worth following.'
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
-  alternates: { canonical: '/thesis/artists-and-paleontologists' },
-  openGraph: { url: '/thesis/artists-and-paleontologists', title: TITLE, description: DESCRIPTION, type: 'article', images: ['/thesis/art/peale-mastodon.jpg'] },
+  alternates: { canonical: '/thesis/art-and-fossils' },
+  openGraph: { url: '/thesis/art-and-fossils', title: TITLE, description: DESCRIPTION, type: 'article', images: ['/thesis/art/peale-mastodon.jpg'] },
 }
 
 const READING = [
@@ -32,7 +32,7 @@ const SOURCES = [
   { title: 'Rocket Fuel', href: 'https://www.eosworldwide.com/rocket-fuel', site: 'EOS Worldwide' },
 ]
 
-export default function ArtistsAndPaleontologistsPage() {
+export default function ArtAndFossilsPage() {
   return (
     <EssayShell
       title={TITLE}
