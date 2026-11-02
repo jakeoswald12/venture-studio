@@ -36,7 +36,15 @@ const YOUNG = [
 ]
 const OLD = [
   { label: 'Wisdom', f: rising(6, 94, 58, 7), opacity: 1 },
-  { label: 'Network', f: rising(5, 86, 46, 7), opacity: 0.75 },
+  // Network grows steadily from the early 20s, peaks at 50, then holds.
+  {
+    label: 'Network',
+    f: (a: number) => {
+      const t = Math.min(1, Math.max(0, (a - 20) / 30))
+      return 5 + 81 * t * t * (3 - 2 * t)
+    },
+    opacity: 0.75,
+  },
   // Information climbs fast after 20, peaks around 40, holds to 50, then slowly declines.
   { label: 'Information', f: (a: number) => rising(8, 82, 30, 3.5)(a) - 22 / (1 + Math.exp(-(a - 62) / 7)), opacity: 0.55 },
   // Capital builds slowly at first, compounds through mid-career, and levels off after about 65.
@@ -93,7 +101,7 @@ export function LifeCurves() {
       {/* All seven averaged, and the valley in the middle */}
       <path d={area} fill="var(--bronze)" fillOpacity={0.07} />
       <path d={path(envelope)} fill="none" stroke="var(--grey)" strokeWidth={2} strokeDasharray="5 6" />
-      <text x={x(valleyAge)} y={y(envelope(valleyAge) + 12)} textAnchor="middle" fontSize={15} fontStyle="italic" fill="var(--grey)" fontFamily="var(--font-serif, Georgia)">
+      <text x={x(valleyAge + 10)} y={y(envelope(valleyAge) + 12)} textAnchor="middle" fontSize={15} fontStyle="italic" fill="var(--grey)" fontFamily="var(--font-serif, Georgia)">
         the valley
       </text>
 
