@@ -12,10 +12,8 @@ import {
   FLYWHEEL,
   MODEL,
   OPPORTUNITIES,
-  PROJECT_STEPS,
-  PROJECT_TERMS,
+  PROJECTS,
   REQUESTS,
-  ROLES,
   SECTIONS,
   VISIBLE_SECTIONS,
   THESIS_SUMMARY,
@@ -67,82 +65,8 @@ function Sub({ children }: { children: React.ReactNode }) {
   )
 }
 
-function Table({ head, rows }: { head: string[]; rows: { cells: string[]; href?: string }[] }) {
-  return (
-    <>
-      {/* Phones: one card per row. */}
-      <div className="grid gap-3 sm:hidden">
-        {rows.map((row) => (
-          <div key={row.cells[0]} data-reveal-item className="rounded-[18px] border border-line p-5">
-            <p className="font-serif text-[1.2rem] font-semibold text-ink">
-              {row.href ? (
-                <a href={row.href} target="_blank" rel="noopener noreferrer" className="link-line">
-                  {row.cells[0]}
-                </a>
-              ) : (
-                row.cells[0]
-              )}
-            </p>
-            {row.cells.slice(1).map((c, i) => (
-              <div key={i} className="mt-3">
-                {head[i + 1] && <p className="font-mono text-[0.64rem] uppercase tracking-[0.14em] text-faint">{head[i + 1]}</p>}
-                <p className="mt-1 text-[0.95rem] leading-[1.55] text-ink/75">{c}</p>
-              </div>
-            ))}
-          </div>
-        ))}
-      </div>
-      <div data-reveal-item className="hidden overflow-x-auto rounded-[18px] border border-line sm:block">
-        <table className="w-full min-w-[520px] border-collapse text-left text-[0.95rem]">
-          <thead>
-            <tr className="border-b border-line bg-panel">
-              {head.map((h, i) => (
-                <th key={i} className="px-5 py-3.5 font-mono text-[0.68rem] font-normal uppercase tracking-[0.14em] text-faint">
-                  {h}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((row) => (
-              <tr key={row.cells[0]} className="border-b border-line last:border-b-0">
-                {row.cells.map((c, i) => (
-                  <td key={i} className={`px-5 py-4 align-top leading-[1.55] ${i === 0 ? 'whitespace-nowrap text-ink' : 'text-ink/75'}`}>
-                    {i === 0 && row.href ? (
-                      <a href={row.href} target="_blank" rel="noopener noreferrer" className="link-line">
-                        {c}
-                      </a>
-                    ) : (
-                      c
-                    )}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </>
-  )
-}
 
 /** Numbered steps on a gold line. */
-function Steps({ items }: { items: { label: string; text: string }[] }) {
-  return (
-    <ol className="relative grid gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
-      <span aria-hidden="true" className="absolute left-[11px] top-3 hidden h-px bg-[var(--g3)] lg:block lg:left-3 lg:right-3" />
-      {items.map((s, i) => (
-        <li key={s.label} data-reveal-item data-reveal-auto className="relative">
-          <span className="relative z-[1] grid h-6 w-6 place-items-center rounded-full bg-[var(--g5)] font-mono text-[0.62rem] text-paper">
-            {i + 1}
-          </span>
-          <p className="mt-4 font-serif text-[1.2rem] font-semibold leading-tight text-ink">{s.label}</p>
-          <p className="mt-2 text-[0.96rem] leading-[1.6]">{s.text}</p>
-        </li>
-      ))}
-    </ol>
-  )
-}
 
 /* ─── Page ────────────────────────────────────────────────────────────────── */
 
@@ -220,36 +144,9 @@ export default function ThesisPage() {
             </Section>
 
             <Section id="projects">
-              <P>
-                A project is one term of work by one team, for one founder, against a written scope. Terms run in fall,
-                spring and summer.
-              </P>
-              <Table head={PROJECT_TERMS.head} rows={PROJECT_TERMS.rows} />
-
-              <Sub>The team</Sub>
-              <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
-                {ROLES.map((r, i) => (
-                  <li
-                    key={r.role}
-                    data-reveal-item
-                    data-reveal-auto
-                    className={`flex flex-col rounded-[18px] p-5 ${i === 0 ? 'bg-[var(--g5)] text-paper' : i === 1 ? 'bg-[var(--g3)]' : 'bg-[var(--g1)]'}`}
-                  >
-                    <p className={`font-serif text-[1.15rem] font-semibold leading-tight ${i === 0 ? 'text-paper' : 'text-ink'}`}>{r.role}</p>
-                    <p className={`mt-1 font-mono text-[0.62rem] uppercase tracking-[0.12em] ${i === 0 ? 'text-paper/75' : 'text-[var(--g6)]'}`}>
-                      {r.who} · {r.hours}
-                    </p>
-                    <p className={`mt-3 text-[0.9rem] leading-[1.55] ${i === 0 ? 'text-paper/90' : 'text-ink/80'}`}>{r.text}</p>
-                  </li>
-                ))}
-              </ul>
-              <p data-reveal-item className="text-[0.9rem] text-grey">
-                An average team is five students: two from college and three from high school. Volunteer project leads each
-                lead about one project.
-              </p>
-
-              <Sub>How a term runs</Sub>
-              <Steps items={PROJECT_STEPS} />
+              {PROJECTS.map((t) => (
+                <P key={t}>{t}</P>
+              ))}
             </Section>
 
             <Section id="projections">

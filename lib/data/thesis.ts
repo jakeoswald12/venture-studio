@@ -85,46 +85,11 @@ export const FLYWHEEL = {
   ],
 }
 
-export const PROJECT_TERMS = {
-  head: ['', 'What they get', 'What is asked'],
-  rows: [
-    {
-      cells: [
-        'Founders',
-        'A student team for a full term at no charge, a volunteer project lead, a written scope, a weekly schedule and no academic paperwork. The company keeps all equity and intellectual property.',
-        'A real problem, an honest scope and about an hour a week',
-      ],
-    },
-    {
-      cells: [
-        'Students',
-        'Real work for a proven founder, academic credit, a team and mentors. Strong students are invited to lead a team the next term.',
-        '$5,000 a term (fall, spring or summer) and 3 to 10 hours a week',
-      ],
-    },
-    {
-      cells: [
-        'Investors',
-        'Progress across their portfolio and early access to a generation of talent',
-        'One or two portfolio companies a term, and founders willing to teach',
-      ],
-    },
-  ],
-}
-
-export const ROLES = [
-  { role: 'Founder', who: 'Owner or operator', hours: '~1 hr / week', text: 'Brings the problem and meets the team weekly to review work and adjust the scope.' },
-  { role: 'Project lead', who: 'Volunteer, experienced', hours: '1 project', text: 'Runs the team’s internal meeting, keeps the scope and the schedule, and coaches.' },
-  { role: 'Team leader', who: 'College student', hours: '5–10 hrs / week', text: 'Runs the work day to day and presents to the founder.' },
-  { role: 'Contributor', who: 'College student', hours: '4–8 hrs / week', text: 'Does the core work: research, design, software, media or sales.' },
-  { role: 'Builder Scholars ×3', who: 'High school students', hours: '~3 hrs / week', text: 'Work alongside the college students on the same deliverables.' },
-]
-
-export const PROJECT_STEPS = [
-  { label: 'Scope', text: 'In the first week the founder and project lead write the scope: the overview and a week-by-week plan of what will be delivered.' },
-  { label: 'Two meetings a week', text: 'One internal, with the team and project lead, for tasks and blockers. One with the founder, to review the work and re-scope.' },
-  { label: 'Delivery', text: 'At the end of the term the team delivers the work. The company keeps it, and all equity and intellectual property.' },
-  { label: 'After', text: 'Students who deliver are invited to lead a team. Some projects reveal an opportunity the studio builds into a company with the founder.' },
+export const PROJECTS = [
+  'A project is one term of work by one team, for one founder, against a written scope. Terms run in fall, spring and summer. The founder brings a real problem, an honest scope and about an hour a week. In return the company gets a student team for the full term at no charge, a volunteer project lead, a written scope and a weekly schedule, with no academic paperwork, and it keeps all equity and intellectual property.',
+  'Students pay $5,000 a term and give 3 to 10 hours a week. They get real work for a proven founder, academic credit, a team and mentors, and the strongest are invited to lead a team the next term. Investors are asked for one or two portfolio companies a term, with founders willing to teach. In return they see progress across their portfolio and get early access to a generation of talent.',
+  'An average team is five students. A college student leads it, running the work day to day and presenting to the founder, for 5 to 10 hours a week. A second college student does the core work, whether research, design, software, media or sales, for 4 to 8 hours a week. Three high school students, the Builder Scholars, work alongside them on the same deliverables for about 3 hours a week. An experienced volunteer project lead runs the team’s internal meeting, keeps the scope and the schedule, and coaches. Each lead takes about one project.',
+  'In the first week the founder and the project lead write the scope: an overview and a week-by-week plan of what will be delivered. After that the team meets twice a week, once with the project lead to work through tasks and blockers, and once with the founder to review the work and adjust the scope. At the end of the term the team delivers, and the company keeps the work. Students who deliver are invited to lead a team, and some projects turn up an opportunity the studio builds into a company with the founder.',
 ]
 
 export const REQUESTS = [
