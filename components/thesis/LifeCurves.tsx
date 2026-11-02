@@ -36,20 +36,11 @@ const YOUNG = [
 ]
 const OLD = [
   { label: 'Wisdom', f: rising(6, 94, 58, 7), opacity: 1 },
-  { label: 'Network', f: rising(5, 86, 55, 6), opacity: 0.75 },
+  { label: 'Network', f: rising(5, 86, 46, 7), opacity: 0.75 },
   // Information climbs fast after 20, peaks around 40, holds to 50, then slowly declines.
   { label: 'Information', f: (a: number) => rising(8, 82, 30, 3.5)(a) - 22 / (1 + Math.exp(-(a - 62) / 7)), opacity: 0.55 },
-  // Capital builds roughly in a straight line from 20 to about 65, then levels off.
-  {
-    label: 'Capital',
-    f: (a: number) => {
-      const k = 4
-      const line = 3 + (65 * (a - 20)) / 45
-      const capped = -k * Math.log(Math.exp(-line / k) + Math.exp(-72 / k))
-      return k * Math.log(Math.exp(capped / k) + Math.exp(3 / k))
-    },
-    opacity: 0.38,
-  },
+  // Capital builds slowly at first, compounds through mid-career, and levels off after about 65.
+  { label: 'Capital', f: rising(3, 74, 48, 9), opacity: 0.38 },
 ]
 
 const AGES = Array.from({ length: (AGE_MAX - AGE_MIN) * 2 + 1 }, (_, i) => AGE_MIN + i / 2)
