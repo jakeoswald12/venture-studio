@@ -223,7 +223,7 @@ export default function ThesisPage() {
             </Section>
 
             <Section id="flywheel">
-              <div data-reveal-item className="mx-auto w-full max-w-[620px]">
+              <div data-reveal-item className="w-full max-w-[620px]">
                 <Flywheel />
               </div>
               {FLYWHEEL.text.map((t) => (
