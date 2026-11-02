@@ -201,8 +201,8 @@ export default function ThesisPage() {
               <P>{OPPORTUNITIES.fossil}</P>
               <P>{OPPORTUNITIES.so}</P>
               <EssayCard
-                href="/thesis/art-and-fossils"
-                title="Art & Fossils"
+                href="/thesis/sculptures-vs-fossils"
+                title="Sculptures vs Fossils"
                 text="There is no such thing as a business idea, only an accurate diagnosis of a need about to be met. On fossil hunters, and the kind of visionary worth following."
                 image={<Image src="/thesis/art/peale-mastodon.jpg" alt="" fill sizes="(min-width:640px) 240px, 100vw" className="object-cover" />}
               />
