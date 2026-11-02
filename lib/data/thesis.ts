@@ -33,11 +33,7 @@ export const MODEL = {
   intro: [
     'The thesis is not tied to an industry. The studio’s advantage is its model: free work, done by a large group of the country’s most capable young people, for the most experienced founders and operators.',
     'The old words for the arrangement are kings and cupbearers. Kings are proven owners and operators with more opportunities than time. Cupbearers are capable young people who need real work and someone to learn from. The studio’s job is to match them, at scale.',
-  ],
-  facts: [
-    'Founders and investors pay nothing. Students pay to take part and earn academic credit.',
-    'Student teams work inside companies, under the founders, on defined projects.',
-    'The studio builds about six companies a year itself, mostly as joint ventures with operators who have found an opportunity.',
+    'The arrangement works because each side gets what it lacks. Founders and investors pay nothing; students pay to take part and earn academic credit for it. Student teams work inside the companies, under the founders, on defined projects. And when a project turns up an opportunity worth building, the studio builds it with the operator who found it, as a joint venture. It expects to start about six companies a year this way.',
   ],
 }
 

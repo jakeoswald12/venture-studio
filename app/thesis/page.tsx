@@ -189,19 +189,6 @@ export default function ThesisPage() {
               {MODEL.intro.map((t) => (
                 <P key={t}>{t}</P>
               ))}
-              <ul className="flex flex-col">
-                {MODEL.facts.map((item, i) => (
-                  <li
-                    key={item}
-                    data-reveal-item
-                    style={d(i)}
-                    className="flex gap-5 border-b border-line py-4 text-[1.02rem] leading-[1.6] text-ink/85 first:border-t"
-                  >
-                    <span className="mt-[0.6em] h-1.5 w-1.5 flex-none rounded-full bg-[var(--g5)]" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
               <EssayCard
                 href="/thesis/kings-and-cupbearers"
                 title="Kings & Cupbearers"
