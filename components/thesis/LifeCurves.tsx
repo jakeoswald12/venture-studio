@@ -37,11 +37,11 @@ const YOUNG = [
   { label: 'Risk tolerance', f: falling(77, 8, 31, 5), opacity: 0.45 },
 ]
 const OLD = [
-  { label: 'Wisdom', f: rising(6, 94, 58, 7), opacity: 1 },
+  { label: 'Wisdom', f: rising(6, 93, 43, 8), opacity: 1 },
   // Network grows through the 20s to 40s, then keeps growing, more slowly.
   { label: 'Network', f: (a: number) => rising(5, 72, 34, 6)(a) + rising(0, 14, 62, 10)(a), opacity: 0.75 },
-  // Information climbs fast after 20, peaks around 40, holds to 50, then slowly declines.
-  { label: 'Information', f: (a: number) => rising(8, 82, 30, 3.5)(a) - 22 / (1 + Math.exp(-(a - 62) / 7)), opacity: 0.55 },
+  // Information climbs fast after 20, peaks around 40, holds to 50, then drops off after about 65.
+  { label: 'Information', f: (a: number) => rising(8, 82, 30, 3.5)(a) - 40 / (1 + Math.exp(-(a - 68) / 6)), opacity: 0.55 },
   // Capital builds slowly at first, compounds through mid-career, and levels off after about 65.
   { label: 'Capital', f: rising(3, 74, 48, 9), opacity: 0.38 },
 ]
