@@ -29,6 +29,8 @@ const rising = (lo: number, hi: number, mid: number, k: number) => (age: number)
   lo + (hi - lo) / (1 + Math.exp(-(age - mid) / k))
 
 const YOUNG = [
+  // Understanding the times and keeping up with the trends: high in youth, gone by about 30.
+  { label: 'Cultural savvy', f: falling(98, 9, 29, 2.2), opacity: 0.85 },
   { label: 'Energy', f: falling(96, 14, 33, 6), opacity: 1 },
   // Time falls with work and family, then climbs back after about 65.
   { label: 'Time', f: (a: number) => falling(87, 10, 27, 4.5)(a) + 62 / (1 + Math.exp(-(a - 68) / 3)), opacity: 0.7 },
@@ -36,12 +38,12 @@ const YOUNG = [
 ]
 const OLD = [
   { label: 'Wisdom', f: rising(6, 94, 58, 7), opacity: 1 },
-  // Network grows steadily from the early 20s, peaks at 50, then holds.
+  // Network grows steadily from the early 20s to 50, then keeps growing, more slowly.
   {
     label: 'Network',
     f: (a: number) => {
       const t = Math.min(1, Math.max(0, (a - 20) / 30))
-      return 5 + 81 * t * t * (3 - 2 * t)
+      return 5 + 70 * t * t * (3 - 2 * t) + 0.35 * 3 * Math.log(1 + Math.exp((a - 50) / 3))
     },
     opacity: 0.75,
   },
@@ -58,6 +60,14 @@ const path = (f: (a: number) => number) => AGES.map((a, i) => `${i ? 'L' : 'M'}$
 const ALL = [...YOUNG, ...OLD]
 const envelope = (a: number) => ALL.reduce((sum, c) => sum + c.f(a), 0) / ALL.length
 const valleyAge = AGES.reduce((best, a) => (envelope(a) < envelope(best) ? a : best), 40)
+
+// Labels at the left end, just above each falling curve, nudged apart.
+const LEFT_LABELS = (() => {
+  const items = YOUNG.map((c) => ({ label: c.label, y: y(c.f(AGE_MIN)) - 8 })).sort((p, q) => p.y - q.y)
+  items[0].y = Math.max(items[0].y, PAD_T + 12)
+  for (let i = 1; i < items.length; i += 1) items[i].y = Math.max(items[i].y, items[i - 1].y + 17)
+  return items
+})()
 
 // Labels at the right end: the rising curves, plus Time, which climbs back.
 // Nudged apart so neighbours never overlap.
@@ -76,7 +86,7 @@ export function LifeCurves() {
     <svg viewBox={`0 0 ${W} ${H}`} className="block h-auto w-full" role="img" aria-labelledby="life-curves-title life-curves-desc">
       <title id="life-curves-title">What a builder has, by age</title>
       <desc id="life-curves-desc">
-        Energy, time and risk tolerance are highest at 15 and fall with age. Wisdom, information, network and capital are
+        Cultural savvy, energy, time and risk tolerance are highest at 15 and fall with age; cultural savvy drops sharply around 30. Wisdom, information, network and capital are
         lowest at 15 and rise with age. Averaged together, they are lowest around age {Math.round(valleyAge)}.
       </desc>
 
@@ -107,12 +117,12 @@ export function LifeCurves() {
 
       {/* Curves */}
       {YOUNG.map((c) => (
-        <g key={c.label}>
-          <path d={path(c.f)} fill="none" stroke="var(--bronze)" strokeOpacity={c.opacity} strokeWidth={2.5} strokeLinecap="round" />
-          <text x={x(AGE_MIN) + 4} y={y(c.f(AGE_MIN)) - 8} fontSize={13} fill="var(--bronze)" fontFamily="var(--font-serif, Georgia)">
-            {c.label}
-          </text>
-        </g>
+        <path key={c.label} d={path(c.f)} fill="none" stroke="var(--bronze)" strokeOpacity={c.opacity} strokeWidth={2.5} strokeLinecap="round" />
+      ))}
+      {LEFT_LABELS.map((l) => (
+        <text key={l.label} x={x(AGE_MIN) + 4} y={l.y} fontSize={13} fill="var(--bronze)" fontFamily="var(--font-serif, Georgia)">
+          {l.label}
+        </text>
       ))}
       {OLD.map((c) => (
         <path key={c.label} d={path(c.f)} fill="none" stroke="var(--ink)" strokeOpacity={c.opacity} strokeWidth={2.5} strokeLinecap="round" />
