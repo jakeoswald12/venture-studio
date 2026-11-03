@@ -47,14 +47,13 @@ export const OPPORTUNITIES = {
   so: 'So students do not start with their own ideas. They work on problems and opportunities that proven operators have already found, and learn to see them.',
 }
 
-const PLAN_FIRST = PLAN[0]
-const PLAN_LAST = PLAN[PLAN.length - 1]
+const PLAN_2030 = PLAN.find((r) => r.year === 2030) ?? PLAN[PLAN.length - 1]
 const n = (v: number) => v.toLocaleString('en-US')
 
 export const FLYWHEEL = {
   text: [
     'The studio recruits the best students from high schools and colleges across the country and matches them with the best founders and operators. Excellent work attracts proven operators. Proven operators identify great opportunities. Great opportunities attract elite students, who produce more excellent work.',
-    `Each turn makes the next one easier, and the advantage is how many of both are in one place. The plan grows from ${n(PLAN_FIRST.students)} students at ${n(PLAN_FIRST.highSchools)} partner high schools in ${PLAN_FIRST.year} to ${n(PLAN_LAST.students)} students at ${n(PLAN_LAST.highSchools)} high schools and ${n(PLAN_LAST.colleges)} colleges and universities by ${PLAN_LAST.year}.`,
+    `Each turn makes the next one easier, and the advantage is how many of both are in one place. The plan grows the network to ${n(PLAN_2030.highSchools + PLAN_2030.colleges)} partner schools by ${PLAN_2030.year}: ${n(PLAN_2030.highSchools)} high schools and ${n(PLAN_2030.colleges)} colleges and universities.`,
   ],
 }
 

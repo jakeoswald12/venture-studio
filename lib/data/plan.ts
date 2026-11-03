@@ -37,11 +37,22 @@ export const SUMMER_SHARE = 0.25
 /** Spring 2027 is already priced under the current program; the new price starts with summer 2027. */
 const PRICED_FROM = 'summer-2027'
 
-/** Students a partner high school places per semester: 1 in 2027, rising to 2 by 2031. */
-const hsPerSchool = (y: number) => 1 + Math.min(1, (y - FIRST_YEAR) / 4)
-/** ACU's own students on teams each fall, and what each other partner college places. */
-const acuStudents = (y: number) => 60 + (y - FIRST_YEAR) * 10
-const perCollege = (y: number) => 6 + Math.min(6, y - FIRST_YEAR)
+/** Partner schools signed by each fall: the 2027 goal is 100 high schools and
+ * 10 colleges and universities (ACU included), reaching 300 by 2030 (250 and
+ * 50), then growing by 50 high schools and 10 colleges a year. Not every
+ * partner places a student every term. */
+const PARTNERS: Record<number, { highSchools: number; colleges: number }> = {
+  2027: { highSchools: 100, colleges: 10 },
+  2028: { highSchools: 150, colleges: 20 },
+  2029: { highSchools: 200, colleges: 35 },
+  2030: { highSchools: 250, colleges: 50 },
+  2031: { highSchools: 300, colleges: 60 },
+  2032: { highSchools: 350, colleges: 70 },
+  2033: { highSchools: 400, colleges: 80 },
+  2034: { highSchools: 450, colleges: 90 },
+  2035: { highSchools: 500, colleges: 100 },
+  2036: { highSchools: 550, colleges: 110 },
+}
 
 /* ─── Joint ventures and startups ─────────────────────────────────────────── */
 
@@ -154,9 +165,8 @@ function build(): PlanYear[] {
     const studentTerms = paidSpring + summerStudents + fallStudents
     const revenueStudents = studentTerms * PRICE_PER_TERM
 
-    // Partners, sized to the fall semester.
-    const hs = Math.ceil((p.fall * HIGH_SCHOOL_PER_TEAM) / hsPerSchool(y))
-    const college = 1 + Math.ceil(Math.max(0, p.fall * COLLEGE_PER_TEAM - acuStudents(y)) / perCollege(y))
+    // Partner schools.
+    const { highSchools: hs, colleges: college } = PARTNERS[y]
 
     // Companies.
     let revenueCompanies = 0
