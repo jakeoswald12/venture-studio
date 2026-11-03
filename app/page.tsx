@@ -53,8 +53,8 @@ const OVERVIEW = [
 
 const THESIS_POINTS = [
   {
-    id: 'context',
-    title: 'Context',
+    id: 'philosophy',
+    title: 'Philosophy',
     text: 'The West’s founding principles still work. The next generation can restore them, if its builders are found early and put to real work.',
   },
   {

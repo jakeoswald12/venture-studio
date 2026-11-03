@@ -2,7 +2,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Frame } from '@/components/site/Frame'
 import { Label, Rule } from '@/components/site/Section'
-import { CARNEGIE } from '@/lib/data/thesis'
 
 /**
  * Shared pieces for the essays linked from /thesis: a reading column with
@@ -100,6 +99,24 @@ export function Stat({ value, children }: { value: string; children: React.React
     </div>
   )
 }
+
+const CARNEGIE = [
+  {
+    name: 'Thomas Scott',
+    role: 'Superintendent, Pennsylvania Railroad',
+    text: 'Noticed a teenage telegraph operator and in 1853 made him his private secretary and telegrapher.',
+  },
+  {
+    name: 'Andrew Carnegie',
+    role: 'Scott’s secretary at 17',
+    text: 'Succeeded Scott as superintendent of the Pittsburgh division in 1859, then built Carnegie Steel.',
+  },
+  {
+    name: 'Charles M. Schwab',
+    role: 'Stake driver at Carnegie’s Edgar Thomson Works',
+    text: 'President of Carnegie Steel at 35, first president of U.S. Steel, then head of Bethlehem Steel.',
+  },
+]
 
 /** Thomas Scott → Andrew Carnegie → Charles M. Schwab. */
 export function CarnegieLine() {

@@ -8,10 +8,10 @@ import { ThesisIndex } from '@/components/site/ThesisIndex'
 import { EssayCard } from '@/components/thesis/Essay'
 import { FIRST_YEAR, LAST_YEAR, PRICE_PER_TERM } from '@/lib/data/plan'
 import {
-  CONTEXT,
   FLYWHEEL,
   MODEL,
   OPPORTUNITIES,
+  PHILOSOPHY,
   PROJECTS,
   REQUESTS,
   SECTIONS,
@@ -82,8 +82,8 @@ export default function ThesisPage() {
           </aside>
 
           <div className="flex min-w-0 flex-col">
-            <Section id="context">
-              {CONTEXT.map((t) => (
+            <Section id="philosophy">
+              {PHILOSOPHY.map((t) => (
                 <P key={t}>{t}</P>
               ))}
               <Link
@@ -131,6 +131,12 @@ export default function ThesisPage() {
               />
             </Section>
 
+            <Section id="projects">
+              {PROJECTS.map((t) => (
+                <P key={t}>{t}</P>
+              ))}
+            </Section>
+
             <Section id="flywheel">
               {FLYWHEEL.text.map((t) => (
                 <P key={t}>{t}</P>
@@ -141,12 +147,6 @@ export default function ThesisPage() {
                 text="A network grows more valuable with every member. On Metcalfe’s law, density, and the point at which the flywheel turns on its own."
                 image={<Image src="/thesis/art/trouvelot-milky-way-wide.jpg" alt="" fill sizes="(min-width:640px) 240px, 100vw" className="object-cover" />}
               />
-            </Section>
-
-            <Section id="projects">
-              {PROJECTS.map((t) => (
-                <P key={t}>{t}</P>
-              ))}
             </Section>
 
             <Section id="projections">

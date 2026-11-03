@@ -128,7 +128,7 @@ export default function CourseOfEmpirePage() {
     <main>
       <Frame className="pt-[calc(108px+env(safe-area-inset-top))] sm:pt-[132px]">
         <article className="mx-auto max-w-[720px]">
-          <Link href="/thesis#context" className="arrow-nudge font-mono text-[0.7rem] uppercase tracking-[0.16em] text-grey hover:text-ink">
+          <Link href="/thesis#philosophy" className="arrow-nudge font-mono text-[0.7rem] uppercase tracking-[0.16em] text-grey hover:text-ink">
             <span className="arrow inline-block rotate-180">→</span> Thesis
           </Link>
           <h1 data-reveal-item className="mt-8 text-[clamp(2.8rem,6vw,4.8rem)] leading-[0.98]">
