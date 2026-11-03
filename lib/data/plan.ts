@@ -37,20 +37,20 @@ export const SUMMER_SHARE = 0.25
 /** Spring 2027 is already priced under the current program; the new price starts with summer 2027. */
 const PRICED_FROM = 'summer-2027'
 
-/** Partner schools signed by each fall: 60 high schools and 30 colleges and
- * universities (ACU included) in 2027, reaching 300 and 150 by 2030, then
- * growing by 60 high schools and 30 colleges a year. */
+/** Partner schools signed by each fall: 70 high schools and 30 colleges and
+ * universities (ACU included) in 2027, reaching 350 and 150 by 2030, then
+ * growing by 70 high schools and 30 colleges a year. */
 const PARTNERS: Record<number, { highSchools: number; colleges: number }> = {
-  2027: { highSchools: 60, colleges: 30 },
-  2028: { highSchools: 120, colleges: 60 },
-  2029: { highSchools: 200, colleges: 100 },
-  2030: { highSchools: 300, colleges: 150 },
-  2031: { highSchools: 360, colleges: 180 },
-  2032: { highSchools: 420, colleges: 210 },
-  2033: { highSchools: 480, colleges: 240 },
-  2034: { highSchools: 540, colleges: 270 },
-  2035: { highSchools: 600, colleges: 300 },
-  2036: { highSchools: 660, colleges: 330 },
+  2027: { highSchools: 70, colleges: 30 },
+  2028: { highSchools: 140, colleges: 60 },
+  2029: { highSchools: 240, colleges: 100 },
+  2030: { highSchools: 350, colleges: 150 },
+  2031: { highSchools: 420, colleges: 180 },
+  2032: { highSchools: 490, colleges: 210 },
+  2033: { highSchools: 560, colleges: 240 },
+  2034: { highSchools: 630, colleges: 270 },
+  2035: { highSchools: 700, colleges: 300 },
+  2036: { highSchools: 770, colleges: 330 },
 }
 
 /* ─── Joint ventures and startups ─────────────────────────────────────────── */
