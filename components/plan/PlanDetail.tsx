@@ -107,7 +107,7 @@ export function Assumptions() {
               <h3 className="font-serif text-[1.2rem] font-semibold text-ink">Partners and companies</h3>
               <ul className="mt-3 grid gap-2 text-[0.95rem] leading-[1.55]">
                 <li>Universities, founders and investors pay nothing.</li>
-                <li>Partner schools: 100 high schools and 10 colleges and universities in {FIRST_YEAR}, 300 schools by 2030 (250 high schools and 50 colleges), then 50 more high schools and 10 more colleges a year. Not every partner places a student every term.</li>
+                <li>Partner schools: 60 high schools and 30 colleges and universities in {FIRST_YEAR}, 450 schools by 2030 (300 high schools and 150 colleges), then 60 more high schools and 30 more colleges a year.</li>
                 <li>ACU fills college seats first.</li>
                 <li>Five companies exist today. The studio starts or co-founds six a year.</li>
                 <li>{Math.round(SURVIVAL * 100)}% reach steady profit. From a company’s second year, the studio’s share of its profit rises from $50,000 to $300,000 a year by its fifth.</li>
