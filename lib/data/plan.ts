@@ -84,7 +84,7 @@ export interface Hire {
 export const HIRES: Hire[] = [
   { role: 'Managing Partner (Jake Oswald)', start: 'Aug 2027', startAt: 2027 + 7 / 12, salary: 200_000, note: 'Moves off the ACU payroll for the fall 2027 launch.' },
   { role: 'Managing Partner (Lars Ostervold)', start: 'Aug 2027', startAt: 2027 + 7 / 12, salary: 200_000, note: 'Joint ventures and the studio’s own companies.' },
-  { role: 'Head of Operations', start: 'Aug 2027', startAt: 2027 + 7 / 12, salary: 160_000, note: 'Runs terms, enrollment, billing and the volunteer project leads.' },
+  { role: 'Head of Operations', start: 'Aug 2027', startAt: 2027 + 7 / 12, salary: 160_000, note: 'Runs terms, enrollment, billing and the volunteer project advisors.' },
   { role: 'Head of Partnerships', start: 'Aug 2027', startAt: 2027 + 7 / 12, salary: 160_000, note: 'Signs and supports partner high schools and colleges.' },
 ]
 
@@ -115,7 +115,7 @@ export const COSTS = {
   /** Summits, hackathons and travel: fixed plus per student-term. */
   eventsFixed: 75_000,
   eventsPerStudentTerm: 40,
-  /** Training, events and gifts for each volunteer project lead, per year. */
+  /** Training, events and gifts for each volunteer project advisor, per year. */
   perVolunteer: 1_000,
   /** Travel for the paid team: partner visits, founder meetings, conferences. Per person per year. */
   teamTravelPerHead: 20_000,
@@ -127,7 +127,7 @@ export const COSTS = {
   acuShare: 0.1,
 }
 
-/** Volunteer project leads today, and by fall 2027. Each leads about one project. */
+/** Volunteer project advisors today, and by fall 2027. Each advises about one project. */
 export const VOLUNTEERS_NOW = 15
 export const VOLUNTEERS_FALL_2027 = 25
 

@@ -14,6 +14,7 @@ import { DISCIPLINES } from '@/lib/data/services'
 import { HIGH_SCHOOLS, NETWORK, VC_FIRMS } from '@/lib/data/partners'
 import { BOARD, LEADERSHIP } from '@/lib/data/team'
 import { MODEL, OPPORTUNITIES, THESIS_SUMMARY } from '@/lib/data/thesis'
+import { STORIES, type StorySlug } from '@/lib/booklets/stories'
 import { Expectations, PriceEstimator, TermStrip } from './interactive'
 
 export const EDITION = 'Edition 2026–27'
@@ -45,6 +46,7 @@ export const SECTION_TITLES: Partial<Record<PageId, string>> = {
   disciplines: 'The work',
   'outcomes-founders': 'Outcomes for founders',
   'outcomes-students': 'Outcomes for students',
+  stories: 'Student stories',
   'voices-founders': 'From founders',
   'voices-families': 'From families and teachers',
   pricing: 'Pricing',
@@ -222,7 +224,7 @@ function Contents({ ctx }: { ctx: PageCtx }) {
       <div className="bk-gap" />
       <ol className="bk-steps" style={{ fontFamily: 'var(--font-serif)' }}>
         {items.map((id, i) => (
-          <li key={id} style={{ gridTemplateColumns: 'calc(40 * var(--u)) 1fr auto', alignItems: 'baseline', padding: 'calc(6 * var(--u)) 0' }}>
+          <li key={id} style={{ gridTemplateColumns: 'calc(40 * var(--u)) 1fr auto', alignItems: 'baseline', padding: 'calc(5 * var(--u)) 0' }}>
             <span className="n">{String(i + 1).padStart(2, '0')}</span>
             {ctx.mode === 'view' ? (
               <a href={`#page-${ctx.pageOf[id]}`} data-goto={ctx.pageOf[id]} style={{ fontSize: 'calc(16 * var(--u))', color: 'var(--bk-ink)', textDecoration: 'none' }}>
@@ -348,10 +350,10 @@ function Project({ ctx }: { ctx: PageCtx }) {
       <div className="bk-push" />
       <ol className="bk-steps bk-small">
         {[
-          ['Before', 'The studio matches the project with a team and a project lead, and introduces them to the founder.'],
-          ['Week one', 'The founder and the project lead write the scope: a week-by-week plan of what the team will deliver.'],
-          ['Every week', 'Two meetings. One internal, with the project lead, on tasks and blockers. One with the founder, to review the work and adjust the scope.'],
-          ['End of term', 'The team delivers and hands over. The project lead evaluates each student; the founder evaluates the project.'],
+          ['Before', 'The studio matches the project with a team and a project advisor, and introduces them to the founder.'],
+          ['Week one', 'The founder and the project advisor write the scope: a week-by-week plan of what the team will deliver.'],
+          ['Every week', 'Two meetings. One internal, with the project advisor, on tasks and blockers. One with the founder, to review the work and adjust the scope.'],
+          ['End of term', 'The team delivers and hands over. The project advisor evaluates each student; the founder evaluates the project.'],
           ['After', 'Students who delivered are invited back with more responsibility. An opportunity worth building may become a joint venture.'],
         ].map(([t, d]) => (
           <li key={t}>
@@ -380,7 +382,7 @@ function Team({ ctx }: { ctx: PageCtx }) {
   )
   return (
     <Sheet ctx={ctx}>
-      <Opener ctx={ctx} title="The team" lede="About five students, an experienced project lead and the founder." />
+      <Opener ctx={ctx} title="The team" lede="About five students, an experienced project advisor and the founder." />
       <div className="bk-gap-l" />
       <div style={{ display: 'flex', alignItems: 'center', gap: 'calc(10 * var(--u))', flexWrap: 'wrap' }}>
         {[true, true].map((f, i) => dot(f, i))}
@@ -397,26 +399,28 @@ function Team({ ctx }: { ctx: PageCtx }) {
       </div>
       <div className="bk-gap" />
       <p className="bk-p" style={{ maxWidth: 'calc(520 * var(--u))' }}>
-        Teams mix students from different schools on purpose. Each team is coached by a volunteer project lead: an
-        experienced professional who runs the internal meeting, keeps the scope honest and evaluates the work. Studio
-        staff oversee every team.
+        Two roles are easy to confuse. The <b style={{ fontWeight: 500, color: 'var(--bk-ink)' }}>team leader</b> is a
+        college student who runs the team day to day. The <b style={{ fontWeight: 500, color: 'var(--bk-ink)' }}>project
+        advisor</b> is an experienced volunteer professional who coaches the team, keeps the scope honest and evaluates
+        the work. Teams mix students from different schools on purpose, and studio staff oversee every team.
       </p>
       <div className="bk-push" />
-      <p className="bk-label">Time each week</p>
+      <p className="bk-label">Roles, time and credit</p>
       <div style={{ height: 'calc(8 * var(--u))' }} />
       <table className="bk-table bk-small">
         <tbody>
           {[
-            ['Team leader', 'College student', '5 to 10 hours'],
-            ['Contributor', 'College student', '4 to 8 hours'],
-            ['Builder Scholar', 'High school student', 'About 3 hours'],
-            ['Project lead', 'Volunteer professional', 'Two meetings, plus review'],
-            ['Founder', 'The company', 'About 1 hour'],
-          ].map(([r, w, h]) => (
+            ['Team leader', 'College student', '5 to 10 hrs a week', '6 credit hours'],
+            ['Contributor', 'College student', '4 to 8 hrs a week', '3 credit hours'],
+            ['Builder Scholar', 'High school student', 'About 3 hrs a week', '3 credit hours'],
+            ['Project advisor', 'Volunteer professional', 'Two meetings a week', '—'],
+            ['Founder', 'The company', 'About 1 hr a week', '—'],
+          ].map(([r, w, h, c]) => (
             <tr key={r}>
               <th>{r}</th>
               <td style={{ color: 'var(--bk-grey)' }}>{w}</td>
-              <td style={{ textAlign: 'right', paddingRight: 0 }}>{h}</td>
+              <td>{h}</td>
+              <td style={{ textAlign: 'right', paddingRight: 0 }}>{c}</td>
             </tr>
           ))}
         </tbody>
@@ -427,7 +431,7 @@ function Team({ ctx }: { ctx: PageCtx }) {
 
 export const PARTY_LABELS: Record<Party, string> = {
   founder: 'The founder',
-  lead: 'The project lead',
+  lead: 'The project advisor',
   students: 'Students',
   studio: 'The studio',
   parents: 'Parents',
@@ -438,7 +442,7 @@ export const PARTY_LABELS: Record<Party, string> = {
 export const PARTY_TERMS: Record<Party, string[]> = {
   founder: [
     'Bring a real problem or opportunity that matters to the business.',
-    'Write the scope with the project lead in week one.',
+    'Write the scope with the project advisor in week one.',
     'Meet the team once a week and answer questions in between.',
     'Give honest feedback, including when the work falls short.',
     'Evaluate the project at the end of the term.',
@@ -457,7 +461,7 @@ export const PARTY_TERMS: Record<Party, string[]> = {
     'Represent the company and the studio well.',
   ],
   studio: [
-    'Recruit and screen students and project leads.',
+    'Recruit and screen students and project advisors.',
     'Match each project with a team that can deliver it.',
     'Handle all academic paperwork and credit.',
     'Oversee every team and step in when a project is off track.',
@@ -598,7 +602,7 @@ function OutcomesStudents({ ctx }: { ctx: PageCtx }) {
       <div className="bk-gap-s" />
       <p className="bk-p bk-small" style={{ maxWidth: 'calc(520 * var(--u))' }}>
         Every student keeps a record of the work: a public profile listing each company they worked for, their role and
-        what the team delivered, alongside academic credit on a transcript and a reference from a project lead who saw
+        what the team delivered, alongside academic credit on a transcript and a reference from a project advisor who saw
         the work.
       </p>
     </Sheet>
@@ -668,6 +672,116 @@ function VoicesFamilies({ ctx }: { ctx: PageCtx }) {
   )
 }
 
+
+/* ─── Student stories ────────────────────────────────────────────────────── */
+
+const storySlugs = (ctx: PageCtx) =>
+  ctx.audience.pages.filter((id) => id.startsWith('story-')).map((id) => id.slice(6) as StorySlug)
+
+function Portrait({ slug, h, mono = 44 }: { slug: StorySlug; h: number; mono?: number }) {
+  const st = STORIES[slug]
+  if (st.photo) return <Img src={st.photo} alt={st.name} h={h} pos={st.photoPosition ?? 'center 20%'} />
+  const initials = st.name.split(' ').map((w) => w[0]).join('')
+  return (
+    <div
+      className="bk-img bk-flow-h"
+      style={{ height: `calc(${h} * var(--u))`, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bk-panel)' }}
+    >
+      <span style={{ fontFamily: 'var(--font-serif)', fontStyle: 'italic', fontSize: `calc(${mono} * var(--u))`, color: 'var(--bk-faint)' }}>{initials}</span>
+    </div>
+  )
+}
+
+function Stories({ ctx }: { ctx: PageCtx }) {
+  const slugs = storySlugs(ctx)
+  return (
+    <Sheet ctx={ctx}>
+      <Opener ctx={ctx} title="Student stories" lede="Students don’t need a business idea or a network. They need to show up and do excellent work." />
+      <div className="bk-gap" />
+      <p className="bk-p" style={{ maxWidth: 'calc(520 * var(--u))' }}>
+        Most 18-year-olds have poor business ideas and no network. The studio has both: opportunities found by experienced
+        operators, and the founders, executives and investors behind them. A student raises their hand, is placed on a
+        real project, and is judged on effort, attitude and the work itself. When they deliver, their network grows and
+        opportunities follow. {`Here are ${['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'][slugs.length]} of them.`}
+      </p>
+      <div className="bk-push" />
+      <div className="bk-cols c2" style={{ gap: 'calc(14 * var(--u)) calc(24 * var(--u))' }}>
+        {slugs.map((slug) => {
+          const st = STORIES[slug]
+          const page = ctx.pageOf[`story-${slug}`]
+          const name =
+            ctx.mode === 'view' ? (
+              <a href={`#page-${page}`} data-goto={page} style={{ color: 'inherit', textDecoration: 'none' }}>
+                {st.name}
+              </a>
+            ) : (
+              st.name
+            )
+          return (
+            <div key={slug} style={{ display: 'grid', gridTemplateColumns: 'calc(52 * var(--u)) 1fr', gap: 'calc(12 * var(--u))', alignItems: 'center', borderTop: '1px solid var(--bk-line)', paddingTop: 'calc(12 * var(--u))' }}>
+              <Portrait slug={slug} h={52} mono={17} />
+              <span>
+                <span className="bk-h3" style={{ display: 'block', fontSize: 'calc(15 * var(--u))' }}>
+                  {name} <span style={{ fontFamily: 'var(--font-serif)', fontStyle: 'italic', fontWeight: 400, color: 'var(--bk-grey)', fontSize: 'calc(12 * var(--u))' }}>· p. {page}</span>
+                </span>
+                <span className="bk-label" style={{ display: 'block', marginTop: 'calc(4 * var(--u))' }}>{st.meta}</span>
+              </span>
+            </div>
+          )
+        })}
+      </div>
+    </Sheet>
+  )
+}
+
+function StoryPage({ ctx }: { ctx: PageCtx }) {
+  const slug = ctx.id.slice(6) as StorySlug
+  const st = STORIES[slug]
+  const idx = storySlugs(ctx).indexOf(slug) + 1
+  return (
+    <Sheet ctx={ctx}>
+      <p className="bk-kicker">
+        Student story &nbsp;·&nbsp; {String(idx).padStart(2, '0')}
+      </p>
+      <h2 className="bk-title is-xl" style={{ fontSize: 'calc(54 * var(--u))' }}>{st.name}</h2>
+      <p className="bk-label" style={{ marginTop: 'calc(10 * var(--u))' }}>{st.meta}</p>
+      {st.pending?.length ? (
+        <p style={{ margin: 'calc(10 * var(--u)) 0 0', display: 'flex', flexWrap: 'wrap', gap: 'calc(6 * var(--u))' }}>
+          {st.pending.map((x) => (
+            <Pending key={x}>To confirm · {x}</Pending>
+          ))}
+        </p>
+      ) : null}
+      <div className="bk-gap" />
+      <div className="bk-cols c-story">
+        <Portrait slug={slug} h={300} mono={64} />
+        <div>
+          <p className="bk-lede" style={{ marginTop: 0, color: 'var(--bk-ink)', fontSize: 'calc(20 * var(--u))' }}>{st.headline}</p>
+          <div className="bk-gap-s" />
+          <table className="bk-table bk-small">
+            <tbody>
+              {st.facts.map(([k, v]) => (
+                <tr key={k}>
+                  <th style={{ fontWeight: 400, color: 'var(--bk-grey)', width: 'calc(118 * var(--u))', whiteSpace: 'normal' }}>{k}</th>
+                  <td style={{ color: 'var(--bk-ink)', paddingRight: 0 }}>{v}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div className="bk-gap" />
+      <div style={{ maxWidth: 'calc(540 * var(--u))' }}>
+        {st.body.map((t, i) => (
+          <p key={i} className={`bk-p${i === 0 ? ' bk-dropcap' : ''}`}>
+            {t}
+          </p>
+        ))}
+      </div>
+    </Sheet>
+  )
+}
+
 /* ─── Students and parents ───────────────────────────────────────────────── */
 
 function Pricing({ ctx }: { ctx: PageCtx }) {
@@ -695,8 +809,8 @@ function Pricing({ ctx }: { ctx: PageCtx }) {
           {[
             ['Terms', 'Fall, spring and summer. Each is priced and enrolled separately.'],
             ['A full year', `${money(FACTS.price * 3)} for all three terms.`],
-            ['Credit', '3 to 6 credit hours a term, awarded through Austin Christian University.'],
-            ['Included', 'Team placement, a project lead, and academic credit and its paperwork.'],
+            ['Credit', '3 credit hours a term for contributors and Builder Scholars, 6 for team leaders. Awarded through Austin Christian University.'],
+            ['Included', 'Team placement, a project advisor, and academic credit and its paperwork.'],
             ['Scholarships', 'Need-based scholarships are available. Price should not keep a capable student out.'],
             ['Effective', 'Summer 2027 and later. Earlier terms are priced under the current program.'],
           ].map(([k, v]) => (
@@ -758,7 +872,7 @@ function Supervision({ ctx }: { ctx: PageCtx }) {
       </p>
       <ol className="bk-steps">
         {[
-          ['Adults', 'Every team has an adult project lead, screened by the studio, and is overseen by studio staff.'],
+          ['Adults', 'Every team has an adult project advisor, screened by the studio, and is overseen by studio staff.'],
           ['Meetings', 'Team meetings are scheduled in advance and held online. Parents may ask for the schedule at any time.'],
           ['Messages', 'Team communication happens in studio-managed team channels that staff can see, not in private messages between adults and minors.'],
           ['Travel', 'No travel is required. Optional in-person events for students under 18 require a parent’s written consent and are chaperoned.'],
@@ -791,9 +905,9 @@ function CreditHighSchools({ ctx }: { ctx: PageCtx }) {
       <div className="bk-cols c2">
         <div>
           <p className="bk-p">
-            Builder Scholars earn college credit through Austin Christian University for the work they do on their team.
+            Builder Scholars earn 3 college credit hours a term through Austin Christian University for the work they do on their team.
             There are no tests and no assignments created for the course. Students submit evidence of the work they
-            already produce for their founder, and their project lead evaluates it.
+            already produce for their founder, and their project advisor evaluates it.
           </p>
           <p className="bk-p">The studio never creates work the founder did not ask for.</p>
         </div>
@@ -830,7 +944,7 @@ function CreditUniversities({ ctx }: { ctx: PageCtx }) {
         <tbody>
           {[
             ['Cost', 'None. There is no partnership or license fee.'],
-            ['Credit', '3 to 6 credit hours a term, awarded through Austin Christian University and transferred as your registrar decides.'],
+            ['Credit', '3 credit hours a term for contributors, 6 for team leaders. Awarded through Austin Christian University and transferred as your registrar decides.'],
             ['Students', 'Any major. Selected for ability and character, interviewed and placed by the studio.'],
             ['Teams', 'Mixed across schools, with high school Builder Scholars on every team.'],
             ['Liaison', 'One faculty or staff member who recommends students and receives term reports.'],
@@ -870,7 +984,7 @@ function FounderTerms({ ctx }: { ctx: PageCtx }) {
           {[
             ['Ownership', 'Your company keeps all equity and intellectual property produced on the project.'],
             ['Length', 'One term: fall, spring or summer. Projects can continue into another term with a new scope.'],
-            ['Team', 'About five students and a volunteer project lead, overseen by studio staff.'],
+            ['Team', 'About five students and a volunteer project advisor, overseen by studio staff.'],
             ['Scope', 'Written with you in week one and reviewed with you every week.'],
             ['Students', 'Earn academic credit. Paying them is your choice and not expected.'],
             ['Joint ventures', 'Optional and separate. See Joint ventures, later in this booklet.'],
@@ -916,7 +1030,7 @@ function JointVentures({ ctx }: { ctx: PageCtx }) {
           ['Unify', 'Software for nonprofits: one connected platform in place of a stack of separate tools.'],
           ['launch.kids', 'A tool that teaches children to build software with AI.'],
           ['Builder’s Quotient', 'An assessment of entrepreneurial ability, used to find students early.'],
-          ['In stealth', 'An AI data tool requested by a national fitness company, which will be its first customer.'],
+          ['Life Time spinout', 'An AI data tool built for Life Time, now being spun out to commercialize, with Life Time as its first customer.'],
         ].map(([t, d]) => (
           <li key={t} style={{ borderColor: '#34312c' }}>
             <span className="n" style={{ color: 'var(--bk-gold)', fontStyle: 'normal', fontFamily: 'var(--font-serif)' }}>
@@ -1104,8 +1218,11 @@ function Back({ ctx }: { ctx: PageCtx }) {
 
 /* ─── Registry ───────────────────────────────────────────────────────────── */
 
-export const PAGES: Record<PageId, (p: { ctx: PageCtx }) => React.ReactElement> = {
+type FixedPageId = Exclude<PageId, `story-${string}`>
+
+export const PAGES: Record<FixedPageId, (p: { ctx: PageCtx }) => React.ReactElement> = {
   cover: Cover,
+  stories: Stories,
   letter: Letter,
   contents: Contents,
   studio: Studio,
@@ -1149,6 +1266,6 @@ export function bookletPages(audience: Audience, mode: Mode): PageCtx[] {
 }
 
 export function BookletPage({ ctx }: { ctx: PageCtx }) {
-  const P = PAGES[ctx.id]
+  const P = ctx.id.startsWith('story-') ? StoryPage : PAGES[ctx.id as FixedPageId]
   return <P ctx={ctx} />
 }

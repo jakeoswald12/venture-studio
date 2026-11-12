@@ -5,7 +5,7 @@ Builds the info booklet PDFs into booklets/pdf/.
 Prints /booklet/<audience>/print for each booklet from a running copy of the
 site and saves it as US Letter. Rebuild after changing any booklet copy.
 
-    npm run build && BOOKLET_SECRET=local npm start      # in one terminal
+    npm run build && BOOKLET_SECRET=local npm start      # in one terminal (or `npm run dev`)
     BOOKLET_SECRET=local python3 scripts/build-booklet-pdfs.py [http://localhost:4848]
 
 Needs: pip install playwright && python3 -m playwright install chromium
@@ -53,7 +53,9 @@ with sync_playwright() as p:
     browser = p.chromium.launch(**kw)
     page = browser.new_page(viewport={'width': 816, 'height': 1056})
     for a in AUDIENCES:
-        page.goto(f'{BASE}/booklet/{a}/print?t={token(a)}', wait_until='networkidle')
+        page.goto(f'{BASE}/booklet/{a}/print?t={token(a)}', wait_until='load', timeout=120000)
+        # Hide the Next.js dev overlay if printing from `next dev`.
+        page.add_style_tag(content='nextjs-portal{display:none!important}')
         page.evaluate('document.fonts.ready')
         page.wait_for_timeout(1200)
         if page.locator('.bk-page').count() == 0:

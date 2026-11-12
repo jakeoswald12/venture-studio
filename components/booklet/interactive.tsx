@@ -12,11 +12,11 @@ type Mode = 'view' | 'print'
 
 /* ─── A term, week by week ───────────────────────────────────────────────── */
 
-const WEEKS = 15
+const WEEKS = 14
 function weekInfo(w: number) {
-  if (w === 1) return { kind: 'scope', title: 'Week 1 · Scope', text: 'The founder and the project lead write the scope: what the team will deliver, week by week. The team meets the founder.' }
-  if (w === WEEKS) return { kind: 'deliver', title: `Week ${WEEKS} · Delivery`, text: 'The team delivers and hands the work over. Students are evaluated by their project lead; the founder evaluates the project.' }
-  return { kind: 'build', title: `Week ${w} · Build`, text: 'Two meetings: an internal one with the project lead on tasks and blockers, and one with the founder to review the work.' }
+  if (w === 1) return { kind: 'scope', title: 'Week 1 · Scope', text: 'The founder and the project advisor write the scope: what the team will deliver, week by week. The team meets the founder.' }
+  if (w === WEEKS) return { kind: 'deliver', title: `Week ${WEEKS} · Delivery`, text: 'The team delivers and hands the work over. Students are evaluated by their project advisor; the founder evaluates the project.' }
+  return { kind: 'build', title: `Week ${w} · Build`, text: 'Two meetings: an internal one with the project advisor on tasks and blockers, and one with the founder to review the work.' }
 }
 
 export function TermStrip({ mode }: { mode: Mode }) {
@@ -174,7 +174,7 @@ export function PriceEstimator({ mode, price }: { mode: Mode; price: number }) {
           <div key={k}>
             <p className="bk-label">{k === 1 ? 'One term' : k === 2 ? 'Fall and spring' : 'Full year'}</p>
             <p className="bk-stat-num is-m" style={{ marginTop: 'calc(6 * var(--u))' }}>{fmt(price * k)}</p>
-            <p className="bk-stat-label">{3 * k} to {6 * k} credit hours</p>
+            <p className="bk-stat-label">{3 * k} credit hours ({6 * k} as team leader)</p>
           </div>
         ))}
       </div>
@@ -195,7 +195,7 @@ export function PriceEstimator({ mode, price }: { mode: Mode; price: number }) {
         <div style={{ textAlign: 'right' }}>
           <p className="bk-stat-num is-m" style={{ margin: 0 }}>{fmt(price * count)}</p>
           <p className="bk-stat-label" style={{ marginTop: 'calc(4 * var(--u))' }}>
-            {count === 0 ? 'Select a term' : `${count} term${count > 1 ? 's' : ''} · ${3 * count} to ${6 * count} credit hours, before scholarships`}
+            {count === 0 ? 'Select a term' : `${count} term${count > 1 ? 's' : ''} · ${3 * count} credit hours (${6 * count} as team leader), before scholarships`}
           </p>
         </div>
       </div>

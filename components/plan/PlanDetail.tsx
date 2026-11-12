@@ -120,7 +120,7 @@ export function Assumptions() {
                 <li>Recruiting students: {Math.round(COSTS.marketing * 100)}% of student revenue. Payment processing: {Math.round(COSTS.processing * 100)}%.</li>
                 <li>Insurance, legal and accounting: {usd(COSTS.adminFixed)} a year plus {usd(COSTS.adminPerStudentTerm)} per student per term.</li>
                 <li>Summits, hackathons and travel: {usd(COSTS.eventsFixed)} a year plus {usd(COSTS.eventsPerStudentTerm)} per student per term.</li>
-                <li>{usd(COSTS.perVolunteer)} a year per volunteer project lead for training and events.</li>
+                <li>{usd(COSTS.perVolunteer)} a year per volunteer project advisor for training and events.</li>
                 <li>Travel for the paid team: {usd(COSTS.teamTravelPerHead)} per person per year.</li>
                 <li>Running the firm: {usd(COSTS.firmSoftwareFixed)} a year for CRM, enrollment, billing, website and accounting software, plus {usd(COSTS.firmSoftwarePerHead)} in software seats per person.</li>
                 <li>{Math.round(COSTS.acuShare * 100)}% of operating profit goes to ACU’s endowment, counted as overhead.</li>

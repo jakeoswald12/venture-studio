@@ -160,7 +160,8 @@ export function BookletViewer({ slug, pdfHref }: { slug: AudienceSlug; pdfHref: 
   const shown = layout?.kind === 'spread' ? pagesOf(spread).filter((x): x is number => !!x) : [current]
   const range = shown.join('–')
   const lastShown = pages[shown[shown.length - 1] - 1]
-  const label = SECTION_TITLES[lastShown.id] ?? FRONT[lastShown.id] ?? ''
+  const sectionAt = [...pages].reverse().find((p) => p.number <= lastShown.number && SECTION_TITLES[p.id])
+  const label = SECTION_TITLES[lastShown.id] ?? FRONT[lastShown.id] ?? (sectionAt ? SECTION_TITLES[sectionAt.id] : '')
 
   return (
     <div className="bk fixed inset-0 z-[300] flex flex-col bg-[#0f0e0c] text-[#d9d3c7]" data-lenis-prevent>
@@ -240,7 +241,7 @@ export function BookletViewer({ slug, pdfHref }: { slug: AudienceSlug; pdfHref: 
                   key={p.number}
                   type="button"
                   aria-label={`Page ${p.number}${SECTION_TITLES[p.id] ? `, ${SECTION_TITLES[p.id]}` : ''}`}
-                  title={SECTION_TITLES[p.id] ?? (p.id === 'cover' ? 'Cover' : p.id === 'back' ? 'Back cover' : p.id === 'letter' ? 'Letter' : 'Contents')}
+                  title={SECTION_TITLES[p.id] ?? (p.id.startsWith('story-') ? 'Student story' : p.id === 'cover' ? 'Cover' : p.id === 'back' ? 'Back cover' : p.id === 'letter' ? 'Letter' : 'Contents')}
                   onClick={() => goPage(p.number)}
                   className="group flex h-full flex-1 items-center"
                 >

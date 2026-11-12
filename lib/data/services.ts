@@ -19,7 +19,7 @@ export const DISCIPLINES: Service[] = [
 export const ENGAGEMENT_MODELS: Service[] = [
   {
     title: 'Project teams',
-    text: 'A team of six students works on one defined project for a full semester: a project leader, three college contributors and two high school Builder Scholars. There is no fee. The company keeps all equity and intellectual property.',
+    text: 'A team of six students works on one defined project for a full semester: a team leader, three college contributors and two high school Builder Scholars. There is no fee. The company keeps all equity and intellectual property.',
   },
   {
     title: 'Project management',

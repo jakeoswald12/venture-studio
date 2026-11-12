@@ -153,6 +153,7 @@
 .bk-cols.c2 { grid-template-columns: 1fr 1fr; }
 .bk-cols.c3 { grid-template-columns: 1fr 1fr 1fr; gap: calc(22 * var(--u)); }
 .bk-cols.c-2-1 { grid-template-columns: 1.55fr 1fr; }
+.bk-cols.c-story { grid-template-columns: calc(210 * var(--u)) 1fr; gap: calc(26 * var(--u)); align-items: start; }
 
 /* Big numbers */
 .bk-stat-num {
@@ -282,7 +283,9 @@
 .bk-flow .bk-folio { bottom: calc(28 * var(--u)); }
 .bk-flow .bk-cols.c2,
 .bk-flow .bk-cols.c3,
-.bk-flow .bk-cols.c-2-1 { grid-template-columns: 1fr; }
+.bk-flow .bk-cols.c-2-1,
+.bk-flow .bk-cols.c-story { grid-template-columns: 1fr; }
+.bk-flow .c-story .bk-flow-h { aspect-ratio: 4 / 5; max-height: 70vh; }
 .bk-flow .bk-push { margin-top: calc(32 * var(--u)); }
 .bk-flow .bk-title { font-size: calc(38 * var(--u)); }
 .bk-flow .bk-title.is-xl { font-size: calc(50 * var(--u)); }
