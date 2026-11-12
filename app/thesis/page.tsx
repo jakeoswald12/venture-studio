@@ -12,7 +12,6 @@ import {
   MODEL,
   OPPORTUNITIES,
   PHILOSOPHY,
-  PROJECTS,
   REQUESTS,
   SECTIONS,
   VISIBLE_SECTIONS,
@@ -129,12 +128,6 @@ export default function ThesisPage() {
                 text="There is no such thing as a business idea, only an accurate diagnosis of a need about to be met. On fossil hunters, and the kind of visionary worth following."
                 image={<Image src="/thesis/art/peale-mastodon.jpg" alt="" fill sizes="(min-width:640px) 240px, 100vw" className="object-cover" />}
               />
-            </Section>
-
-            <Section id="projects">
-              {PROJECTS.map((t) => (
-                <P key={t}>{t}</P>
-              ))}
             </Section>
 
             <Section id="flywheel">
