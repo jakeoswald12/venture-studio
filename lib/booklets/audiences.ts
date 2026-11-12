@@ -165,7 +165,7 @@ export const AUDIENCES: Record<AudienceSlug, Audience> = {
     ],
     pages: [
       'cover', 'letter', 'contents', 'studio', 'model', 'project', 'team', 'expectations', 'disciplines',
-      'founder-terms', 'outcomes-founders', 'voices-founders', 'stories', 'story-cole-elzerman', 'story-preslee-gordon', 'story-yakira-cardoso', 'joint-ventures', 'network', 'leadership',
+      'founder-terms', 'outcomes-founders', 'voices-founders', 'joint-ventures', 'network', 'leadership',
       'faq', 'next', 'back',
     ],
     parties: ['founder', 'lead', 'students', 'studio'],
