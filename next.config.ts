@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // The booklet PDFs live outside /public and are read by the PDF route.
+  outputFileTracingIncludes: {
+    '/api/booklet/pdf': ['./booklets/pdf/**/*'],
+  },
   images: {
     // 82 is used by the portfolio tile walls (copied from the ACU site).
     qualities: [75, 82],
