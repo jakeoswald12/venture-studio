@@ -37,9 +37,7 @@ export const VC_FIRMS: PartnerEntry[] = [
   { name: 'Keystone Capital', href: 'https://keystone-investing.com', image: `${P}keystone-2.webp` },
   { name: 'Stackhouse Ventures', href: 'https://stackhouseventures.com', image: `${P}stackhouse-hero.jpg` },
   { name: 'Our Appologies', href: 'https://www.ourappologies.com', image: `${P}our-appologies-2.png` },
-  { name: 'Builders + Backers', href: 'https://www.buildersandbackers.com', image: `${P}builders-backers-hero.png` },
-  { name: 'Startup Garage', href: 'https://www.startupgarage.org', image: `${P}startup-garage-2.webp` },
-  { name: 'Missional Labs', href: 'https://missionallabs.co', image: `${P}missional-labs-2.webp` },
+  { name: 'Sandbox.Fund', href: 'https://sandbox.fund' },
 ]
 
 /** Partner organizations and the wider ecosystem, in one list. */
@@ -62,7 +60,9 @@ export const NETWORK: PartnerEntry[] = [
   { name: 'Classic Learning Test', href: 'https://www.cltexam.com', logo: '/images/partners/CLT Logo PNG Blue.svg' },
   { name: 'C12', href: 'https://www.joinc12.com', image: `${P}c12-2.jpg` },
   { name: 'Commissioned', href: 'https://www.livingcommissioned.com', image: `${P}commissioned-hero.jpg` },
-  { name: 'Ocean Programs', href: 'https://www.oceanprograms.com' },
+  { name: 'Missional Labs', href: 'https://missionallabs.co', image: `${P}missional-labs-2.webp` },
+  { name: 'Startup Garage', href: 'https://www.startupgarage.org', image: `${P}startup-garage-2.webp` },
+  { name: 'Builders + Backers', href: 'https://www.buildersandbackers.com', image: `${P}builders-backers-hero.png` },
 ]
 
 /**
