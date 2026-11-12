@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { AUDIENCES, AUDIENCE_SLUGS, type AudienceSlug } from '@/lib/booklets/audiences'
+import { AUDIENCES, FORM_ORDER, type AudienceSlug } from '@/lib/booklets/audiences'
 import { BookletPage, bookletPages } from './pages'
 
 type Status = 'idle' | 'sending' | 'error'
@@ -57,9 +57,9 @@ export function RequestForm({ initial }: { initial?: AudienceSlug }) {
     <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_400px] lg:gap-16">
       <form onSubmit={onSubmit} className="relative grid gap-8">
         <fieldset>
-          <legend className={label}>I am</legend>
-          <div className="grid gap-2.5 sm:grid-cols-2">
-            {AUDIENCE_SLUGS.map((s) => {
+          <legend className={label}>I am a</legend>
+          <div className="grid gap-2.5">
+            {FORM_ORDER.map((s) => {
               const on = s === audience
               return (
                 <label
@@ -74,7 +74,7 @@ export function RequestForm({ initial }: { initial?: AudienceSlug }) {
                     onChange={() => setAudience(s)}
                     className="sr-only"
                   />
-                  <span className="block font-serif text-[1.15rem] font-semibold leading-tight text-ink">{AUDIENCES[s].label}</span>
+                  <span className="block font-serif text-[1.15rem] font-semibold leading-tight text-ink">{AUDIENCES[s].formLabel}</span>
                   <span className="mt-1 block text-[0.9rem] leading-[1.45]">{AUDIENCES[s].formLine}</span>
                 </label>
               )

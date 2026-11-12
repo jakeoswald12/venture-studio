@@ -8,12 +8,10 @@ export function RequestPanel({ initial, notice }: { initial?: AudienceSlug; noti
     <main>
       <Frame className="pb-10 pt-[calc(108px+env(safe-area-inset-top))] sm:pt-[132px]">
         <div className="max-w-[760px]">
-          <p className="font-mono text-[0.7rem] uppercase tracking-[0.16em] text-faint">Partner interest · Info Booklet</p>
-          <h1 className="mt-5 text-[clamp(2.4rem,5vw,4.2rem)] leading-[1.02]">Want to be a partner?</h1>
+          <h1 className="text-[clamp(2.4rem,5vw,4.2rem)] leading-[1.02]">Get involved</h1>
           <p className="mt-6 max-w-[58ch] text-[1.08rem] leading-[1.7]">
-            Submit this interest form and the studio will get back to you soon. In the meantime, we will send you an info
-            booklet written for you: how the program works, what is expected of everyone involved, and what comes of it.
-            It opens here as soon as you submit, and a copy goes to your email and phone.
+            Submit this interest form and we’ll get back to you shortly. In the meantime, we’ll send you an info booklet
+            that explains how the program works, what it costs and what you’ll get out of it.
           </p>
           {notice && (
             <p role="status" className="mt-6 rounded-[14px] bg-panel px-5 py-4 text-[0.95rem] text-ink">

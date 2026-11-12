@@ -56,7 +56,9 @@ export interface Audience {
   label: string
   /** Cover title: "For Parents". */
   title: string
-  /** What the form's audience card says. */
+  /** The form's audience card: "I am a …" */
+  formLabel: string
+  /** The card's subtitle: why this person is interested. */
   formLine: string
   /** One sentence under the cover title. */
   coverLine: string
@@ -78,7 +80,8 @@ export const AUDIENCES: Record<AudienceSlug, Audience> = {
     slug: 'parents',
     label: 'Parents',
     title: 'For Parents',
-    formLine: 'My son or daughter is a high school or college student.',
+    formLabel: 'Parent',
+    formLine: 'My son or daughter would be a perfect fit for this program.',
     coverLine: 'What your son or daughter would do, who they would work with, what it costs and how they are supervised.',
     letter: [
       'Thank you for asking about West Ventures. This booklet is written for parents. It explains what a student does here, who they work with, how much time it takes, what it costs, how credit is awarded and how younger students are supervised.',
@@ -111,7 +114,8 @@ export const AUDIENCES: Record<AudienceSlug, Audience> = {
     slug: 'students',
     label: 'Students',
     title: 'For Students',
-    formLine: 'I am a high school or college student.',
+    formLabel: 'Student',
+    formLine: 'I’m in high school or college and want to work on a project.',
     coverLine: 'Real work for proven founders, for academic credit. How it works, what is expected and where it leads.',
     letter: [
       'Thank you for asking about West Ventures. This booklet is written for you, the student.',
@@ -144,7 +148,8 @@ export const AUDIENCES: Record<AudienceSlug, Audience> = {
     slug: 'founders',
     label: 'Founders and executives',
     title: 'For Founders & Executives',
-    formLine: 'I run a company or lead a team inside one.',
+    formLabel: 'Founder or executive',
+    formLine: 'I’m building a company and would love help from a team of elite students.',
     coverLine: 'A team of capable students on a problem your company cannot get to. No cost, no equity, about an hour a week.',
     letter: [
       'Thank you for asking about West Ventures. This booklet is written for founders, owners and executives.',
@@ -178,7 +183,8 @@ export const AUDIENCES: Record<AudienceSlug, Audience> = {
     slug: 'high-schools',
     label: 'High schools',
     title: 'For High Schools',
-    formLine: 'I lead, teach or advise at a high school.',
+    formLabel: 'High school faculty',
+    formLine: 'We have students who would love this program.',
     coverLine: 'How your strongest students work on real companies for college credit, at no cost to the school.',
     letter: [
       'Thank you for asking about West Ventures. This booklet is written for heads of school, principals, counselors and teachers.',
@@ -211,7 +217,8 @@ export const AUDIENCES: Record<AudienceSlug, Audience> = {
     slug: 'universities',
     label: 'Universities',
     title: 'For Universities',
-    formLine: 'I work at a college or university.',
+    formLabel: 'University faculty',
+    formLine: 'We have students who would love this program, and I want to explore a partnership.',
     coverLine: 'How your students join teams on real companies for academic credit, with no fee to the institution.',
     letter: [
       'Thank you for asking about West Ventures. This booklet is written for university presidents, provosts, deans and faculty.',
@@ -240,6 +247,9 @@ export const AUDIENCES: Record<AudienceSlug, Audience> = {
     orgLabel: 'Institution',
   },
 }
+
+/** Order of the cards on the interest form. */
+export const FORM_ORDER: AudienceSlug[] = ['founders', 'universities', 'high-schools', 'parents', 'students']
 
 export const isAudience = (v: unknown): v is AudienceSlug =>
   typeof v === 'string' && (AUDIENCE_SLUGS as readonly string[]).includes(v)
