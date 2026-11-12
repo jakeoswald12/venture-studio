@@ -18,21 +18,24 @@ export interface Person {
 
 export const LEADERSHIP: Person[] = [
   {
-    name: 'Jake Oswald',
-    title: 'Managing Partner',
-    photo: '/team/jake-oswald.png',
-    photoPosition: 'center 20%',
-    linkedin: 'https://www.linkedin.com/in/jake-oswald/',
-    bio: 'Director of the Accelerator Program at Austin Christian University, where students earn course credit working on real companies with experienced founders. He also leads ACU’s enrollment, marketing and entrepreneurship work. He has spoken at Faith Driven Entrepreneur events.',
-  },
-  {
     name: 'Lars Ostervold',
     title: 'Managing Partner',
     photo: '/team/lars-ostervold.jpg',
     photoPosition: 'center 25%',
     linkedin: 'https://www.linkedin.com/in/larsostervold/',
-    bio: 'Chief Technology Officer of Austin Christian University and a member of the accelerator’s leadership team. He is building launch.kids, the studio’s software building tool for students.',
   },
+  {
+    name: 'Jake Oswald',
+    title: 'Managing Partner',
+    photo: '/team/jake-oswald.png',
+    photoPosition: 'center 20%',
+    linkedin: 'https://www.linkedin.com/in/jake-oswald/',
+  },
+  { name: 'Marshall Cunningham', title: 'Head of Operations' },
+  { name: 'Tanner Dobbs', title: 'Head of Growth', linkedin: 'https://www.linkedin.com/in/tanner-dobbs-1129149a/' },
+  { name: 'Nate Steele', title: 'Head of Design' },
+  { name: 'Taylore Hopkins', title: 'Head of Partnerships' },
+  { name: 'Landen Enns', title: 'Head of Investor Relations', linkedin: 'https://www.linkedin.com/in/landenenns/' },
 ]
 
 /** Project Advisors: experienced people who lead and advise student project teams. */
@@ -41,22 +44,15 @@ export const PROJECT_ADVISORS: Person[] = [
   { name: 'Ethan Woo', title: 'Project Advisor' },
   { name: 'Trent Sikute', title: 'Project Advisor' },
   { name: 'Jake Jadlot', title: 'Project Advisor' },
-  { name: 'Nate Steele', title: 'Project Advisor' },
   { name: 'Mary Brownlee', title: 'Project Advisor', linkedin: 'https://www.linkedin.com/in/mary-brownlee-033b08208/' },
   { name: 'Elijah Bervik', title: 'Project Advisor' },
   { name: 'Max Gangestad', title: 'Project Advisor' },
-  { name: 'Landen Enns', title: 'Project Advisor', linkedin: 'https://www.linkedin.com/in/landenenns/' },
   { name: 'Travis Manderfield', title: 'Project Advisor' },
   { name: 'Trey Achterhoff', title: 'Project Advisor' },
   { name: 'Nick Daniel', title: 'Project Advisor' },
-  { name: 'Marshall Cunningham', title: 'Project Advisor' },
-  { name: 'Caleb Dykema', title: 'Project Advisor' },
   { name: 'Anthony Ruffner', title: 'Project Advisor' },
   { name: 'Hyzer Taylor', title: 'Project Advisor' },
-  { name: 'Tanner Dobbs', title: 'Project Advisor', linkedin: 'https://www.linkedin.com/in/tanner-dobbs-1129149a/' },
   { name: 'Alex Ammons', title: 'Project Advisor' },
-  { name: 'Tommy Denn', title: 'Project Advisor' },
-  { name: 'Allie Vaughan', title: 'Project Advisor' },
   { name: 'Riley Simpson', title: 'Project Advisor' },
 ]
 

@@ -12,12 +12,10 @@ export const metadata: Metadata = {
 function Group({
   first,
   title,
-  text,
   children,
 }: {
   first?: boolean
   title: string
-  text: string
   children: React.ReactNode
 }) {
   return (
@@ -28,9 +26,6 @@ function Group({
           <h2 data-reveal-item className="text-[clamp(2rem,4vw,3.2rem)] leading-[1]">
             {title}
           </h2>
-          <p data-reveal-item style={{ '--d': 1 } as React.CSSProperties} className="mt-4 max-w-[60ch] text-[1rem] leading-[1.65]">
-            {text}
-          </p>
         </div>
       </div>
       {children}
@@ -44,7 +39,7 @@ export default function TeamPage() {
       <h1 className="sr-only">Team</h1>
 
       <Frame className="pt-[calc(124px+env(safe-area-inset-top))] sm:pt-[150px]">
-        <Group first title="Leadership" text="The Managing Partners, who run the studio.">
+        <Group first title="Leadership">
           <div className={TILE_GRID}>
             {LEADERSHIP.map((p) => (
               <div key={p.name} data-reveal-item data-reveal-auto>
@@ -54,7 +49,7 @@ export default function TeamPage() {
           </div>
         </Group>
 
-        <Group title="Project Advisors" text="Experienced founders and operators who lead and advise student project teams.">
+        <Group title="Project Advisors">
           <div className={TILE_GRID}>
             {PROJECT_ADVISORS.map((p) => (
               <div key={p.name} data-reveal-item data-reveal-auto>
@@ -64,7 +59,7 @@ export default function TeamPage() {
           </div>
         </Group>
 
-        <Group title="Board" text="The board of directors. Austin Christian University holds a permanent seat.">
+        <Group title="Board">
           <div className={TILE_GRID}>
             {BOARD.map((p) => (
               <div key={p.name} data-reveal-item data-reveal-auto>
@@ -74,7 +69,7 @@ export default function TeamPage() {
           </div>
         </Group>
 
-        <Group title="Student Fellows" text="Students who hold fellowships in the studio and work alongside the leadership team.">
+        <Group title="Student Fellows">
           <div className={TILE_GRID}>
             {FELLOWS.map((p) => (
               <div key={p.name} data-reveal-item data-reveal-auto>
@@ -84,7 +79,7 @@ export default function TeamPage() {
           </div>
         </Group>
 
-        <Group title="Firm Advisors" text="Founders, investors and operators who advise the studio and the companies it works with.">
+        <Group title="Firm Advisors">
           {/* Columns, not a grid: names run down each column, then to the next. */}
           <ul className="columns-1 gap-x-8 sm:columns-2 lg:columns-5 lg:gap-x-6 xl:columns-7 xl:gap-x-2.5">
             {ADVISORS.map((a) => (
