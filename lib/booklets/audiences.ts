@@ -38,6 +38,7 @@ export type PageId =
   | 'supervision'
   | 'credit-high-schools'
   | 'credit-universities'
+  | 'school-cost'
   | 'founder-terms'
   | 'joint-ventures'
   | 'network'
@@ -199,7 +200,7 @@ export const AUDIENCES: Record<AudienceSlug, Audience> = {
     ],
     pages: [
       'cover', 'letter', 'contents', 'studio', 'model', 'project', 'team', 'expectations',
-      'credit-high-schools', 'outcomes-students', 'stories', ...STORY_PAGES, 'voices-families', 'voices-founders', 'network',
+      'credit-high-schools', 'school-cost', 'outcomes-students', 'stories', ...STORY_PAGES, 'voices-families', 'voices-founders', 'network',
       'faq', 'next', 'back',
     ],
     parties: ['school', 'students', 'lead', 'founder', 'studio'],
@@ -233,7 +234,7 @@ export const AUDIENCES: Record<AudienceSlug, Audience> = {
     ],
     pages: [
       'cover', 'letter', 'contents', 'studio', 'model', 'project', 'team', 'expectations',
-      'credit-universities', 'outcomes-students', 'stories', ...STORY_PAGES, 'outcomes-founders', 'voices-founders', 'joint-ventures',
+      'credit-universities', 'school-cost', 'outcomes-students', 'stories', ...STORY_PAGES, 'outcomes-founders', 'voices-founders', 'joint-ventures',
       'network', 'leadership', 'faq', 'next', 'back',
     ],
     parties: ['university', 'students', 'lead', 'founder', 'studio'],

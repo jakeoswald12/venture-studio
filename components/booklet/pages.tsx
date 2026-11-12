@@ -54,6 +54,7 @@ export const SECTION_TITLES: Partial<Record<PageId, string>> = {
   supervision: 'Supervision',
   'credit-high-schools': 'Credit',
   'credit-universities': 'Credit and partnership',
+  'school-cost': 'Cost and funding',
   'founder-terms': 'Terms',
   'joint-ventures': 'Joint ventures',
   network: 'The network',
@@ -224,14 +225,14 @@ function Contents({ ctx }: { ctx: PageCtx }) {
       <div className="bk-gap" />
       <ol className="bk-steps" style={{ fontFamily: 'var(--font-serif)' }}>
         {items.map((id, i) => (
-          <li key={id} style={{ gridTemplateColumns: 'calc(40 * var(--u)) 1fr auto', alignItems: 'baseline', padding: 'calc(5 * var(--u)) 0' }}>
+          <li key={id} style={{ gridTemplateColumns: 'calc(40 * var(--u)) 1fr auto', alignItems: 'baseline', padding: 'calc(4 * var(--u)) 0' }}>
             <span className="n">{String(i + 1).padStart(2, '0')}</span>
             {ctx.mode === 'view' ? (
-              <a href={`#page-${ctx.pageOf[id]}`} data-goto={ctx.pageOf[id]} style={{ fontSize: 'calc(16 * var(--u))', color: 'var(--bk-ink)', textDecoration: 'none' }}>
+              <a href={`#page-${ctx.pageOf[id]}`} data-goto={ctx.pageOf[id]} style={{ fontSize: 'calc(15.5 * var(--u))', color: 'var(--bk-ink)', textDecoration: 'none' }}>
                 {SECTION_TITLES[id]}
               </a>
             ) : (
-              <span style={{ fontSize: 'calc(16 * var(--u))', color: 'var(--bk-ink)' }}>{SECTION_TITLES[id]}</span>
+              <span style={{ fontSize: 'calc(15.5 * var(--u))', color: 'var(--bk-ink)' }}>{SECTION_TITLES[id]}</span>
             )}
             <span style={{ fontStyle: 'italic', color: 'var(--bk-grey)', fontSize: 'calc(13 * var(--u))' }}>{ctx.pageOf[id]}</span>
           </li>
@@ -754,7 +755,7 @@ function StoryPage({ ctx }: { ctx: PageCtx }) {
       ) : null}
       <div className="bk-gap" />
       <div className="bk-cols c-story">
-        <Portrait slug={slug} h={300} mono={64} />
+        <Portrait slug={slug} h={276} mono={64} />
         <div>
           <p className="bk-lede" style={{ marginTop: 0, color: 'var(--bk-ink)', fontSize: 'calc(20 * var(--u))' }}>{st.headline}</p>
           <div className="bk-gap-s" />
@@ -962,6 +963,56 @@ function CreditUniversities({ ctx }: { ctx: PageCtx }) {
         The studio is built to sit alongside what a university already offers. Students return to campus with real work
         on their record and a network of founders and operators who have seen what they can do.
       </p>
+    </Sheet>
+  )
+}
+
+
+function SchoolCost({ ctx }: { ctx: PageCtx }) {
+  const uni = ctx.audience.slug === 'universities'
+  const school = uni ? 'university' : 'school'
+  return (
+    <Sheet ctx={ctx}>
+      <Opener ctx={ctx} title="Cost and funding" lede={`Free to the ${school}. Families pay tuition, and the ${school} can choose to help.`} />
+      <div className="bk-gap" />
+      <div className="bk-cols c2">
+        <div>
+          <div className="bk-stat-num" style={{ fontSize: 'calc(64 * var(--u))' }}>$0</div>
+          <p className="bk-stat-label">
+            To the {school}. No partnership, license or per-student fee, now or later.
+          </p>
+        </div>
+        <div>
+          <div className="bk-stat-num" style={{ fontSize: 'calc(64 * var(--u))' }}>{money(FACTS.price)}</div>
+          <p className="bk-stat-label">
+            Per student, per term, paid by the family. {money(FACTS.price * 3)} for a full year. Need-based scholarships are available.
+          </p>
+        </div>
+      </div>
+      <div className="bk-gap" />
+      <p className="bk-label">How it works</p>
+      <ol className="bk-steps" style={{ marginTop: 'calc(8 * var(--u))' }}>
+        {[
+          ['Nominate', `The ${school} names students it thinks are a fit. That is the whole commitment.`],
+          ['Decide', 'Each student and family decides whether to take part. No one is enrolled without choosing to be.'],
+          ['Fund', 'Tuition pays for the program: the staff who recruit and oversee every team, training for the volunteer project advisors, and academic credit. Companies are never charged.'],
+        ].map(([t, d]) => (
+          <li key={t}>
+            <span className="n">{t}</span>
+            <span>{d}</span>
+          </li>
+        ))}
+      </ol>
+      <div className="bk-push" />
+      <div style={{ background: 'var(--bk-panel)', padding: 'calc(20 * var(--u)) calc(22 * var(--u))', borderRadius: 'calc(4 * var(--u))' }}>
+        <p className="bk-label" style={{ color: 'var(--bk-bronze)' }}>Covering the cost for your students</p>
+        <p className="bk-p bk-small" style={{ marginTop: 'calc(8 * var(--u))' }}>
+          Some {uni ? 'universities' : 'schools'} choose to pay tuition for their strongest students, for example as part of an
+          honors {uni ? 'college or program' : 'program'}. Ways to fund it include setting aside scholarship funds, a gift from a
+          donor who wants to back student builders, or {uni ? 'grants for experiential learning and workforce readiness' : 'grants for enrichment or college and career readiness'}.
+          The studio can help you make the case.
+        </p>
+      </div>
     </Sheet>
   )
 }
@@ -1241,6 +1292,7 @@ export const PAGES: Record<FixedPageId, (p: { ctx: PageCtx }) => React.ReactElem
   supervision: Supervision,
   'credit-high-schools': CreditHighSchools,
   'credit-universities': CreditUniversities,
+  'school-cost': SchoolCost,
   'founder-terms': FounderTerms,
   'joint-ventures': JointVentures,
   network: Network,
