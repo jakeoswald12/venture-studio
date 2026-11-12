@@ -9,7 +9,8 @@
  */
 
 import { AUDIENCES, type Audience, type PageId, type Party } from '@/lib/booklets/audiences'
-import { COMPANY_NAMES, FACTS, FAMILY_QUOTES, FOUNDER_QUOTES, WORK_TILES } from '@/lib/booklets/facts'
+import { COMPANY_NAMES, FACTS, FAMILY_QUOTES, FOUNDER_QUOTES, FOUNDER_QUOTES_PENDING, WORK_TILES } from '@/lib/booklets/facts'
+import { CASES, type CaseSlug } from '@/lib/booklets/cases'
 import { DISCIPLINES } from '@/lib/data/services'
 import { HIGH_SCHOOLS, NETWORK, VC_FIRMS } from '@/lib/data/partners'
 import { BOARD, LEADERSHIP } from '@/lib/data/team'
@@ -539,26 +540,28 @@ function OutcomesFounders({ ctx }: { ctx: PageCtx }) {
         <Stat value={FACTS.students} label="Students placed on those teams" />
       </div>
       <div className="bk-gap" />
+      {caseSlugs(ctx).length ? <CaseIndex ctx={ctx} /> : (
       <div style={{ background: 'var(--bk-panel)', padding: 'calc(22 * var(--u)) calc(24 * var(--u))', borderRadius: 'calc(4 * var(--u))' }}>
-        <p className="bk-label" style={{ color: 'var(--bk-bronze)' }}>
-          Case · Adoption Is An Option, 2026
-        </p>
-        <h3 className="bk-h3" style={{ marginTop: 'calc(8 * var(--u))' }}>
-          A student ad competition, judged on cost per click
-        </h3>
-        <p className="bk-p bk-small" style={{ marginTop: 'calc(8 * var(--u))' }}>
-          Student teams made TikTok ads for an adoption advocacy organization from May to July 2026. Ads were scored
-          only on their performance in TikTok Ads Manager. Every winning ad was built on one made in the first round.
-        </p>
-        <div className="bk-cols c3" style={{ marginTop: 'calc(16 * var(--u))', gap: 'calc(14 * var(--u))' }}>
-          <Stat size="m" value={`${(t.impressions / 1e6).toFixed(1)}M`} label="Impressions" />
-          <Stat size="m" value={`${(t.clicks / 1e6).toFixed(2)}M`} label="Clicks to the website" />
-          <Stat size="m" value={`${t.ctr}%`} label="Click-through rate" />
-          <Stat size="m" value={money(t.spend)} label="Total ad spend" />
-          <Stat size="m" value={t.ads} label="Ads produced" />
-          <Stat size="m" value="$0.011" label="Cost per website visitor" />
+          <p className="bk-label" style={{ color: 'var(--bk-bronze)' }}>
+            Case · Adoption Is An Option, 2026
+          </p>
+          <h3 className="bk-h3" style={{ marginTop: 'calc(8 * var(--u))' }}>
+            A student ad competition, judged on cost per click
+          </h3>
+          <p className="bk-p bk-small" style={{ marginTop: 'calc(8 * var(--u))' }}>
+            Student teams made TikTok ads for an adoption advocacy organization from May to July 2026. Ads were scored
+            only on their performance in TikTok Ads Manager. Every winning ad was built on one made in the first round.
+          </p>
+          <div className="bk-cols c3" style={{ marginTop: 'calc(16 * var(--u))', gap: 'calc(14 * var(--u))' }}>
+            <Stat size="m" value={`${(t.impressions / 1e6).toFixed(1)}M`} label="Impressions" />
+            <Stat size="m" value={`${(t.clicks / 1e6).toFixed(2)}M`} label="Clicks to the website" />
+            <Stat size="m" value={`${t.ctr}%`} label="Click-through rate" />
+            <Stat size="m" value={money(t.spend)} label="Total ad spend" />
+            <Stat size="m" value={t.ads} label="Ads produced" />
+            <Stat size="m" value="$0.011" label="Cost per website visitor" />
+          </div>
         </div>
-      </div>
+      )}
       <div className="bk-push" />
       <p className="bk-label">Companies served</p>
       <p className="bk-small" style={{ marginTop: 'calc(8 * var(--u))', columns: 3, columnGap: 'calc(18 * var(--u))', color: 'var(--bk-ink)' }}>
@@ -610,36 +613,52 @@ function OutcomesStudents({ ctx }: { ctx: PageCtx }) {
   )
 }
 
+function QuoteStack({ quotes, pending = [] }: { quotes: { quote: string; name: string; title: string }[]; pending?: { quote: string; name: string; title: string }[] }) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'calc(18 * var(--u))' }}>
+      {quotes.map((q) => (
+        <figure key={q.name} style={{ margin: 0, borderTop: '1px solid var(--bk-line)', paddingTop: 'calc(16 * var(--u))' }}>
+          <blockquote className="bk-quote is-s" style={{ fontSize: 'calc(14.5 * var(--u))' }}>{q.quote}</blockquote>
+          <figcaption className="bk-cite" style={{ marginTop: 'calc(8 * var(--u))' }}>
+            <b>{q.name}</b>
+            {q.title}
+          </figcaption>
+        </figure>
+      ))}
+      {pending.map((q, i) => (
+        <figure key={`p${i}`} className="bk-pending" style={{ margin: 0 }}>
+          <p className="bk-label" style={{ color: 'var(--bk-bronze)' }}>
+            <Pending>To be collected</Pending>
+          </p>
+          <blockquote className="bk-quote is-s" style={{ marginTop: 'calc(8 * var(--u))', color: 'var(--bk-grey)', fontSize: 'calc(14.5 * var(--u))' }}>{q.quote}</blockquote>
+          <figcaption className="bk-cite">
+            <b>{q.name}</b>
+            {q.title}
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  )
+}
+
+const quotesByLength = () => [...FOUNDER_QUOTES].sort((a, b) => a.quote.length - b.quote.length)
+
 function VoicesFounders({ ctx }: { ctx: PageCtx }) {
-  const quotes = [...FOUNDER_QUOTES].sort((a, b) => a.quote.length - b.quote.length).slice(0, 3)
-  const [lead, ...rest] = quotes
   return (
     <Sheet ctx={ctx}>
       <Opener ctx={ctx} title="From founders" />
       <div className="bk-gap" />
-      {lead && (
-        <figure style={{ margin: 0, maxWidth: 'calc(520 * var(--u))' }}>
-          <blockquote className="bk-quote">{lead.quote}</blockquote>
-          <figcaption className="bk-cite">
-            <b>{lead.name}</b>
-            {lead.title}
-          </figcaption>
-        </figure>
-      )}
-      <div className="bk-push" />
-      <hr className="bk-rule" />
-      <div className="bk-gap" />
-      <div className="bk-cols c2">
-        {rest.map((q) => (
-          <figure key={q.name} style={{ margin: 0 }}>
-            <blockquote className="bk-quote is-s">{q.quote}</blockquote>
-            <figcaption className="bk-cite">
-              <b>{q.name}</b>
-              {q.title}
-            </figcaption>
-          </figure>
-        ))}
-      </div>
+      <QuoteStack quotes={quotesByLength().slice(0, 3)} />
+    </Sheet>
+  )
+}
+
+function VoicesFoundersMore({ ctx }: { ctx: PageCtx }) {
+  return (
+    <Sheet ctx={ctx}>
+      <p className="bk-kicker">From founders, continued</p>
+      <div className="bk-gap-s" />
+      <QuoteStack quotes={quotesByLength().slice(3)} pending={FOUNDER_QUOTES_PENDING} />
     </Sheet>
   )
 }
@@ -1017,6 +1036,123 @@ function SchoolCost({ ctx }: { ctx: PageCtx }) {
   )
 }
 
+
+/* ─── Founder cases ──────────────────────────────────────────────────────── */
+
+const caseSlugs = (ctx: PageCtx) =>
+  ctx.audience.pages.filter((id) => id.startsWith('case-')).map((id) => id.slice(5) as CaseSlug)
+
+function CaseImg({ src, caption, h }: { src?: string; caption: string; h: number }) {
+  return (
+    <div>
+      {src ? (
+        <Img src={src} alt={caption} h={h} pos="center top" />
+      ) : (
+        <div className="bk-img bk-flow-h bk-pending" style={{ height: `calc(${h} * var(--u))`, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 0 }}>
+          <Pending>Screenshot needed</Pending>
+        </div>
+      )}
+      <p className="bk-caption">{caption}</p>
+    </div>
+  )
+}
+
+function CaseIndex({ ctx }: { ctx: PageCtx }) {
+  const slugs = caseSlugs(ctx)
+  return (
+    <div>
+      <p className="bk-label">Selected work, fall 2026</p>
+      <div className="bk-cols" style={{ gridTemplateColumns: `repeat(${slugs.length}, 1fr)`, gap: 'calc(10 * var(--u))', marginTop: 'calc(10 * var(--u))' }}>
+        {slugs.map((c) => {
+          const k = CASES[c]
+          const page = ctx.pageOf[`case-${c}`]
+          return (
+            <div key={c}>
+              <Img src={k.images[0].src ?? ''} alt={k.company} h={78} />
+              <p style={{ margin: 'calc(7 * var(--u)) 0 0', fontFamily: 'var(--font-serif)', fontWeight: 600, fontSize: 'calc(12.5 * var(--u))', lineHeight: 1.2, color: 'var(--bk-ink)' }}>
+                {ctx.mode === 'view' ? (
+                  <a href={`#page-${page}`} data-goto={page} style={{ color: 'inherit', textDecoration: 'none' }}>{k.company}</a>
+                ) : (
+                  k.company
+                )}
+              </p>
+              <p className="bk-label" style={{ marginTop: 'calc(3 * var(--u))', letterSpacing: '.1em' }}>p. {page}</p>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+function CasePage({ ctx }: { ctx: PageCtx }) {
+  const slug = ctx.id.slice(5) as CaseSlug
+  const k = CASES[slug]
+  const idx = caseSlugs(ctx).indexOf(slug) + 1
+  const [hero, ...more] = k.images
+  return (
+    <Sheet ctx={ctx}>
+      <p className="bk-kicker">
+        Case &nbsp;·&nbsp; {String(idx).padStart(2, '0')} &nbsp;·&nbsp; {k.term}
+      </p>
+      <h2 className="bk-title" style={{ marginTop: 'calc(10 * var(--u))' }}>{k.company}</h2>
+      <p className="bk-label" style={{ marginTop: 'calc(8 * var(--u))' }}>
+        {k.descriptor} · {k.stage}
+      </p>
+      {k.pending?.length ? (
+        <p style={{ margin: 'calc(8 * var(--u)) 0 0', display: 'flex', flexWrap: 'wrap', gap: 'calc(6 * var(--u))' }}>
+          {k.pending.map((x) => (
+            <Pending key={x}>To confirm · {x}</Pending>
+          ))}
+        </p>
+      ) : null}
+      <div className="bk-gap-s" />
+      {more.length === 0 && <CaseImg {...hero} h={270} />}
+      {more.length === 1 && (
+        <div className="bk-cols c2" style={{ gap: 'calc(10 * var(--u))' }}>
+          <CaseImg {...hero} h={230} />
+          <CaseImg {...more[0]} h={230} />
+        </div>
+      )}
+      {more.length >= 2 && (
+        <div className="bk-cols c-2-1" style={{ gap: 'calc(10 * var(--u))' }}>
+          <CaseImg {...hero} h={250} />
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'calc(6 * var(--u))' }}>
+            {more.slice(0, 2).map((m) => (
+              <CaseImg key={m.caption} {...m} h={101} />
+            ))}
+          </div>
+        </div>
+      )}
+      <div className="bk-gap-s" />
+      <div className="bk-cols" style={{ gridTemplateColumns: '1fr 1.35fr', gap: 'calc(24 * var(--u))' }}>
+        <div>
+          <p className="bk-label" style={{ color: 'var(--bk-bronze)' }}>The ask</p>
+          <p style={{ margin: 'calc(6 * var(--u)) 0 0', fontFamily: 'var(--font-serif)', fontStyle: 'italic', fontSize: 'calc(15 * var(--u))', lineHeight: 1.42, color: 'var(--bk-ink)' }}>{k.ask}</p>
+        </div>
+        <div>
+          <p className="bk-label" style={{ color: 'var(--bk-bronze)' }}>What the team built</p>
+          <ul className="bk-small" style={{ margin: 'calc(6 * var(--u)) 0 0', paddingLeft: '1.05em', fontSize: 'calc(11.8 * var(--u))', lineHeight: 1.5 }}>
+            {k.built.map((b) => (
+              <li key={b} style={{ marginTop: 'calc(3 * var(--u))' }}>{b}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      <div className="bk-push" />
+      <hr className="bk-rule" />
+      <div className="bk-cols" style={{ gridTemplateColumns: `repeat(${k.results.length}, 1fr)`, gap: 'calc(14 * var(--u))', marginTop: 'calc(12 * var(--u))' }}>
+        {k.results.map((r) => (
+          <Stat key={r.label} size="m" value={r.value} label={r.label} />
+        ))}
+      </div>
+      <p className="bk-small" style={{ marginTop: 'calc(12 * var(--u))', color: 'var(--bk-grey)' }}>
+        <span className="bk-label">Team</span>&nbsp;&nbsp;{k.team}
+      </p>
+    </Sheet>
+  )
+}
+
 /* ─── Founders ───────────────────────────────────────────────────────────── */
 
 function FounderTerms({ ctx }: { ctx: PageCtx }) {
@@ -1269,7 +1405,7 @@ function Back({ ctx }: { ctx: PageCtx }) {
 
 /* ─── Registry ───────────────────────────────────────────────────────────── */
 
-type FixedPageId = Exclude<PageId, `story-${string}`>
+type FixedPageId = Exclude<PageId, `story-${string}` | `case-${string}`>
 
 export const PAGES: Record<FixedPageId, (p: { ctx: PageCtx }) => React.ReactElement> = {
   cover: Cover,
@@ -1286,6 +1422,7 @@ export const PAGES: Record<FixedPageId, (p: { ctx: PageCtx }) => React.ReactElem
   'outcomes-founders': OutcomesFounders,
   'outcomes-students': OutcomesStudents,
   'voices-founders': VoicesFounders,
+  'voices-founders-more': VoicesFoundersMore,
   'voices-families': VoicesFamilies,
   pricing: Pricing,
   abroad: Abroad,
@@ -1318,6 +1455,6 @@ export function bookletPages(audience: Audience, mode: Mode): PageCtx[] {
 }
 
 export function BookletPage({ ctx }: { ctx: PageCtx }) {
-  const P = ctx.id.startsWith('story-') ? StoryPage : PAGES[ctx.id as FixedPageId]
+  const P = ctx.id.startsWith('story-') ? StoryPage : ctx.id.startsWith('case-') ? CasePage : PAGES[ctx.id as FixedPageId]
   return <P ctx={ctx} />
 }

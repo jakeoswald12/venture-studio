@@ -14,12 +14,15 @@
 export const AUDIENCE_SLUGS = ['parents', 'students', 'founders', 'high-schools', 'universities'] as const
 export type AudienceSlug = (typeof AUDIENCE_SLUGS)[number]
 
+import { CASE_ORDER, type CaseSlug } from './cases'
 import { STORY_ORDER, type StorySlug } from './stories'
 
 export type PageId =
   | 'cover'
   | 'stories'
   | `story-${StorySlug}`
+  | `case-${CaseSlug}`
+  | 'voices-founders-more'
   | 'letter'
   | 'contents'
   | 'studio'
@@ -78,6 +81,7 @@ export interface Audience {
 }
 
 const STORY_PAGES = STORY_ORDER.map((s) => `story-${s}` as const)
+const CASE_PAGES = CASE_ORDER.map((c) => `case-${c}` as const)
 
 const SHARED_LETTER_CLOSE =
   'Everything in these pages is how the studio operates today. Where a detail is still being set, it says so. If something here does not answer your question, reply to the email this booklet came in and one of us will answer it.'
@@ -166,7 +170,7 @@ export const AUDIENCES: Record<AudienceSlug, Audience> = {
     ],
     pages: [
       'cover', 'letter', 'contents', 'studio', 'model', 'project', 'team', 'expectations', 'disciplines',
-      'founder-terms', 'outcomes-founders', 'voices-founders', 'joint-ventures', 'network', 'leadership',
+      'founder-terms', 'outcomes-founders', ...CASE_PAGES, 'voices-founders', 'voices-founders-more', 'joint-ventures', 'network', 'leadership',
       'faq', 'next', 'back',
     ],
     parties: ['founder', 'lead', 'students', 'studio'],

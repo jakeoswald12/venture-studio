@@ -36,6 +36,12 @@ export const COMPANY_NAMES = delivered.map((c) => c.name)
 
 export const FOUNDER_QUOTES = PORTFOLIO_COMPANIES.flatMap((c) => (c.testimonial ? [{ ...c.testimonial, company: c.name }] : []))
 
+/** Founder testimonials still to be collected; shown as marked placeholders. */
+export const FOUNDER_QUOTES_PENDING = [
+  { quote: 'A line from a founder or executive on what the team delivered and what it was worth to the company.', name: 'Name', title: 'Founder, company' },
+  { quote: 'A line from a founder or executive on working with the students week to week.', name: 'Name', title: 'Executive, company' },
+]
+
 /**
  * Testimonials still to be collected. Each renders as a marked placeholder
  * until `quote` is filled in and `pending` removed.
