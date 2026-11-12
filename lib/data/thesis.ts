@@ -16,7 +16,6 @@ export const SECTIONS = [
   { id: 'philosophy', title: 'Philosophy' },
   { id: 'model', title: 'Model' },
   { id: 'opportunities', title: 'Opportunities' },
-  { id: 'projects', title: 'Projects' },
   { id: 'flywheel', title: 'Flywheel' },
   /** Hidden for now: set hidden to false to show the projections, hiring plan and assumptions again. */
   { id: 'projections', title: 'Projections', hidden: true },
@@ -57,6 +56,7 @@ export const FLYWHEEL = {
   ],
 }
 
+/** No longer shown on /thesis. Kept as source copy for the partner packets (how a project is structured). */
 export const PROJECTS = [
   'A project is one term of work by one team, for one founder, against a written scope. Terms run in fall, spring and summer. The founder brings a real problem and about an hour a week; the company pays nothing and keeps all equity and intellectual property. Students pay $5,000 a term, give 3 to 10 hours a week and earn academic credit.',
   'An average team is two college students and three high school Builder Scholars, coached by an experienced volunteer project lead. In the first week the founder and the lead write the scope, a week-by-week plan of what will be delivered. The team then meets twice a week, once with the lead and once with the founder, and delivers at the end of the term. Students who deliver are invited to lead a team.',
