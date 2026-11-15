@@ -101,7 +101,7 @@ export default function ThesisPage() {
 
       <Section id="philosophy">
         <Paragraphs items={PHILOSOPHY} />
-        {essay('/thesis/course-of-empire')}
+        {essay('/thesis/the-inheritance')}
       </Section>
 
       <Section id="model">

@@ -9,7 +9,20 @@ import { Label, Rule } from '@/components/site/Section'
 
 /** The essay's opening: title at display size, then the dek set large in the
  *  right half with the publication line under it. */
-export function EssayHeader({ title, dek, date = 'November 2026', back = '/thesis' }: { title: string; dek: React.ReactNode; date?: string; back?: string }) {
+export function EssayHeader({
+  title,
+  dek,
+  date = 'November 2026',
+  back = '/thesis',
+  author = 'West Ventures',
+}: {
+  title: string
+  dek: React.ReactNode
+  date?: string
+  back?: string
+  /** Byline. Essays written by one person carry that person's name. */
+  author?: string
+}) {
   return (
     <>
       <header className="pad page-top">
@@ -26,7 +39,7 @@ export function EssayHeader({ title, dek, date = 'November 2026', back = '/thesi
       </header>
       <div className="grid12" style={{ paddingTop: 'clamp(40px, 6vw, 96px)' }}>
         <div className="d-1-4 t-label fade" data-io>
-          West Ventures · {date}
+          {author} · {date}
         </div>
         <p className="t-intro d-5-7 fade" data-io style={{ margin: 0, '--d': 1 } as React.CSSProperties}>
           {dek}
@@ -49,23 +62,79 @@ export function EssayShell({
   title,
   dek,
   date = 'November 2026',
+  author,
+  back,
+  next,
   children,
 }: {
   title: string
   dek: string
   date?: string
+  author?: string
+  back?: string
+  /** The next section of the thesis, shown below a rule at the end of the essay. */
+  next?: NextSectionProps
   children: React.ReactNode
 }) {
   return (
     <main>
-      <EssayHeader title={title} dek={dek} date={date} />
+      <EssayHeader title={title} dek={dek} date={date} author={author} back={back} />
       <EssayColumn>
         <div className="flex flex-col gap-6">{children}</div>
-        <Link href="/thesis" className="text-link" style={{ marginTop: 24 }}>
-          Read the West Ventures thesis <span aria-hidden="true">→</span>
-        </Link>
+        {next ? (
+          <NextSection {...next} />
+        ) : (
+          <Link href="/thesis" className="text-link" style={{ marginTop: 24 }}>
+            Read the West Ventures thesis <span aria-hidden="true">→</span>
+          </Link>
+        )}
       </EssayColumn>
     </main>
+  )
+}
+
+type NextSectionProps = {
+  /** The section's title in the thesis index, e.g. "Model". */
+  section: string
+  /** The section's anchor on /thesis, e.g. "model". */
+  anchor: string
+  /** The section's introductory paragraphs, as they appear on /thesis. */
+  paragraphs: string[]
+  /** The essay that goes with that section. */
+  essay: { href: string; title: string }
+}
+
+/**
+ * The hand-off at the end of an essay: a hard rule, the next thesis section's
+ * introduction, and a link to that section's essay, so a reader is carried
+ * through the thesis in order.
+ */
+export function NextSection({ section, anchor, paragraphs, essay }: NextSectionProps) {
+  return (
+    <section style={{ marginTop: 64 }}>
+      <div className="h-[2px] w-full bg-ink" />
+      <p className="t-label" style={{ margin: '32px 0 12px' }}>
+        Next in the thesis
+      </p>
+      <h2 className="text-[clamp(1.8rem,3.2vw,2.5rem)] leading-[1.08]" style={{ margin: 0 }}>
+        {section}
+      </h2>
+      <div className="mt-6 flex flex-col gap-5">
+        {paragraphs.map((t) => (
+          <p key={t} className="text-[1.05rem] leading-[1.72] text-ink/85">
+            {t}
+          </p>
+        ))}
+      </div>
+      <div className="mt-8 flex flex-wrap items-baseline gap-x-8 gap-y-3">
+        <Link href={essay.href} className="text-link">
+          Read the essay: {essay.title} <span aria-hidden="true">→</span>
+        </Link>
+        <Link href={`/thesis#${anchor}`} className="text-link">
+          Back to the thesis
+        </Link>
+      </div>
+    </section>
   )
 }
 

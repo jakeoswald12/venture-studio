@@ -14,6 +14,7 @@ const nextConfig: NextConfig = {
       { source: '/master-plan', destination: '/thesis#flywheel', permanent: false },
       { source: '/thesis/artists-and-paleontologists', destination: '/thesis/sculptures-vs-fossils', permanent: true },
       { source: '/thesis/art-and-fossils', destination: '/thesis/sculptures-vs-fossils', permanent: true },
+      { source: '/thesis/course-of-empire', destination: '/thesis/the-inheritance', permanent: true },
     ]
   },
   async rewrites() {

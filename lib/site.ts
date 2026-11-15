@@ -31,9 +31,9 @@ export const MENU_LINKS = [
 
 export const ESSAYS = [
   {
-    href: '/thesis/course-of-empire',
-    title: 'The Course of Empire',
-    text: 'Thomas Cole’s five paintings, the poems behind them, and why the next generation is the answer.',
+    href: '/thesis/the-inheritance',
+    title: 'The Inheritance',
+    text: 'What the West built, the evidence that it is being spent, and why the answer is to build again.',
     image: '/thesis/course-of-empire/3-consummation.jpg',
     section: 'Philosophy',
   },
