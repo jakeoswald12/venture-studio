@@ -43,6 +43,26 @@ export const LEADERSHIP: Person[] = [
     photo: '/team/lars-ostervold.jpg',
     photoPosition: 'center 25%',
     linkedin: 'https://www.linkedin.com/in/larsostervold/',
+    summary:
+      'Chemical engineering Ph.D. and former Dow research scientist who now leads technology at Austin Christian University and founded Launch.',
+    roles: [
+      { title: 'Chief Technology Officer', org: 'Austin Christian University' },
+      {
+        title: 'Founder',
+        org: 'Launch',
+        url: 'https://launch.kids',
+        note: 'Kids 5 and up build real games and apps by describing them',
+      },
+    ],
+    past: [
+      {
+        title: 'Research Scientist',
+        org: 'Dow',
+        url: 'https://www.dow.com',
+        note: 'Built a chemical ideation app projected at $40M in net present value',
+      },
+      { title: 'Ph.D. Researcher, Catalysis', org: 'Penn State University' },
+    ],
   },
   {
     name: 'Jake Oswald',
@@ -50,6 +70,20 @@ export const LEADERSHIP: Person[] = [
     photo: '/team/jake-oswald.png',
     photoPosition: 'center 20%',
     linkedin: 'https://www.linkedin.com/in/jake-oswald/',
+    summary:
+      "Built Austin Christian University's accelerator after leading partnerships and data at Servant and marketing for real estate and building companies.",
+    roles: [
+      {
+        title: 'Director of Entrepreneurship',
+        org: 'Austin Christian University',
+        note: 'Runs an accelerator with 50+ Christian-led startups and companies',
+      },
+    ],
+    past: [
+      { title: 'Director of Partnerships', org: 'Servant', url: 'https://servant.io' },
+      { title: 'Marketing Intelligence Manager', org: 'Great Lakes Management', url: 'https://www.greatlakesmc.com' },
+      { title: 'Marketing Director', org: 'Pritchard Companies', note: 'Pitch decks that raised $10M+' },
+    ],
   },
   {
     name: 'Marshall Cunningham',
@@ -517,8 +551,8 @@ export const BOARD: Person[] = [
     photoPosition: 'center 15%',
     linkedin: 'https://www.linkedin.com/in/connor-champion-563756212/',
   },
-  { name: 'John Manning', title: 'Board Member' },
-  { name: 'Ryan Wuerch', title: 'Board Member' },
+  { name: 'Steve French', title: 'Board Member' },
+  { name: 'Jeff Johns', title: 'Board Member' },
   { name: 'Justin Forman', title: 'Board Member', linkedin: 'https://www.linkedin.com/in/jforman/' },
   { name: 'Mark McClain', title: 'Board Member' },
   { name: 'Jake Thomsen', title: 'Board Member' },
@@ -558,7 +592,6 @@ export const ADVISORS: Pick<Person, 'name' | 'linkedin'>[] = [
   { name: 'Patrick Farrell' },
   { name: 'Andrew Feng' },
   { name: 'Luke Frazier' },
-  { name: 'Stephen French' },
   { name: 'David Friedman' },
   { name: 'Morgan Gamble' },
   { name: 'Mart Green' },
@@ -571,7 +604,6 @@ export const ADVISORS: Pick<Person, 'name' | 'linkedin'>[] = [
   { name: 'Drew Hiss' },
   { name: 'Rob Hoskins' },
   { name: 'Matt Hostetler', linkedin: 'https://www.linkedin.com/in/mhostetler-m3a/' },
-  { name: 'Jeff Johns' },
   { name: 'Christy Johnson' },
   { name: 'Matt Johnson' },
   { name: 'Henry Kaestner' },
@@ -590,6 +622,7 @@ export const ADVISORS: Pick<Person, 'name' | 'linkedin'>[] = [
   { name: 'Kevin Macki' },
   { name: 'Jason Malec', linkedin: 'https://www.linkedin.com/in/jasonmalec/' },
   { name: 'Luke Mangan' },
+  { name: 'John Manning' },
   { name: 'Paul Martin' },
   { name: 'Tommy Martin' },
   { name: 'Mike Meiser', linkedin: 'https://www.linkedin.com/in/michaelmeiser/' },
@@ -637,4 +670,5 @@ export const ADVISORS: Pick<Person, 'name' | 'linkedin'>[] = [
   { name: 'Drew Williams', linkedin: 'https://www.linkedin.com/in/drewwilliams11/' },
   { name: 'Douglas Williamson' },
   { name: 'Brian Woods' },
+  { name: 'Ryan Wuerch' },
 ]

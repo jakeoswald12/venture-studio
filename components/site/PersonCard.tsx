@@ -46,6 +46,7 @@ export function LinkedInLink({ href, name, className = '' }: { href: string; nam
  * ventures wall: the portrait only at rest; on hover (or focus inside the
  * tile) a shade rises from the bottom with the name, title and LinkedIn link.
  * Touch screens have no hover, so there the details always show.
+ * Portraits are black and white at rest and turn to full color on hover.
  *
  * When `bio` is set, a "Bio" control in the details opens it in a dialog.
  */
@@ -68,7 +69,7 @@ export function PersonCard({ person }: { person: Person; size?: 'lg' | 'sm' }) {
           alt={person.name}
           fill
           sizes="(min-width:1280px) 14vw, (min-width:1024px) 19vw, (min-width:640px) 32vw, 50vw"
-          className="object-cover"
+          className="object-cover grayscale transition-[filter] duration-700 ease-[var(--ease-out-soft)] group-hover:grayscale-0 group-focus-within:grayscale-0"
           style={{ objectPosition: person.photoPosition ?? 'center' }}
         />
       ) : (

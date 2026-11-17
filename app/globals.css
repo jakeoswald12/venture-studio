@@ -431,3 +431,23 @@ html.lenis body {
   70% { opacity: 0.35; }
 }
 @media (prefers-reduced-motion: reduce) { .illo-wave { animation: none; opacity: 1; } }
+
+/* ─── Team cards ────────────────────────────────────────────────────────── */
+
+/* The details on an opening card arrive after the card has begun to unfold;
+ * on a closing card they fade before it folds back into the portrait. */
+.card-open .card-text {
+  animation: card-text-in 520ms cubic-bezier(0.22, 1, 0.36, 1) 240ms both;
+}
+@keyframes card-text-in {
+  from { opacity: 0; transform: translate3d(0, 8px, 0); }
+  to { opacity: 1; transform: none; }
+}
+.card-closing .card-text {
+  animation: none;
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .card-open .card-text { animation: none; }
+}
