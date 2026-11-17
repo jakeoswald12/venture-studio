@@ -107,7 +107,26 @@ export const LEADERSHIP: Person[] = [
       { title: 'Founder', org: 'Baxo AI', url: 'https://baxo.ai/', note: 'AI performance reviews' },
     ],
   },
-  { name: 'Taylore Hopkins', title: 'Head of Partnerships' },
+  {
+    name: 'Taylore Hopkins',
+    title: 'Head of Partnerships',
+    photo: '/team/taylore-hopkins.jpg',
+    linkedin: 'https://www.linkedin.com/in/taylore-hopkins-a91aa5245/',
+    summary:
+      'Builds college partnerships for the Classic Learning Test after working in admissions at Samford University, where she was a Division I soccer player.',
+    roles: [
+      {
+        title: 'Director of College Partnerships',
+        org: 'Classic Learning Test',
+        url: 'https://www.cltexam.com',
+        note: 'College entrance exam rooted in the classical tradition',
+      },
+    ],
+    past: [
+      { title: 'Campus Visit Coordinator and Admission Counselor', org: 'Samford University' },
+      { title: 'Mentor Coordinator', org: 'Aspire Movement' },
+    ],
+  },
   {
     name: 'Landen Enns',
     title: 'Head of Investor Relations',
@@ -138,7 +157,26 @@ export const LEADERSHIP: Person[] = [
 
 /** Project Advisors: experienced people who lead and advise student project teams. */
 export const PROJECT_ADVISORS: Person[] = [
-  { name: 'Stevie Fahle', title: 'Project Advisor' },
+  {
+    name: 'Stevie Fahle',
+    title: 'Project Advisor',
+    photo: '/team/stevie-fahle.jpg',
+    linkedin: 'https://www.linkedin.com/in/stevie-fahle/',
+    summary:
+      'Construction and acquisitions project manager who spent ten years leading multifamily and hotel renovations before moving into home services acquisitions.',
+    roles: [
+      {
+        title: 'Acquisitions Project Manager',
+        org: 'LaunchPad Home Group',
+        url: 'https://launchpadhomegroup.com',
+        note: 'Family of home inspection and home services brands',
+      },
+    ],
+    past: [
+      { title: 'Senior Project Manager', org: 'HighSide Project Management' },
+      { title: 'Project Manager', org: 'Aimco Apartment Homes', note: 'Capital projects across the portfolio' },
+    ],
+  },
   {
     name: 'Ethan Woo',
     title: 'Project Advisor',
@@ -408,6 +446,27 @@ export const PROJECT_ADVISORS: Person[] = [
     past: [
       { title: 'Founder & CEO', org: 'Value Economics' },
       { title: 'Senior Commercial Cloud Account Executive, Team Lead', org: 'Oracle', url: 'https://www.oracle.com' },
+    ],
+  },
+  {
+    name: "Ryan O'Keefe",
+    title: 'Project Advisor',
+    photo: '/team/ryan-okeefe.jpg',
+    linkedin: 'https://www.linkedin.com/in/ryanpatrickokeefe/',
+    summary:
+      'Enterprise software sales leader in Austin who co-founded the ATX Technology Prayer Breakfast.',
+    roles: [
+      {
+        title: 'Account Executive, Majors',
+        org: 'Serval',
+        url: 'https://www.serval.com',
+        note: 'AI platform for enterprise service management',
+      },
+    ],
+    past: [
+      { title: 'Go-to-Market, Austin and San Antonio', org: 'Cyera', url: 'https://www.cyera.com' },
+      { title: 'Senior Account Executive, Enterprise', org: 'Docker', url: 'https://www.docker.com' },
+      { title: 'Account Executive, Enterprise', org: 'Starburst', url: 'https://www.starburst.io' },
     ],
   },
   { name: 'Riley Simpson', title: 'Project Advisor' },
