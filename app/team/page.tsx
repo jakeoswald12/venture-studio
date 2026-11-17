@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { LinkedInLink, PersonCard } from '@/components/site/PersonCard'
+import { PersonGrid } from '@/components/site/PersonGrid'
 import { Frame, TILE_GRID } from '@/components/site/Frame'
 import { Rule } from '@/components/site/Section'
 import { ADVISORS, BOARD, FELLOWS, LEADERSHIP, PROJECT_ADVISORS } from '@/lib/data/team'
@@ -40,23 +41,11 @@ export default function TeamPage() {
 
       <Frame className="pt-[calc(124px+env(safe-area-inset-top))] sm:pt-[150px]">
         <Group first title="Leadership">
-          <div className={TILE_GRID}>
-            {LEADERSHIP.map((p) => (
-              <div key={p.name} data-reveal-item data-reveal-auto>
-                <PersonCard person={p} />
-              </div>
-            ))}
-          </div>
+          <PersonGrid people={LEADERSHIP} />
         </Group>
 
         <Group title="Project Advisors">
-          <div className={TILE_GRID}>
-            {PROJECT_ADVISORS.map((p) => (
-              <div key={p.name} data-reveal-item data-reveal-auto>
-                <PersonCard person={p} />
-              </div>
-            ))}
-          </div>
+          <PersonGrid people={PROJECT_ADVISORS} />
         </Group>
 
         <Group title="Board">

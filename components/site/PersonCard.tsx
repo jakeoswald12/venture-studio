@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 import type { Person } from '@/lib/data/team'
 
-function initials(name: string) {
+export function initials(name: string) {
   return name
     .split(/\s+/)
     .map((p) => p[0])
@@ -15,7 +15,7 @@ function initials(name: string) {
 
 /** Tints for tiles without a headshot, as on the ventures wall. */
 const TINTS = ['#1F303E', '#16232B', '#2E404B', '#7A4F26', '#976230', '#243845']
-function tint(name: string) {
+export function tint(name: string) {
   let h = 0
   for (let i = 0; i < name.length; i += 1) h = (h * 31 + name.charCodeAt(i)) >>> 0
   return TINTS[h % TINTS.length]

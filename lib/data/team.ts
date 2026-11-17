@@ -4,7 +4,21 @@
  * Photos live in /public/team/. A person without `photo` shows their initials
  * until a headshot is added. A person without `linkedin` shows no LinkedIn
  * link. Bios are leadership only, three sentences at most.
+ *
+ * A person with `roles` or `past` gets the expanding card on the team page:
+ * hovering (or tapping) the tile opens it over the grid and shows what they do
+ * outside West Ventures. `summary` is one plain sentence. Each role can carry
+ * the organization's website (`url`) and one short fact (`note`).
  */
+
+export interface Role {
+  title: string
+  org: string
+  /** The organization's own website. Shown as an outbound link. */
+  url?: string
+  /** One short fact that puts the role in perspective. */
+  note?: string
+}
 
 export interface Person {
   name: string
@@ -14,6 +28,12 @@ export interface Person {
   photoPosition?: string
   linkedin?: string
   bio?: string
+  /** One sentence on who they are. Shown on the expanded card. */
+  summary?: string
+  /** What they do now, outside West Ventures. */
+  roles?: Role[]
+  /** Earlier roles worth showing. */
+  past?: Role[]
 }
 
 export const LEADERSHIP: Person[] = [
@@ -31,28 +51,365 @@ export const LEADERSHIP: Person[] = [
     photoPosition: 'center 20%',
     linkedin: 'https://www.linkedin.com/in/jake-oswald/',
   },
-  { name: 'Marshall Cunningham', title: 'Head of Operations' },
-  { name: 'Tanner Dobbs', title: 'Head of Growth', linkedin: 'https://www.linkedin.com/in/tanner-dobbs-1129149a/' },
-  { name: 'Nate Steele', title: 'Head of Design' },
+  {
+    name: 'Marshall Cunningham',
+    title: 'Head of Operations',
+    photo: '/team/marshall-cunningham.jpg',
+    linkedin: 'https://www.linkedin.com/in/marshallcunningham/',
+    summary:
+      'People and operations leader who has run operations for a venture firm, a charitable foundation office and a global entrepreneur network.',
+    roles: [
+      {
+        title: 'VP of People & Culture',
+        org: 'Faith Driven Entrepreneur',
+        url: 'https://www.faithdrivenentrepreneur.org/',
+      },
+    ],
+    past: [
+      { title: 'Vice President, Head of Platform', org: 'TXV Partners', note: 'Austin private investment firm' },
+      { title: 'Director of Operations and Engagement', org: 'National Christian Foundation, Austin' },
+    ],
+  },
+  {
+    name: 'Tanner Dobbs',
+    title: 'Head of Growth',
+    photo: '/team/tanner-dobbs.jpg',
+    linkedin: 'https://www.linkedin.com/in/tanner-dobbs-1129149a/',
+    summary:
+      'Go-to-market leader who started at Bain & Company and spent six years building sales and strategy at Take Command.',
+    roles: [{ title: 'Head of Growth (Fractional)', org: 'AcquireROI', url: 'https://acquireroi.com' }],
+    past: [
+      {
+        title: 'VP of Strategy and Business Development',
+        org: 'Take Command',
+        url: 'https://www.takecommandhealth.com',
+        note: 'Health benefits platform; $25M Series B in 2023',
+      },
+      { title: 'Interim Executive Director', org: 'Redemptive Labs Austin', note: 'Part of the Praxis network' },
+      { title: 'Consultant', org: 'Bain & Company', url: 'https://www.bain.com' },
+    ],
+  },
+  {
+    name: 'Nate Steele',
+    title: 'Head of Design',
+    photo: '/team/nate-steele.jpg',
+    linkedin: 'https://www.linkedin.com/in/n8-steele/',
+    summary:
+      'Denver creative director working across brand identity, web, photography and video, with clients including On, Compassion International and RE/MAX.',
+    roles: [
+      { title: 'Creative Director', org: 'Studio Finity', url: 'https://studio-finity.com/' },
+      {
+        title: 'Director of Media',
+        org: 'Area 15 Ventures',
+        url: 'https://www.area15ventures.com',
+        note: 'Colorado private equity firm',
+      },
+      { title: 'Founder', org: 'Baxo AI', url: 'https://baxo.ai/', note: 'AI performance reviews' },
+    ],
+  },
   { name: 'Taylore Hopkins', title: 'Head of Partnerships' },
-  { name: 'Landen Enns', title: 'Head of Investor Relations', linkedin: 'https://www.linkedin.com/in/landenenns/' },
+  {
+    name: 'Landen Enns',
+    title: 'Head of Investor Relations',
+    photo: '/team/landen-enns.jpg',
+    linkedin: 'https://www.linkedin.com/in/landenenns/',
+    summary:
+      'Investor with a background in venture capital and corporate M&A, now managing a fund for faith-driven investors.',
+    roles: [
+      { title: 'Fund Manager', org: "Solving the World's Greatest Problems", url: 'https://solving.org' },
+      {
+        title: 'Co-Owner',
+        org: 'TRIO Flatmount',
+        url: 'https://www.trioflatmount.com/',
+        note: 'Starlink mounts and accessories',
+      },
+    ],
+    past: [
+      {
+        title: 'Venture Capital Investor',
+        org: 'VMG Partners',
+        url: 'https://www.vmgpartners.com/',
+        note: 'Consumer and technology investment firm',
+      },
+      { title: 'Analyst, M&A and Venture Capital', org: 'Cisco Investments' },
+    ],
+  },
 ]
 
 /** Project Advisors: experienced people who lead and advise student project teams. */
 export const PROJECT_ADVISORS: Person[] = [
   { name: 'Stevie Fahle', title: 'Project Advisor' },
-  { name: 'Ethan Woo', title: 'Project Advisor' },
-  { name: 'Trent Sikute', title: 'Project Advisor' },
-  { name: 'Jake Jadlot', title: 'Project Advisor' },
-  { name: 'Mary Brownlee', title: 'Project Advisor', linkedin: 'https://www.linkedin.com/in/mary-brownlee-033b08208/' },
-  { name: 'Elijah Bervik', title: 'Project Advisor' },
-  { name: 'Max Gangestad', title: 'Project Advisor' },
-  { name: 'Travis Manderfield', title: 'Project Advisor' },
-  { name: 'Trey Achterhoff', title: 'Project Advisor' },
-  { name: 'Nick Daniel', title: 'Project Advisor' },
-  { name: 'Anthony Ruffner', title: 'Project Advisor' },
-  { name: 'Hyzer Taylor', title: 'Project Advisor' },
-  { name: 'Alex Ammons', title: 'Project Advisor' },
+  {
+    name: 'Ethan Woo',
+    title: 'Project Advisor',
+    photo: '/team/ethan-woo.jpg',
+    linkedin: 'https://www.linkedin.com/in/ethan-woo/',
+    summary:
+      'Leads applied AI product development at Servant, where he built its AI agent platform and FaithBase, an AI platform for churches and ministries.',
+    roles: [
+      {
+        title: 'Applied AI Lead',
+        org: 'Servant',
+        url: 'https://servant.io',
+        note: 'Digital consultancy for faith-driven organizations',
+      },
+    ],
+    past: [
+      {
+        title: 'Product Designer',
+        org: 'Servant',
+        note: 'Designed the Donate tab in The Chosen app and an FX platform for Pangea.io',
+      },
+    ],
+  },
+  {
+    name: 'Trent Sikute',
+    title: 'Project Advisor',
+    photo: '/team/trent-sikute.jpg',
+    linkedin: 'https://www.linkedin.com/in/trenton-sikute/',
+    summary:
+      'Data and assessment lead and former U.S. Air Force contracting officer who co-founded a Christian work exchange platform.',
+    roles: [
+      { title: 'Director of Assessment', org: 'Austin Christian University' },
+      {
+        title: 'Co-Founder',
+        org: 'Cross Exchange',
+        url: 'https://www.crossexchange.org',
+        note: 'Christian work exchange platform',
+      },
+      { title: 'Data Analyst & PM', org: 'MindFul', url: 'https://www.mindfulstrategyco.com' },
+    ],
+    past: [
+      {
+        title: 'Contracting Officer',
+        org: 'United States Air Force',
+        note: 'Oversaw a $12M contract portfolio at Little Rock Air Force Base',
+      },
+    ],
+  },
+  {
+    name: 'Jake Jadlot',
+    title: 'Project Advisor',
+    photo: '/team/jake-jadlot.jpg',
+    linkedin: 'https://www.linkedin.com/in/jakejadlot/',
+    summary:
+      "Former Gartner consultant who led the startup coaches at Notre Dame's IDEA Center, overseeing more than 100 student-led ventures.",
+    past: [
+      { title: 'Senior Consultant', org: 'Gartner', url: 'https://www.gartner.com' },
+      {
+        title: 'Senior Startup Coach',
+        org: 'The IDEA Center, University of Notre Dame',
+        url: 'https://ideacenter.nd.edu/',
+        note: 'Led 14 coaches across 100+ student ventures',
+      },
+    ],
+  },
+  {
+    name: 'Mary Brownlee',
+    title: 'Project Advisor',
+    photo: '/team/mary-brownlee.jpg',
+    linkedin: 'https://www.linkedin.com/in/mary-brownlee-033b08208/',
+    summary:
+      "Community and project manager at Solving the World's Greatest Problems, an initiative for faith-driven investors and entrepreneurs.",
+    roles: [{ title: 'Community Manager', org: "Solving the World's Greatest Problems", url: 'https://solving.org' }],
+    past: [
+      { title: 'Project Manager', org: 'Belmont Innovation Labs' },
+      { title: 'Senior Presidential Fellow', org: 'Belmont University' },
+    ],
+  },
+  {
+    name: 'Elijah Bervik',
+    title: 'Project Advisor',
+    photo: '/team/elijah-bervik.jpg',
+    linkedin: 'https://www.linkedin.com/in/elijah-bervik-cfa-66281614a/',
+    summary:
+      'CFA charterholder who analyzes public and private credit for a multi-billion dollar insurance investment portfolio.',
+    roles: [
+      {
+        title: 'Senior Investment Analyst',
+        org: 'Federated Insurance',
+        url: 'https://www.federatedinsurance.com/',
+        note: 'National insurer founded in 1904',
+      },
+    ],
+    past: [
+      { title: 'Associate', org: 'Howden Re', url: 'https://www.howdenre.com', note: 'Reinsurance advisory and M&A' },
+    ],
+  },
+  {
+    name: 'Max Gangestad',
+    title: 'Project Advisor',
+    photo: '/team/max-gangestad.jpg',
+    linkedin: 'https://www.linkedin.com/in/max-gangestad/',
+    summary:
+      'Co-founder and operator of an algae-based wastewater treatment company, where he started as its bioprocess engineer in 2015.',
+    roles: [
+      {
+        title: 'COO & Co-Founder',
+        org: 'Gross-Wen Technologies',
+        url: 'https://algae.com/',
+        note: 'Patented algae wastewater treatment; more than $22M raised',
+      },
+      {
+        title: 'Board Member',
+        org: 'Midland Co.',
+        url: 'https://www.midlandseafood.com',
+        note: 'Land-based seafood company',
+      },
+      { title: 'Board Member', org: 'Obria Medical Clinics of Iowa' },
+    ],
+  },
+  {
+    name: 'Travis Manderfield',
+    title: 'Project Advisor',
+    photo: '/team/travis-manderfield.jpg',
+    linkedin: 'https://www.linkedin.com/in/travis-manderfield-b8b799a4/',
+    summary:
+      'Project manager with a supply chain background in medical devices and aerospace, and two years as an executive pastor.',
+    roles: [
+      {
+        title: 'Project Manager, Territory Sales and Business Development',
+        org: 'Safe Step',
+        url: 'https://www.notrippin.com',
+        note: 'Sidewalk evaluation and repair',
+      },
+    ],
+    past: [
+      { title: 'Executive Pastor', org: 'Redemption Church' },
+      {
+        title: 'Senior Project Management Specialist',
+        org: 'Boston Scientific',
+        url: 'https://www.bostonscientific.com',
+      },
+      { title: 'Supply Chain Sourcing Lead', org: 'Collins Aerospace', url: 'https://www.collinsaerospace.com' },
+    ],
+  },
+  {
+    name: 'Trey Achterhoff',
+    title: 'Project Advisor',
+    photo: '/team/trey-achterhoff.jpg',
+    linkedin: 'https://www.linkedin.com/in/trey-achterhoff/',
+    summary:
+      'Mechanical engineer with nine years in medical devices, designing and testing catheters that treat cardiac arrhythmias.',
+    roles: [
+      {
+        title: 'Senior R&D Engineer, Catheter Development',
+        org: 'Boston Scientific',
+        url: 'https://www.bostonscientific.com',
+        note: 'Pulsed field ablation; named on multiple patent applications',
+      },
+    ],
+  },
+  {
+    name: 'Nick Daniel',
+    title: 'Project Advisor',
+    photo: '/team/nick-daniel.jpg',
+    linkedin: 'https://www.linkedin.com/in/nick-daniel-5a0689368/',
+    summary:
+      'Film director and founder who builds production teams for documentaries, brand campaigns and social content.',
+    roles: [{ title: 'Founder & Director', org: 'Exodus Creative Co', url: 'https://exoduscreativeco.com' }],
+    past: [
+      { title: 'Director', org: 'Live Free Film Company' },
+      { title: 'Chief Executive Officer', org: 'Live Free Clothing Company' },
+    ],
+  },
+  {
+    name: 'Anthony Ruffner',
+    title: 'Project Advisor',
+    photo: '/team/anthony-ruffner.jpg',
+    linkedin: 'https://www.linkedin.com/in/anthony-ruffner-161786118/',
+    summary:
+      'Founder building software for apartment turnovers, drawing on a contracting business he co-owns and a career in software sales.',
+    roles: [
+      {
+        title: 'Founder & CEO',
+        org: 'TURN',
+        url: 'https://turnapts.com',
+        note: 'Make-ready coordination platform for multi-family real estate',
+      },
+      { title: 'Co-Owner', org: 'Saracini Contracting', note: 'Serves 40+ apartment communities in Greater St. Louis' },
+    ],
+    past: [
+      { title: 'Account Executive, Mid Market and Enterprise', org: 'Dixa', url: 'https://www.dixa.com' },
+      { title: 'Territory Account Executive', org: 'Toast', url: 'https://pos.toasttab.com' },
+    ],
+  },
+  {
+    name: 'Hyzer Taylor',
+    title: 'Project Advisor',
+    photo: '/team/hyzer-taylor.jpg',
+    linkedin: 'https://www.linkedin.com/in/hyzer-taylor-79587569/',
+    summary:
+      'AI and go-to-market strategist who spent eight years leading regional markets for Trip.com in New York and Latin America.',
+    roles: [
+      {
+        title: 'AI Growth Strategist',
+        org: 'Servant',
+        url: 'https://servant.io',
+        note: 'Digital consultancy for faith-driven organizations',
+      },
+    ],
+    past: [
+      { title: 'Director, Latin America', org: 'Trip.com', url: 'https://www.trip.com' },
+      { title: 'Regional Director, East Coast', org: 'Ctrip' },
+    ],
+  },
+  {
+    name: 'Alex Ammons',
+    title: 'Project Advisor',
+    photo: '/team/alex-ammons.jpg',
+    linkedin: 'https://www.linkedin.com/in/alex-ammons-54bb872b/',
+    summary:
+      'Leads the engineers, analysts and solution architects behind the data and AI platform at Gloo, where he has worked for five years.',
+    roles: [{ title: 'Director of Data & Analytics', org: 'Gloo', url: 'https://gloo.com' }],
+  },
+  {
+    name: 'Tommy Denn',
+    title: 'Project Advisor',
+    photo: '/team/tommy-denn.jpg',
+    linkedin: 'https://www.linkedin.com/in/tommy-denn-b91149187/',
+    summary:
+      'Leads AI, automation and data work at a Minnesota real estate firm, where he built the reporting and CRM systems used across its portfolio.',
+    roles: [
+      {
+        title: 'Director, Innovation & Technology',
+        org: 'Great Lakes Management',
+        url: 'https://www.greatlakesmc.com',
+        note: 'Manages more than $1 billion in real estate',
+      },
+    ],
+  },
+  {
+    name: 'Allie Vaughan',
+    title: 'Project Advisor',
+    photo: '/team/allie-vaughan.jpg',
+    linkedin: 'https://www.linkedin.com/in/allievaughan/',
+    summary:
+      'Creative producer and product leader in the outdoor industry, producing commercial media for brands including YETI, Yakima and Orvis.',
+    roles: [{ title: 'Creative Producer', org: 'Independent', url: 'https://www.allietvaughan.com/' }],
+    past: [
+      {
+        title: 'Director of Product Development',
+        org: 'Alaska Gear Company',
+        url: 'https://www.alaskagearcompany.com',
+      },
+      { title: 'Manager, Recommerce', org: 'REI', url: 'https://www.rei.com', note: 'Ran the trade-in program' },
+      { title: 'Head of Product', org: 'Luno', url: 'https://lunolife.com/' },
+    ],
+  },
+  {
+    name: 'Sam LaCrosse',
+    title: 'Project Advisor',
+    photo: '/team/sam-lacrosse.jpg',
+    linkedin: 'https://www.linkedin.com/in/realsamlax/',
+    summary:
+      'Sales leader and author of three books who led a team at Oracle before founding a coaching and publishing business.',
+    roles: [{ title: 'Account Executive, Data and AI', org: 'IBM', url: 'https://www.ibm.com' }],
+    past: [
+      { title: 'Founder & CEO', org: 'Value Economics' },
+      { title: 'Senior Commercial Cloud Account Executive, Team Lead', org: 'Oracle', url: 'https://www.oracle.com' },
+    ],
+  },
   { name: 'Riley Simpson', title: 'Project Advisor' },
 ]
 
