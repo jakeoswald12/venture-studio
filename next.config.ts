@@ -10,8 +10,8 @@ const nextConfig: NextConfig = {
     // under /portfolio/.
     return [
       { source: '/portfolio', destination: '/ventures', permanent: false },
-      // Contact lives at the bottom of the homepage (general) and /partners (partners).
-      { source: '/contact', destination: '/#contact', permanent: false },
+      // Contact is the Info Packet page: one form for every inquiry.
+      { source: '/contact', destination: '/info-packet', permanent: false },
       // The plan now lives inside the thesis.
       { source: '/master-plan', destination: '/thesis#flywheel', permanent: false },
       { source: '/thesis/artists-and-paleontologists', destination: '/thesis/sculptures-vs-fossils', permanent: true },

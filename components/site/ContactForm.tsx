@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { PERSONAS, PERSONA_LABELS, type FormVariant, type Persona } from '@/lib/contact'
+import { PACKETS, PERSONAS, PERSONA_LABELS, type FormVariant, type Persona } from '@/lib/contact'
 import { CONTACT_EMAIL } from './nav'
 
 type Status = 'idle' | 'sending' | 'sent' | 'error'
@@ -10,14 +10,23 @@ const FIXED_PERSONA: Partial<Record<FormVariant, Persona>> = { partner: 'Partner
 
 /**
  * One form, three uses:
- *   general  (homepage)  — includes the "I am a…" dropdown
+ *   general  (/info-packet) — includes the "I am a…" dropdown; the choice
+ *                             decides which info packet is sent
  *   partner  (/partners) — persona fixed to Partner, no dropdown
  *   venture  (/ventures) — startup or idea submissions; persona fixed to Founder
  *
  * Posts to /api/contact. If email delivery isn't configured there, it opens
  * the visitor's email app with the submission filled in instead.
  */
-export function ContactForm({ variant = 'general' }: { variant?: FormVariant }) {
+export function ContactForm({
+  variant = 'general',
+  onPersonaChange,
+}: {
+  variant?: FormVariant
+  /** Called when the "I am a…" choice changes (general variant only). */
+  onPersonaChange?: (persona: Persona | null) => void
+}) {
+  const [sentPersona, setSentPersona] = useState<Persona | null>(null)
   const [status, setStatus] = useState<Status>('idle')
   const [error, setError] = useState('')
   const fixedPersona = FIXED_PERSONA[variant]
@@ -38,8 +47,10 @@ export function ContactForm({ variant = 'general' }: { variant?: FormVariant }) 
         body: JSON.stringify(payload),
       })
       if (res.ok) {
+        setSentPersona(variant === 'general' ? (payload.persona as Persona) : null)
         setStatus('sent')
         form.reset()
+        onPersonaChange?.(null)
         return
       }
       if (res.status === 503) {
@@ -75,7 +86,11 @@ export function ContactForm({ variant = 'general' }: { variant?: FormVariant }) 
     return (
       <div className="rounded-[22px] bg-panel p-8 sm:p-10" role="status">
         <p className="font-serif text-[1.8rem] font-semibold leading-tight text-ink">Submitted</p>
-        <p className="mt-3 max-w-[44ch] text-[1rem] leading-[1.6]">The studio will reply by email.</p>
+        <p className="mt-3 max-w-[44ch] text-[1rem] leading-[1.6]">
+          {sentPersona
+            ? `The studio will reply by email and send the ${PACKETS[sentPersona].title.toLowerCase()}.`
+            : 'The studio will reply by email.'}
+        </p>
         <button type="button" onClick={() => setStatus('idle')} className="link-line mt-6 text-[0.92rem] text-ink">
           Submit another
         </button>
@@ -118,7 +133,15 @@ export function ContactForm({ variant = 'general' }: { variant?: FormVariant }) 
       {variant === 'general' && (
         <div>
           <label htmlFor="general-persona" className="sr-only">I am a…</label>
-          <select id="general-persona" name="persona" required defaultValue="" className={select} style={selectStyle}>
+          <select
+            id="general-persona"
+            name="persona"
+            required
+            defaultValue=""
+            onChange={(e) => onPersonaChange?.((e.target.value as Persona) || null)}
+            className={select}
+            style={selectStyle}
+          >
             <option value="" disabled>
               I am a…
             </option>
@@ -172,7 +195,7 @@ export function ContactForm({ variant = 'general' }: { variant?: FormVariant }) 
           disabled={status === 'sending'}
           className="inline-flex items-center rounded-full bg-ink px-7 py-3.5 text-[0.95rem] font-medium text-paper transition-[opacity,transform] duration-300 hover:scale-[1.02] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40"
         >
-          {status === 'sending' ? 'Submitting…' : 'Submit'}
+          {status === 'sending' ? 'Submitting…' : variant === 'general' ? 'Submit inquiry' : 'Submit'}
         </button>
       </div>
       {status === 'error' && (

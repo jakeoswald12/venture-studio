@@ -1,27 +1,17 @@
 import Link from 'next/link'
-import { Hero } from '@/components/home/Hero'
+import { SelectedWorks } from '@/components/work/SelectedWorks'
+import { WorkIndex } from '@/components/work/WorkIndex'
 import { PreviewRow, SeeAll } from '@/components/home/PreviewRow'
-import { CompanyTile, buildEntrances } from '@/components/portfolio/directory/CompanyTile'
 import { Frame } from '@/components/site/Frame'
 import { PartnerTile } from '@/components/site/PartnerGrid'
-import { ContactForm } from '@/components/site/ContactForm'
 import { Label, Rule } from '@/components/site/Section'
-import { findCompany } from '@/lib/data/portfolio-directory'
+import { ALL_WORK, SELECTED_SLUGS, SELECTED_WORK } from '@/lib/data/selected'
 import { NETWORK, VC_FIRMS } from '@/lib/data/partners'
 import { THESIS_SUMMARY } from '@/lib/data/thesis'
 
 const d = (n: number) => ({ '--d': n }) as React.CSSProperties
 
-/** The seven ventures and partners featured on the homepage, in order. */
-const FEATURED_VENTURES = [
-  'youversion',
-  'lifetime-fitness',
-  'overflow',
-  'burlebo',
-  'waterside-by-ulteum',
-  'the-care-app',
-  'heavytech',
-]
+/** The partners featured on the homepage, in order. */
 const FEATURED_PARTNERS = [
   'Discipulus Ventures',
   'Capital Factory',
@@ -32,8 +22,8 @@ const FEATURED_PARTNERS = [
   'Impact Foundation',
 ]
 
-const ventures = FEATURED_VENTURES.map((slug) => findCompany(slug)!)
-const ventureEntrances = buildEntrances(FEATURED_VENTURES)
+/** The index at the bottom of the homepage: every venture that is not selected. */
+const OTHER_WORK = ALL_WORK.filter((c) => !SELECTED_SLUGS.includes(c.slug as never))
 const partners = FEATURED_PARTNERS.map((name) => [...VC_FIRMS, ...NETWORK].find((x) => x.name === name)!)
 
 const OVERVIEW = [
@@ -72,11 +62,12 @@ const THESIS_POINTS = [
 export default function HomePage() {
   return (
     <main>
-      <Hero />
+      <SelectedWorks works={SELECTED_WORK} />
 
       {/* 01 Overview */}
       <section id="overview" className="scroll-mt-24 py-24 sm:py-36">
         <Frame>
+          <Rule className="mb-12" />
           <div className="grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-20">
             <div>
               <Label className="mb-5">01 · Overview</Label>
@@ -106,33 +97,11 @@ export default function HomePage() {
         </Frame>
       </section>
 
-      {/* 02 Ventures */}
-      <section id="ventures" className="scroll-mt-24 overflow-x-clip pb-24 sm:pb-36">
-        <Frame>
-          <Rule className="mb-12" />
-          <Label className="mb-5">02 · Ventures</Label>
-          <h2 data-reveal-item className="text-[clamp(2.4rem,5vw,4.4rem)] leading-[1]">
-            Ventures
-          </h2>
-          <div className="mb-8 mt-5 flex flex-wrap items-end justify-between gap-x-8 gap-y-5">
-            <p data-reveal-item style={d(1)} className="max-w-[50ch] text-[1.02rem] leading-[1.65]">
-              Companies the studio has worked with, including its joint ventures.
-            </p>
-            <SeeAll href="/ventures" label="See all ventures" />
-          </div>
-          <PreviewRow>
-            {ventures.map((c, i) => (
-              <CompanyTile key={c.slug} company={c} entrance={ventureEntrances[i]} />
-            ))}
-          </PreviewRow>
-        </Frame>
-      </section>
-
-      {/* 03 Partners */}
+      {/* 02 Partners */}
       <section id="partners" className="scroll-mt-24 overflow-x-clip pb-24 sm:pb-36">
         <Frame>
           <Rule className="mb-12" />
-          <Label className="mb-5">03 · Partners</Label>
+          <Label className="mb-5">02 · Partners</Label>
           <h2 data-reveal-item className="text-[clamp(2.4rem,5vw,4.4rem)] leading-[1]">
             Partners
           </h2>
@@ -150,13 +119,13 @@ export default function HomePage() {
         </Frame>
       </section>
 
-      {/* 04 Thesis */}
+      {/* 03 Thesis */}
       <section id="thesis" className="scroll-mt-24 pb-24 sm:pb-36">
         <Frame>
           <Rule className="mb-12" />
           <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
             <div>
-              <Label className="mb-5">04 · Thesis</Label>
+              <Label className="mb-5">03 · Thesis</Label>
               <h2 data-reveal-item className="text-[clamp(2.4rem,5vw,4.4rem)] leading-[1]">
                 Thesis
               </h2>
@@ -189,24 +158,48 @@ export default function HomePage() {
         </Frame>
       </section>
 
+      {/* 04 All work */}
+      <section id="all-work" className="scroll-mt-24 pb-24 sm:pb-36">
+        <Frame>
+          <Rule className="mb-12" />
+          <Label className="mb-5">04 · All work</Label>
+          <h2 data-reveal-item className="text-[clamp(2.4rem,5vw,4.4rem)] leading-[1]">
+            All work
+          </h2>
+          <div className="mb-10 mt-5 flex flex-wrap items-end justify-between gap-x-8 gap-y-5">
+            <p data-reveal-item style={d(1)} className="max-w-[50ch] text-[1.02rem] leading-[1.65]">
+              Every other company the studio has worked with, including its joint ventures.
+            </p>
+            <SeeAll href="/ventures" label="See all ventures" />
+          </div>
+          <WorkIndex works={OTHER_WORK} selected={[]} />
+        </Frame>
+      </section>
+
       {/* 05 Contact */}
       <section id="contact" className="scroll-mt-24">
         <Frame>
           <Rule className="mb-12" />
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-20">
+          <div className="flex flex-wrap items-end justify-between gap-8">
             <div>
               <Label className="mb-5">05 · Contact</Label>
               <h2 data-reveal-item className="text-[clamp(2.4rem,5vw,4.4rem)] leading-[1]">
                 Contact
               </h2>
-              <p data-reveal-item style={d(1)} className="mt-6 max-w-[44ch] text-[1.02rem] leading-[1.65]">
-                For prospective partners, advisors and Student Fellows, and for founders with a
-                project.
+              <p data-reveal-item style={d(1)} className="mt-6 max-w-[48ch] text-[1.02rem] leading-[1.65]">
+                For students, parents, founders, schools, and prospective partners, advisors and
+                Student Fellows. Submit an inquiry and the studio sends the info packet for your
+                situation.
               </p>
             </div>
-            <div data-reveal-item style={d(2)}>
-              <ContactForm />
-            </div>
+            <Link
+              href="/info-packet"
+              data-reveal-item
+              style={d(2)}
+              className="arrow-nudge inline-flex items-center gap-3 rounded-full bg-ink px-7 py-3.5 text-[0.95rem] font-medium text-paper transition-transform duration-300 hover:scale-[1.02] active:scale-[0.98]"
+            >
+              Get in touch <span className="arrow">→</span>
+            </Link>
           </div>
         </Frame>
       </section>

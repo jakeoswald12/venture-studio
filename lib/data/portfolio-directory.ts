@@ -222,6 +222,13 @@ const ALL_COMPANIES: PortfolioCompany[] = [
     engagements: [],
   },
   {
+    // DRAFT: added for the selected-works list. Descriptor, site, blurb,
+    // artwork and team are still needed.
+    slug: 'crowdi',
+    name: 'Crowdi',
+    engagements: [],
+  },
+  {
     slug: 'builders-quotient',
     name: "Builder's Quotient",
     descriptor: 'Entrepreneurial Assessment',

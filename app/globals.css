@@ -431,3 +431,66 @@ html.lenis body {
   70% { opacity: 0.35; }
 }
 @media (prefers-reduced-motion: reduce) { .illo-wave { animation: none; opacity: 1; } }
+
+/* ─── Header: sound toggle ─────────────────────────────────────────────── */
+.sound-bars {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 14px;
+}
+.sound-bars i {
+  width: 1.5px;
+  height: 100%;
+  border-radius: 1px;
+  background: currentColor;
+  transform: scaleY(0.16);
+  transition: transform 0.5s var(--ease-out-soft);
+}
+.sound-bars.is-on i {
+  animation: sound-bar 1.1s ease-in-out infinite alternate;
+}
+.sound-bars.is-on i:nth-child(1) { animation-duration: 0.9s; animation-delay: -0.2s; }
+.sound-bars.is-on i:nth-child(2) { animation-duration: 1.3s; animation-delay: -0.7s; }
+.sound-bars.is-on i:nth-child(3) { animation-duration: 0.8s; animation-delay: -0.4s; }
+.sound-bars.is-on i:nth-child(4) { animation-duration: 1.2s; animation-delay: -0.9s; }
+.sound-bars.is-on i:nth-child(5) { animation-duration: 1s; animation-delay: -0.1s; }
+@keyframes sound-bar {
+  from { transform: scaleY(0.2); }
+  to { transform: scaleY(1); }
+}
+
+/* ─── Menu sheet: wipes down from the header ───────────────────────────── */
+.menu-sheet {
+  visibility: hidden;
+  clip-path: inset(0 0 100% 0);
+  transition:
+    clip-path 0.8s var(--ease-in-out-soft),
+    visibility 0s linear 0.8s;
+}
+.menu-sheet.is-open {
+  visibility: visible;
+  clip-path: inset(0 0 0 0);
+  transition:
+    clip-path 0.8s var(--ease-in-out-soft),
+    visibility 0s;
+}
+
+/* ─── Selected work ────────────────────────────────────────────────────── */
+.work-plate {
+  opacity: 0;
+  transform: scale(1.04);
+  transition:
+    opacity 0.7s var(--ease-out-soft),
+    transform 1.4s var(--ease-out-soft);
+}
+.work-plate.is-active {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sound-bars.is-on i { animation: none; transform: scaleY(0.7); }
+  .menu-sheet, .menu-sheet.is-open { transition: none; }
+  .work-plate { transition: opacity 0.2s; transform: none; }
+}

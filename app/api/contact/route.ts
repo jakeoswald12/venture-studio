@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { PERSONAS, type ContactPayload } from '@/lib/contact'
+import { PACKETS, PERSONAS, PERSONA_LABELS, type ContactPayload, type Persona } from '@/lib/contact'
 
 /**
  * Contact form endpoint.
@@ -10,7 +10,15 @@ import { PERSONAS, type ContactPayload } from '@/lib/contact'
  *   CONTACT_TO       Address that receives submissions (e.g. partners@west.ventures)
  *   CONTACT_FROM     Verified sender, e.g. "West Ventures <forms@west.ventures>"
  *
- * Without them it answers 503, and the form falls back to opening the
+ * Inquiries from the Info Packet page also get a confirmation email to the
+ * visitor. If the packet for their answer to "I am a…" has a link set
+ * (PACKET_URL_STUDENT, PACKET_URL_PARENT, PACKET_URL_FOUNDER,
+ * PACKET_URL_HIGH_SCHOOL, PACKET_URL_UNIVERSITY, PACKET_URL_PARTNER,
+ * PACKET_URL_ADVISOR, PACKET_URL_STUDENT_FELLOW), the confirmation includes
+ * it. If not, the confirmation says the packet will follow, and the email to
+ * the studio is marked "send by hand".
+ *
+ * Without the three variables above it answers 503, and the form falls back to opening the
  * visitor's email app with the message filled in.
  */
 
@@ -59,9 +67,14 @@ export async function POST(req: Request) {
     variant === 'venture'
       ? `West Ventures startup submission: ${orgName || name}`
       : `West Ventures inquiry: ${persona} — ${name}`
+  const packet = variant === 'general' ? PACKETS[persona as Persona] : null
+  const packetUrl = packet ? clean(process.env[packet.env], 500) : ''
   const rows: [string, string][] = [
     ['Form', variant],
     ['Type', persona],
+    ...(packet
+      ? ([['Packet', `${packet.title}: ${packetUrl ? 'link sent in the confirmation email' : 'no link configured, send by hand'}`]] as [string, string][])
+      : []),
     ['Name', name],
     ['Email', email],
     ['Phone', phone || '—'],
@@ -81,5 +94,25 @@ export async function POST(req: Request) {
   if (!res.ok) {
     return NextResponse.json({ error: 'The message could not be sent.' }, { status: 502 })
   }
+
+  // Confirmation to the visitor. A failure here does not fail the submission:
+  // the studio already has it.
+  if (packet) {
+    const p = 'font-family:Arial,sans-serif;font-size:14px;line-height:1.6'
+    const body = [
+      `<p style="${p}">${esc(firstName)},</p>`,
+      `<p style="${p}">West Ventures received your inquiry (${esc(PERSONA_LABELS[persona as Persona])}). The studio will reply by email.</p>`,
+      packetUrl
+        ? `<p style="${p}">${esc(packet.title)}: <a href="${esc(packetUrl)}">${esc(packetUrl)}</a></p>`
+        : `<p style="${p}">The ${esc(packet.title.toLowerCase())} will follow in a separate email.</p>`,
+      `<p style="${p}">West Ventures</p>`,
+    ].join('')
+    await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ from, to: [email], reply_to: to, subject: `West Ventures: inquiry received`, html: body }),
+    }).catch(() => undefined)
+  }
+
   return NextResponse.json({ ok: true })
 }
