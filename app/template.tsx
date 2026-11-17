@@ -1,5 +1,5 @@
-/* A template re-mounts on every navigation (a layout does not), so the
- * entrance animation plays each time a new page opens. */
+/* Pages enter through the window (see components/chrome/Chrome.tsx), so the
+ * template adds nothing of its own. */
 export default function Template({ children }: { children: React.ReactNode }) {
-  return <div className="page-enter">{children}</div>
+  return <>{children}</>
 }

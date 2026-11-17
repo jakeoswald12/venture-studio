@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Frame } from '@/components/site/Frame'
+import { EssayColumn, EssayHeader } from '@/components/thesis/Essay'
 import { Label, Rule } from '@/components/site/Section'
 
 /**
@@ -105,7 +105,7 @@ function Quote({ children, cite }: { children: React.ReactNode; cite: string }) 
   return (
     <figure data-reveal-item className="my-4 border-l-2 border-[var(--g4)] pl-6 sm:pl-8">
       <blockquote className="font-serif text-[clamp(1.25rem,2.2vw,1.55rem)] leading-[1.45] text-ink">{children}</blockquote>
-      <figcaption className="mt-3 font-mono text-[0.68rem] uppercase tracking-[0.14em] text-faint">{cite}</figcaption>
+      <figcaption className="mt-3 text-[0.68rem] text-faint">{cite}</figcaption>
     </figure>
   )
 }
@@ -126,22 +126,12 @@ function Plate({ file, w, h, caption, priority }: { file: string; w: number; h: 
 export default function CourseOfEmpirePage() {
   return (
     <main>
-      <Frame className="pt-[calc(108px+env(safe-area-inset-top))] sm:pt-[132px]">
-        <article className="mx-auto max-w-[720px]">
-          <Link href="/thesis#philosophy" className="arrow-nudge font-mono text-[0.7rem] uppercase tracking-[0.16em] text-grey hover:text-ink">
-            <span className="arrow inline-block rotate-180">→</span> Thesis
-          </Link>
-          <h1 data-reveal-item className="mt-8 text-[clamp(2.8rem,6vw,4.8rem)] leading-[0.98]">
-            The Course of Empire
-          </h1>
-          <p data-reveal-item style={{ '--d': 1 } as React.CSSProperties} className="mt-6 text-[clamp(1.15rem,1.8vw,1.35rem)] leading-[1.55] text-ink/80">
-            In the 1830s Thomas Cole painted the life of a civilization in five pictures. His American audience admired the
-            warning and assumed it was meant for someone else. It was meant for them, and for us.
-          </p>
-          <p data-reveal-item style={{ '--d': 2 } as React.CSSProperties} className="mt-6 font-mono text-[0.68rem] uppercase tracking-[0.16em] text-faint">
-            West Ventures · November 2026
-          </p>
-
+      <EssayHeader
+        title="The Course of Empire"
+        back="/thesis#philosophy"
+        dek="In the 1830s Thomas Cole painted the life of a civilization in five pictures. His American audience admired the warning and assumed it was meant for someone else. It was meant for them, and for us."
+      />
+      <EssayColumn>
           <Plate
             file="3-consummation.jpg"
             w={2048}
@@ -425,11 +415,10 @@ export default function CourseOfEmpirePage() {
               </ul>
             </div>
           </div>
-          <Link href="/thesis" className="arrow-nudge link-line text-[1rem] text-ink">
-            Read the West Ventures thesis <span className="arrow">→</span>
+          <Link href="/thesis" className="text-link">
+            Read the West Ventures thesis <span aria-hidden="true">→</span>
           </Link>
-        </article>
-      </Frame>
+      </EssayColumn>
     </main>
   )
 }

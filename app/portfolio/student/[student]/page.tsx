@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { CompanyCard, Pending, PersonAvatar, SectionLabel } from '@/components/portfolio/directory/PortfolioBits'
+import { TitleAndText } from '@/components/modules/Blocks'
 import { PORTFOLIO_STUDENTS, findCompany, findStudent } from '@/lib/data/portfolio-directory'
 
 /**
@@ -51,134 +51,90 @@ export default async function StudentProfilePage({ params }: PageProps) {
   const student = findStudent(slug)
   if (!student) notFound()
 
-  const hasContact = Boolean(student.email || student.phone || student.linkedin)
-
   return (
-    <>
-      <main className="relative z-10 min-h-screen pt-[92px] sm:pt-28">
-        <div className="mx-auto max-w-[1180px] px-5">
-          <nav className="flex items-center gap-2 pt-5 text-[12.5px] text-muted-foreground">
-            <Link
-              href="/ventures"
-              className="underline decoration-border underline-offset-[3px] hover:text-bronze"
-            >
-              Ventures
-            </Link>
-            <span>/</span>
+    <main>
+      <header className="pad page-top">
+        <p className="t-label" style={{ margin: '0 0 16px' }}>
+          <Link href="/ventures" className="text-link">
+            Ventures
+          </Link>
+        </p>
+        <h1 className="serif t-display" data-io style={{ margin: 0 }}>
+          <span className="line">
             <span>{student.name}</span>
-          </nav>
-
-          <div className="grid items-start gap-9 pb-[72px] pt-[26px] md:grid-cols-[270px_1fr] md:gap-14">
-            <aside className="flex flex-col gap-5">
-              <PersonAvatar name={student.name} photo={student.photo} size="lg" filled />
-              <h1 className="font-serif text-[clamp(1.7rem,3vw,2.15rem)] font-semibold leading-[1.08] tracking-[-.015em] text-navy-accent text-balance">
-                {student.name}
-              </h1>
-
-              <dl className="flex flex-col border-t border-border">
-                <div className="flex flex-col gap-px border-b border-border/60 py-[11px]">
-                  <dt className="text-[10px] font-medium uppercase tracking-[.14em] text-muted-foreground">
-                    Contact
-                  </dt>
-                  <dd className="m-0 flex flex-col gap-0.5 text-[13.5px] text-navy-accent">
-                    {hasContact ? (
-                      <>
-                        {student.phone && <span>{student.phone}</span>}
-                        {student.email && (
-                          <a href={`mailto:${student.email}`} className="w-fit hover:text-bronze">
-                            {student.email}
-                          </a>
-                        )}
-                        {student.linkedin && (
-                          <a
-                            href={student.linkedin}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-fit text-bronze hover:underline"
-                          >
-                            LinkedIn
-                          </a>
-                        )}
-                      </>
-                    ) : (
-                      <span className="text-[12.5px]">
-                        <Pending>Phone, email and LinkedIn go here</Pending>
-                      </span>
-                    )}
-                  </dd>
-                </div>
-                <Fact label="Year in school">{student.yearInSchool}</Fact>
-                <Fact label="Hometown">{student.hometown}</Fact>
-              </dl>
-
-              <div>
-                <p className="text-[10px] font-medium uppercase tracking-[.14em] text-muted-foreground">
-                  Bio
-                </p>
-                <p className="mt-2 text-[13.5px] leading-relaxed text-navy-accent">
-                  {student.bio ?? (
-                    <Pending>
-                      Short bio and interests — supplied by the student, not yet collected.
-                    </Pending>
-                  )}
-                </p>
-                {student.interests && student.interests.length > 0 && (
-                  <p className="mt-2 text-[12.5px] text-muted-foreground">
-                    Interests: {student.interests.join(', ')}
-                  </p>
-                )}
-              </div>
-            </aside>
-
-            <div className="flex min-w-0 flex-col gap-9">
-              <section>
-                <SectionLabel count={student.projects.length}>Companies worked on</SectionLabel>
-                <div className="mt-4 grid grid-cols-[repeat(auto-fill,minmax(215px,1fr))] gap-3.5">
-                  {student.projects.map((project) => {
-                    const company = findCompany(project.company)
-                    if (!company) return null
-                    return (
-                      <CompanyCard
-                        key={`${company.slug}-${project.cohort}`}
-                        slug={company.slug}
-                        name={company.name}
-                        descriptor={company.descriptor}
-                        live={Boolean(company.url)}
-                        caption={
-                          <>
-                            {project.cohort} ·{' '}
-                            <b className="font-medium text-bronze">
-                              {project.role === 'Student Lead' ? 'Leader' : project.role}
-                            </b>
-                          </>
-                        }
-                      />
-                    )
-                  })}
-                </div>
-              </section>
-            </div>
-          </div>
-        </div>
-      </main>
-    </>
-  )
-}
-
-/** A rail fact, or an explicit empty slot when the roster data hasn't arrived. */
-function Fact({ label, children }: { label: string; children?: React.ReactNode }) {
-  return (
-    <div className="flex flex-col gap-px border-b border-border/60 py-[11px]">
-      <dt className="text-[10px] font-medium uppercase tracking-[.14em] text-muted-foreground">
-        {label}
-      </dt>
-      <dd className="m-0 text-[13.5px] text-navy-accent">
-        {children ?? (
-          <span className="text-[12.5px]">
-            <Pending>Awaiting roster data</Pending>
           </span>
+        </h1>
+      </header>
+
+      <dl className="grid12 cs-meta fade" data-io style={{ '--d': 3 } as React.CSSProperties}>
+        <div className="d-1-4">
+          <dt>Role</dt>
+          <dd>{student.topRole === 'Student Lead' ? 'Leader' : student.topRole}</dd>
+        </div>
+        {student.yearInSchool && (
+          <div style={{ gridColumn: 'span 4' }}>
+            <dt>Year in school</dt>
+            <dd>{student.yearInSchool}</dd>
+          </div>
         )}
-      </dd>
-    </div>
+        {student.hometown && (
+          <div style={{ gridColumn: 'span 4' }}>
+            <dt>Hometown</dt>
+            <dd>{student.hometown}</dd>
+          </div>
+        )}
+        {(student.email || student.phone || student.linkedin) && (
+          <div style={{ gridColumn: 'span 4' }}>
+            <dt>Contact</dt>
+            <dd style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+              {student.phone && <span>{student.phone}</span>}
+              {student.email && <a href={`mailto:${student.email}`}>{student.email}</a>}
+              {student.linkedin && (
+                <a href={student.linkedin} target="_blank" rel="noopener noreferrer">
+                  LinkedIn
+                </a>
+              )}
+            </dd>
+          </div>
+        )}
+      </dl>
+
+      {student.bio && (
+        <TitleAndText label="Bio">
+          <p className="t-intro" style={{ margin: 0 }}>
+            {student.bio}
+          </p>
+          {student.interests && student.interests.length > 0 && (
+            <p className="t-label" style={{ marginTop: 20 }}>
+              Interests: {student.interests.join(', ')}
+            </p>
+          )}
+        </TitleAndText>
+      )}
+
+      <div className="section">
+        <p className="t-label pad" style={{ margin: '0 0 16px' }}>
+          Companies worked on · {student.projects.length}
+        </p>
+        {student.projects.map((project) => {
+          const company = findCompany(project.company)
+          if (!company) return null
+          return (
+            <Link key={`${company.slug}-${project.cohort}`} href={`/portfolio/${company.slug}`} className="row">
+              <span className="row-name">{company.name}</span>
+              <span className="row-desc">{company.blurb ?? company.descriptor}</span>
+              <span className="row-meta">
+                <span>{project.cohort}</span>
+                <span>{project.role === 'Student Lead' ? 'Leader' : project.role}</span>
+              </span>
+              <span className="row-cta">
+                <span>View case study</span>
+              </span>
+            </Link>
+          )
+        })}
+        <hr className="rule" />
+      </div>
+    </main>
   )
 }

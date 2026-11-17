@@ -64,7 +64,7 @@ export function RevealObserver() {
 
     // Wait a frame so the new route's markup is in the document.
     const id = requestAnimationFrame(() => {
-      document.querySelectorAll<HTMLElement>('[data-reveal-item]:not(.is-in)').forEach((el) => {
+      document.querySelectorAll<HTMLElement>('[data-reveal-item]:not(.is-in), [data-io]:not(.is-in)').forEach((el) => {
         // Each auto card also rises its own distance (set before it shows).
         if (el.dataset.revealAuto !== undefined) el.style.setProperty('--rise', `${(16 + Math.random() * 22).toFixed(1)}px`)
         io.observe(el)

@@ -1,11 +1,12 @@
 import type { Metadata, Viewport } from 'next'
-import { Fraunces, IBM_Plex_Mono, Public_Sans } from 'next/font/google'
-import { Header } from '@/components/site/Header'
-import { Footer } from '@/components/site/Footer'
+import { Fraunces, Hanken_Grotesk, IBM_Plex_Mono } from 'next/font/google'
+import { Chrome } from '@/components/chrome/Chrome'
 import { SmoothScroll } from '@/components/site/SmoothScroll'
 import { RevealObserver } from '@/components/site/Reveal'
 import './globals.css'
 
+/* The reference pairs a light, high-contrast display serif with a plain
+ * grotesque. Its own faces are commercial; these are the open equivalents. */
 const fraunces = Fraunces({
   subsets: ['latin'],
   style: ['normal', 'italic'],
@@ -14,10 +15,10 @@ const fraunces = Fraunces({
   display: 'swap',
 })
 
-const publicSans = Public_Sans({
+const grotesk = Hanken_Grotesk({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600'],
-  variable: '--font-public-sans',
+  weight: ['300', '400', '500'],
+  variable: '--font-grotesk',
   display: 'swap',
 })
 
@@ -39,32 +40,31 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   viewportFit: 'cover',
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#f7f5f0' },
-    { media: '(prefers-color-scheme: dark)', color: '#121110' },
-  ],
+  themeColor: '#000000',
 }
 
-/* Runs before first paint so the page never flashes the wrong theme. The
- * stored choice wins; otherwise the system setting decides. */
-const themeScript = `(function(){try{var t=localStorage.getItem('theme');if(t!=='light'&&t!=='dark'){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme='light'}})()`
+/* Runs before first paint so the page never flashes the wrong theme. Dark is
+ * the default; a stored choice wins. */
+const themeScript = `(function(){var t='dark';try{var s=localStorage.getItem('theme');if(s==='light'||s==='dark')t=s}catch(e){}document.documentElement.dataset.theme=t})()`
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="en"
+      data-theme="dark"
       suppressHydrationWarning
-      className={`${fraunces.variable} ${publicSans.variable} ${plexMono.variable}`}
+      className={`${fraunces.variable} ${grotesk.variable} ${plexMono.variable}`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <noscript>
+          <style>{`.preloader{display:none}.hdr{opacity:1!important}.home-enter{opacity:1!important}`}</style>
+        </noscript>
       </head>
       <body>
         <SmoothScroll />
         <RevealObserver />
-        <Header />
-        {children}
-        <Footer />
+        <Chrome>{children}</Chrome>
       </body>
     </html>
   )

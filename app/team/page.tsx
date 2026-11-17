@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
-import { LinkedInLink, PersonCard } from '@/components/site/PersonCard'
-import { Frame, TILE_GRID } from '@/components/site/Frame'
-import { Rule } from '@/components/site/Section'
+import Image from 'next/image'
+import { HoverColumns, PageHero, PersonCard, SectionHead } from '@/components/modules/Blocks'
+import { DragRow } from '@/components/modules/Scroll'
 import { ADVISORS, BOARD, FELLOWS, LEADERSHIP, PROJECT_ADVISORS } from '@/lib/data/team'
 
 export const metadata: Metadata = {
@@ -9,93 +9,99 @@ export const metadata: Metadata = {
   description: 'West Ventures leadership, project advisors, board, Student Fellows and firm advisors.',
 }
 
-function Group({
-  first,
-  title,
-  children,
-}: {
-  first?: boolean
-  title: string
-  children: React.ReactNode
-}) {
-  return (
-    <section className="pb-20 sm:pb-28">
-      {!first && <Rule className="mb-10" />}
-      <div className="mb-10 flex items-end justify-between gap-6">
-        <div>
-          <h2 data-reveal-item className="text-[clamp(2rem,4vw,3.2rem)] leading-[1]">
-            {title}
-          </h2>
-        </div>
-      </div>
-      {children}
-    </section>
-  )
-}
+const NameList = ({ people }: { people: { name: string; linkedin?: string }[] }) => (
+  <div className="pad">
+    <ul className="name-cols">
+      {people.map((p) => (
+        <li key={p.name}>
+          {p.name}
+          {p.linkedin && (
+            <a href={p.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`${p.name} on LinkedIn`}>
+              LinkedIn
+            </a>
+          )}
+        </li>
+      ))}
+    </ul>
+  </div>
+)
 
 export default function TeamPage() {
   return (
     <main>
-      <h1 className="sr-only">Team</h1>
+      <PageHero
+        lines={[
+          <>
+            Team <span className="em-rule" aria-hidden="true" /> leadership, advisors,
+          </>,
+          'board and Student Fellows',
+        ]}
+      />
 
-      <Frame className="pt-[calc(124px+env(safe-area-inset-top))] sm:pt-[150px]">
-        <Group first title="Leadership">
-          <div className={TILE_GRID}>
-            {LEADERSHIP.map((p) => (
-              <div key={p.name} data-reveal-item data-reveal-auto>
-                <PersonCard person={p} />
-              </div>
-            ))}
-          </div>
-        </Group>
+      <SectionHead title="Leadership" />
+      <HoverColumns
+        items={LEADERSHIP.map((p) => ({
+          title: p.name,
+          top: (
+            <>
+              <span className="t-label">{p.title}</span>
+              {p.photo && (
+                <span className="hcol-photo" style={{ marginTop: 16 }}>
+                  <Image src={p.photo} alt="" fill sizes="220px" style={{ objectPosition: p.photoPosition ?? 'center' }} />
+                </span>
+              )}
+            </>
+          ),
+          body: (
+            <>
+              {(p.summary || p.bio) && <p style={{ margin: '0 0 12px' }}>{p.summary ?? p.bio}</p>}
+              {[...(p.roles ?? []), ...(p.past ?? [])].map((r) => (
+                <p key={`${r.title}-${r.org}`} className="subtle" style={{ margin: 0, fontSize: 14 }}>
+                  {r.title},{' '}
+                  {r.url ? (
+                    <a href={r.url} target="_blank" rel="noopener noreferrer" className="bold">
+                      {r.org}
+                    </a>
+                  ) : (
+                    r.org
+                  )}
+                </p>
+              ))}
+              {p.linkedin && (
+                <p style={{ margin: '12px 0 0' }}>
+                  <a href={p.linkedin} target="_blank" rel="noopener noreferrer" className="text-link">
+                    LinkedIn
+                  </a>
+                </p>
+              )}
+            </>
+          ),
+        }))}
+      />
 
-        <Group title="Project Advisors">
-          <div className={TILE_GRID}>
-            {PROJECT_ADVISORS.map((p) => (
-              <div key={p.name} data-reveal-item data-reveal-auto>
-                <PersonCard person={p} />
-              </div>
-            ))}
-          </div>
-        </Group>
+      <SectionHead title="Project Advisors" />
+      <DragRow>
+        {PROJECT_ADVISORS.map((p) => (
+          <PersonCard key={p.name} person={p} />
+        ))}
+      </DragRow>
 
-        <Group title="Board">
-          <div className={TILE_GRID}>
-            {BOARD.map((p) => (
-              <div key={p.name} data-reveal-item data-reveal-auto>
-                <PersonCard person={p} />
-              </div>
-            ))}
-          </div>
-        </Group>
+      <SectionHead title="Board" />
+      <div className="pgrid-people">
+        {BOARD.map((p) => (
+          <PersonCard key={p.name} person={p} />
+        ))}
+      </div>
 
-        <Group title="Student Fellows">
-          <div className={TILE_GRID}>
-            {FELLOWS.map((p) => (
-              <div key={p.name} data-reveal-item data-reveal-auto>
-                <PersonCard person={p} />
-              </div>
-            ))}
-          </div>
-        </Group>
+      <SectionHead title="Student Fellows" />
+      <DragRow>
+        {FELLOWS.map((p) => (
+          <PersonCard key={p.name} person={p} />
+        ))}
+      </DragRow>
 
-        <Group title="Firm Advisors">
-          {/* Columns, not a grid: names run down each column, then to the next. */}
-          <ul className="columns-1 gap-x-8 sm:columns-2 lg:columns-5 lg:gap-x-6 xl:columns-7 xl:gap-x-2.5">
-            {ADVISORS.map((a) => (
-              <li
-                key={a.name}
-                data-reveal-item
-                data-reveal-auto
-                className="flex min-h-[56px] break-inside-avoid items-center justify-between gap-3 border-b border-line py-2.5"
-              >
-                <span className="text-[1rem] text-ink xl:text-[0.92rem]">{a.name}</span>
-                {a.linkedin && <LinkedInLink href={a.linkedin} name={a.name} className="h-7 w-7" />}
-              </li>
-            ))}
-          </ul>
-        </Group>
-      </Frame>
+      <SectionHead title="Firm Advisors" />
+      <NameList people={ADVISORS} />
     </main>
   )
 }

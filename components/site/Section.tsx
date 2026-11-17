@@ -28,7 +28,7 @@ export function Label({
 }) {
   return (
     <p
-      className={`font-mono text-[0.7rem] font-normal uppercase tracking-[0.16em] text-faint ${className}`}
+      className={`t-label ${className}`}
     >
       {children}
     </p>
