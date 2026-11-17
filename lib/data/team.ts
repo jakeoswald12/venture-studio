@@ -503,7 +503,38 @@ export const PROJECT_ADVISORS: Person[] = [
       { title: 'Account Executive, Enterprise', org: 'Starburst', url: 'https://www.starburst.io' },
     ],
   },
-  { name: 'Riley Simpson', title: 'Project Advisor' },
+  {
+    name: 'Riley Simpson',
+    title: 'Project Advisor',
+    photo: '/team/riley-simpson.jpg',
+    linkedin: 'https://www.linkedin.com/in/rileywsimpson/',
+    summary:
+      'Founder of LeapYear, a structured gap year for high school graduates, after serving as chief of staff at education venture fund Learn Capital and Austin leadership network Arena Hall.',
+    roles: [
+      {
+        title: 'Founder',
+        org: 'LeapYear',
+        url: 'https://startleapyear.com',
+        note: 'Nine-month gap year and leadership accelerator',
+      },
+      { title: 'Fellow, Austin Lab', org: 'Praxis', url: 'https://www.praxis.co' },
+    ],
+    past: [
+      {
+        title: 'Chief of Staff, Managing Partners and Investor Relations',
+        org: 'Learn Capital',
+        url: 'https://www.learncapital.com',
+        note: 'Venture capital fund backing education companies',
+      },
+      { title: 'Chief of Staff', org: 'Arena Hall', note: 'Austin leadership network' },
+      {
+        title: "Entrepreneur-in-Residence, President's VC",
+        org: 'Abilene Christian University',
+        url: 'https://www.acu.edu',
+      },
+      { title: 'CEO', org: 'Right Hand Media', note: 'Started during his own gap year and sold to his university' },
+    ],
+  },
 ]
 
 export const FELLOWS: Person[] = [
