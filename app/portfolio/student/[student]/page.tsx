@@ -123,7 +123,7 @@ export default async function StudentProfilePage({ params }: PageProps) {
             <Link key={`${company.slug}-${project.cohort}`} href={`/portfolio/${company.slug}`} className="row">
               <span className="row-name">{company.name}</span>
               <span className="row-desc">{company.blurb ?? company.descriptor}</span>
-              <span className="row-meta">
+              <span className="row-meta" style={{ gridColumn: '9 / span 2' }}>
                 <span>{project.cohort}</span>
                 <span>{project.role === 'Student Lead' ? 'Leader' : project.role}</span>
               </span>

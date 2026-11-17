@@ -39,6 +39,7 @@ export default function VenturesPage() {
       external: study ? undefined : c.url,
       image: c.tile && !/\.(mp4|webm)$/.test(c.tile) ? c.tile : undefined,
       focus: c.tileFocus,
+      logo: c.logoWhite,
     }
   })
   const filters = ['Case study', ...COHORTS].filter((f) => rows.some((r) => r.tags.includes(f)))

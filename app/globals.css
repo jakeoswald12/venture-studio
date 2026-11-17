@@ -1261,46 +1261,102 @@ html:not([data-loaded]) .home-enter {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   column-gap: var(--g);
-  padding: 24px var(--g) 56px;
-  min-height: 200px;
+  align-items: start;
+  padding: 44px var(--g) 72px;
+  min-height: 186px;
   border-top: 1px solid var(--border-subtle);
   color: var(--text);
   transition: background-color 0.4s;
 }
 .row.compact {
   min-height: 0;
-  padding-bottom: 24px;
+  padding: 24px var(--g);
 }
-a.row:hover,
-.row.is-link:hover {
+a.row:hover {
   background: var(--bg-subtle);
 }
+/* Column 1–2: the logo, or the name set as a wordmark when there is none. */
 .row-name {
-  grid-column: 1 / span 4;
+  grid-column: 1 / span 2;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: clamp(20px, 1.6vw, 26px);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--text-bold);
+}
+.row.compact .row-name {
+  grid-column: 1 / span 6;
   font-family: var(--font-serif);
   font-weight: 300;
   font-size: clamp(22px, 2.1vw, 32px);
-  line-height: 1.15;
-  letter-spacing: -0.015em;
-  color: var(--text-bold);
 }
+.row-logo {
+  display: block;
+  height: 28px;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: left center;
+}
+:root[data-theme="light"] .row-logo {
+  filter: invert(1);
+}
+/* Column 3–6: the description, in the bold text colour. */
 .row-desc {
-  grid-column: 5 / span 4;
-  font-size: clamp(14px, 1.05vw, 16px);
+  grid-column: 3 / span 4;
+  font-size: clamp(16px, 1.3vw, 20px);
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  color: var(--text-bold);
+  padding-right: 8%;
 }
+/* Column 7–8: artwork, closed at rest. On hover it opens and the row grows. */
+.row-thumb {
+  grid-column: 7 / span 2;
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s var(--ease-out);
+}
+.row-thumb > span {
+  overflow: hidden;
+  min-height: 0;
+}
+.row-thumb > span > span {
+  position: relative;
+  display: block;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 0.3s var(--ease-out);
+}
+.row-thumb img {
+  object-fit: cover;
+  transform: scale(1.15);
+  transition: transform 1.2s var(--ease-out);
+}
+/* Column 9–10: stacked list in subtle grey. */
 .row-meta {
-  grid-column: 10 / span 3;
-  font-size: 14px;
+  grid-column: 9 / span 2;
+  font-size: clamp(16px, 1.3vw, 20px);
+  line-height: 1.3;
   color: var(--text-subtle);
   display: flex;
   flex-direction: column;
+  gap: 10px;
 }
-.row-cta {
-  position: absolute;
-  left: var(--g);
-  bottom: 20px;
-  overflow: hidden;
+.row.compact .row-meta {
   font-size: 14px;
+  gap: 0;
+}
+/* Column 11–12: the link label, shown on hover over a drawn line. */
+.row-cta {
+  grid-column: 11 / span 2;
+  justify-self: start;
+  position: relative;
+  overflow: hidden;
+  font-size: clamp(16px, 1.3vw, 20px);
+  line-height: 1.3;
   color: var(--text-bold);
   padding-bottom: 3px;
 }
@@ -1321,52 +1377,56 @@ a.row:hover,
   transform-origin: left;
   transition: transform 0.3s var(--ease-out);
 }
-.row:hover .row-cta > span {
-  transform: none;
-  transition-duration: 0.6s;
-}
-.row:hover .row-cta::after {
-  transform: none;
-  transition-duration: 0.6s;
-}
-.row-strip {
-  grid-column: 5 / -1;
-  position: relative;
-  height: 0;
-  margin-top: 0;
-  border-radius: var(--radius);
-  overflow: hidden;
-  transition: height 0.4s var(--ease-out), margin-top 0.4s var(--ease-out);
-}
-.row-strip img {
-  object-fit: cover;
-}
 @media (hover: hover) and (pointer: fine) {
-  .row:hover .row-strip {
-    height: 160px;
-    margin-top: 24px;
+  .row:hover .row-cta > span,
+  .row:hover .row-cta::after,
+  .row:focus-visible .row-cta > span,
+  .row:focus-visible .row-cta::after {
+    transform: none;
+    transition-duration: 0.6s;
+  }
+  .row:hover .row-thumb {
+    grid-template-rows: 1fr;
     transition-duration: 0.8s;
   }
+  .row:hover .row-thumb > span > span {
+    clip-path: inset(0 0 0 0);
+    transition: clip-path 0.8s var(--ease-inout-soft);
+  }
+  .row:hover .row-thumb img {
+    transform: none;
+  }
 }
-@media (max-width: 966px) {
-  .row {
-    grid-template-columns: 1fr;
-    row-gap: 12px;
-    min-height: 0;
-    padding-bottom: 28px;
-  }
-  .row-name,
-  .row-desc,
-  .row-meta,
-  .row-strip {
-    grid-column: 1 / -1;
-  }
-  .row-cta {
-    position: static;
-  }
+@media (max-width: 966px), (hover: none) {
   .row-cta > span,
   .row-cta::after {
     transform: none;
+  }
+}
+@media (max-width: 966px) {
+  .row,
+  .row.compact {
+    grid-template-columns: 1fr;
+    row-gap: 14px;
+    min-height: 0;
+    padding: 28px var(--g) 32px;
+  }
+  .row-name,
+  .row.compact .row-name,
+  .row-desc,
+  .row-meta,
+  .row-cta {
+    grid-column: 1 / -1;
+  }
+  .row-desc {
+    padding-right: 0;
+  }
+  .row-meta {
+    gap: 2px;
+    font-size: 15px;
+  }
+  .row-thumb {
+    display: none;
   }
 }
 
@@ -2264,10 +2324,27 @@ html.lenis body {
 }
 
 @media (max-width: 966px) {
-  .row-cta {
-    justify-self: start;
-  }
   .menu-left > div {
     margin-top: 40px;
   }
+}
+
+/* Row cells share one line; short rows drop the artwork column. */
+@media (min-width: 967px) {
+  .row > .row-name,
+  .row > .row-desc,
+  .row > .row-thumb,
+  .row > .row-meta,
+  .row > .row-cta {
+    grid-row: 1;
+  }
+  .row.compact .row-desc {
+    grid-column: 7 / span 2;
+    font-size: 14px;
+    color: var(--text);
+    padding-right: 0;
+  }
+}
+.row.compact .row-thumb {
+  display: none;
 }

@@ -15,13 +15,16 @@ export interface WorkRow {
   external?: string
   image?: string
   focus?: number
+  /** White-on-transparent logo. Without one the name is set as text. */
+  logo?: string
 }
 
 /**
- * The work index: a typographic table, not a thumbnail grid. Each row is the
- * name, a short description and a stacked list in subtle grey. Imagery is held
- * back until hover, when rows with artwork open a strip of it and rows with a
- * case study show a label that slides up over a drawn line.
+ * The work index: a typographic table, not a thumbnail grid. Each row reads
+ * across five columns: logo (or name), description, artwork, a stacked list
+ * in subtle grey, and the link label. Artwork and the label are held back
+ * until hover, when the row lifts to the subtle background, the artwork opens
+ * and the row grows to fit it.
  */
 export function WorkList({
   rows,
@@ -61,18 +64,29 @@ export function WorkList({
         {shown.map((r) => {
           const inner = (
             <>
-              <span className="row-name">{r.name}</span>
+              <span className="row-name">
+                {r.logo ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={r.logo} alt={r.name} className="row-logo" loading="lazy" />
+                ) : (
+                  r.name
+                )}
+              </span>
               <span className="row-desc">{r.description}</span>
+              {r.image && (r.href || r.external) ? (
+                <span className="row-thumb" aria-hidden="true">
+                  <span>
+                    <span>
+                      <Image src={r.image} alt="" fill sizes="(min-width: 967px) 17vw, 1px" style={{ objectPosition: `${r.focus ?? 50}% 50%` }} />
+                    </span>
+                  </span>
+                </span>
+              ) : null}
               <span className="row-meta">
                 {r.meta.map((m) => (
                   <span key={m}>{m}</span>
                 ))}
               </span>
-              {r.image && (r.href || r.external) && (
-                <span className="row-strip">
-                  <Image src={r.image} alt="" fill sizes="(min-width: 967px) 66vw, 100vw" style={{ objectPosition: `${r.focus ?? 50}% 50%` }} />
-                </span>
-              )}
               {(r.href || r.external) && !compact && (
                 <span className="row-cta">
                   <span>{r.href ? cta : 'Visit website'}</span>
