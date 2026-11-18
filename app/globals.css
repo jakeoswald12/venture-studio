@@ -918,12 +918,13 @@ html[data-menu] .menu-cards {
   overflow: hidden;
   transition: background-color 0.5s var(--ease-out), border-color 0.2s;
 }
-.menu-pills .pill:hover {
-  background: rgba(150, 150, 150, 0.3);
+.menu-pills .pill,
+.menu-pills .pill:hover,
+.menu-pills .pill.is-active {
   border-color: transparent;
 }
-.menu-pills .pill.is-active {
-  border-color: var(--text-bold);
+.menu-pills .pill:hover {
+  background: rgba(150, 150, 150, 0.3);
 }
 .note-card:hover {
   background: rgba(150, 150, 150, 0.3);
