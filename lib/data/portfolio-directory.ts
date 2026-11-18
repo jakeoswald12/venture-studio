@@ -89,6 +89,8 @@ export interface PortfolioCompany {
   delivered?: string
   /** Case study hero: a still or a muted looping video. Falls back to `tile`. */
   hero?: string
+  /** Home page inset card beside the venture name: a second still or loop. */
+  inset?: string
   disciplines?: string[]
   /**
    * The tile artwork on /portfolio — a still, a looping GIF, or a muted
@@ -226,6 +228,7 @@ const ALL_COMPANIES: PortfolioCompany[] = [
   // Studio joint ventures (added for the West Ventures site).
   {
     slug: 'unify',
+    inset: "/images/case-studies/unify/lake.jpg",
     delivered: "Product, website, product video",
     disciplines: ["Agentic engineering", "Branding", "Marketing"],
     showcase: [
@@ -288,6 +291,7 @@ const ALL_COMPANIES: PortfolioCompany[] = [
   },
   {
     slug: 'waterside-by-ulteum',
+    inset: "/images/case-studies/waterside-by-ulteum/dock.jpg",
     delivered: "Private investor site and deck",
     disciplines: ["AI readability", "Boutique marketing", "Agentic engineering"],
     showcase: [
@@ -579,6 +583,7 @@ const ALL_COMPANIES: PortfolioCompany[] = [
   },
   {
     slug: 'venture-forge',
+    inset: "/images/case-studies/venture-forge/sparks.jpg",
     delivered: "Event film, social channels, website",
     disciplines: ["Marketing", "Agentic engineering"],
     showcase: [
@@ -886,6 +891,7 @@ const ALL_COMPANIES: PortfolioCompany[] = [
   },
   {
     slug: 'the-care-app',
+    inset: "/images/case-studies/the-care-app/screens.jpg",
     delivered: "Marketing systems, creator program, church outreach",
     disciplines: ["Marketing", "Agentic engineering", "Sales"],
     showcase: [
@@ -1000,6 +1006,7 @@ const ALL_COMPANIES: PortfolioCompany[] = [
   },
   {
     slug: 'athletes-ocean',
+    inset: "/images/case-studies/athletes-ocean/loop.mp4",
     delivered: "Instructor bios and organic search build-out",
     disciplines: ["AI search", "Copywriting", "Analytics"],
     showcase: [
@@ -1100,6 +1107,7 @@ const ALL_COMPANIES: PortfolioCompany[] = [
   },
   {
     slug: 'heavytech',
+    inset: "/images/case-studies/heavytech/loop.mp4",
     delivered: "3D website, market study, social plan",
     disciplines: ["Agentic engineering", "Branding", "Market research", "Marketing"],
     showcase: [
@@ -1240,6 +1248,7 @@ const ALL_COMPANIES: PortfolioCompany[] = [
   },
   {
     slug: 'launch-kids',
+    inset: "/images/case-studies/launch-kids/maze-quest.jpg",
     delivered: "Brand kit, ad library, paid tests",
     disciplines: ["Branding", "Marketing"],
     showcase: [
@@ -1350,6 +1359,7 @@ const ALL_COMPANIES: PortfolioCompany[] = [
   },
   {
     slug: 'lifetime-fitness',
+    inset: "/images/case-studies/lifetime-fitness/spa.jpg",
     delivered: "AI tools for club construction",
     disciplines: ["Agentic engineering", "Market research"],
     showcase: [

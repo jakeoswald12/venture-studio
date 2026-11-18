@@ -16,9 +16,10 @@ export default function HomePage() {
     return {
       slug: c.slug,
       name: c.name,
-      label: [c.descriptor, ...(c.disciplines ?? [])].filter(Boolean).join(', '),
+      label: (c.disciplines ?? []).join(', ') || (c.descriptor ?? ''),
       text: c.blurb ?? facts,
       tile: c.tile,
+      inset: c.inset ?? c.tile,
       focus: c.tileFocus,
     }
   })

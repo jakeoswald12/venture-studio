@@ -13,14 +13,17 @@ export interface HomeVenture {
   label: string
   text: string
   tile?: string
+  inset?: string
   focus?: number
 }
 
 /**
  * The home page is one screen that does not scroll: a statement and a venture
- * browser. Hovering a pill replaces the background, the headline and the
- * description with that venture and wipes a thumbnail in; clicking expands the
- * thumbnail into the case study. "All ventures" shows the accent gradient and
+ * browser. Hovering a pill dips the background to black and up into that
+ * venture, and lays its name, summary, disciplines and an inset picture out in
+ * one of three arrangements (layouts 1–3, in turn down the list). Each piece
+ * drifts a few pixels into place and leaves the way it came. Clicking expands
+ * the inset into the case study. "All ventures" shows the accent gradient and
  * the full list of names.
  */
 export function HomeHero({ ventures, all }: { ventures: HomeVenture[]; all: string[] }) {
@@ -38,6 +41,7 @@ export function HomeHero({ ventures, all }: { ventures: HomeVenture[]; all: stri
   return (
     <main className="home theme-dark" data-hdr="dark">
       <Atmosphere overlay={0.4} />
+      <div className={`home-dip ${hover !== null ? 'is-on' : ''}`} aria-hidden="true" />
 
       {ventures.map((v, i) => (
         <div key={v.slug} className={`home-bg ${hover === i ? 'is-on' : ''}`} aria-hidden="true">
@@ -67,20 +71,17 @@ export function HomeHero({ ventures, all }: { ventures: HomeVenture[]; all: stri
         </p>
 
         {ventures.map((v, i) => (
-          <div key={v.slug} aria-hidden={hover !== i}>
-            <p className={`home-label home-swap ${hover === i ? '' : 'is-off'}`}>{v.label}</p>
-            <p className={`home-head serif t-hero home-swap ${hover === i ? '' : 'is-off'}`}>{v.name}</p>
-            <p className={`home-blurb home-swap ${hover === i ? '' : 'is-off'}`}>{v.text}</p>
+          <div key={v.slug} className={`hv hv-${(i % 3) + 1} ${hover === i ? 'is-on' : ''}`} aria-hidden={hover !== i}>
+            <p className="hv-cat">{v.label}</p>
+            <p className="hv-name serif t-hero">{v.name}</p>
+            <p className="hv-sub">{v.text}</p>
             <div
               ref={(el) => {
                 thumbs.current[i] = el
               }}
-              className={`home-thumb ${hover === i ? 'is-on' : ''}`}
-              data-dir={i % 4}
+              className="hv-img"
             >
-              <div>
-                <Media src={v.tile} name={v.name} sizes="(min-width: 967px) 30vw, 100vw" position={v.focus !== undefined ? `${v.focus}% 50%` : undefined} />
-              </div>
+              <Media src={v.inset ?? v.tile} name={v.name} sizes="(min-width: 967px) 32vw, 100vw" />
             </div>
           </div>
         ))}

@@ -1221,11 +1221,11 @@ html[data-menu] .menu-preview {
   position: absolute;
   inset: 0;
   opacity: 0;
-  transition: opacity 0.3s var(--ease-out);
+  transition: opacity 0.35s var(--ease-out);
 }
 .home-bg.is-on {
   opacity: 1;
-  transition: opacity 0.8s var(--ease-out);
+  transition: opacity 0.7s var(--ease-out) 0.3s;
 }
 .home-bg img,
 .home-bg .ph {
@@ -1280,59 +1280,94 @@ html[data-menu] .menu-preview {
   opacity: 0;
   pointer-events: none;
 }
-.home-label {
+/* Venture layouts on the home page. Every piece drifts ~20px into place and
+   leaves the same way; the inset picture opens along one edge.
+   1: picture bottom right, opens upward; name centre left; summary top.
+   2: picture top right, opens leftward; name bottom; summary bottom right.
+   3: picture bottom left, opens rightward; name right; summary top. */
+.hv > * {
   position: absolute;
   z-index: 2;
-  left: calc(var(--g) + (100% - var(--g) * 2 + var(--g)) / 12 * 4);
-  top: calc(62% - 34px);
-  font-size: 14px;
+  margin: 0;
   color: #fff;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s var(--ease-out), transform 0.35s var(--ease-out), clip-path 0.45s var(--ease-inout-soft);
 }
-.home-blurb {
-  position: absolute;
-  z-index: 2;
-  right: var(--g);
-  bottom: 9%;
-  width: min(300px, 26vw);
+.hv.is-on > * {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.7s var(--ease-out) 0.25s, transform 0.9s var(--ease-out) 0.25s, clip-path 0.9s var(--ease-inout-soft) 0.2s;
+}
+.hv-cat {
   font-size: 15px;
   line-height: 1.4;
-  color: #fff;
-  margin: 0;
+  max-width: 300px;
 }
-.home-thumb {
-  position: absolute;
-  z-index: 2;
-  right: var(--g);
-  top: 96px;
-  width: clamp(240px, 27vw, 420px);
-  aspect-ratio: 16 / 10;
-  border-radius: var(--radius-lg);
+.hv-sub {
+  width: min(300px, 26vw);
+  font-size: 16px;
+  line-height: 1.4;
+}
+.hv-name {
+  white-space: nowrap;
+}
+.hv-2 .hv-name {
+  white-space: normal;
+  max-width: calc(100vw - 35.5vw - var(--g));
+  top: auto;
+  bottom: 16%;
+  line-height: 0.95;
+}
+.hv-img {
   overflow: hidden;
-  background: var(--bg-subtle);
-  clip-path: inset(0 0 100% 0);
-  transition: clip-path 0.3s var(--ease-out);
+  border-radius: 6px;
+  background: #111;
+  opacity: 1 !important;
 }
-.home-thumb[data-dir="1"] { clip-path: inset(0 100% 0 0); }
-.home-thumb[data-dir="2"] { clip-path: inset(100% 0 0 0); }
-.home-thumb[data-dir="3"] { clip-path: inset(0 0 0 100%); }
-.home-thumb.is-on {
-  clip-path: inset(0 0 0 0);
-  transition: clip-path 0.8s var(--ease-inout-soft);
-}
-.home-thumb > div {
+.hv-img img,
+.hv-img video,
+.hv-img .ph {
   position: absolute;
   inset: 0;
-  transform: translateY(40px) scale(1.1);
-  transition: transform 0.8s var(--ease-out);
-}
-.home-thumb.is-on > div {
-  transform: none;
-}
-.home-thumb img,
-.home-thumb .ph {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+.hv.is-on .hv-img {
+  clip-path: inset(0 0 0 0);
+}
+
+/* 1 */
+.hv-1 .hv-sub { left: 42.5%; top: 20%; transform: translateX(-20px); }
+.hv-1 .hv-name { left: 19%; top: 53%; transform: translateX(20px); }
+.hv-1 .hv-cat { left: 59%; top: 69%; max-width: calc(100vw - 59vw - 25vw - var(--g) - 32px); transform: translateY(-20px); }
+.hv-1 .hv-img { right: var(--g); bottom: 3%; width: 25vw; height: 55%; clip-path: inset(100% 0 0 0); }
+
+/* 2 */
+.hv-2 .hv-cat { left: 29%; top: 19%; max-width: calc(52vw - 29vw - 32px); transform: translateY(-20px); }
+.hv-2 .hv-img { left: 52%; top: 13%; width: 40vw; height: 40%; clip-path: inset(0 0 0 100%); }
+.hv-2 .hv-name { left: 35.5%; top: 70%; transform: translateX(-20px); }
+.hv-2 .hv-sub { width: min(260px, 20vw); }
+.hv-2 .hv-sub { right: var(--g); bottom: 6%; transform: translateY(20px); }
+
+/* 3 */
+.hv-3 .hv-sub { left: 34.5%; top: 20%; transform: translateX(20px); }
+.hv-3 .hv-img { left: 17%; bottom: 8%; width: 31vw; height: 50%; clip-path: inset(0 100% 0 0); }
+.hv-3 .hv-name { left: 68%; top: 54%; transform: translateX(20px); }
+.hv-3 .hv-cat { left: 59.5%; top: 87%; transform: translateY(20px); }
+
+/* Ventures dip through black rather than crossfading directly. */
+.home-dip {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-out);
+}
+.home-dip.is-on {
+  opacity: 1;
+  transition: opacity 0.35s var(--ease-out);
 }
 .home-all {
   position: absolute;
@@ -1368,9 +1403,7 @@ html:not([data-loaded]) .home-enter {
     padding-left: 0;
   }
   .home-desc,
-  .home-thumb,
-  .home-blurb,
-  .home-label,
+  .hv,
   .home-all ul {
     display: none;
   }
