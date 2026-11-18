@@ -929,8 +929,27 @@ html[data-menu] .menu-cards {
 .note-card:hover {
   background: rgba(150, 150, 150, 0.3);
 }
+.hdr .menu-pill,
+.hdr .icon-btn {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transition: background-color 0.5s var(--ease-out);
+}
+.hdr .menu-pill,
+.hdr .menu-pill:hover,
+.hdr .icon-btn,
+.hdr .icon-btn:hover {
+  border-color: transparent;
+}
+.hdr .menu-pill:hover,
+.hdr .icon-btn:hover {
+  background: rgba(150, 150, 150, 0.3);
+}
 .menu-pills .pill::before,
-.note-card::before {
+.note-card::before,
+.hdr .menu-pill::before,
+.hdr .icon-btn::before {
   content: "";
   position: absolute;
   inset: -40%;
@@ -947,7 +966,9 @@ html[data-menu] .menu-cards {
   transition: opacity 0.8s var(--ease-out);
 }
 .menu-pills .pill:hover::before,
-.note-card:hover::before {
+.note-card:hover::before,
+.hdr .menu-pill:hover::before,
+.hdr .icon-btn:hover::before {
   opacity: 1;
   animation: liquid-silver 5.5s ease-in-out infinite alternate;
 }
@@ -966,7 +987,9 @@ html[data-menu] .menu-cards {
 }
 @media (prefers-reduced-motion: reduce) {
   .menu-pills .pill:hover::before,
-  .note-card:hover::before {
+  .note-card:hover::before,
+  .hdr .menu-pill:hover::before,
+  .hdr .icon-btn:hover::before {
     animation: none;
   }
 }
