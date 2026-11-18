@@ -1249,8 +1249,14 @@ html[data-menu] .menu-preview {
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 6px;
+  align-items: stretch;
+  width: max-content;
+}
+/* Each pill sits in a full-width row with no gaps between rows, so the
+   pointer is always over one venture while it moves down the list. */
+.home-pill-row {
+  display: block;
+  padding: 3px 0;
 }
 .home-head {
   position: absolute;
@@ -1292,12 +1298,12 @@ html[data-menu] .menu-preview {
   color: #fff;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.35s var(--ease-out), transform 0.35s var(--ease-out), clip-path 0.45s var(--ease-inout-soft);
+  transition: opacity 0.25s linear, transform 0.25s linear, clip-path 0.18s linear;
 }
-.hv.is-on > * {
+.hv.hv.is-on > * {
   opacity: 1;
   transform: none;
-  transition: opacity 0.7s var(--ease-out) 0.25s, transform 0.9s var(--ease-out) 0.25s, clip-path 0.9s var(--ease-inout-soft) 0.2s;
+  transition: opacity 0.7s var(--ease-out) 0.2s, transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.2s, clip-path 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
 }
 .hv-cat {
   font-size: 15px;
@@ -1334,7 +1340,7 @@ html[data-menu] .menu-preview {
   height: 100%;
   object-fit: cover;
 }
-.hv.is-on .hv-img {
+.hv.hv.is-on .hv-img {
   clip-path: inset(0 0 0 0);
 }
 

@@ -90,7 +90,7 @@ export function HomeHero({ ventures, all }: { ventures: HomeVenture[]; all: stri
             <Link
               key={v.slug}
               href={`/portfolio/${v.slug}`}
-              className={`pill ${hover === i ? 'is-active' : ''}`}
+              className="home-pill-row"
               data-transition={fine ? 'self' : undefined}
               onMouseEnter={() => setHover(i)}
               onMouseLeave={leave(i)}
@@ -111,18 +111,18 @@ export function HomeHero({ ventures, all }: { ventures: HomeVenture[]; all: stri
                 })
               }}
             >
-              {v.name}
+              <span className={`pill ${hover === i ? 'is-active' : ''}`}>{v.name}</span>
             </Link>
           ))}
           <Link
             href="/ventures"
-            className={`pill ${hover === 'all' ? 'is-active' : ''}`}
+            className="home-pill-row"
             onMouseEnter={() => setHover('all')}
             onMouseLeave={leave('all')}
             onFocus={() => setHover('all')}
             onBlur={leave('all')}
           >
-            All ventures
+            <span className={`pill ${hover === 'all' ? 'is-active' : ''}`}>All ventures</span>
           </Link>
         </nav>
       </div>
