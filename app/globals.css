@@ -878,8 +878,22 @@ html[data-menu-closing] .menu {
   display: inline-block;
   opacity: 1;
   transform: translateY(105%);
+  position: relative;
   transition: transform 0.6s var(--ease-out), opacity 0.4s;
-  border-bottom: 1px solid transparent;
+}
+/* Underline draws in from the left on hover and leaves to the right on
+   hover-out, so a quick sweep down the list sends each line across in turn. */
+.menu-link > span::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.04em;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 0.55s var(--ease-out);
 }
 html[data-menu] .menu-link > span {
   transform: none;
@@ -891,10 +905,11 @@ html[data-menu] .menu-link > span {
 }
 .menu-links .menu-link:hover > span {
   opacity: 1;
-  border-bottom-color: currentColor;
 }
-.menu-link[aria-current="page"] > span {
-  border-bottom-color: currentColor;
+.menu-links .menu-link:hover > span::after,
+.menu-link[aria-current="page"] > span::after {
+  transform: scaleX(1);
+  transform-origin: left center;
 }
 .menu-pills {
   display: flex;
