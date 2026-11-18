@@ -244,6 +244,98 @@ function ShowcaseSection({ block }: { block: ShowcaseBlock }) {
         </div>
       )
 
+    case 'pair':
+      return (
+        <figure className="section-sm">
+          <div className="media-pair">
+            {block.images.map((im) => (
+              <Mask key={im.src}>
+                <Media src={im.src} name={im.alt} sizes="(min-width: 967px) 50vw, 100vw" />
+              </Mask>
+            ))}
+          </div>
+          {block.caption && <figcaption className="pad">{block.caption}</figcaption>}
+        </figure>
+      )
+
+    case 'flow':
+      return (
+        <section className="section">
+          {(block.label || block.title) && (
+            <div className="pad" style={{ marginBottom: 'clamp(24px, 3vw, 48px)' }}>
+              {block.label && (
+                <p className="t-label" style={{ margin: '0 0 10px' }}>
+                  {block.label}
+                </p>
+              )}
+              {block.title && <h3 className="serif t-h3" style={{ margin: 0 }}>{block.title}</h3>}
+            </div>
+          )}
+          <ol className="cs-flow fade" data-io style={{ '--n': block.steps.length } as React.CSSProperties}>
+            {block.steps.map((st, i) => (
+              <li key={st.title}>
+                <span className="cs-flow-num">{String(i + 1).padStart(2, '0')}</span>
+                <span className="cs-flow-title">{st.title}</span>
+                {st.text && <span className="cs-flow-text">{st.text}</span>}
+              </li>
+            ))}
+          </ol>
+        </section>
+      )
+
+    case 'bars':
+      return (
+        <TitleAndText label={block.label} title={block.title}>
+          <div className="cs-bars" data-io>
+            {block.items.map((b) => (
+              <div key={b.label} className="cs-bar">
+                <div className="cs-bar-head">
+                  <span>{b.label}</span>
+                  <span className="serif cs-bar-value">{b.display}</span>
+                </div>
+                <div className="cs-bar-track">
+                  <span style={{ '--w': `${Math.max(0.6, b.value)}%` } as React.CSSProperties} />
+                </div>
+              </div>
+            ))}
+            {block.note && (
+              <p className="t-label" style={{ margin: '16px 0 0' }}>
+                {block.note}
+              </p>
+            )}
+          </div>
+        </TitleAndText>
+      )
+
+    case 'links':
+      return (
+        <TitleAndText label={block.label ?? 'See the work'}>
+          {block.items.map((l) => (
+            <a
+              key={l.href}
+              href={l.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="row compact"
+              style={{ paddingInline: 0, gridTemplateColumns: '1fr auto' }}
+            >
+              <span>
+                <span className="bold" style={{ fontSize: 18 }}>
+                  {l.label}
+                </span>
+                {l.note && (
+                  <span className="subtle" style={{ display: 'block', fontSize: 14, marginTop: 2 }}>
+                    {l.note}
+                  </span>
+                )}
+              </span>
+              <Arrow />
+            </a>
+          ))}
+          <hr className="rule" />
+        </TitleAndText>
+      )
+
     case 'quote':
       return (
         <TitleAndText label="Quote">

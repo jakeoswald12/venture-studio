@@ -1495,6 +1495,102 @@ a.row:hover {
   min-height: 320px;
   aspect-ratio: auto;
 }
+/* Numbered stages across the page. */
+.cs-flow {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0 var(--g);
+  list-style: none;
+}
+@media (min-width: 967px) {
+  .cs-flow { grid-template-columns: repeat(var(--n, 4), minmax(0, 1fr)); }
+}
+.cs-flow li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 200px;
+  padding: 20px;
+  border-radius: var(--radius-lg);
+  background: var(--bg-subtle);
+}
+.cs-flow li:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 31px;
+  right: -8px;
+  width: 8px;
+  height: 1px;
+  background: var(--text-subtle);
+}
+.cs-flow-num {
+  font-size: 13px;
+  color: var(--text-subtle);
+}
+.cs-flow-title {
+  margin-top: auto;
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: clamp(22px, 1.9vw, 28px);
+  line-height: 1.1;
+  color: var(--text-bold);
+}
+.cs-flow-text {
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--text-subtle);
+}
+
+/* Horizontal bars for figures on record. */
+.cs-bar + .cs-bar {
+  margin-top: 28px;
+}
+.cs-bar-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 10px;
+  font-size: 15px;
+  color: var(--text-subtle);
+}
+.cs-bar-value {
+  font-size: clamp(32px, 3.4vw, 52px);
+  font-weight: 300;
+  color: var(--text-bold);
+  line-height: 1;
+}
+.cs-bar-track {
+  height: 10px;
+  border-radius: 99px;
+  background: var(--bg-subtle);
+  overflow: hidden;
+}
+.cs-bar-track span {
+  display: block;
+  height: 100%;
+  width: var(--w);
+  border-radius: inherit;
+  background: var(--text-bold);
+  transition: width 1.4s var(--ease-out);
+}
+.reveal-armed .cs-bars:not(.is-in) .cs-bar-track span {
+  width: 0;
+}
+
+.media-pair {
+  display: grid;
+  gap: 8px;
+  padding-inline: var(--g);
+}
+@media (min-width: 967px) {
+  .media-pair { grid-template-columns: 1fr 1fr; }
+}
+.media-pair .mask {
+  aspect-ratio: 4 / 3;
+}
 figure {
   margin: 0;
 }
