@@ -45,7 +45,7 @@ export const LEADERSHIP: Person[] = [
     linkedin: 'https://www.linkedin.com/in/larsostervold/',
     summary:
       'Chemical engineering Ph.D. and former Dow research scientist who now leads technology at Austin Christian University and founded Launch.',
-    roles: [
+    past: [
       { title: 'Chief Technology Officer', org: 'Austin Christian University' },
       {
         title: 'Founder',
@@ -53,8 +53,6 @@ export const LEADERSHIP: Person[] = [
         url: 'https://launch.kids',
         note: 'Kids 5 and up build real games and apps by describing them',
       },
-    ],
-    past: [
       {
         title: 'Research Scientist',
         org: 'Dow',
@@ -72,14 +70,12 @@ export const LEADERSHIP: Person[] = [
     linkedin: 'https://www.linkedin.com/in/jake-oswald/',
     summary:
       "Built Austin Christian University's accelerator after leading partnerships and data at Servant and marketing for real estate and building companies.",
-    roles: [
+    past: [
       {
         title: 'Director of Entrepreneurship',
         org: 'Austin Christian University',
         note: 'Runs an accelerator with 50+ Christian-led startups and companies',
       },
-    ],
-    past: [
       { title: 'Director of Partnerships', org: 'Servant', url: 'https://servant.io' },
       { title: 'Marketing Intelligence Manager', org: 'Great Lakes Management', url: 'https://www.greatlakesmc.com' },
       { title: 'Marketing Director', org: 'Pritchard Companies', note: 'Pitch decks that raised $10M+' },
@@ -92,14 +88,12 @@ export const LEADERSHIP: Person[] = [
     linkedin: 'https://www.linkedin.com/in/marshallcunningham/',
     summary:
       'People and operations leader who has run operations for a venture firm, a charitable foundation office and a global entrepreneur network.',
-    roles: [
+    past: [
       {
         title: 'VP of People & Culture',
         org: 'Faith Driven Entrepreneur',
         url: 'https://www.faithdrivenentrepreneur.org/',
       },
-    ],
-    past: [
       { title: 'Vice President, Head of Platform', org: 'TXV Partners', note: 'Austin private investment firm' },
       { title: 'Director of Operations and Engagement', org: 'National Christian Foundation, Austin' },
     ],
@@ -111,8 +105,8 @@ export const LEADERSHIP: Person[] = [
     linkedin: 'https://www.linkedin.com/in/tanner-dobbs-1129149a/',
     summary:
       'Go-to-market leader who started at Bain & Company and spent six years building sales and strategy at Take Command.',
-    roles: [{ title: 'Head of Growth (Fractional)', org: 'AcquireROI', url: 'https://acquireroi.com' }],
     past: [
+      { title: 'Head of Growth (Fractional)', org: 'AcquireROI', url: 'https://acquireroi.com' },
       {
         title: 'VP of Strategy and Business Development',
         org: 'Take Command',
@@ -130,16 +124,14 @@ export const LEADERSHIP: Person[] = [
     linkedin: 'https://www.linkedin.com/in/n8-steele/',
     summary:
       'Denver creative director working across brand identity, web, photography and video, with clients including On, Compassion International and RE/MAX.',
-    roles: [
-      { title: 'Creative Director', org: 'Studio Finity', url: 'https://studio-finity.com/' },
+    past: [{ title: 'Creative Director', org: 'Studio Finity', url: 'https://studio-finity.com/' },
       {
         title: 'Director of Media',
         org: 'Area 15 Ventures',
         url: 'https://www.area15ventures.com',
         note: 'Colorado private equity firm',
       },
-      { title: 'Founder', org: 'Baxo AI', url: 'https://baxo.ai/', note: 'AI performance reviews' },
-    ],
+      { title: 'Founder', org: 'Baxo AI', url: 'https://baxo.ai/', note: 'AI performance reviews' }],
   },
   {
     name: 'Taylore Hopkins',
@@ -148,15 +140,13 @@ export const LEADERSHIP: Person[] = [
     linkedin: 'https://www.linkedin.com/in/taylore-hopkins-a91aa5245/',
     summary:
       'Builds college partnerships for the Classic Learning Test after working in admissions at Samford University, where she was a Division I soccer player.',
-    roles: [
+    past: [
       {
         title: 'Director of College Partnerships',
         org: 'Classic Learning Test',
         url: 'https://www.cltexam.com',
         note: 'College entrance exam rooted in the classical tradition',
       },
-    ],
-    past: [
       { title: 'Campus Visit Coordinator and Admission Counselor', org: 'Samford University' },
       { title: 'Mentor Coordinator', org: 'Aspire Movement' },
     ],
@@ -168,7 +158,7 @@ export const LEADERSHIP: Person[] = [
     linkedin: 'https://www.linkedin.com/in/landenenns/',
     summary:
       'Investor with a background in venture capital and corporate M&A, now managing a fund for faith-driven investors.',
-    roles: [
+    past: [
       { title: 'Fund Manager', org: "Solving the World's Greatest Problems", url: 'https://solving.org' },
       {
         title: 'Co-Owner',
@@ -176,8 +166,6 @@ export const LEADERSHIP: Person[] = [
         url: 'https://www.trioflatmount.com/',
         note: 'Starlink mounts and accessories',
       },
-    ],
-    past: [
       {
         title: 'Venture Capital Investor',
         org: 'VMG Partners',

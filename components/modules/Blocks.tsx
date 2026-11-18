@@ -131,7 +131,6 @@ function Roles({ label, roles }: { label: string; roles: Role[] }) {
             ) : (
               r.org
             )}
-            {r.note && <em>{r.note}</em>}
           </li>
         ))}
       </ul>
@@ -142,7 +141,7 @@ function Roles({ label, roles }: { label: string; roles: Role[] }) {
 /** A person as a portrait card. At rest: portrait, name and title. On hover
  *  the card shows who they are, what they do now and what they did before. */
 export function PersonCard({ person }: { person: Person }) {
-  const more = person.summary || person.bio || person.roles?.length || person.past?.length || person.linkedin
+  const more = person.roles?.length || person.past?.length || person.linkedin
   return (
     <article className="pcard">
       {person.photo ? (
@@ -170,7 +169,6 @@ export function PersonCard({ person }: { person: Person }) {
         {more ? (
           <div className="pcard-more">
             <div>
-              {(person.summary || person.bio) && <p>{person.summary ?? person.bio}</p>}
               {person.roles?.length ? <Roles label="Currently" roles={person.roles} /> : null}
               {person.past?.length ? <Roles label="Previously" roles={person.past} /> : null}
               {person.linkedin && (
