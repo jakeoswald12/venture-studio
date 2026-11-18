@@ -19,7 +19,13 @@ import { useChrome } from './store'
 export function Menu() {
   const { menu } = useChrome()
   const pathname = usePathname()
+  // The last item hovered stays in the centre frame until another is hovered.
   const [hover, setHover] = useState<string | null>(null)
+  const [wasOpen, setWasOpen] = useState(menu)
+  if (menu !== wasOpen) {
+    setWasOpen(menu)
+    if (!menu) setHover(null)
+  }
 
   const previews = [
     ...MENU_LINKS.map((l) => ({ href: l.href as string, src: l.image as string | undefined, name: l.label as string })),
@@ -28,7 +34,6 @@ export function Menu() {
   ]
   const over = (href: string) => ({
     onMouseEnter: () => setHover(href),
-    onMouseLeave: () => setHover((h) => (h === href ? null : h)),
     onFocus: () => setHover(href),
   })
   const tab = menu ? 0 : -1
