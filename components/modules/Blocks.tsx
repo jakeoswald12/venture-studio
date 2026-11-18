@@ -116,23 +116,26 @@ const initials = (name: string) =>
     .join('')
     .toUpperCase()
 
-function Roles({ roles }: { roles: Role[] }) {
+function Roles({ label, roles }: { label: string; roles: Role[] }) {
   return (
-    <ul>
-      {roles.map((r) => (
-        <li key={`${r.title}-${r.org}`}>
-          {r.title},{' '}
-          {r.url ? (
-            <a href={r.url} target="_blank" rel="noopener noreferrer">
-              {r.org}
-            </a>
-          ) : (
-            r.org
-          )}
-          {r.note && <em>{r.note}</em>}
-        </li>
-      ))}
-    </ul>
+    <>
+      <p className="pcard-label">{label}</p>
+      <ul>
+        {roles.map((r) => (
+          <li key={`${r.title}-${r.org}`}>
+            {r.title},{' '}
+            {r.url ? (
+              <a href={r.url} target="_blank" rel="noopener noreferrer">
+                {r.org}
+              </a>
+            ) : (
+              r.org
+            )}
+            {r.note && <em>{r.note}</em>}
+          </li>
+        ))}
+      </ul>
+    </>
   )
 }
 
@@ -147,7 +150,7 @@ export function PersonCard({ person }: { person: Person }) {
           src={person.photo}
           alt={person.name}
           fill
-          sizes="(min-width: 967px) 25vw, 50vw"
+          sizes="(min-width: 967px) 18vw, 45vw"
           draggable={false}
           style={{ objectPosition: person.photoPosition ?? 'center' }}
         />
@@ -168,8 +171,8 @@ export function PersonCard({ person }: { person: Person }) {
           <div className="pcard-more">
             <div>
               {(person.summary || person.bio) && <p>{person.summary ?? person.bio}</p>}
-              {person.roles?.length ? <Roles roles={person.roles} /> : null}
-              {person.past?.length ? <Roles roles={person.past} /> : null}
+              {person.roles?.length ? <Roles label="Currently" roles={person.roles} /> : null}
+              {person.past?.length ? <Roles label="Previously" roles={person.past} /> : null}
               {person.linkedin && (
                 <p>
                   <a href={person.linkedin} target="_blank" rel="noopener noreferrer">

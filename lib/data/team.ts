@@ -574,19 +574,94 @@ export const FELLOWS: Person[] = [
 ]
 
 export const BOARD: Person[] = [
-  { name: 'Ben Peays', title: 'Board Chair' },
+  {
+    name: 'Ben Peays',
+    title: 'Board Chair',
+    photo: '/team/ben-peays.jpg',
+    photoPosition: 'center 20%',
+    linkedin: 'https://www.linkedin.com/in/benpeays/',
+    summary:
+      'Has built and led businesses and Christian ministries for two decades and now leads a peer advisory community for Christian CEOs.',
+    roles: [{ title: 'Chief Executive Officer', org: 'Convene', note: 'Peer advisory teams and coaching for Christian CEOs' }],
+    past: [
+      { title: 'Chief Operating Officer', org: '100 Fold', note: 'Helps high-net-worth families give at greater scale' },
+      { title: 'Founder', org: 'BlackBox', note: 'AI-native technology firm' },
+    ],
+  },
   {
     name: 'Connor Champion',
     title: 'Board Member',
     photo: '/team/connor-champion.jpeg',
     photoPosition: 'center 15%',
     linkedin: 'https://www.linkedin.com/in/connor-champion-563756212/',
+    summary: 'President of Austin Christian University, after leading Celebration Leadership Institute and coaching college football.',
+    roles: [{ title: 'President', org: 'Austin Christian University' }],
+    past: [
+      { title: 'President', org: 'Celebration Leadership Institute' },
+      { title: 'Offensive Assistant', org: 'Arizona State University' },
+      { title: 'Offensive Assistant', org: 'University of Houston' },
+    ],
   },
-  { name: 'Steve French', title: 'Board Member' },
-  { name: 'Jeff Johns', title: 'Board Member' },
-  { name: 'Justin Forman', title: 'Board Member', linkedin: 'https://www.linkedin.com/in/jforman/' },
-  { name: 'Mark McClain', title: 'Board Member' },
-  { name: 'Jake Thomsen', title: 'Board Member' },
+  {
+    name: 'Steve French',
+    title: 'Board Member',
+    photo: '/team/steve-french.jpg',
+    photoPosition: 'center 15%',
+    linkedin: 'https://www.linkedin.com/in/frenchstephen/',
+    summary: 'Leads The Signatry after nearly two decades as a CEO in legal technology.',
+    roles: [
+      {
+        title: 'President & CEO',
+        org: 'The Signatry',
+        url: 'https://thesignatry.com',
+        note: 'Has overseen more than $1 billion in non-cash gifts',
+      },
+    ],
+    past: [
+      { title: 'President, Middle Tennessee Region', org: 'NCF Heartland' },
+      { title: 'Chief Executive Officer', org: 'Quovant' },
+    ],
+  },
+  {
+    name: 'Jeff Johns',
+    title: 'Board Member',
+    photo: '/team/jeff-johns.jpg',
+    photoPosition: 'center 25%',
+    linkedin: 'https://www.linkedin.com/in/jeffjohns505/',
+    summary: 'Leads Impact Foundation after twelve years growing the National Christian Foundation network.',
+    roles: [
+      { title: 'Chief Executive', org: 'Impact Foundation' },
+      { title: 'Board Chair', org: 'Acton Academy Albuquerque' },
+    ],
+    past: [
+      {
+        title: 'Senior Vice President',
+        org: 'National Christian Foundation',
+        note: 'Added 27 foundations as annual giving grew from about $60M to over $1B',
+      },
+      { title: 'Associate', org: 'Mitchell Madison Group' },
+      { title: 'Analyst', org: 'Marakon Associates' },
+    ],
+  },
+  {
+    name: 'Jake Thomsen',
+    title: 'Board Member',
+    photo: '/team/jake-thomsen.jpg',
+    photoPosition: 'center 20%',
+    linkedin: 'https://www.linkedin.com/in/jakethomsen/',
+    summary: 'Leads venture investing at Sovereign\'s Capital, backing founders across the U.S. and Southeast Asia.',
+    roles: [
+      {
+        title: 'Managing Partner',
+        org: "Sovereign's Capital",
+        note: 'More than 70 companies backed across four venture funds since 2012',
+      },
+    ],
+    past: [
+      { title: 'Lead Associate, Strategic Innovation Group', org: 'Booz Allen Hamilton' },
+      { title: 'MBA Financial Analyst', org: '8 Rivers Capital' },
+    ],
+  },
 ]
 
 /** Firm Advisors: name and LinkedIn only, alphabetical by last name. */
@@ -622,6 +697,7 @@ export const ADVISORS: Pick<Person, 'name' | 'linkedin'>[] = [
   { name: 'Ben Elmore', linkedin: 'https://www.linkedin.com/in/benjaminelmore/' },
   { name: 'Patrick Farrell' },
   { name: 'Andrew Feng' },
+  { name: 'Justin Forman', linkedin: 'https://www.linkedin.com/in/jforman/' },
   { name: 'Luke Frazier' },
   { name: 'David Friedman' },
   { name: 'Morgan Gamble' },
@@ -656,6 +732,7 @@ export const ADVISORS: Pick<Person, 'name' | 'linkedin'>[] = [
   { name: 'John Manning' },
   { name: 'Paul Martin' },
   { name: 'Tommy Martin' },
+  { name: 'Mark McClain' },
   { name: 'Mike Meiser', linkedin: 'https://www.linkedin.com/in/michaelmeiser/' },
   { name: 'Tim Metzner' },
   { name: 'Preston Morter' },
