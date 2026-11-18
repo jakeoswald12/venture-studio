@@ -2,12 +2,33 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { Media } from '@/components/modules/Media'
 import { ESSAYS, FEATURED, MENU_LINKS } from '@/lib/site'
 import { closeMenu } from './menu'
 import { useChrome } from './store'
+
+/**
+ * Link underlines always finish drawing in before they leave, so a fast
+ * sweep down the list still sends a full line across each word in turn.
+ */
+const UL_MS = 450
+const ulState = new WeakMap<HTMLElement, { start: number; timer?: number }>()
+function underlineIn(el: HTMLElement) {
+  const st = ulState.get(el)
+  if (st?.timer) clearTimeout(st.timer)
+  el.dataset.ul = 'in'
+  ulState.set(el, { start: performance.now() })
+}
+function underlineOut(el: HTMLElement) {
+  const st = ulState.get(el)
+  const wait = Math.max(0, UL_MS - (performance.now() - (st?.start ?? 0)))
+  const timer = window.setTimeout(() => {
+    el.dataset.ul = 'out'
+  }, wait)
+  ulState.set(el, { start: st?.start ?? 0, timer })
+}
 
 /**
  * The menu is a scene, not a list. The current page becomes a card in the
@@ -22,6 +43,22 @@ export function Menu() {
   // The last item hovered stays in the centre frame until another is hovered.
   const [hover, setHover] = useState<string | null>(null)
   const [wasOpen, setWasOpen] = useState(menu)
+  // Every open starts with no underline, whatever was hovered last time.
+  const links = useRef<HTMLElement>(null)
+  useEffect(() => {
+    links.current?.querySelectorAll<HTMLElement>('.menu-link').forEach((el) => {
+      const st = ulState.get(el)
+      if (st?.timer) clearTimeout(st.timer)
+      ulState.delete(el)
+      el.style.transition = 'none'
+      delete el.dataset.ul
+    })
+    requestAnimationFrame(() =>
+      links.current?.querySelectorAll<HTMLElement>('.menu-link').forEach((el) => {
+        el.style.transition = ''
+      }),
+    )
+  }, [menu])
   if (menu !== wasOpen) {
     setWasOpen(menu)
     if (!menu) setHover(null)
@@ -42,7 +79,7 @@ export function Menu() {
     <>
       <div id="site-menu" className="menu theme-invert" aria-hidden={!menu}>
         <div className="menu-left">
-          <nav aria-label="Pages" className="menu-links">
+          <nav ref={links} aria-label="Pages" className="menu-links">
             {MENU_LINKS.map((l, i) => (
               <Link
                 key={l.href}
@@ -54,8 +91,16 @@ export function Menu() {
                 data-name={l.label}
                 style={{ '--i': i } as React.CSSProperties}
                 {...over(l.href)}
+                onMouseEnter={(e) => {
+                  setHover(l.href)
+                  underlineIn(e.currentTarget)
+                }}
+                onMouseLeave={(e) => underlineOut(e.currentTarget)}
               >
-                <span>{l.label}</span>
+                <span>
+                  {l.label}
+                  <i className="menu-ul" aria-hidden="true" />
+                </span>
               </Link>
             ))}
           </nav>

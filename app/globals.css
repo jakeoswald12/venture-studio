@@ -881,19 +881,27 @@ html[data-menu-closing] .menu {
   position: relative;
   transition: transform 0.6s var(--ease-out), opacity 0.4s;
 }
-/* Underline draws in from the left on hover and leaves to the right on
-   hover-out, so a quick sweep down the list sends each line across in turn. */
-.menu-link > span::after {
-  content: "";
+/* Underline draws in from the left and leaves to the right. Menu.tsx holds
+   the exit until the line has fully drawn, so fast sweeps still read. */
+.menu-ul {
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0.04em;
   height: 1px;
   background: currentColor;
+  pointer-events: none;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.menu-link[data-ul="in"] .menu-ul {
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+.menu-link[data-ul="out"] .menu-ul {
   transform: scaleX(0);
   transform-origin: right center;
-  transition: transform 0.55s var(--ease-out);
 }
 html[data-menu] .menu-link > span {
   transform: none;
@@ -905,11 +913,6 @@ html[data-menu] .menu-link > span {
 }
 .menu-links .menu-link:hover > span {
   opacity: 1;
-}
-.menu-links .menu-link:hover > span::after,
-.menu-link[aria-current="page"] > span::after {
-  transform: scaleX(1);
-  transform-origin: left center;
 }
 .menu-pills {
   display: flex;
@@ -1067,14 +1070,19 @@ html[data-menu] .menu-cards {
 html[data-menu] .menu-preview {
   visibility: visible;
 }
+/* The incoming item fades in on top while the outgoing one stays solid
+   underneath until the fade is done, so nothing behind shows through. */
 .menu-preview > div {
   position: absolute;
   inset: 0;
+  z-index: 0;
   opacity: 0;
-  transition: opacity 0.6s var(--ease-out);
+  transition: opacity 0s linear 0.6s;
 }
 .menu-preview > div.is-on {
+  z-index: 1;
   opacity: 1;
+  transition: opacity 0.6s var(--ease-out);
 }
 .menu-preview img {
   object-fit: cover;
