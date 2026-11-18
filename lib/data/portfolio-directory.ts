@@ -226,7 +226,6 @@ const ALL_COMPANIES: PortfolioCompany[] = [
   // Studio joint ventures (added for the West Ventures site).
   {
     slug: 'unify',
-    hero: "/images/case-studies/unify/meadow.jpg",
     delivered: "Product, website, product video",
     disciplines: ["Agentic engineering", "Branding", "Marketing"],
     showcase: [
@@ -262,7 +261,7 @@ const ALL_COMPANIES: PortfolioCompany[] = [
         "ratio": "16/9"
       }
     ],
-    tile: "/images/case-studies/unify/site.jpg",
+    tile: "/images/case-studies/unify/meadow.jpg",
     name: 'Unify',
     descriptor: "Software for nonprofits and churches",
     url: 'https://unify-production.vercel.app/',
@@ -289,7 +288,6 @@ const ALL_COMPANIES: PortfolioCompany[] = [
   },
   {
     slug: 'waterside-by-ulteum',
-    hero: "/images/case-studies/waterside-by-ulteum/cover.jpg",
     delivered: "Private investor site and deck",
     disciplines: ["AI readability", "Boutique marketing", "Agentic engineering"],
     showcase: [
@@ -581,7 +579,6 @@ const ALL_COMPANIES: PortfolioCompany[] = [
   },
   {
     slug: 'venture-forge',
-    hero: "/images/case-studies/venture-forge/sparks.jpg",
     delivered: "Event film, social channels, website",
     disciplines: ["Marketing", "Agentic engineering"],
     showcase: [
@@ -889,10 +886,15 @@ const ALL_COMPANIES: PortfolioCompany[] = [
   },
   {
     slug: 'the-care-app',
-    hero: "/images/case-studies/the-care-app/loop.mp4",
     delivered: "Marketing systems, creator program, church outreach",
     disciplines: ["Marketing", "Agentic engineering", "Sales"],
     showcase: [
+      {
+        "kind": "image",
+        "src": "/images/case-studies/the-care-app/loop.mp4",
+        "alt": "Wellness app",
+        "ratio": "16/9"
+      },
       {
         "kind": "image",
         "src": "/images/case-studies/the-care-app/screens.jpg",
@@ -998,10 +1000,15 @@ const ALL_COMPANIES: PortfolioCompany[] = [
   },
   {
     slug: 'athletes-ocean',
-    hero: "/images/case-studies/athletes-ocean/loop.mp4",
     delivered: "Instructor bios and organic search build-out",
     disciplines: ["AI search", "Copywriting", "Analytics"],
     showcase: [
+      {
+        "kind": "image",
+        "src": "/images/case-studies/athletes-ocean/loop.mp4",
+        "alt": "Athlete instruction platform",
+        "ratio": "16/9"
+      },
       {
         "kind": "image",
         "src": "/images/case-studies/athletes-ocean/finals.jpg",
@@ -1093,10 +1100,15 @@ const ALL_COMPANIES: PortfolioCompany[] = [
   },
   {
     slug: 'heavytech',
-    hero: "/images/case-studies/heavytech/loop.mp4",
     delivered: "3D website, market study, social plan",
     disciplines: ["Agentic engineering", "Branding", "Market research", "Marketing"],
     showcase: [
+      {
+        "kind": "image",
+        "src": "/images/case-studies/heavytech/loop.mp4",
+        "alt": "Off-highway machinery",
+        "ratio": "16/9"
+      },
       {
         "kind": "image",
         "src": "/images/case-studies/heavytech/arlo.jpg",
@@ -1228,10 +1240,15 @@ const ALL_COMPANIES: PortfolioCompany[] = [
   },
   {
     slug: 'launch-kids',
-    hero: "/images/case-studies/launch-kids/smith.mp4",
     delivered: "Brand kit, ad library, paid tests",
     disciplines: ["Branding", "Marketing"],
     showcase: [
+      {
+        "kind": "image",
+        "src": "/images/case-studies/launch-kids/smith.mp4",
+        "alt": "Kids' AI coding platform",
+        "ratio": "16/9"
+      },
       {
         "kind": "image",
         "src": "/images/case-studies/launch-kids/maze-quest.jpg",
@@ -1333,7 +1350,6 @@ const ALL_COMPANIES: PortfolioCompany[] = [
   },
   {
     slug: 'lifetime-fitness',
-    hero: "/images/case-studies/lifetime-fitness/leap.jpg",
     delivered: "AI tools for club construction",
     disciplines: ["Agentic engineering", "Market research"],
     showcase: [

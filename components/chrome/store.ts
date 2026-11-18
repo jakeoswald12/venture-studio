@@ -53,6 +53,8 @@ export const T = {
   menu: 1200,
   expandPill: 1500,
   expandMenu: 1200,
+  /** The full-screen preview settling into a case study's hero. */
+  land: 1000,
 } as const
 
 export const reducedMotion = () =>

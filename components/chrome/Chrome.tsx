@@ -144,8 +144,38 @@ export function Chrome({ children }: { children: React.ReactNode }) {
           if (r.fromMenu) closeMenu(true)
           requestAnimationFrame(() =>
             requestAnimationFrame(() => {
-              el.classList.add('is-out')
               root.removeAttribute('data-expanding')
+              // If the new page opens on the same picture (a case study hero),
+              // the full-screen preview settles into that spot instead of fading.
+              const target = document.querySelector<HTMLElement>('.cs-hero')
+              const rect = target?.getBoundingClientRect()
+              if (target && rect && rect.width > 0) {
+                target.setAttribute('data-landed', '')
+                target.style.visibility = 'hidden'
+                const img = target.querySelector<HTMLElement>('img, video')
+                const pos = img ? getComputedStyle(img).objectPosition : ''
+                el.querySelectorAll<HTMLElement>('img, video').forEach((m) => (m.style.objectPosition = pos))
+                const radius = getComputedStyle(target).borderRadius || '8px'
+                const d = `${T.land}ms var(--ease-inout)`
+                el.classList.add('is-landing')
+                Object.assign(el.style, {
+                  transition: `left ${d}, top ${d}, width ${d}, height ${d}, border-radius ${d}`,
+                  left: `${rect.left}px`,
+                  top: `${rect.top}px`,
+                  width: `${rect.width}px`,
+                  height: `${rect.height}px`,
+                  borderRadius: radius,
+                })
+                setTimeout(() => {
+                  target.style.visibility = ''
+                  el.classList.remove('is-on', 'is-landing')
+                  el.style.transition = 'none'
+                  setMedia(null)
+                  busy.current = false
+                }, T.land + 40)
+                return
+              }
+              el.classList.add('is-out')
               setTimeout(() => {
                 el.classList.remove('is-on', 'is-out')
                 setMedia(null)
