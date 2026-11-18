@@ -289,14 +289,18 @@ const ALL_COMPANIES: PortfolioCompany[] = [
     showcase: [
       {
         "kind": "image",
-        "src": "/images/case-studies/waterside-by-ulteum/investor-site.jpg",
-        "alt": "Waterside investor site",
+        "src": "/images/case-studies/waterside-by-ulteum/slide-top.jpg",
+        "alt": "Waterside investor summary, title slide",
         "ratio": "16/9"
       },
       {
         "kind": "heading",
-        "eyebrow": "Investor site",
-        "text": "Private, plain and checkable"
+        "eyebrow": "The problem",
+        "text": "Three documents, one story"
+      },
+      {
+        "kind": "copy",
+        "text": "The offering lived in a private placement memorandum, an operating agreement and a business plan with its own pro forma. Investors increasingly hand documents like these to an AI tool to summarize, and a tool reading three sources can mix up figures that are stated differently in each."
       },
       {
         "kind": "flow",
@@ -307,7 +311,7 @@ const ALL_COMPANIES: PortfolioCompany[] = [
           },
           {
             "title": "Reconciled figures",
-            "text": "Every number traced to a source"
+            "text": "Every number traced to one source"
           },
           {
             "title": "Private summary",
@@ -320,38 +324,78 @@ const ALL_COMPANIES: PortfolioCompany[] = [
         ]
       },
       {
+        "kind": "heading",
+        "eyebrow": "Investor site",
+        "text": "A deck you scroll"
+      },
+      {
         "kind": "copy",
-        "text": "The investor summary is shared privately behind a password. Every figure is reconciled to the offering documents and business plan, and the page carries a machine-readable summary so investors' AI tools read it accurately."
+        "text": "The summary runs as one page of slides: the lake, the site, the homes, the market, the plan, the risks and the questions investors ask. An interactive map places the site among the lake's golf courses, resorts and trails."
+      },
+      {
+        "kind": "stats",
+        "items": [
+          {
+            "value": "29",
+            "label": "Slides"
+          },
+          {
+            "value": "12",
+            "label": "Investor questions answered"
+          },
+          {
+            "value": "3",
+            "label": "Source documents reconciled"
+          }
+        ]
+      },
+      {
+        "kind": "image",
+        "src": "/images/case-studies/waterside-by-ulteum/slide-location.jpg",
+        "alt": "Interactive location map",
+        "ratio": "16/9"
       },
       {
         "kind": "pair",
         "images": [
           {
-            "src": "/images/case-studies/waterside-by-ulteum/dock.jpg",
-            "alt": "Waterside dock"
+            "src": "/images/case-studies/waterside-by-ulteum/slide-lake.jpg",
+            "alt": "Gull Lake slide"
           },
           {
-            "src": "/images/case-studies/waterside-by-ulteum/aerial.jpg",
-            "alt": "Gull Lake aerial"
+            "src": "/images/case-studies/waterside-by-ulteum/slide-site.jpg",
+            "alt": "Site plan slide"
+          }
+        ]
+      },
+      {
+        "kind": "heading",
+        "eyebrow": "AI search",
+        "text": "Written for the machine reading over your shoulder"
+      },
+      {
+        "kind": "copy",
+        "text": "Alongside the slides, the page carries a structured summary of the deal, the investor questions marked up as FAQs, and an llms.txt file that tells AI crawlers what the page is and which documents its figures come from. The point is that an AI summary of Waterside says what the documents say."
+      },
+      {
+        "kind": "pair",
+        "images": [
+          {
+            "src": "/images/case-studies/waterside-by-ulteum/slide-amenities.jpg",
+            "alt": "Amenities slide"
+          },
+          {
+            "src": "/images/case-studies/waterside-by-ulteum/slide-faq.jpg",
+            "alt": "Investor questions slide"
           }
         ]
       },
       {
         "kind": "copy",
-        "text": "The design is understated on purpose: pines, lakes and loons, a dark green, cream and white palette, and modern serif headings."
-      },
-      {
-        "kind": "image",
-        "src": "/images/case-studies/waterside-by-ulteum/siteplan.jpg",
-        "alt": "Waterside site plan",
-        "ratio": "4/3"
-      },
-      {
-        "kind": "copy",
-        "text": "A student team joins the project in spring 2027."
+        "text": "The design is understated on purpose: pines, lakes and loons, a dark green, cream and white palette, and modern serif headings. A student team joins the project in spring 2027."
       }
     ],
-    blurb: "Waterside is a proposed private community of about seventy homes on Gull Lake in northern Minnesota, developed by Ulteum. The studio built a private investor summary site and an investor presentation.",
+    blurb: "Waterside is a proposed private community of about seventy homes on Gull Lake in northern Minnesota, developed by Ulteum. The studio turned the developer's offering documents, business plan and pro forma into one private investor summary that people and AI tools can both read correctly.",
     name: 'Waterside by Ulteum',
     descriptor: "Lakeside Community",
     tile: '/images/builder-scholars/gull-lake-mn-by-ulteum.webp',
