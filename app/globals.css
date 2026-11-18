@@ -910,6 +910,65 @@ html[data-menu] .menu-cards {
   opacity: 1;
   transition-delay: 0.6s;
 }
+/* Liquid silver: on hover the grey deepens a touch and a slow grayscale
+   sheen drifts under the label, like mercury moving beneath glass. */
+.menu-pills .pill {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transition: background-color 0.5s var(--ease-out), border-color 0.2s;
+}
+.menu-pills .pill:hover {
+  background: rgba(150, 150, 150, 0.3);
+  border-color: transparent;
+}
+.menu-pills .pill.is-active {
+  border-color: var(--text-bold);
+}
+.note-card:hover {
+  background: rgba(150, 150, 150, 0.3);
+}
+.menu-pills .pill::before,
+.note-card::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  background:
+    radial-gradient(40% 60% at 30% 40%, rgba(255, 255, 255, 0.55), transparent 70%),
+    radial-gradient(35% 55% at 70% 60%, rgba(120, 120, 120, 0.22), transparent 70%),
+    linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.45) 45%, rgba(210, 210, 210, 0.15) 52%, rgba(255, 255, 255, 0.4) 58%, transparent 72%);
+  background-size: 160% 160%, 180% 180%, 260% 100%;
+  background-position: 0% 50%, 100% 50%, 120% 0;
+  filter: blur(6px) grayscale(1);
+  transition: opacity 0.8s var(--ease-out);
+}
+.menu-pills .pill:hover::before,
+.note-card:hover::before {
+  opacity: 1;
+  animation: liquid-silver 5.5s ease-in-out infinite alternate;
+}
+@keyframes liquid-silver {
+  0% {
+    background-position: 0% 40%, 100% 60%, 120% 0;
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    background-position: 60% 70%, 30% 30%, 40% 0;
+  }
+  100% {
+    background-position: 100% 30%, 0% 70%, -40% 0;
+    transform: rotate(4deg) scale(1.08);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .menu-pills .pill:hover::before,
+  .note-card:hover::before {
+    animation: none;
+  }
+}
 .menu-card-hit {
   cursor: pointer;
   background: none;
@@ -931,17 +990,17 @@ html[data-menu] .menu-cards {
   transition: opacity 0.6s var(--ease-out);
 }
 .note-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   display: grid;
   grid-template-columns: 1fr 44px;
   gap: 10px;
   align-items: center;
   padding: 10px 12px;
   border-radius: var(--radius);
-  background: var(--bg-subtle);
-  transition: background-color 0.4s;
-}
-.note-card:hover {
-  background: color-mix(in oklab, var(--bg-subtle) 80%, var(--text-bold));
+  background: rgba(185, 185, 185, 0.2);
+  transition: background-color 0.5s var(--ease-out);
 }
 .note-card .thumb {
   position: relative;
@@ -972,11 +1031,11 @@ html[data-menu] .menu-preview {
 .menu-preview > div {
   position: absolute;
   inset: 0;
-  transform: translateY(101%);
-  transition: transform 0.8s var(--ease-inout-soft);
+  opacity: 0;
+  transition: opacity 0.6s var(--ease-out);
 }
 .menu-preview > div.is-on {
-  transform: none;
+  opacity: 1;
 }
 .menu-preview img {
   object-fit: cover;

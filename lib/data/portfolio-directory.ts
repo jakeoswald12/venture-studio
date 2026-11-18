@@ -1302,7 +1302,7 @@ const ALL_COMPANIES: PortfolioCompany[] = [
     tile: '/images/builder-scholars/cohorts/fall-2026-cohort/launchkids.png',
     tileFocus: 45,
     tileAspect: 2.0,
-    name: 'launch.kids',
+    name: 'Launch.Kids',
     descriptor: "Kids' AI coding platform",
     url: 'https://launch.kids',
     engagements: [
