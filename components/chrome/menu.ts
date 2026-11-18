@@ -27,7 +27,7 @@ function insets(card: boolean) {
   if (!card) return `inset(${y}px 0px ${below}px 0px round 0px)`
   const side = isDesktop() ? window.innerWidth * 0.35 : window.innerWidth / 2
   const v = isDesktop() ? 80 : window.innerHeight / 2
-  return `inset(${y + v}px ${side}px ${below + v}px ${side}px round 16px)`
+  return `inset(${y + v}px ${side}px ${below + v}px ${side}px round 8px)`
 }
 
 export function openMenu() {

@@ -122,7 +122,7 @@ export function Chrome({ children }: { children: React.ReactNode }) {
         top: `${r.rect.top}px`,
         width: `${r.rect.width}px`,
         height: `${r.rect.height}px`,
-        borderRadius: '16px',
+        borderRadius: '8px',
       })
       el.classList.remove('is-out')
       el.classList.add('is-on')

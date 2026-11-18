@@ -86,15 +86,15 @@ export function Menu() {
             {ESSAYS.map((e) => (
               <Link key={e.href} href={e.href} tabIndex={tab} className="note-card" data-src={e.image} data-name={e.title} {...over(e.href)}>
                 <span>
-                  <span className="t-label" style={{ display: 'block', fontSize: 13 }}>
+                  <span className="t-label" style={{ display: 'block', fontSize: 12 }}>
                     Essay · {e.section}
                   </span>
-                  <span className="bold" style={{ fontSize: 16 }}>
+                  <span className="bold" style={{ fontSize: 14, lineHeight: 1.3, display: 'block' }}>
                     {e.title}
                   </span>
                 </span>
                 <span className="thumb">
-                  <Image src={e.image} alt="" fill sizes="56px" />
+                  <Image src={e.image} alt="" fill sizes="44px" />
                 </span>
               </Link>
             ))}
