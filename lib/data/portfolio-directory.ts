@@ -83,8 +83,12 @@ export interface PortfolioCompany {
   descriptor?: string
   /** Public site. Omit for companies with nothing to link to. */
   url?: string
-  /** 1–3 sentences on what the team shipped. */
+  /** One or two short sentences: what the company is and what the studio did. */
   blurb?: string
+  /** A short phrase naming what was delivered, shown in the case study header. */
+  delivered?: string
+  /** Case study hero: a still or a muted looping video. Falls back to `tile`. */
+  hero?: string
   disciplines?: string[]
   /**
    * The tile artwork on /portfolio — a still, a looping GIF, or a muted
@@ -222,48 +226,47 @@ const ALL_COMPANIES: PortfolioCompany[] = [
   // Studio joint ventures (added for the West Ventures site).
   {
     slug: 'unify',
+    hero: "/images/case-studies/unify/meadow.jpg",
+    delivered: "Product, website, product video",
+    disciplines: ["Agentic engineering", "Branding", "Marketing"],
     showcase: [
-      {
-        "kind": "image",
-        "src": "/images/case-studies/unify/site.jpg",
-        "alt": "Unify home page",
-        "ratio": "16/9"
-      },
       {
         "kind": "heading",
         "eyebrow": "Product",
         "text": "One platform instead of a stack"
       },
       {
-        "kind": "copy",
-        "text": "Unify builds each organization its own software: CRM, donor page, volunteer management, grant tracking, website and tasks in one place, owned by the organization."
+        "kind": "flow",
+        "steps": [
+          {
+            "title": "CRM"
+          },
+          {
+            "title": "Donor page"
+          },
+          {
+            "title": "Volunteers"
+          },
+          {
+            "title": "Grants"
+          },
+          {
+            "title": "Website"
+          }
+        ]
       },
       {
         "kind": "image",
-        "src": "/images/case-studies/unify/site-churches.jpg",
-        "alt": "Unify for churches",
+        "src": "/images/case-studies/unify/lake.jpg",
+        "alt": "Unify",
         "ratio": "16/9"
-      },
-      {
-        "kind": "copy",
-        "text": "Unify is a joint venture of the studio. Students produced its product video."
-      },
-      {
-        "kind": "links",
-        "items": [
-          {
-            "label": "Unify",
-            "href": "https://unify-production.vercel.app/"
-          }
-        ]
       }
     ],
     tile: "/images/case-studies/unify/site.jpg",
     name: 'Unify',
-    descriptor: 'Software for Nonprofits',
+    descriptor: "Software for nonprofits and churches",
     url: 'https://unify-production.vercel.app/',
-    blurb:
-      'Nonprofits pay for many separate subscriptions: a CRM, a donor page, volunteer management, grant tracking, a website and task management. Unify replaces them with one platform built for each organization.',
+    blurb: "One platform in place of a nonprofit's pile of subscriptions. A studio joint venture.",
     engagements: [],
   },
   {
@@ -286,51 +289,50 @@ const ALL_COMPANIES: PortfolioCompany[] = [
   },
   {
     slug: 'waterside-by-ulteum',
+    hero: "/images/case-studies/waterside-by-ulteum/cover.jpg",
+    delivered: "Private investor site and deck",
+    disciplines: ["AI readability", "Boutique marketing", "Agentic engineering"],
     showcase: [
       {
-        "kind": "image",
-        "src": "/images/case-studies/waterside-by-ulteum/slide-top.jpg",
-        "alt": "Waterside investor summary, title slide",
-        "ratio": "16/9"
-      },
-      {
-        "kind": "heading",
-        "eyebrow": "The problem",
-        "text": "Three documents, one story"
-      },
-      {
-        "kind": "copy",
-        "text": "The offering lived in a private placement memorandum, an operating agreement and a business plan with its own pro forma. Investors increasingly hand documents like these to an AI tool to summarize, and a tool reading three sources can mix up figures that are stated differently in each."
-      },
-      {
-        "kind": "flow",
-        "steps": [
+        "kind": "pair",
+        "images": [
           {
-            "title": "Offering documents",
-            "text": "Memorandum, operating agreement, business plan"
+            "src": "/images/case-studies/waterside-by-ulteum/dock.jpg",
+            "alt": "Gull Lake"
           },
           {
-            "title": "Reconciled figures",
-            "text": "Every number traced to one source"
-          },
-          {
-            "title": "Private summary",
-            "text": "Password-protected, for prospective investors"
-          },
-          {
-            "title": "Machine-readable",
-            "text": "Structured data and FAQs for AI readers"
+            "src": "/images/case-studies/waterside-by-ulteum/aerial.jpg",
+            "alt": "Gull Lake"
           }
         ]
       },
       {
         "kind": "heading",
-        "eyebrow": "Investor site",
-        "text": "A deck you scroll"
+        "eyebrow": "AI readability",
+        "text": "Written for the machine reading over your shoulder"
       },
       {
-        "kind": "copy",
-        "text": "The summary runs as one page of slides: the lake, the site, the homes, the market, the plan, the risks and the questions investors ask. An interactive map places the site among the lake's golf courses, resorts and trails."
+        "kind": "flow",
+        "steps": [
+          {
+            "title": "Offering documents"
+          },
+          {
+            "title": "Figures reconciled"
+          },
+          {
+            "title": "Private investor site"
+          },
+          {
+            "title": "Machine-readable summary"
+          }
+        ]
+      },
+      {
+        "kind": "image",
+        "src": "/images/case-studies/waterside-by-ulteum/exterior.jpg",
+        "alt": "Waterside home design direction",
+        "ratio": "16/9"
       },
       {
         "kind": "stats",
@@ -350,54 +352,46 @@ const ALL_COMPANIES: PortfolioCompany[] = [
         ]
       },
       {
-        "kind": "image",
-        "src": "/images/case-studies/waterside-by-ulteum/slide-location.jpg",
-        "alt": "Interactive location map",
-        "ratio": "16/9"
-      },
-      {
         "kind": "pair",
         "images": [
           {
-            "src": "/images/case-studies/waterside-by-ulteum/slide-lake.jpg",
-            "alt": "Gull Lake slide"
+            "src": "/images/case-studies/waterside-by-ulteum/kitchen.jpg",
+            "alt": "Waterside"
           },
           {
-            "src": "/images/case-studies/waterside-by-ulteum/slide-site.jpg",
-            "alt": "Site plan slide"
+            "src": "/images/case-studies/waterside-by-ulteum/golf.jpg",
+            "alt": "Waterside"
           }
         ]
+      },
+      {
+        "kind": "image",
+        "src": "/images/case-studies/waterside-by-ulteum/siteplan.jpg",
+        "alt": "Waterside conceptual site plan",
+        "ratio": "4/3"
       },
       {
         "kind": "heading",
-        "eyebrow": "AI search",
-        "text": "Written for the machine reading over your shoulder"
-      },
-      {
-        "kind": "copy",
-        "text": "Alongside the slides, the page carries a structured summary of the deal, the investor questions marked up as FAQs, and an llms.txt file that tells AI crawlers what the page is and which documents its figures come from. The point is that an AI summary of Waterside says what the documents say."
+        "eyebrow": "Spring 2027",
+        "text": "A student team joins"
       },
       {
         "kind": "pair",
         "images": [
           {
-            "src": "/images/case-studies/waterside-by-ulteum/slide-amenities.jpg",
-            "alt": "Amenities slide"
+            "src": "/images/case-studies/waterside-by-ulteum/canoe.jpg",
+            "alt": "Gull Lake"
           },
           {
-            "src": "/images/case-studies/waterside-by-ulteum/slide-faq.jpg",
-            "alt": "Investor questions slide"
+            "src": "/images/case-studies/waterside-by-ulteum/courts.jpg",
+            "alt": "Gull Lake"
           }
         ]
-      },
-      {
-        "kind": "copy",
-        "text": "The design is understated on purpose: pines, lakes and loons, a dark green, cream and white palette, and modern serif headings. A student team joins the project in spring 2027."
       }
     ],
-    blurb: "Waterside is a proposed private community of about seventy homes on Gull Lake in northern Minnesota, developed by Ulteum. The studio turned the developer's offering documents, business plan and pro forma into one private investor summary that people and AI tools can both read correctly.",
+    blurb: "Seventy homes on Gull Lake in northern Minnesota. The studio made the offering readable to people and to AI.",
     name: 'Waterside by Ulteum',
-    descriptor: "Lakeside Community",
+    descriptor: "Residential lakefront development",
     tile: '/images/builder-scholars/gull-lake-mn-by-ulteum.webp',
     tileFocus: 50,
     tileAspect: 1.995,
@@ -587,11 +581,14 @@ const ALL_COMPANIES: PortfolioCompany[] = [
   },
   {
     slug: 'venture-forge',
+    hero: "/images/case-studies/venture-forge/sparks.jpg",
+    delivered: "Event film, social channels, website",
+    disciplines: ["Marketing", "Agentic engineering"],
     showcase: [
       {
         "kind": "image",
-        "src": "/images/case-studies/venture-forge/site.jpg",
-        "alt": "Venture Forge Austin website",
+        "src": "/images/case-studies/venture-forge/floor.jpg",
+        "alt": "Venture Forge Austin 2026",
         "ratio": "16/9"
       },
       {
@@ -603,60 +600,32 @@ const ALL_COMPANIES: PortfolioCompany[] = [
         "kind": "flow",
         "steps": [
           {
-            "title": "Content strategy",
-            "text": "Planned before the summit"
+            "title": "Content plan"
           },
           {
             "title": "Summit footage",
-            "text": "Filmed September 23 and 24, 2026"
+            "text": "September 23–24, 2026"
           },
           {
-            "title": "Three channels",
-            "text": "Instagram, Facebook and LinkedIn from one planner"
+            "title": "Instagram, Facebook, LinkedIn"
           },
           {
-            "title": "New website",
-            "text": "Built from the event footage"
+            "title": "New website"
           }
         ]
-      },
-      {
-        "kind": "copy",
-        "text": "The team planned a content strategy, then attended the inaugural summit on September 23 and 24, 2026 to record footage."
-      },
-      {
-        "kind": "copy",
-        "text": "Afterward they edited and published that footage across Instagram, Facebook and LinkedIn from one planner in Go High Level, which now also holds Venture Forge's contacts."
       },
       {
         "kind": "image",
-        "src": "/images/case-studies/venture-forge/site-speakers.jpg",
-        "alt": "Venture Forge speakers",
+        "src": "/images/case-studies/venture-forge/skyline.jpg",
+        "alt": "Austin",
         "ratio": "16/9"
-      },
-      {
-        "kind": "copy",
-        "text": "Next is a new website built from the event footage, starting from a student's audit of the current site."
-      },
-      {
-        "kind": "links",
-        "items": [
-          {
-            "label": "ventureforgeaustin.org",
-            "href": "https://www.ventureforgeaustin.org"
-          },
-          {
-            "label": "@ventureforgeaustin on Instagram",
-            "href": "https://www.instagram.com/ventureforgeaustin/"
-          }
-        ]
       }
     ],
-    blurb: "Venture Forge Austin is a summit of investors, founders and business leaders, founded by Zac Tinney and Bogdan Negru. The student team planned its content, filmed the September 2026 summit, and runs its social channels and website.",
-    tile: "/images/case-studies/venture-forge/site.jpg",
+    blurb: "A summit of investors, founders and business leaders in Austin. Students filmed it and run its channels.",
+    tile: "/images/case-studies/venture-forge/floor.jpg",
     url: "https://www.ventureforgeaustin.org",
     name: 'Venture Forge',
-    descriptor: "Investor and Founder Summit",
+    descriptor: "Investor and founder summit",
     engagements: [
       {
         cohort: 'Fall 2026',
@@ -920,47 +889,51 @@ const ALL_COMPANIES: PortfolioCompany[] = [
   },
   {
     slug: 'the-care-app',
+    hero: "/images/case-studies/the-care-app/loop.mp4",
+    delivered: "Marketing systems, creator program, church outreach",
+    disciplines: ["Marketing", "Agentic engineering", "Sales"],
     showcase: [
       {
         "kind": "image",
-        "src": "/images/case-studies/the-care-app/site.jpg",
-        "alt": "The CARE website",
+        "src": "/images/case-studies/the-care-app/screens.jpg",
+        "alt": "CARE app screens",
         "ratio": "16/9"
       },
       {
         "kind": "heading",
-        "eyebrow": "Scope",
-        "text": "Content, sales and data"
+        "eyebrow": "Content",
+        "text": "A dashboard that drafts the posts"
       },
       {
-        "kind": "flow",
-        "steps": [
+        "kind": "copy",
+        "text": "A marketing dashboard that writes social posts, and one connector to all of CARE's tools."
+      },
+      {
+        "kind": "pair",
+        "images": [
           {
-            "title": "Content",
-            "text": "AI marketing systems and creative content. High priority."
+            "src": "/images/case-studies/the-care-app/phone.jpg",
+            "alt": "CARE app"
           },
           {
-            "title": "Sales",
-            "text": "Customer-facing enterprise sales. Medium priority."
-          },
-          {
-            "title": "Data",
-            "text": "Backend analysis for predictive preventive care. Low priority."
+            "src": "/images/case-studies/the-care-app/plan.jpg",
+            "alt": "CARE app"
           }
         ]
       },
       {
-        "kind": "copy",
-        "text": "The scope set three workstreams in priority order: AI marketing systems and creative content, enterprise sales, and data analysis for preventive care."
+        "kind": "heading",
+        "eyebrow": "Creators",
+        "text": "Gifted, not paid"
       },
       {
         "kind": "copy",
-        "text": "A student built a marketing dashboard that drafts social posts, and Atlas, a single connector to all of CARE's tools. Another designed a gifted ambassador program for health and fitness creators on Instagram and TikTok, with paid boosts for the best posts."
+        "text": "An ambassador program for health and fitness creators, with paid boosts for the best posts."
       },
       {
         "kind": "image",
-        "src": "/images/case-studies/the-care-app/site-community.jpg",
-        "alt": "CARE community page",
+        "src": "/images/case-studies/the-care-app/community.jpg",
+        "alt": "CARE community",
         "ratio": "16/9"
       },
       {
@@ -970,28 +943,28 @@ const ALL_COMPANIES: PortfolioCompany[] = [
       },
       {
         "kind": "copy",
-        "text": "A Builder Scholar met with pastors, made the introduction video sent before each call, and brought their feedback to the founder. That research is now shaping a version of CARE for church staff."
+        "text": "Interviews with pastors that are now shaping a version of CARE for church staff."
       },
       {
-        "kind": "links",
-        "items": [
+        "kind": "pair",
+        "images": [
           {
-            "label": "CARE on the App Store",
-            "href": "https://apps.apple.com/us/app/care-all-in-one-wellness/id6752722848"
+            "src": "/images/case-studies/the-care-app/living-room.jpg",
+            "alt": "CARE"
           },
           {
-            "label": "thecare.app",
-            "href": "https://thecare.app"
+            "src": "/images/case-studies/the-care-app/run.jpg",
+            "alt": "CARE"
           }
         ]
       }
     ],
-    blurb: "CARE is an all-in-one wellness app founded by Tevin Lucas. The student team works as CARE's content and growth staff: a marketing dashboard, a creator ambassador program and outreach to churches.",
+    blurb: "An all-in-one wellness app. Students run its content and growth.",
     tile: '/images/builder-scholars/cohorts/fall-2026-cohort/care-app.png',
     tileFocus: 45,
     tileAspect: 1.503,
     name: 'The Care App',
-    descriptor: "Wellness App",
+    descriptor: "Wellness app",
     url: 'https://thecare.app',
     engagements: [
       {
@@ -1025,21 +998,20 @@ const ALL_COMPANIES: PortfolioCompany[] = [
   },
   {
     slug: 'athletes-ocean',
+    hero: "/images/case-studies/athletes-ocean/loop.mp4",
+    delivered: "Instructor bios and organic search build-out",
+    disciplines: ["AI search", "Copywriting", "Analytics"],
     showcase: [
       {
         "kind": "image",
-        "src": "/images/case-studies/athletes-ocean/site.jpg",
-        "alt": "Athletes Ocean store",
+        "src": "/images/case-studies/athletes-ocean/finals.jpg",
+        "alt": "Athletes Ocean",
         "ratio": "16/9"
       },
       {
         "kind": "heading",
-        "eyebrow": "Scope",
-        "text": "Profiles, research and analytics"
-      },
-      {
-        "kind": "copy",
-        "text": "The team signed off goals, scope and a timeline with founders Geno Morelli and Jason Nolf in September."
+        "eyebrow": "Content",
+        "text": "Every champion, written up"
       },
       {
         "kind": "stats",
@@ -1049,61 +1021,49 @@ const ALL_COMPANIES: PortfolioCompany[] = [
             "label": "Instructor bios"
           },
           {
-            "value": "36",
-            "label": "Homepage instructors covered"
-          },
-          {
             "value": "280",
-            "label": "Characters per short bio"
+            "label": "Characters, short bio"
           }
         ]
       },
       {
-        "kind": "copy",
-        "text": "Each bio has a short version, an extended version within the site's 280-character limit and a longer one for later. Anything the team could not confirm was left out and flagged for the founders."
+        "kind": "pair",
+        "images": [
+          {
+            "src": "/images/case-studies/athletes-ocean/takedown.jpg",
+            "alt": "Wrestling"
+          },
+          {
+            "src": "/images/case-studies/athletes-ocean/scramble.jpg",
+            "alt": "Wrestling"
+          }
+        ]
       },
       {
         "kind": "flow",
-        "label": "Every instructor bio",
+        "label": "Search",
         "steps": [
           {
-            "title": "Bio Short",
-            "text": "For cards and lists"
+            "title": "Bios and course pages"
           },
           {
-            "title": "Bio Extended",
-            "text": "Within the site's 280-character limit"
+            "title": "AI-search best practices"
           },
           {
-            "title": "Long version",
-            "text": "Ready if the limit goes up"
+            "title": "Tracking set up"
           },
           {
-            "title": "Founder review",
-            "text": "Unconfirmed facts flagged, not guessed"
-          }
-        ]
-      },
-      {
-        "kind": "copy",
-        "text": "Athlete research lives in one shared repository. The team is setting up PostHog, Google Analytics and Search Console to see what drives sales, and is collecting interview voice memos from the athletes."
-      },
-      {
-        "kind": "links",
-        "items": [
-          {
-            "label": "athletesocean.com",
-            "href": "https://athletesocean.com"
+            "title": "Leads by source"
           }
         ]
       }
     ],
-    blurb: "Athletes Ocean sells instructional courses from elite athletes, starting with wrestling. The student team writes the instructor profiles, researches athletes and sets up the analytics the founders use to grow.",
+    blurb: "Courses from Olympians and NCAA champions. Students are building the content that helps athletes find it.",
     tile: '/images/builder-scholars/cohorts/fall-2026-cohort/athletes-ocean.jpg',
     tileFocus: 40,
     tileAspect: 1.778,
     name: 'Athletes Ocean',
-    descriptor: "Athlete Instruction",
+    descriptor: "Athlete instruction platform",
     url: 'https://app.athletesocean.com',
     engagements: [
       {
@@ -1133,11 +1093,14 @@ const ALL_COMPANIES: PortfolioCompany[] = [
   },
   {
     slug: 'heavytech',
+    hero: "/images/case-studies/heavytech/loop.mp4",
+    delivered: "3D website, market study, social plan",
+    disciplines: ["Agentic engineering", "Branding", "Market research", "Marketing"],
     showcase: [
       {
         "kind": "image",
-        "src": "/images/case-studies/heavytech/site-hero.jpg",
-        "alt": "HeavyTech website home page with a 3D machine",
+        "src": "/images/case-studies/heavytech/arlo.jpg",
+        "alt": "HeavyTech Arlo",
         "ratio": "16/9"
       },
       {
@@ -1146,30 +1109,28 @@ const ALL_COMPANIES: PortfolioCompany[] = [
         "text": "Machines you can turn in the browser"
       },
       {
-        "kind": "copy",
-        "text": "The home page and each machine page load a 3D Gaussian-splat model of the machine that visitors can rotate. Labels point to the swappable powertrain, the autonomy sensor module and the electro-hydraulic arm."
-      },
-      {
         "kind": "pair",
         "images": [
           {
-            "src": "/images/case-studies/heavytech/arlo.jpg",
-            "alt": "HeavyTech Arlo"
+            "src": "/images/case-studies/heavytech/ctl.jpg",
+            "alt": "HeavyTech machines"
           },
           {
-            "src": "/images/case-studies/heavytech/powertrain.jpg",
-            "alt": "HeavyTech powertrain"
+            "src": "/images/case-studies/heavytech/defensex.jpg",
+            "alt": "HeavyTech machines"
           }
         ]
       },
       {
-        "kind": "heading",
-        "eyebrow": "Research",
-        "text": "A market study"
+        "kind": "image",
+        "src": "/images/case-studies/heavytech/powertrain.jpg",
+        "alt": "HeavyTech powertrain",
+        "ratio": "16/9"
       },
       {
         "kind": "flow",
-        "label": "What the study found",
+        "label": "Market study",
+        "title": "What the research found",
         "steps": [
           {
             "title": "Electric demand is tiny today"
@@ -1178,7 +1139,7 @@ const ALL_COMPANIES: PortfolioCompany[] = [
             "title": "Price is the wall, not physics"
           },
           {
-            "title": "The hybrid compact track loader slot is open"
+            "title": "The hybrid slot is open"
           },
           {
             "title": "Rental is the gatekeeper"
@@ -1189,26 +1150,22 @@ const ALL_COMPANIES: PortfolioCompany[] = [
         ]
       },
       {
-        "kind": "copy",
-        "text": "The study sized the market for compact track loaders, mapped competitors, rental fleets and right-to-repair rules, and found an open slot for a hybrid machine."
-      },
-      {
-        "kind": "image",
-        "src": "/images/case-studies/heavytech/market-study.jpg",
-        "alt": "HeavyTech market study",
-        "ratio": "16/9"
-      },
-      {
-        "kind": "heading",
-        "eyebrow": "Social",
-        "text": "A three-month plan"
-      },
-      {
-        "kind": "copy",
-        "text": "Thirteen weeks on four channels around one idea: a machine with no control valves, built to be fixed. Month one builds awareness, month two proof and month three demo requests."
+        "kind": "pair",
+        "images": [
+          {
+            "src": "/images/case-studies/heavytech/expo.jpg",
+            "alt": "HeavyTech"
+          },
+          {
+            "src": "/images/case-studies/heavytech/shop.jpg",
+            "alt": "HeavyTech"
+          }
+        ]
       },
       {
         "kind": "flow",
+        "label": "Social plan",
+        "title": "Thirteen weeks, four channels",
         "steps": [
           {
             "title": "Awareness",
@@ -1220,26 +1177,15 @@ const ALL_COMPANIES: PortfolioCompany[] = [
           },
           {
             "title": "Demand",
-            "text": "Month three: demo requests"
+            "text": "Month three"
           }
         ]
       },
       {
-        "kind": "pair",
-        "images": [
-          {
-            "src": "/images/case-studies/heavytech/social-plan.jpg",
-            "alt": "HeavyTech social media plan"
-          },
-          {
-            "src": "/images/case-studies/heavytech/social-calendar.jpg",
-            "alt": "HeavyTech social calendar"
-          }
-        ]
-      },
-      {
-        "kind": "copy",
-        "text": "HeavyTech's board chose to move the 3D features and other assets into its own site for a refresh launching at the new year."
+        "kind": "image",
+        "src": "/images/case-studies/heavytech/drivetrain.jpg",
+        "alt": "HeavyTech drivetrain",
+        "ratio": "16/9"
       },
       {
         "kind": "quote",
@@ -1247,12 +1193,12 @@ const ALL_COMPANIES: PortfolioCompany[] = [
         "attribution": "Andrew Johnson, HeavyTech"
       }
     ],
-    blurb: "HeavyTech builds hybrid and electric off-highway machines in Fort Wayne, Indiana. The student team built a new website with interactive 3D models of the machines, a market study and a three-month social media plan.",
+    blurb: "Hybrid and electric machines built in Fort Wayne, Indiana. Students rebuilt the website around 3D models of the machines.",
     tile: '/images/builder-scholars/cohorts/fall-2026-cohort/heavytech.png',
     tileFocus: 30,
     tileAspect: 2.0,
     name: 'HeavyTech',
-    descriptor: 'Heavy Industry AI',
+    descriptor: "Off-highway machinery",
     url: 'https://heavytech.ai',
     engagements: [
       {
@@ -1282,114 +1228,82 @@ const ALL_COMPANIES: PortfolioCompany[] = [
   },
   {
     slug: 'launch-kids',
+    hero: "/images/case-studies/launch-kids/smith.mp4",
+    delivered: "Brand kit, ad library, paid tests",
+    disciplines: ["Branding", "Marketing"],
     showcase: [
       {
         "kind": "image",
-        "src": "/images/case-studies/launch-kids/site.jpg",
-        "alt": "launch.kids home page",
-        "ratio": "16/9"
-      },
-      {
-        "kind": "heading",
-        "eyebrow": "Brand",
-        "text": "Chosen by kids"
-      },
-      {
-        "kind": "copy",
-        "text": "The team tested brand options with kids from kindergarten to eighth grade and their parents, then wrote a brand kit of logos, colors, fonts and templates."
+        "src": "/images/case-studies/launch-kids/maze-quest.jpg",
+        "alt": "Maze Quest, built on Launch",
+        "ratio": "4/3"
       },
       {
         "kind": "heading",
         "eyebrow": "Ads",
-        "text": "Training the funnel one step at a time"
-      },
-      {
-        "kind": "copy",
-        "text": "Every student makes ads. Meta tested ten and four clear winners shared a pattern: someone types one sentence and a real game appears; vertical, 14 to 18 seconds; a big lowercase headline with a lime highlight; a specific game; an end card that says try it free."
+        "text": "One sentence, one game"
       },
       {
         "kind": "flow",
-        "label": "What the four winning ads share",
+        "label": "What the winning ads share",
         "steps": [
           {
-            "title": "One sentence",
-            "text": "Someone types an idea"
+            "title": "Type one sentence"
           },
           {
-            "title": "A real game appears",
-            "text": "Dino races, gem digger: specific, not generic"
+            "title": "A real game appears"
           },
           {
-            "title": "Vertical, 14 to 18 seconds",
-            "text": "Big lowercase headline, lime highlight"
+            "title": "Vertical, 14–18 seconds"
           },
           {
-            "title": "Try it free",
-            "text": "Launch end card"
-          }
-        ]
-      },
-      {
-        "kind": "stats",
-        "items": [
-          {
-            "value": "10",
-            "label": "Ads tested by Meta"
-          },
-          {
-            "value": "4",
-            "label": "Clear winners"
+            "title": "Try it free"
           }
         ]
       },
       {
         "kind": "bars",
-        "label": "Ad visitors who stayed",
+        "label": "Ad visitors",
         "title": "From 1.2% to 1 in 8",
         "items": [
           {
-            "label": "Before: sent straight to signup, signed up",
+            "label": "Before: signed up",
             "value": 1.2,
             "display": "1.2%"
           },
           {
-            "label": "Two weeks later: stayed and tried the app",
+            "label": "Now: stayed and tried the app",
             "value": 12.5,
             "display": "1 in 8"
           }
-        ],
-        "note": "Before, 98.8% of ad visitors left the signup page without signing up."
+        ]
+      },
+      {
+        "kind": "pair",
+        "images": [
+          {
+            "src": "/images/case-studies/launch-kids/home.jpg",
+            "alt": "Launch"
+          },
+          {
+            "src": "/images/case-studies/launch-kids/class.jpg",
+            "alt": "Launch"
+          }
+        ]
       },
       {
         "kind": "image",
-        "src": "/images/case-studies/launch-kids/site-video.jpg",
-        "alt": "launch.kids video section",
-        "ratio": "16/9"
-      },
-      {
-        "kind": "copy",
-        "text": "The team also shipped new onboarding ahead of an episode about launch.kids on the Beyond the Prompt podcast."
-      },
-      {
-        "kind": "links",
-        "items": [
-          {
-            "label": "launch.kids",
-            "href": "https://launch.kids"
-          },
-          {
-            "label": "@launch_kids on Instagram",
-            "href": "https://www.instagram.com/launch_kids/"
-          }
-        ]
+        "src": "/images/case-studies/launch-kids/laptop.jpg",
+        "alt": "Launch on a laptop",
+        "ratio": "4/3"
       }
     ],
-    blurb: "launch.kids lets kids five and up build real games and apps by describing them. The student team runs the brand and paid acquisition: ad creative, testing and onboarding.",
+    blurb: "Kids five and up build real games by describing them. Students run the brand and the ads.",
     tile: '/images/builder-scholars/cohorts/fall-2026-cohort/launchkids.png',
     tileFocus: 45,
     tileAspect: 2.0,
     name: 'launch.kids',
-    descriptor: 'Kids\' Vibe Coding',
+    descriptor: "Kids' AI coding platform",
     url: 'https://launch.kids',
     engagements: [
       {
@@ -1419,15 +1333,14 @@ const ALL_COMPANIES: PortfolioCompany[] = [
   },
   {
     slug: 'lifetime-fitness',
+    hero: "/images/case-studies/lifetime-fitness/leap.jpg",
+    delivered: "AI tools for club construction",
+    disciplines: ["Agentic engineering", "Market research"],
     showcase: [
       {
         "kind": "heading",
-        "eyebrow": "The problem",
-        "text": "Reviews that take weeks"
-      },
-      {
-        "kind": "copy",
-        "text": "Architecture, MEP and aquatics each have a code-review checklist. Filling one in by hand from public code sources takes 40 to 60 hours per club. Checking a new club's drawings against the prototype takes hundreds more, page by page on two screens, and the last pages get skimmed."
+        "eyebrow": "The work",
+        "text": "The slowest part of building a club"
       },
       {
         "kind": "stats",
@@ -1447,73 +1360,80 @@ const ALL_COMPANIES: PortfolioCompany[] = [
         ]
       },
       {
-        "kind": "heading",
-        "eyebrow": "What the team built",
-        "text": "A code tool and a drawing checker"
+        "kind": "pair",
+        "images": [
+          {
+            "src": "/images/case-studies/lifetime-fitness/spa.jpg",
+            "alt": "Lifetime"
+          },
+          {
+            "src": "/images/case-studies/lifetime-fitness/pool.jpg",
+            "alt": "Lifetime"
+          }
+        ]
       },
       {
         "kind": "flow",
         "label": "Code tool",
         "steps": [
           {
-            "title": "Club location",
-            "text": "An address for a new club"
+            "title": "Club location"
           },
           {
-            "title": "Find the codes",
-            "text": "Local building and pool codes, plus county amendments"
+            "title": "Local codes found"
           },
           {
-            "title": "Fill the template",
-            "text": "Lifetime's own architecture, MEP or aquatics checklist"
+            "title": "Lifetime's template filled"
           },
           {
-            "title": "Architect summary",
-            "text": "The findings up front, with past permit comments"
+            "title": "Summary for the architect"
           }
         ]
       },
       {
-        "kind": "copy",
-        "text": "Given a club's location, the code tool finds the local building and pool codes and the county amendments, then fills out Lifetime's own report template with a summary for the architect up front. It was blind-tested on a past club: run without the city's permit comments, then scored against them."
-      },
-      {
-        "kind": "copy",
-        "text": "The drawing checker compares a new club's drawing set with Lifetime's prototype, lists missing or wrong tags, and shows the two side by side. The team ran it on Lifetime's own drawing sets and walked the results through with Lifetime's design leadership."
+        "kind": "image",
+        "src": "/images/case-studies/lifetime-fitness/pilates.jpg",
+        "alt": "Lifetime",
+        "ratio": "16/9"
       },
       {
         "kind": "flow",
         "label": "Drawing checker",
         "steps": [
           {
-            "title": "New drawing set",
-            "text": "From an outside design firm"
+            "title": "New drawing set"
           },
           {
-            "title": "Compare to prototype",
-            "text": "Against Lifetime's master set and its changes"
+            "title": "Compared to the prototype"
           },
           {
-            "title": "Flag tags",
-            "text": "Missing or wrong tags, page by page"
+            "title": "Wrong tags flagged"
           },
           {
-            "title": "Side by side",
-            "text": "Each finding next to the prototype"
+            "title": "Side by side"
           }
         ]
       },
       {
-        "kind": "copy",
-        "text": "Next is a memory of permit comments by city, so each building department's reading of the code is known before drawings are submitted."
+        "kind": "pair",
+        "images": [
+          {
+            "src": "/images/case-studies/lifetime-fitness/court.jpg",
+            "alt": "Lifetime"
+          },
+          {
+            "src": "/images/case-studies/lifetime-fitness/coach.jpg",
+            "alt": "Lifetime"
+          }
+        ]
       }
     ],
-    blurb: "Lifetime plans to triple the number of clubs it builds each year, and its construction staff cannot keep up with reviewing the outside design firms' work. A student team built two tools for that team: one fills out code-review reports for a new club, and one checks a new club's drawings against Lifetime's prototype.",
+    blurb: "Lifetime wants to triple the clubs it builds each year. Students built AI tools that do the slowest parts of the review.",
     tile: '/images/builder-scholars/cohorts/fall-2026-cohort/lifetime-fitness.jpg',
     tileFocus: 50,
     tileAspect: 1.778,
     name: 'Lifetime Fitness',
-    descriptor: 'Health & Fitness Clubs',
+    descriptor: "Athletic country clubs",
     url: 'https://www.lifetime.life',
     engagements: [
       {

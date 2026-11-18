@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { NextCaseStudy, TitleAndText, VerticalStats } from '@/components/modules/Blocks'
-import { Arrow, Mask, Media } from '@/components/modules/Media'
+import { Arrow, Lines, Mask, Media } from '@/components/modules/Media'
 import { FEATURED, hasCaseStudy } from '@/lib/site'
 import {
   PORTFOLIO_COMPANIES,
@@ -90,32 +90,34 @@ export default async function CompanyProfilePage({ params }: PageProps) {
       </header>
 
       <dl className="grid12 cs-meta fade" data-io style={{ '--d': 3 } as React.CSSProperties}>
-        <div className="d-1-4">
+        <div className="d-1-3">
           <dt>Type</dt>
           <dd>{company.descriptor ?? 'Venture'}</dd>
         </div>
-        <div style={{ gridColumn: 'span 4' }}>
-          <dt>Term</dt>
-          <dd>{cohorts.length ? `${cohorts.join(', ')} · ${status.join(', ')}` : 'Studio venture'}</dd>
+        <div style={{ gridColumn: 'span 3' }}>
+          <dt>Disciplines</dt>
+          <dd>{company.disciplines?.length ? company.disciplines.join(', ') : '—'}</dd>
         </div>
-        <div style={{ gridColumn: 'span 4' }}>
-          <dt>{company.disciplines?.length ? 'Disciplines' : 'Website'}</dt>
+        <div style={{ gridColumn: 'span 3' }}>
+          <dt>Delivered</dt>
+          <dd>{company.delivered ?? (cohorts.length ? `${cohorts.join(', ')} · ${status.join(', ')}` : '—')}</dd>
+        </div>
+        <div style={{ gridColumn: 'span 3' }}>
+          <dt>Website</dt>
           <dd>
-            {company.disciplines?.length ? (
-              company.disciplines.join(', ')
-            ) : company.url ? (
+            {company.url ? (
               <a href={company.url} target="_blank" rel="noopener noreferrer" className="text-link">
                 {company.url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')} <Arrow />
               </a>
             ) : (
-              '—'
+              'Private'
             )}
           </dd>
         </div>
       </dl>
 
       <Mask className="cs-hero" d={2}>
-        <Media src={company.tile} name={company.name} sizes="100vw" position={position} priority />
+        <Media src={company.hero ?? company.tile} name={company.name} sizes="100vw" position={company.hero ? undefined : position} priority />
       </Mask>
 
       {company.blurb && (
@@ -123,11 +125,6 @@ export default async function CompanyProfilePage({ params }: PageProps) {
           <p className="t-intro fade" data-io style={{ margin: 0, '--d': 1 } as React.CSSProperties}>
             {company.blurb}
           </p>
-          {company.url && company.disciplines?.length ? (
-            <a href={company.url} target="_blank" rel="noopener noreferrer" className="text-link" style={{ marginTop: 32 }}>
-              Visit website <Arrow />
-            </a>
-          ) : null}
         </TitleAndText>
       )}
 
@@ -146,60 +143,56 @@ export default async function CompanyProfilePage({ params }: PageProps) {
         </TitleAndText>
       )}
 
-      {roster.length > 0 && (
-        <>
-          <div className="section">
-            <VerticalStats
-              items={[
-                { value: String(new Set(roster.map((m) => m.name)).size), label: 'Students' },
-                { value: String(company.engagements.length), label: company.engagements.length === 1 ? 'Term' : 'Terms' },
-                ...(advisors.length ? [{ value: String(advisors.length), label: advisors.length === 1 ? 'Project advisor' : 'Project advisors' }] : []),
-              ]}
-            />
+      {(roster.length > 0 || advisors.length > 0) && (
+        <section className="grid12 section m-gap cs-team">
+          <div className="d-1-5">
+            <Lines as="h2" className="t-h2" lines={['Team']} />
           </div>
-
-          <TitleAndText title="Team">
+          <div className="d-7-6">
             {company.engagements
-              .filter((e) => e.team.length)
-              .map((engagement) => (
-                <div key={engagement.cohort} style={{ marginBottom: 40 }}>
-                  <p className="t-label" style={{ margin: '0 0 10px' }}>
-                    {engagement.cohort} · {engagement.status}
-                    {engagement.advisors.length ? ` · Advisor: ${engagement.advisors.join(', ')}` : ''}
-                  </p>
-                  {[...engagement.team]
-                    .sort((a, b) => STUDENT_ROLES.indexOf(a.role) - STUDENT_ROLES.indexOf(b.role))
-                    .map((member) => (
-                      <Link
-                        key={member.name}
-                        href={`/portfolio/student/${studentSlug(member.name)}`}
-                        className="row compact"
-                        style={{ paddingInline: 0, gridTemplateColumns: '1fr auto' }}
-                      >
-                        <span className="bold" style={{ fontSize: 18 }}>
-                          {member.name}
-                        </span>
+              .filter((e) => e.team.length || e.advisors.length)
+              .map((engagement) => {
+                const sorted = [...engagement.team].sort((a, b) => STUDENT_ROLES.indexOf(a.role) - STUDENT_ROLES.indexOf(b.role))
+                return (
+                  <div key={engagement.cohort} className="cs-team-term">
+                    <p className="t-label" style={{ margin: '0 0 8px' }}>
+                      {engagement.cohort} · {engagement.status}
+                    </p>
+                    {engagement.advisors.map((a) => (
+                      <Link key={a} href="/team" className="row compact" style={{ paddingInline: 0, gridTemplateColumns: '1fr auto' }}>
+                        <span className="serif cs-team-name">{a}</span>
                         <span className="subtle" style={{ fontSize: 14 }}>
-                          {ROLE_LABEL[member.role]}
+                          Project advisor
                         </span>
                       </Link>
                     ))}
-                  <hr className="rule" />
-                  {engagement.rosterUnverified && (
-                    <p className="t-label" style={{ margin: '10px 0 0' }}>
-                      Roster carried over from the deck — confirm before publishing.
-                    </p>
-                  )}
-                </div>
-              ))}
+                    {sorted.map((member) => (
+                      <Link
+                        key={member.name}
+                        href={`/portfolio/student/${studentSlug(member.name)}`}
+                        className={`row compact${member.role === 'Student Lead' ? ' is-lead' : ''}`}
+                        style={{ paddingInline: 0, gridTemplateColumns: '1fr auto' }}
+                      >
+                        <span className={member.role === 'Student Lead' ? 'serif cs-team-name' : 'bold'} style={member.role === 'Student Lead' ? undefined : { fontSize: 17 }}>
+                          {member.name}
+                        </span>
+                        <span className="subtle" style={{ fontSize: 14 }}>
+                          {member.role === 'Student Lead' ? 'Team leader' : ROLE_LABEL[member.role]}
+                        </span>
+                      </Link>
+                    ))}
+                    <hr className="rule" />
+                  </div>
+                )
+              })}
             {sponsors.length > 0 && (
               <p className="t-body" style={{ margin: 0 }}>
                 <span className="subtle">Sponsors: </span>
                 {sponsors.join(', ')}
               </p>
             )}
-          </TitleAndText>
-        </>
+          </div>
+        </section>
       )}
 
       {next && next.slug !== company.slug && (
